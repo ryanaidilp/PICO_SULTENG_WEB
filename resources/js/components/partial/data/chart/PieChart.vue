@@ -5,7 +5,7 @@
       <div class="p-2 text-gray-800 border-b-2 rounded-tl-lg rounded-tr-lg">
         <h5 class="text-sm font-bold md:text-xl">Perbandingan</h5>
       </div>
-      <div class="absolute flex justify-center w-full">
+      <div class="flex justify-center w-full">
         <loading
           :active.sync="isLoading"
           :opacity="0.8"
@@ -17,7 +17,7 @@
       </div>
       <div style="height:400px" class="p-5">
         <keep-alive>
-          <canvas id="pie-chart"></canvas>
+          <canvas id="pie-chart" aria-label="Pie Chart Konfirmasi COVID-19" role="img"></canvas>
         </keep-alive>
       </div>
     </div>

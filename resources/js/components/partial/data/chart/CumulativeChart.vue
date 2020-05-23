@@ -11,7 +11,7 @@
       ></loading>
     </div>
     <keep-alive>
-      <canvas id="chart-cumulative"></canvas>
+      <canvas id="chart-cumulative" aria-label="Chart Kumulatif COVID-19" role="img"></canvas>
     </keep-alive>
   </div>
 </template>

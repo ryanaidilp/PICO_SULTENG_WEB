@@ -11,7 +11,7 @@
       ></loading>
     </div>
     <keep-alive>
-      <canvas id="chart-container"></canvas>
+      <canvas id="chart-container" aria-label="Chart Harian COVID-19" role="img"></canvas>
     </keep-alive>
   </div>
 </template>

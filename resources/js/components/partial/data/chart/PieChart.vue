@@ -9,7 +9,6 @@
         <loading
           :active.sync="isLoading"
           :opacity="0.8"
-          :height="200"
           :width="128"
           loader="spinner"
           color="#59F"

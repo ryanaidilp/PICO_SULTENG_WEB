@@ -11,16 +11,16 @@
               <div class="w-1/2">
                 <p>Dalam {{ status }}</p>
                 <h3 class="text-3xl font-bold">{{ active_case }}</h3>
-                <h3 class="text-sm font-bold">(+{{ new_case }})</h3>
-                <p class="mt-2 text-xs text-gray-600">({{((active_case/total_case) * 100).toFixed(2) }}%)</p>
+                <h3 class="text-sm font-bold">({{ newCaseFormat(new_case) }})</h3>
+                <p class="mt-2 text-xs text-gray-600">({{ percentageFormat(activeCasePercentage) }})</p>
               </div>
               <div class="w-1/2">
                 <p>Selesai {{ status }}</p>
                 <h3 class="text-3xl font-bold">{{ total_finished_case }}</h3>
-                <h3 class="text-sm font-bold">(+{{ new_finished_case }})</h3>
+                <h3 class="text-sm font-bold">({{ newCaseFormat(new_finished_case) }})</h3>
                 <p
                   class="mt-2 text-xs text-gray-600"
-                >({{ ((total_finished_case/total_case) * 100).toFixed(2) }}%)</p>
+                >({{ percentageFormat(finishedCasePercentage) }})</p>
               </div>
             </div>
             <div class="mb-4 text-center">
@@ -46,7 +46,29 @@ export default {
     "active_case",
     "total_case",
     "total_finished_case",
-    'status'
-  ]
+    "status"
+  ],
+  computed: {
+    finishedCasePercentage: function() {
+      return this.percentage(
+        this.$props.total_finished_case,
+        this.$props.total_case
+      );
+    },
+    activeCasePercentage: function() {
+      return this.percentage(this.$props.active_case, this.$props.total_case);
+    }
+  },
+  methods: {
+    percentage: function(value, total) {
+      return ((parseInt(value) / parseInt(total)) * 100).toFixed(2);
+    },
+    percentageFormat(value) {
+      return value + "%";
+    },
+    newCaseFormat(value) {
+      return "+" + value;
+    }
+  }
 };
 </script>

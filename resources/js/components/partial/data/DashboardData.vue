@@ -1,0 +1,219 @@
+<template>
+  <div>
+    <h3
+      class="w-full mt-8 text-lg font-bold text-center md:text-left md:ml-4 md:text-3xl"
+    >Dashboard COVID-19 Sulawesi Tengah</h3>
+    <div class="h-10" v-if="!lastUpdate">
+      <content-loader
+        :speed="2"
+        :height="400"
+        :width="900"
+        :animate="true"
+        primaryColor="#ddd"
+        secondaryColor="#fff"
+      >
+        <rect x="10" y="0" rx="3" ry="3" width="400" height="15" />
+      </content-loader>
+    </div>
+    <p v-else class="w-full h-10 text-xs text-center md:text-left md:ml-4 text-muted md:text-lg">
+      Pembaruan Terakhir :
+      {{ lastUpdate}}
+      WITA
+      <br />
+      <i class="text-xs text-center text-gray-600">
+        Sumber data :
+        <a
+          href="https://dinkes.sultengprov.go.id"
+          class="no-underline hover:no-underline hover:text-blue-200"
+        >https://dinkes.sultengprov.go.id</a>
+      </i>
+    </p>
+    <content-loader
+      v-if="!statistics && !this.positifNasional"
+      :height="400"
+      :width="900"
+      :speed="1"
+      primaryColor="#ddd"
+      secondaryColor="#fff"
+    >
+      <rect x="0" y="20" rx="3" ry="3" width="290" height="110" />
+      <rect x="320" y="20" rx="3" ry="3" width="290" height="110" />
+      <rect x="640" y="20" rx="3" ry="3" width="290" height="110" />
+      <rect x="0" y="150" rx="3" ry="3" width="450" height="210" />
+      <rect x="480" y="150" rx="3" ry="3" width="450" height="210" />
+    </content-loader>
+    <div v-else class="flex flex-col flex-wrap items-center justify-center block w-full mt-8 text-gray-800 md:flex-row">
+      <card-case
+        title="Positif"
+        :cumulative_local="totalPositif"
+        :new_local="positifBaru"
+        :cumulative_national="positifNasional"
+        :new_national="positifBaruNasional"
+        bg_card="bg-red-300"
+        bg_new="bg-red-400"
+        text_color="text-red-300"
+      />
+      <card-case
+        title="Sembuh"
+        :cumulative_local="totalSembuh"
+        :new_local="sembuhBaru"
+        :cumulative_national="sembuhNasional"
+        :new_national="sembuhBaruNasional"
+        bg_card="bg-green-300"
+        bg_new="bg-green-400"
+        text_color="text-green-300"
+      />
+      <card-case
+        title="Meninggal"
+        :cumulative_local="totalMeninggal"
+        :new_local="meninggalBaru"
+        :cumulative_national="meninggalNasional"
+        :new_national="meninggalBaruNasional"
+        bg_card="bg-orange-300"
+        bg_new="bg-orange-400"
+        text_color="text-orange-300"
+      />
+
+      <card-suspect
+        title="Pasien Dalam Pengawasan (PDP)"
+        :new_case="PDPBaru"
+        :new_finished_case="selesaiPDPBaru"
+        :active_case="PDPAktif"
+        :total_case="totalPDP"
+        :total_finished_case="selesaiPDP"
+        status="Pengawasan"
+      />
+      <card-suspect
+        title="Orang Dalam Pemantauan (ODP)"
+        :new_case="ODPBaru"
+        :new_finished_case="selesaiODPBaru"
+        :active_case="ODPAktif"
+        :total_case="totalODP"
+        :total_finished_case="selesaiODP"
+        status="Pemantauan"
+      />
+    </div>
+  </div>
+</template>
+<script>
+const { format } = require("date-fns");
+const { formatToTimeZone } = require("date-fns-timezone");
+import { id } from "date-fns/locale";
+import { ContentLoader } from "vue-content-loader";
+const CardCase = () => import("../home/tabs/CardCase");
+const CardSuspect = () => import("../home/tabs/CardSuspect");
+const NumberFormat = new Intl.NumberFormat("id");
+export default {
+  components: {
+    ContentLoader,
+    CardCase,
+    CardSuspect
+  },
+  data() {
+    return {
+      lastUpdate: null,
+      statistics: null,
+      totalPositif: 0,
+      totalSembuh: 0,
+      totalMeninggal: 0,
+      positifBaru: 0,
+      sembuhBaru: 0,
+      meninggalBaru: 0,
+      ODPBaru: 0,
+      ODPAktif: 0,
+      PDPBaru: 0,
+      PDPAktif: 0,
+      selesaiODP: 0,
+      selesaiODPBaru: 0,
+      selesaiPDP: 0,
+      selesaiPDPBaru: 0,
+      totalODP: 0,
+      totalPDP: 0,
+      positifNasional: 0,
+      sembuhNasional: 0,
+      meninggalNasional: 0,
+      positifBaruNasional: 0,
+      sembuhBaruNasional: 0,
+      meninggalBaruNasional: 0
+    };
+  },
+  methods: {
+    getStatistics: function() {
+      axios
+        .get("/corona/api/statistik/terkini")
+        .then(response => {
+          var formatter = new Intl.NumberFormat("id-ID");
+          this.statistics = response.data.data;
+          this.totalPositif = NumberFormat.format(
+            this.statistics.kumulatif.positif
+          );
+          this.totalSembuh = NumberFormat.format(
+            this.statistics.kumulatif.sembuh
+          );
+          this.totalMeninggal = NumberFormat.format(
+            this.statistics.kumulatif.meninggal
+          );
+
+          this.positifBaru = NumberFormat.format(
+            this.statistics.kasus_baru.positif
+          );
+          this.sembuhBaru = NumberFormat.format(
+            this.statistics.kasus_baru.sembuh
+          );
+          this.meninggalBaru = NumberFormat.format(
+            this.statistics.kasus_baru.meninggal
+          );
+
+          this.totalODP = NumberFormat.format(this.statistics.kumulatif.ODP);
+          this.selesaiODP = NumberFormat.format(
+            this.statistics.kumulatif.selesai_ODP
+          );
+          this.ODPAktif = NumberFormat.format(this.statistics.aktif.ODP);
+          this.ODPBaru = NumberFormat.format(this.statistics.kasus_baru.ODP);
+          this.selesaiODPBaru = NumberFormat.format(
+            this.statistics.selesai.ODP
+          );
+
+          this.totalPDP = NumberFormat.format(this.statistics.kumulatif.PDP);
+          this.selesaiPDP = NumberFormat.format(
+            this.statistics.kumulatif.selesai_PDP
+          );
+          this.PDPAktif = NumberFormat.format(this.statistics.aktif.PDP);
+          this.PDPBaru = NumberFormat.format(this.statistics.kasus_baru.PDP);
+          this.selesaiPDPBaru = NumberFormat.format(
+            this.statistics.selesai.PDP
+          );
+        })
+        .catch(error => console.log(error));
+    },
+    getNationalData: function() {
+      axios.get("/corona/api/nasional/terkini").then(response => {
+        var data = response.data.data;
+        var jam = formatToTimeZone(new Date(data.tanggal), "HH:mm:ss", {
+          timeZone: "Asia/Makassar"
+        });
+        this.lastUpdate = format(new Date(data.tanggal), "EEEE, dd MMMM yyyy", {
+          locale: id
+        });
+        this.lastUpdate += " " + jam;
+        this.positifNasional = NumberFormat.format(data.kumulatif.positif);
+        this.sembuhNasional = NumberFormat.format(data.kumulatif.sembuh);
+        this.meninggalNasional = NumberFormat.format(data.kumulatif.meninggal);
+        this.positifBaruNasional = NumberFormat.format(data.kasus_baru.positif);
+        this.sembuhBaruNasional = NumberFormat.format(data.kasus_baru.sembuh);
+        this.meninggalBaruNasional = NumberFormat.format(
+          data.kasus_baru.meninggal
+        );
+      });
+    }
+  },
+  mounted() {
+    this.getStatistics();
+    this.getNationalData();
+    setInterval(() => {
+      this.getStatistics();
+      this.getNationalData();
+    }, 60 * 1000);
+  }
+};
+</script>

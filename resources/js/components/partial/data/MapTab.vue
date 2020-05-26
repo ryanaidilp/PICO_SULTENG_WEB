@@ -53,8 +53,8 @@
   </div>
 </template>
 <script>
-const MapChoropleth = () => import("./map/choropleth/MapChoropleth");
-const MapBubble = () => import("./map/bubble/MapBubble");
+import MapChoropleth from "./map/choropleth/MapChoropleth";
+import MapBubble from "./map/bubble/MapBubble";
 export default {
   components: {
     MapChoropleth,

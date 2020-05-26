@@ -39,14 +39,14 @@
 </template>
 <script>
 import { ContentLoader } from "vue-content-loader";
-const Dashboard = () => import("../partial/data/DashboardData");
-const Partner = () => import("../partial/PartnerFooter");
-const MapTab = () => import("../partial/data/MapTab");
-const ChartTab = () => import("../partial/data/ChartTab");
-const TableTab = () => import("../partial/data/TableTab");
-const ChartSex = () => import("../partial/data/chart/JenisKelamin");
-const NewCase = () => import("../partial/data/chart/NewCase");
-const PieChart = () => import("../partial/data/chart/PieChart");
+import Dashboard from "../partial/data/DashboardData";
+import Partner from "../partial/PartnerFooter";
+import MapTab from "../partial/data/MapTab";
+import ChartTab from "../partial/data/ChartTab";
+import TableTab from "../partial/data/TableTab";
+import ChartSex from "../partial/data/chart/JenisKelamin";
+import NewCase from "../partial/data/chart/NewCase";
+import PieChart from "../partial/data/chart/PieChart";
 export default {
   components: {
     PieChart,

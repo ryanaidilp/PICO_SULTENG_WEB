@@ -21,12 +21,12 @@
   </div>
 </template>
 <script>
-const CarouselComponent = () => import("../partial/home/CarouselComponent");
-const CallCenterComponent = () => import("../partial/home/CardCallCenter");
-const Donation = () => import("../partial/home/DonationCard");
-const DataCovid = () => import("../partial/home/DataCovid");
-const InfoCovid = () => import("../partial/home/InfoCovid");
-const Partner = () => import("../partial/PartnerFooter");
+import CarouselComponent from "../partial/home/CarouselComponent";
+import CallCenterComponent from "../partial/home/CardCallCenter";
+import Donation from "../partial/home/DonationCard";
+import DataCovid from "../partial/home/DataCovid";
+import InfoCovid from "../partial/home/InfoCovid";
+import Partner from "../partial/PartnerFooter";
 
 export default {
   components: {

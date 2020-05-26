@@ -8,7 +8,7 @@
             v-on:click="toggleTabs(1)"
             v-bind:class="{'text-blue-600 bg-white': openTab !== 1, 'text-white bg-blue-600': openTab === 1}"
           >
-            <i class="fas fa-virus"></i> Terkonfirmasi 
+            <i class="fas fa-virus"></i> Terkonfirmasi
           </a>
         </li>
         <li class="flex-auto mr-2 -mb-px text-center last:mr-0">
@@ -31,7 +31,7 @@
             </div>
             <div v-bind:class="{'hidden': openTab !== 2, 'block': openTab === 2}">
               <keep-alive>
-                  <odp-pdp-tab></odp-pdp-tab>
+                <odp-pdp-tab></odp-pdp-tab>
               </keep-alive>
             </div>
           </div>
@@ -41,8 +41,8 @@
   </div>
 </template>
 <script>
-const PositifTab = () => import('./table/TablePositif')
-const OdpPdpTab = () => import('./table/TableODP')
+import PositifTab from "./table/TablePositif";
+import OdpPdpTab from "./table/TableODP";
 export default {
   components: {
     PositifTab,

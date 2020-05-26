@@ -18,9 +18,9 @@
   </div>
 </template>
 <script>
-const Partner = () => import("../partial/PartnerFooter");
-const CardLindungi = () => import("../partial/wiki/CardLindungi");
-const CardPhysical = () => import("../partial/wiki/CardPhysical");
+import Partner from "../partial/PartnerFooter";
+import CardLindungi from "../partial/wiki/CardLindungi";
+import CardPhysical from "../partial/wiki/CardPhysical";
 const WhatIsCovid = () => import("../partial/wiki/WhatIsCovid");
 const HowInfected = () => import("../partial/wiki/Infected");
 const Symptomps = () => import("../partial/wiki/GejalaUmum");

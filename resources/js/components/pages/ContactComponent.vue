@@ -13,9 +13,9 @@
 </template>
 
 <script>
-const Partner = () => import("../partial/PartnerFooter");
-const TaskForce = () => import("../partial/contact/TaskForce");
-const Hospital = () => import("../partial/contact/Hospital");
+import Partner from "../partial/PartnerFooter";
+import TaskForce from "../partial/contact/TaskForce";
+import Hospital from "../partial/contact/Hospital";
 import { ContentLoader } from "vue-content-loader";
 export default {
   components: {

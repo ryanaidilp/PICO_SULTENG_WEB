@@ -16,8 +16,8 @@
   </div>
 </template>
 <script>
-const MapLokal = () => import("./MapLokal");
-const MapNasional = () => import("./MapNasional");
+import MapLokal from "./MapLokal";
+import MapNasional from "./MapNasional";
 import VSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
 export default {

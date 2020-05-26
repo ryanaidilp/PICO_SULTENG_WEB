@@ -41,8 +41,8 @@
   </div>
 </template>
 <script>
-const ChartDaily = () => import("./chart/DailyTab");
-const ChartTotal = () => import("./chart/CumulativeTab");
+import ChartDaily from "./chart/DailyTab";
+import ChartTotal from "./chart/CumulativeTab";
 export default {
   props: ["wilayah", "kasus", "kejadian", "lokasi"],
   components: {

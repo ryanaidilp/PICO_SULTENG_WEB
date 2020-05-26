@@ -127,10 +127,10 @@
 
 <script>
 import { ContentLoader } from "vue-content-loader";
-const CardCase = () => import("./CardCase");
-const CardSuspect = () => import("./CardSuspect");
-const MapChoropleth = () => import("../MapLokalChoropleth");
-const MapBubble = () => import("../MapLokalBubble");
+import CardCase from "./CardCase";
+import CardSuspect from "./CardSuspect";
+import MapChoropleth from "../MapLokalChoropleth";
+import MapBubble from "../MapLokalBubble";
 const NumberFormat = new Intl.NumberFormat("id");
 export default {
   components: {

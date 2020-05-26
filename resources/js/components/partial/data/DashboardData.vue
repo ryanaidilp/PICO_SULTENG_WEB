@@ -100,8 +100,8 @@ const { format } = require("date-fns");
 const { formatToTimeZone } = require("date-fns-timezone");
 import { id } from "date-fns/locale";
 import { ContentLoader } from "vue-content-loader";
-const CardCase = () => import("../home/tabs/CardCase");
-const CardSuspect = () => import("../home/tabs/CardSuspect");
+import CardCase from "../home/tabs/CardCase";
+import CardSuspect from "../home/tabs/CardSuspect";
 const NumberFormat = new Intl.NumberFormat("id");
 export default {
   components: {

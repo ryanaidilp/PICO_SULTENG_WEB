@@ -10,18 +10,22 @@ Vue.use(VueRouter)
 
 export default new VueRouter({
     routes: [{
+            name: 'home',
             path: '/corona',
             component: HomeComponent
         },
         {
+            name: "data",
             path: '/corona/data',
             component: DataComponent
         },
         {
+            name: "contact",
             path: '/corona/kontak',
             component: ContactComponent
         },
         {
+            name: "wiki",
             path: '/corona/wiki',
             component: WikiComponent
         },

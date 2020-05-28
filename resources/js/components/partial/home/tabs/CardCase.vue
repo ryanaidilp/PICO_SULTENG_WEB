@@ -9,7 +9,7 @@
         </div>
         <div class="w-1/5 ml-2 text-left">
           <h5 class="text-xl font-bold md:text-3xl" :class="text_color">-</h5>
-          <h5 class="text-3xl font-bold md:text-lg xl:text-3xl">{{ cumulative_local }}</h5>
+          <h5 class="text-3xl font-bold">{{ cumulative_local }}</h5>
           <h5 class="mt-2 text-xs font-semibold md:text-base">{{ cumulative_national }}</h5>
         </div>
         <div class="flex flex-col justify-center justify-between w-1/5 ml-2 text-center">

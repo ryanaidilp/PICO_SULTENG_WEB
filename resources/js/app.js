@@ -5,17 +5,15 @@ import VueLazyLoad from 'vue-lazyload'
 import BackToTop from 'vue-backtotop';
 import VueAnalytics from 'vue-analytics'
 
+
 Vue.use(VueAnalytics, {
     id: 'UA-165600458-2',
-    VueRouter,
+    router,
     checkDuplicatedScript: true,
     autoTracking: {
       screenview: true,
       pageviewOnLoad: false
     },
-    debug: {
-      sendHitTask: process.env.NODE_ENV === 'production'
-    }
   })
 Vue.use(BackToTop)
 Vue.use(VueLazyLoad, {

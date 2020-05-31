@@ -91,12 +91,12 @@ export default {
 
         series: [
           {
-            name: "Laki-Laki",
-            data: [-5.68, -5.68, -6.83, -55.68, -7.95, -18.18]
+            name: "Laki-Laki (93 Orang)",
+            data: [-5.38, -5.38, -6.45, -55.92, -8.60, -18.27]
           },
           {
-            name: "Perempuan",
-            data: [3.45, 6.9, 6.9, 55.17, 10.34, 17.24]
+            name: "Perempuan (33 Orang)",
+            data: [6.06, 6.06, 6.06, 54.55, 9.09, 18.18]
           }
         ]
       }

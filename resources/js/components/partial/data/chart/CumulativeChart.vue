@@ -158,6 +158,7 @@ export default {
         var cumulativeRecovered = [];
         var deceased = [];
         var cumulativeDeceased = [];
+        var cumulativeUnderTreatment = [];
         var ODP = [];
         var finishedODP = [];
         var cumulativeODP = [];
@@ -183,6 +184,10 @@ export default {
           label.push(tanggal);
           positive.push(data[i].kasus_baru.positif);
           cumulativePositive.push(data[i].kumulatif.positif);
+          cumulativeUnderTreatment.push(
+            data[i].kumulatif.positif -
+              (data[i].kumulatif.meninggal + data[i].kumulatif.sembuh)
+          );
           recovered.push(data[i].kasus_baru.sembuh);
           cumulativeRecovered.push(data[i].kumulatif.sembuh);
           deceased.push(data[i].kasus_baru.meninggal);
@@ -196,6 +201,9 @@ export default {
             cumulativePDP.push(data[i].kumulatif.PDP);
           }
         }
+        if (dataCumulativeChart.data.datasets.length > 3) {
+          dataCumulativeChart.data.datasets.pop();
+        }
         switch (this.$props.kejadian) {
           case "Positif":
             dataCumulativeChart.data.datasets[1].backgroundColor = this.deceasedBgColor;
@@ -206,6 +214,16 @@ export default {
             dataCumulativeChart.data.datasets[2].borderColor = this.recoveredBorderColor;
             dataCumulativeChart.data.datasets[2].label = "Positif - Sembuh";
             dataCumulativeChart.data.datasets[2].data = cumulativeRecovered;
+            var datasetUnderTreatment = {
+              label: "Positif - Dirawat",
+              data: cumulativeUnderTreatment,
+              type: "line",
+              fill: false,
+              pointRadius: 1,
+              backgroundColor: this.activeOdpBgColor,
+              borderColor: this.activeOdpBorderColor
+            };
+            dataCumulativeChart.data.datasets.push(datasetUnderTreatment);
             dataCumulativeChart.data.datasets[0].backgroundColor = this.positiveBgColor;
             dataCumulativeChart.data.datasets[0].borderColor = this.positiveBorderColor;
             dataCumulativeChart.data.datasets[0].label = "Positif - Total";

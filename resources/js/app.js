@@ -11,10 +11,13 @@ Vue.use(VueAnalytics, {
     router,
     checkDuplicatedScript: true,
     autoTracking: {
-      screenview: true,
-      pageviewOnLoad: false
+        screenview: true,
+        pageviewOnLoad: false
     },
-  })
+    debug: {
+        sendHitTask: process.env.NODE_ENV === 'production'
+    },
+})
 Vue.use(BackToTop)
 Vue.use(VueLazyLoad, {
     preload: 1.3,

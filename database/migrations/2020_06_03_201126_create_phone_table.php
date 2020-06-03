@@ -4,28 +4,26 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePostsTable extends Migration
+class CreatePhoneTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
     public function up()
     {
-        Schema::create('posts', function (Blueprint $table) {
-            $table->bigIncrements('id');
+        Schema::create('phone', function (Blueprint $table) {
+            $table->string('phone')->primary();
+            $table->foreignId('id_posko');
+            $table->foreign('id_posko')->references('id')->on('posko');
             $table->timestamps();
         });
     }
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
     public function down()
     {
-        Schema::dropIfExists('posts');
+        Schema::dropIfExists('phone');
     }
 }

@@ -11,7 +11,7 @@
               <div class="w-1/2">
                 <p>Dalam {{ status }}</p>
                 <h3 class="text-3xl font-bold">{{ active_case }}</h3>
-                <h3 class="text-sm font-bold">({{ newCaseFormat(new_case) }})</h3>
+                <h3 class="text-sm font-bold">({{ newCaseFormat(new_case - new_finished_case) }})</h3>
                 <p class="mt-2 text-xs text-gray-600">({{ percentageFormat(activeCasePercentage) }})</p>
               </div>
               <div class="w-1/2">
@@ -61,13 +61,22 @@ export default {
   },
   methods: {
     percentage: function(value, total) {
-      return ((parseInt(value.replace(".", "")) / parseInt(total.replace(".",""))) * 100).toFixed(2);
+      return (
+        (parseInt(value.replace(".", "")) / parseInt(total.replace(".", ""))) *
+        100
+      ).toFixed(2);
     },
     percentageFormat(value) {
       return value + "%";
     },
     newCaseFormat(value) {
-      return "+" + value;
+      var res = "";
+      if (value > 0) {
+        res = "+" + value;
+      } else if (value <= 0) {
+        res = value;
+      }
+      return res;
     }
   }
 };

@@ -23,7 +23,10 @@
       class="w-full mt-16 text-lg font-bold text-center md:text-left md:ml-6 md:text-3xl"
     >Visualisasi Data Kasus COVID-19</h3>
     <chart-tab class="mt-4"></chart-tab>
-    <chart-sex class="mt-12"></chart-sex>
+    <keep-alive>
+      <rt-chart class="mt-12"></rt-chart> 
+    </keep-alive>
+    <chart-sex class="mt-8"></chart-sex>
     <div class="p-6 mx-4 mt-16 text-center bg-white rounded-lg shadow-lg hover:text-blue-400">
       <a
         href="https://banuacoders.com/api/pico"
@@ -47,8 +50,10 @@ import TableTab from "../partial/data/TableTab";
 import ChartSex from "../partial/data/chart/JenisKelamin";
 import NewCase from "../partial/data/chart/NewCase";
 import PieChart from "../partial/data/chart/PieChart";
+import RtChart from '../partial/data/chart/RtChart';
 export default {
   components: {
+    RtChart,
     PieChart,
     NewCase,
     ChartSex,

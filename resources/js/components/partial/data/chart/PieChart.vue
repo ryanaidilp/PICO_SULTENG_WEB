@@ -1,11 +1,8 @@
 <template>
   <div class="w-full p-3">
     <!--Graph Card-->
-    <div class="bg-white rounded-lg shadow-lg">
-      <div class="p-2 text-gray-800 border-b-2 rounded-tl-lg rounded-tr-lg">
-        <h5 class="text-sm font-bold md:text-xl">Perbandingan</h5>
-      </div>
-      <div class="flex justify-center w-full">
+    <div class="relative bg-white rounded-lg shadow-lg">
+      <div class="absolute flex justify-center w-full">
         <loading
           :active.sync="isLoading"
           :opacity="0.8"
@@ -33,7 +30,7 @@ const { format } = require("date-fns");
 var dataChart = {
   type: "pie",
   data: {
-    labels: ["Sedang Dirawat", "Meninggal", "Sembuh"],
+    labels: ["Positif - Dirawat", "Positif - Meninggal", "Positif - Sembuh"],
     datasets: [
       {
         data: [],
@@ -46,6 +43,11 @@ var dataChart = {
     ]
   },
   options: {
+    title: {
+      display: true,
+      fontSize: 16,
+      text: "Persentase Kasus Positif COVID-19 di Sulawesi Tengah"
+    },
     tooltips: {
       enabled: true
     },

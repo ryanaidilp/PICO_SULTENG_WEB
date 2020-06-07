@@ -1,1 +1,111 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[17],{1:function(t,e,n){"use strict";n.d(e,"a",(function(){return s}));var r=n(20),i=n.n(r),a=function(){return Math.random().toString(36).substring(2)},s={name:"ContentLoader",functional:!0,props:{width:{type:[Number,String],default:400},height:{type:[Number,String],default:130},speed:{type:Number,default:2},preserveAspectRatio:{type:String,default:"xMidYMid meet"},baseUrl:{type:String,default:""},primaryColor:{type:String,default:"#f9f9f9"},secondaryColor:{type:String,default:"#ecebeb"},primaryOpacity:{type:Number,default:1},secondaryOpacity:{type:Number,default:1},uniqueKey:{type:String},animate:{type:Boolean,default:!0}},render:function(t,e){var n=e.props,r=e.data,s=e.children,o=n.uniqueKey?n.uniqueKey+"-idClip":a(),l=n.uniqueKey?n.uniqueKey+"-idGradient":a();return t("svg",i()([r,{attrs:{viewBox:"0 0 "+n.width+" "+n.height,version:"1.1",preserveAspectRatio:n.preserveAspectRatio}}]),[t("rect",{style:{fill:"url("+n.baseUrl+"#"+l+")"},attrs:{"clip-path":"url("+n.baseUrl+"#"+o+")",x:"0",y:"0",width:n.width,height:n.height}}),t("defs",[t("clipPath",{attrs:{id:o}},[s||t("rect",{attrs:{x:"0",y:"0",rx:"5",ry:"5",width:n.width,height:n.height}})]),t("linearGradient",{attrs:{id:l}},[t("stop",{attrs:{offset:"0%","stop-color":n.primaryColor,"stop-opacity":n.primaryOpacity}},[n.animate?t("animate",{attrs:{attributeName:"offset",values:"-2; 1",dur:n.speed+"s",repeatCount:"indefinite"}}):null]),t("stop",{attrs:{offset:"50%","stop-color":n.secondaryColor,"stop-opacity":n.secondaryOpacity}},[n.animate?t("animate",{attrs:{attributeName:"offset",values:"-1.5; 1.5",dur:n.speed+"s",repeatCount:"indefinite"}}):null]),t("stop",{attrs:{offset:"100%","stop-color":n.primaryColor,"stop-opacity":n.primaryOpacity}},[n.animate?t("animate",{attrs:{attributeName:"offset",values:"-1; 2",dur:n.speed+"s",repeatCount:"indefinite"}}):null])])])])}}},20:function(t,e){var n=/^(attrs|props|on|nativeOn|class|style|hook)$/;function r(t,e){return function(){t&&t.apply(this,arguments),e&&e.apply(this,arguments)}}t.exports=function(t){return t.reduce((function(t,e){var i,a,s,o,l;for(s in e)if(i=t[s],a=e[s],i&&n.test(s))if("class"===s&&("string"==typeof i&&(l=i,t[s]=i={},i[l]=!0),"string"==typeof a&&(l=a,e[s]=a={},a[l]=!0)),"on"===s||"nativeOn"===s||"hook"===s)for(o in a)i[o]=r(i[o],a[o]);else if(Array.isArray(i))t[s]=i.concat(a);else if(Array.isArray(a))t[s]=[i].concat(a);else for(o in a)i[o]=a[o];else t[s]=e[s];return t}),{})}},96:function(t,e,n){"use strict";n.r(e);var r={components:{Istilah:function(){return n.e(52).then(n.bind(null,111))},ContentLoader:n(1).a,CardLindungi:function(){return n.e(48).then(n.bind(null,132))},CardPhysical:function(){return n.e(49).then(n.bind(null,133))},WhatIsCovid:function(){return n.e(55).then(n.bind(null,134))},HowInfected:function(){return n.e(51).then(n.bind(null,135))},Mythbuster:function(){return n.e(53).then(n.bind(null,137))},WhatIfInfected:function(){return n.e(54).then(n.bind(null,136))},Symptomps:function(){return n.e(50).then(n.bind(null,110))},Partner:function(){return n.e(3).then(n.bind(null,98))}}},i=n(0),a=Object(i.a)(r,(function(){var t=this,e=t.$createElement,n=t._self._c||e;return n("div",{staticClass:"w-full mt-8 text-gray-800"},[n("h5",{staticClass:"text-xl font-bold text-center md:text-4xl md:text-left md:ml-6"},[t._v("Pusat Informasi COVID-19")]),t._v(" "),n("p",{staticClass:"text-xs text-center md:text-xl md:text-left md:ml-6"},[t._v("Kumpulan informasi penting seputar COVID-19.")]),t._v(" "),n("what-is-covid",{staticClass:"mt-8 md:mt-16"}),t._v(" "),n("how-infected",{staticClass:"mt-16"}),t._v(" "),n("symptomps",{staticClass:"mt-16"}),t._v(" "),n("istilah",{staticClass:"mt-16"}),t._v(" "),n("what-if-infected",{staticClass:"mt-16"}),t._v(" "),n("card-lindungi",{staticClass:"mt-16"}),t._v(" "),n("card-physical",{staticClass:"mt-16"}),t._v(" "),n("mythbuster",{staticClass:"mt-16"}),t._v(" "),n("Partner",{staticClass:"mt-16"})],1)}),[],!1,null,null,null);e.default=a.exports}}]);
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[17],{
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/partial/wiki/WhatIsCovid.vue?vue&type=template&id=ebbfee5e&":
+/*!***************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/partial/wiki/WhatIsCovid.vue?vue&type=template&id=ebbfee5e& ***!
+  \***************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm._m(0)
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "p-6 mx-4 bg-white rounded-lg shadow-lg" },
+      [
+        _c("h3", { staticClass: "text-lg font-bold text-left lg:text-3xl" }, [
+          _vm._v("\n    Apa itu COVID-19?\n    "),
+          _c("i", { staticClass: "fas fa-viruses" })
+        ]),
+        _vm._v(" "),
+        _c("p", { staticClass: "mt-4 text-sm text-justify md:text-lg" }, [
+          _c("i", [_vm._v("2019 Novel Coronavirus (2019-nCoV)")]),
+          _vm._v(" adalah virus (\n    "),
+          _c("i", [_vm._v("coronavirus")]),
+          _vm._v(
+            ")\n    yang diidentifikasi sebagai penyebab wabah penyakit pernapasan yang pertama kali terdeteksi di Wuhan, China.\n    Awalnya, banyak pasien COVID-19 di Wuhan, Cina dilaporkan berhubungan dengan pasar makanan laut dan hewan di Wuhan. Hal ini mengindikasikan bahwa penyebaran terjadi dari hewan ke orang.\n    Namun, semakin banyak pasien yang dilaporkan tidak memiliki riwayat paparan ke pasar hewan, menunjukkan bahwa penyebaran orang-ke-orang sedang terjadi.\n    Nama\n    "
+          ),
+          _c("i", [_vm._v("coronavirus")]),
+          _vm._v(" berasal dari bahasa Latin\n    "),
+          _c("span", { staticClass: "font-semibold" }, [_vm._v("corona")]),
+          _vm._v(
+            ', yang berarti "mahkota" atau "halo", mengacu pada penampilan virus yang menyerupai mahkota.\n  '
+          )
+        ])
+      ]
+    )
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/partial/wiki/WhatIsCovid.vue":
+/*!**************************************************************!*\
+  !*** ./resources/js/components/partial/wiki/WhatIsCovid.vue ***!
+  \**************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _WhatIsCovid_vue_vue_type_template_id_ebbfee5e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./WhatIsCovid.vue?vue&type=template&id=ebbfee5e& */ "./resources/js/components/partial/wiki/WhatIsCovid.vue?vue&type=template&id=ebbfee5e&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+var script = {}
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
+  script,
+  _WhatIsCovid_vue_vue_type_template_id_ebbfee5e___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _WhatIsCovid_vue_vue_type_template_id_ebbfee5e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/partial/wiki/WhatIsCovid.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/partial/wiki/WhatIsCovid.vue?vue&type=template&id=ebbfee5e&":
+/*!*********************************************************************************************!*\
+  !*** ./resources/js/components/partial/wiki/WhatIsCovid.vue?vue&type=template&id=ebbfee5e& ***!
+  \*********************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_WhatIsCovid_vue_vue_type_template_id_ebbfee5e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./WhatIsCovid.vue?vue&type=template&id=ebbfee5e& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/partial/wiki/WhatIsCovid.vue?vue&type=template&id=ebbfee5e&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_WhatIsCovid_vue_vue_type_template_id_ebbfee5e___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_WhatIsCovid_vue_vue_type_template_id_ebbfee5e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ })
+
+}]);

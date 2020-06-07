@@ -1,11 +1,8 @@
 <template>
   <div class="w-full p-3">
     <!--Graph Card-->
-    <div class="bg-white rounded-lg shadow-lg">
-      <div class="p-2 text-gray-800 border-b-2 rounded-tl-lg rounded-tr-lg">
-        <h5 class="text-sm font-bold md:text-xl">Perubahan Data Hari Ini</h5>
-      </div>
-      <div class="flex justify-center w-full">
+    <div class="relative bg-white rounded-lg shadow-lg">
+      <div class="absolute flex justify-center w-full">
         <loading
           :active.sync="isLoading"
           :opacity="0.8"
@@ -54,6 +51,12 @@ var dataChart = {
       },
       {
         data: [],
+        label: "Negatif",
+        borderColor: "rgba(118, 93, 105, 0.8)",
+        backgroundColor: "rgba(118, 93, 105, 1)"
+      },
+      {
+        data: [],
         label: "ODP Baru",
         borderColor: "rgba(65, 131, 215, 0.8)",
         backgroundColor: "rgba(65, 131, 215, 1)"
@@ -79,6 +82,11 @@ var dataChart = {
     ]
   },
   options: {
+  title: {
+      display: true,
+      fontSize: 16,
+      text: "Perubahan Data di Kabupaten/Kota"
+    },
     plugins: {
       datalabels: {
         display: false
@@ -155,6 +163,7 @@ export default {
         var districtPositive = [];
         var districtRecovered = [];
         var districtDeath = [];
+        var districtNegative = [];
         var districtODP = [];
         var districtFinishedODP = [];
         var districtPDP = [];
@@ -164,6 +173,7 @@ export default {
           districtPositive.push(data[i].kasus_baru.positif);
           districtRecovered.push(data[i].kasus_baru.sembuh);
           districtDeath.push(data[i].kasus_baru.meninggal);
+          districtNegative.push(data[i].kasus_baru.negatif);
           districtODP.push(data[i].kasus_baru.ODP);
           districtFinishedODP.push(data[i].selesai.ODP);
           districtPDP.push(data[i].kasus_baru.PDP);
@@ -173,10 +183,11 @@ export default {
         dataChart.data.datasets[0].data = districtPositive;
         dataChart.data.datasets[1].data = districtRecovered;
         dataChart.data.datasets[2].data = districtDeath;
-        dataChart.data.datasets[3].data = districtODP;
-        dataChart.data.datasets[4].data = districtFinishedODP;
-        dataChart.data.datasets[5].data = districtPDP;
-        dataChart.data.datasets[6].data = districtFinishedPDP;
+        dataChart.data.datasets[3].data = districtNegative;
+        dataChart.data.datasets[4].data = districtODP;
+        dataChart.data.datasets[5].data = districtFinishedODP;
+        dataChart.data.datasets[6].data = districtPDP;
+        dataChart.data.datasets[7].data = districtFinishedPDP;
         this.chart.update();
         this.isLoading = false;
       });

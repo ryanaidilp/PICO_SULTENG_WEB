@@ -25,7 +25,7 @@ export default {
         },
         accessibility: {
           point: {
-            valueDescriptionFormat: "{index}. Usia {xDescription}, {value}%."
+            valueDescriptionFormat: "{index}. Usia {xDescription}, {value} orang."
           }
         },
         xAxis: [
@@ -57,14 +57,16 @@ export default {
           title: {
             text: null
           },
+          min: -100,
+          max: 100,
           labels: {
             formatter: function() {
-              return Math.abs(this.value) + "%";
+              return Math.abs(this.value);
             }
           },
           accessibility: {
             description: "Persentase",
-            rangeDescription: "Range: 0 to 100%"
+            rangeDescription: "Range: 0 to 100"
           }
         },
 
@@ -82,21 +84,21 @@ export default {
               ", usia " +
               this.point.category +
               "</b><br/>" +
-              "Persentase: " +
+              "Jumlah: " +
               Highcharts.numberFormat(Math.abs(this.point.y), 1) +
-              "%"
+              " orang"
             );
           }
         },
 
         series: [
           {
-            name: "Laki-Laki (101 Orang)",
-            data: [-6.93, -4.95, -7.92, -53.47, -7.92, -17.82]
+            name: "Laki-Laki (116 Orang)",
+            data: [-8, -7, -9, -65, -9, -18]
           },
           {
-            name: "Perempuan (38 Orang)",
-            data: [7.89, 5.26, 7.89, 55.26, 7.89, 18.42]
+            name: "Perempuan (43 Orang)",
+            data: [3, 2, 3, 24, 4, 7]
           }
         ]
       }

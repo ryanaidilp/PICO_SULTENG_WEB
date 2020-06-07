@@ -64,6 +64,7 @@ var dataCumulativeChart = {
     scales: {
       yAxes: [
         {
+          position: "right",
           ticks: {
             beginAtZero: true
           }
@@ -75,10 +76,11 @@ var dataCumulativeChart = {
             callback: function(value, index, values) {
               var data = value.split(" ");
               return data[0] + data[1];
-            }
+            },
+            maxRotation: 90,
+            minRotation: 90
           },
           display: true,
-          stacked: true,
           scaleLabel: { display: true, labelString: "Tanggal" }
         }
       ]
@@ -86,7 +88,7 @@ var dataCumulativeChart = {
     maintainAspectRatio: false,
     responsive: true,
     tooltips: {
-      mode: "label",
+      mode: "index",
       intersect: false,
       backgroundColor: "rgba(255,255,255,1)",
       titleFontColor: "#000",
@@ -94,7 +96,7 @@ var dataCumulativeChart = {
       borderColor: "#222",
       borderWidth: 1
     },
-    hover: { mode: "nearest", intersect: true },
+    hover: { mode: "index", intersect: false },
     legend: { position: "bottom", usePointStyle: true }
   }
 };

@@ -40,7 +40,7 @@
         <chart-local-positive :wilayah="selected" :kasus="selectedCase" class="mt-4"></chart-local-positive>
       </keep-alive>
       <div class="mb-4 text-center">
-        <i class="mr-2 fas fa-minus"></i>Kumulatif
+        <i class="mr-2 fas fa-minus"></i>Rata-Rata Mingguan
         <i
           class="ml-4 mr-2 fas fa-square-full"
           :class="{

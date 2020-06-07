@@ -27,12 +27,11 @@ var dataChart = {
     labels: [],
     datasets: [
       {
-        label: "Kumulatif",
+        label: "Rata-Rata Mingguan",
         type: "line",
         data: [],
         fill: false,
         pointRadius: 1,
-        yAxisID: "kumulatif",
         pointBackgroundColor: "rgba(118, 93, 105, 1)",
         borderColor: "rgba(118, 93, 105, 1)"
       },
@@ -62,18 +61,10 @@ var dataChart = {
         {
           type: "linear",
           id: "kasus-baru",
+          position: "right",
           display: true,
           scaleLabel: { display: true, labelString: "Kasus Baru/Selesai" }
         },
-        {
-          type: "linear",
-          id: "kumulatif",
-          display: true,
-          position: "right",
-          stacked: true,
-          scaleLabel: { display: true, labelString: "Kumulatif" },
-          gridLines: { drawOnChartArea: true }
-        }
       ],
       xAxes: [
         {
@@ -81,7 +72,9 @@ var dataChart = {
             callback: function(value, index, values) {
               var data = value.split(" ");
               return data[0] + data[1];
-            }
+          },
+            maxRotation: 90,
+            minRotation: 90
           },
           display: true,
           stacked: true,
@@ -92,7 +85,7 @@ var dataChart = {
     maintainAspectRatio: false,
     responsive: true,
     tooltips: {
-      mode: "label",
+      mode: "index",
       intersect: false,
       backgroundColor: "rgba(255,255,255,1)",
       titleFontColor: "#000",
@@ -100,7 +93,7 @@ var dataChart = {
       borderColor: "#222",
       borderWidth: 1
     },
-    hover: { mode: "nearest", intersect: true },
+    hover: { mode: "index", intersect: false },
     legend: { position: "bottom", usePointStyle: true, display: false }
   }
 };
@@ -184,18 +177,18 @@ export default {
           });
           label.push(tanggal);
           positive.push(data[i].kasus_baru.positif);
-          cumulativePositive.push(data[i].kumulatif.positif);
+          cumulativePositive.push(data[i].rekap.rata_rata.positif_weekly);
           recovered.push(data[i].kasus_baru.sembuh);
-          cumulativeRecovered.push(data[i].kumulatif.sembuh);
+          cumulativeRecovered.push(data[i].rekap.rata_rata.sembuh_weekly);
           deceased.push(data[i].kasus_baru.meninggal);
-          cumulativeDeceased.push(data[i].kumulatif.meninggal);
+          cumulativeDeceased.push(data[i].rekap.rata_rata.meninggal_weekly);
           if (this.$props.wilayah != "Indonesia") {
             ODP.push(data[i].kasus_baru.ODP);
             finishedODP.push(data[i].selesai.ODP);
-            cumulativeODP.push(data[i].kumulatif.ODP);
+            cumulativeODP.push(data[i].rekap.rata_rata.ODP_weekly);
             PDP.push(data[i].kasus_baru.PDP);
             finishedPDP.push(data[i].selesai.PDP);
-            cumulativePDP.push(data[i].kumulatif.PDP);
+            cumulativePDP.push(data[i].rekap.rata_rata.PDP_weekly);
           }
         }
         switch (this.$props.kasus) {

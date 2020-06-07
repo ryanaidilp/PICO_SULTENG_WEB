@@ -13,8 +13,16 @@ class StatisticTransformer extends TransformerAbstract
     {
         $data = array();
         $histories = $stats->histories;
+        $weekly_positive_avg = 0;
+        $weekly_recovered_avg = 0;
+        $weekly_death_avg = 0;
         foreach ($histories as $key => $history) {
             $district = District::where('no', $history->district_id)->first();
+            $weekly_positive_avg = $history->day > 7 ? (float) number_format($history->whereBetween('day', [$stats->day - 7, $stats->day])->sum('positive') / 7, 2) : 0;
+            $weekly_recovered_avg = $history->day > 7 ? (float) number_format($history->whereBetween('day', [$stats->day - 7, $stats->day])->sum('recovered') / 7, 2) : 0;
+            $weekly_death_avg = $history->day > 7 ? (float) number_format($history->whereBetween('day', [$stats->day - 7, $stats->day])->sum('death') / 7, 2) : 0;
+            $weekly_ODP_avg = $history->day > 7 ? (float) number_format($history->whereBetween('day', [$stats->day - 7, $stats->day])->sum('new_ODP') / 7, 2) : 0;
+            $weekly_PDP_avg = $history->day > 7 ? (float) number_format($history->whereBetween('day', [$stats->day - 7, $stats->day])->sum('new_PDP') / 7, 2) : 0;
             $total_odp = $history->whereBetween('day', [1, $stats->day])->where('district_id', $district->no)->sum('new_ODP');
             $total_pdp = $history->whereBetween('day', [1, $stats->day])->where('district_id', $history->district_id)->sum('new_PDP');
             $total_finished_odp = $history->whereBetween('day', [1, $stats->day])->where('district_id', $history->district_id)->sum('finished_ODP');
@@ -98,7 +106,15 @@ class StatisticTransformer extends TransformerAbstract
                     Lang::get('general.positive') => $stats->daily_positive_case,
                     Lang::get('general.recovered') => $stats->daily_recovered_case,
                     Lang::get('general.death') => $stats->daily_death_case,
+                    Lang::get('general.positive').'_weekly' => $weekly_positive_avg,
+                    Lang::get('general.recovered').'_weekly' => $weekly_recovered_avg,
+                    Lang::get('general.death').'_weekly' => $weekly_death_avg,
+                    Lang::get('general.ODP').'_weekly' => $weekly_ODP_avg,
+                    Lang::get('general.PDP').'_weekly' => $weekly_PDP_avg,
                 ],
+                'Rt' => $stats->Rt,
+                'Rt_upper' => $stats->Rt_upper,
+                'Rt_lower' => $stats->Rt_lower,
             ],
             Lang::get('general.district_list') => $data,
         ];

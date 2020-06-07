@@ -57,8 +57,8 @@ export default {
           title: {
             text: null
           },
-          min: -100,
-          max: 100,
+          min: -80,
+          max: 80,
           labels: {
             formatter: function() {
               return Math.abs(this.value);
@@ -85,7 +85,7 @@ export default {
               this.point.category +
               "</b><br/>" +
               "Jumlah: " +
-              Highcharts.numberFormat(Math.abs(this.point.y), 1) +
+              Highcharts.numberFormat(Math.abs(this.point.y), 0) +
               " orang"
             );
           }

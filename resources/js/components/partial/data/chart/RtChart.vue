@@ -24,9 +24,12 @@
         </span>
         <p class="mx-8 mt-8 text-sm text-left text-justify border-t-2">
           *Keterangan :
-          <br />Rt merupakan rata-rata orang yang bisa terinfeksi dari satu pasien positif usai intervensi pemerintah.
+          <br /> <b>Rt</b> merupakan <b>rata-rata orang yang bisa terinfeksi dari satu pasien positif</b> usai intervensi pemerintah.
           Sebagai contoh, Rt = 2 berarti satu orang yang terinfeksi bisa menulari rata-rata dua orang lainnya.
-          Rt dipergunakan sebagai syarat mutlak pelonggaran PSBB di Indonesia. Sesuai ketetapan Badan Perencanaan Pembangunan Nasional (Bappenas), angka Rt di sebuah wilayah harus di bawah 1 selama 14 hari berturut-turut sebelum relaksasi PSBB diberi lampu hijau.
+          Rt dipergunakan sebagai <b>syarat mutlak pelonggaran PSBB</b> di Indonesia. Sesuai ketetapan Badan Perencanaan Pembangunan Nasional (Bappenas), angka Rt di sebuah wilayah harus di bawah 1 selama 14 hari berturut-turut sebelum relaksasi PSBB diberi lampu hijau.
+        </p>
+        <p class="mx-8 mt-4 text-sm text-left text-justify text-gray-500">
+          Referensi : <a href="https://www.datacamp.com/community/tutorials/replicating-in-r-covid19" class="hover:text-gray-800 font-italic" target="_blank">Estimating COVID-19's <i>Rt</i> in Real-Time</a>
         </p>
       </div>
     </div>
@@ -77,7 +80,7 @@ var dataChart = {
       fontSize: 16,
       text: [
         "Angka Reproduksi (Rt) COVID-19 di Sulawesi Tengah",
-        "Dihitung dengan metode Time-Dependent (Wallinga & Teunis)."
+        "Dihitung dengan metode Sequential-Bayes."
       ]
     },
     plugins: {
@@ -93,7 +96,7 @@ var dataChart = {
           display: true,
           scaleLabel: {
             display: true,
-            labelString: "Angka Reproduksi Efektif (Rt)"
+            labelString: "Angka Reproduksi Efektif/Effective Infection Rate (Rt)"
           }
         }
       ],

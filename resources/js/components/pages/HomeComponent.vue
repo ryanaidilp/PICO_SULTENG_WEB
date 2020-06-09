@@ -21,12 +21,13 @@
   </div>
 </template>
 <script>
+import DataCovid from "../partial/home/DataCovid"
 export default {
   components: {
     CarouselComponent: () => import("../partial/home/CarouselComponent"),
     CallCenterComponent: () => import("../partial/home/CardCallCenter"),
     Donation: () => import("../partial/home/DonationCard"),
-    DataCovid: () => import("../partial/home/DataCovid"),
+    DataCovid,
     InfoCovid: () => import("../partial/home/InfoCovid"),
     Partner: () => import("../partial/PartnerFooter")
   }

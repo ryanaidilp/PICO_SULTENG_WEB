@@ -12,4 +12,4 @@ Dashboard COVID-19 SulTeng is the web version of PICO SulTeng (*Pusat Informasi 
 * Run `composer install`/`composer update` command to install all required dependencies.
 * After the dependency installation process is complete, run `php artisan key:generate` command to generate **APP_KEY**.
 * Run `php artisan migrate` to create fresh database and tables with empty data or just import **SQL file** under the **database** directory.
-* Run `php artisan serve` command, if there are no errors in configuration, the application will run and can be accessed via **localhost:8000**.
+* Copy app directory to **xampp/htdocs** then rename the root directory to **corona**. Now app can be access via **localhost/corona**.

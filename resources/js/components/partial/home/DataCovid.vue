@@ -34,6 +34,7 @@
   </div>
 </template>
 <script>
+import DataTabs from "./tabs/DataTabs"
 import { ContentLoader } from "vue-content-loader";
 const { format } = require("date-fns");
 const { formatToTimeZone } = require("date-fns-timezone");
@@ -41,7 +42,7 @@ import { id } from "date-fns/locale";
 export default {
   components: {
     ContentLoader,
-    DataTabs: () => import("./tabs/DataTabs"),
+    DataTabs,
   },
   data() {
     return {

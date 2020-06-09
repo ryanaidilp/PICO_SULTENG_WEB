@@ -47,6 +47,7 @@
   </div>
 </template>
 <script>
+import Dashboard from "../partial/data/DashboardData"
 import { ContentLoader } from "vue-content-loader";
 export default {
   data() {
@@ -83,7 +84,7 @@ export default {
     NewCase: () => import("../partial/data/chart/NewCase"),
     ChartSex: () => import("../partial/data/chart/JenisKelamin"),
     ContentLoader,
-    Dashboard: () => import("../partial/data/DashboardData"),
+    Dashboard,
     MapTab: () => import("../partial/data/MapTab"),
     TableTab: () => import("../partial/data/TableTab"),
     ChartTab: () => import("../partial/data/ChartTab"),

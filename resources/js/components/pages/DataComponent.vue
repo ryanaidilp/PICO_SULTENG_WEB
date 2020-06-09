@@ -1,14 +1,6 @@
 <template>
   <div class="text-gray-800">
     <dashboard></dashboard>
-    <div class="flex flex-col w-full mt-4 lg:flex-row">
-      <keep-alive>
-        <new-case class="w-full lg:w-1/2"></new-case>
-      </keep-alive>
-      <keep-alive>
-        <pie-chart class="w-full mt-4 lg:w-1/2 lg:mt-0"></pie-chart>
-      </keep-alive>
-    </div>
     <section class="m-8">
         <dataRDT :props-data-rekapitulasi-sulteng.sync="dataRekapitulasiSulteng[1]"/>
     </section>
@@ -32,6 +24,14 @@
     <keep-alive>
       <rt-chart class="mt-12"></rt-chart>
     </keep-alive>
+    <div class="flex flex-col w-full mt-4 lg:flex-row">
+      <keep-alive>
+        <new-case class="w-full lg:w-1/2"></new-case>
+      </keep-alive>
+      <keep-alive>
+        <pie-chart class="w-full mt-4 lg:w-1/2 lg:mt-0"></pie-chart>
+      </keep-alive>
+    </div>
     <chart-sex class="mt-8"></chart-sex>
     <div class="p-6 mx-4 mt-16 text-center bg-white rounded-lg shadow-lg hover:text-blue-400">
       <a

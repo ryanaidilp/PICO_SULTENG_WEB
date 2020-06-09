@@ -42,7 +42,10 @@
       <rect x="0" y="150" rx="3" ry="3" width="450" height="210" />
       <rect x="480" y="150" rx="3" ry="3" width="450" height="210" />
     </content-loader>
-    <div v-else class="flex flex-col flex-wrap items-center justify-center block w-full mt-8 text-gray-800 md:flex-row">
+    <div
+      v-else
+      class="flex flex-col flex-wrap items-center justify-center block w-full mt-8 text-gray-800 md:flex-row"
+    >
       <card-case
         title="Positif"
         :cumulative_local.sync="totalPositif"
@@ -50,8 +53,18 @@
         :cumulative_national.sync="positifNasional"
         :new_national.sync="positifBaruNasional"
         bg_card="bg-red-300"
-        bg_new="bg-red-400"
+        bg_new="bg-red-700"
         text_color="text-red-300"
+      />
+      <card-case
+        title="Dirawat"
+        :cumulative_local.sync="totalDirawat"
+        :new_local.sync="dirawatBaru"
+        :cumulative_national.sync="dirawatNasional"
+        :new_national.sync="dirawatBaruNasional"
+        bg_card="bg-blue-300"
+        bg_new="bg-blue-700"
+        text_color="text-blue-300"
       />
       <card-case
         title="Sembuh"
@@ -60,7 +73,7 @@
         :cumulative_national.sync="sembuhNasional"
         :new_national.sync="sembuhBaruNasional"
         bg_card="bg-green-300"
-        bg_new="bg-green-400"
+        bg_new="bg-green-700"
         text_color="text-green-300"
       />
       <card-case
@@ -70,7 +83,7 @@
         :cumulative_national.sync="meninggalNasional"
         :new_national.sync="meninggalBaruNasional"
         bg_card="bg-orange-300"
-        bg_new="bg-orange-400"
+        bg_new="bg-orange-700"
         text_color="text-orange-300"
       />
 
@@ -114,9 +127,11 @@ export default {
       lastUpdate: null,
       statistics: null,
       totalPositif: 0,
+      totalDirawat: 0,
       totalSembuh: 0,
       totalMeninggal: 0,
       positifBaru: 0,
+      dirawatBaru: 0,
       sembuhBaru: 0,
       meninggalBaru: 0,
       ODPBaru: 0,
@@ -130,9 +145,11 @@ export default {
       totalODP: 0,
       totalPDP: 0,
       positifNasional: 0,
+      dirawatNasional: 0,
       sembuhNasional: 0,
       meninggalNasional: 0,
       positifBaruNasional: 0,
+      dirawatBaruNasional: 0,
       sembuhBaruNasional: 0,
       meninggalBaruNasional: 0
     };
@@ -147,6 +164,9 @@ export default {
           this.totalPositif = NumberFormat.format(
             this.statistics.kumulatif.positif
           );
+          this.totalDirawat = NumberFormat.format(
+            this.statistics.aktif.dalam_perawatan
+          );
           this.totalSembuh = NumberFormat.format(
             this.statistics.kumulatif.sembuh
           );
@@ -156,6 +176,9 @@ export default {
 
           this.positifBaru = NumberFormat.format(
             this.statistics.kasus_baru.positif
+          );
+          this.dirawatBaru = NumberFormat.format(
+            this.statistics.kasus_baru.dalam_perawatan
           );
           this.sembuhBaru = NumberFormat.format(
             this.statistics.kasus_baru.sembuh
@@ -197,9 +220,15 @@ export default {
         });
         this.lastUpdate += " " + jam;
         this.positifNasional = NumberFormat.format(data.kumulatif.positif);
+        this.dirawatNasional = NumberFormat.format(
+          data.kumulatif.dalam_perawatan
+        );
         this.sembuhNasional = NumberFormat.format(data.kumulatif.sembuh);
         this.meninggalNasional = NumberFormat.format(data.kumulatif.meninggal);
         this.positifBaruNasional = NumberFormat.format(data.kasus_baru.positif);
+        this.dirawatBaruNasional = NumberFormat.format(
+          data.kasus_baru.dalam_perawatan
+        );
         this.sembuhBaruNasional = NumberFormat.format(data.kasus_baru.sembuh);
         this.meninggalBaruNasional = NumberFormat.format(
           data.kasus_baru.meninggal

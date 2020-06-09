@@ -68,6 +68,7 @@ class StatisticTransformer extends TransformerAbstract
             Lang::get('general.date') => $stats->date,
             Lang::get('general.new_case') => [
                 Lang::get('general.positive') => $stats->positive,
+                Lang::get('general.under_treatment') => $stats->new_under_treatment,
                 Lang::get('general.recovered') => $stats->recovered,
                 Lang::get('general.death') => $stats->death,
                 Lang::get('general.negative') => $stats->negative,

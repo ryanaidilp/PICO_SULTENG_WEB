@@ -16,6 +16,7 @@ class Stat extends Model
         'cumulative_negative',
         'cumulative_recovered',
         'cumulative_death',
+        'new_under_treatment',
         'active_ODP',
         'cumulative_finished_ODP',
         'cumulative_ODP',
@@ -85,6 +86,11 @@ class Stat extends Model
         } else {
             return $this->positive;
         }
+    }
+
+    public function getNewUnderTreatmentAttribute()
+    {
+        return $this->day > 1 ? $this->under_treatment - Stat::where('day', $this->day - 1)->first()->under_treatment : 0;
     }
 
     public function getCumulativeRecoveredAttribute()

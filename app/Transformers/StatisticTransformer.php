@@ -13,6 +13,11 @@ class StatisticTransformer extends TransformerAbstract
     {
         $data = array();
         $histories = $stats->histories;
+        $weekly_positive_avg = 0;
+        $weekly_recovered_avg = 0;
+        $weekly_death_avg = 0;
+        $weekly_ODP_avg = 0;
+        $weekly_PDP_avg = 0;
         foreach ($histories as $key => $history) {
             $district = District::where('no', $history->district_id)->first();
             $weekly_positive_avg = $history->day > 7 ? (float) number_format($history->whereBetween('day', [$stats->day - 7, $stats->day])->sum('positive') / 7, 2) : 0;

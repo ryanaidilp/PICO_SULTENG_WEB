@@ -36,11 +36,12 @@
       primaryColor="#ddd"
       secondaryColor="#fff"
     >
-      <rect x="0" y="20" rx="3" ry="3" width="290" height="110" />
-      <rect x="320" y="20" rx="3" ry="3" width="290" height="110" />
-      <rect x="640" y="20" rx="3" ry="3" width="290" height="110" />
-      <rect x="0" y="150" rx="3" ry="3" width="450" height="210" />
-      <rect x="480" y="150" rx="3" ry="3" width="450" height="210" />
+      <rect x="5" y="20" rx="10" ry="10" width="210" height="110" /> 
+		  <rect x="230" y="20" rx="10" ry="10" width="210" height="110" />
+		  <rect x="460" y="20" rx="10" ry="10" width="210" height="110" />
+		  <rect x="690" y="20" rx="10" ry="10" width="210" height="110" />
+      <rect x="0" y="150" rx="10" ry="10" width="450" height="210" />
+      <rect x="480" y="150" rx="10" ry="10" width="450" height="210" />
     </content-loader>
     <div
       v-else

@@ -33,15 +33,16 @@
       v-if="!statistics && !this.positifNasional"
       :height="400"
       :width="900"
-      :speed="1"
+      :speed="2"
       primaryColor="#ddd"
       secondaryColor="#fff"
     >
-      <rect x="0" y="20" rx="3" ry="3" width="290" height="110" />
-      <rect x="320" y="20" rx="3" ry="3" width="290" height="110" />
-      <rect x="640" y="20" rx="3" ry="3" width="290" height="110" />
-      <rect x="0" y="150" rx="3" ry="3" width="450" height="210" />
-      <rect x="480" y="150" rx="3" ry="3" width="450" height="210" />
+      <rect x="5" y="20" rx="10" ry="10" width="210" height="110" /> 
+		  <rect x="230" y="20" rx="10" ry="10" width="210" height="110" />
+		  <rect x="460" y="20" rx="10" ry="10" width="210" height="110" />
+		  <rect x="690" y="20" rx="10" ry="10" width="210" height="110" />
+      <rect x="0" y="150" rx="10" ry="10" width="450" height="210" />
+      <rect x="480" y="150" rx="10" ry="10" width="450" height="210" />
     </content-loader>
     <div v-else class="relative flex flex-col w-full min-w-0 mb-6 break-words">
       <div class="flex-1 py-5">

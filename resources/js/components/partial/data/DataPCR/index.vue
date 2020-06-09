@@ -29,36 +29,47 @@
           </div>
         </div>
         <div class="flex flex-col h-auto text-left md:flex-row">
-          <div class="w-full h-auto pl-2 text-left md:w-1/3 lg:w-1/3">
+          <div class="w-full h-auto pl-2 text-left md:w-1/4 lg:w-1/4">
             <div class="h-20 pt-3">
               <div class="mb-1">
                 <span class="text-2xl font-bold">{{ Number(data.pcr.positif).toLocaleString('id-ID') }}</span>
-                <span class="text-sm">({{ Number(data.pcr_persentase_by_total.positif.toFixed(2)).toLocaleString('id-ID') }})%</span>
+                <span class="text-sm">({{ Number(data.pcr_persentase_by_total.positif.toFixed(2)).toLocaleString('id-ID') }}%)</span>
               </div>
               <div class="text-sm">
                 Positif
               </div>
             </div>
           </div>
-          <div class="w-full h-auto pl-2 text-left md:w-1/3 lg:w-1/3">
+          <div class="w-full h-auto pl-2 text-left md:w-1/4 lg:w-1/4">
             <div class="h-20 pt-3">
               <div class="mb-1">
                 <span class="text-2xl font-bold">{{ Number(data.pcr.negatif).toLocaleString('id-ID') }}</span>
-                <span class="text-sm">({{ Number(data.pcr_persentase_by_total.negatif.toFixed(2)).toLocaleString('id-ID') }})%</span>
+                <span class="text-sm">({{ Number(data.pcr_persentase_by_total.negatif.toFixed(2)).toLocaleString('id-ID') }}%)</span>
               </div>
               <div class="text-sm">
                 Negatif
               </div>
             </div>
           </div>
-          <div class="w-full h-auto pl-2 text-left md:w-1/3 lg:w-1/3">
+          <div class="w-full h-auto pl-2 text-left md:w-1/4 lg:w-1/4">
             <div class="h-20 pt-3">
               <div class="mb-1">
                 <span class="text-2xl font-bold">{{ Number(data.pcr.invalid).toLocaleString('id-ID') }}</span>
-                <span class="text-sm">({{ Number(data.pcr_persentase_by_total.invalid.toFixed(2)).toLocaleString('id-ID') }})%</span>
+                <span class="text-sm">({{ Number(data.pcr_persentase_by_total.invalid.toFixed(2)).toLocaleString('id-ID') }}%)</span>
               </div>
               <div class="text-sm">
                 Invalid
+              </div>
+            </div>
+          </div>
+          <div class="w-full h-auto pl-2 text-left md:w-1/4 lg:w-1/4">
+            <div class="h-20 pt-3">
+              <div class="mb-1">
+                <span class="text-2xl font-bold">{{ Number(data.pcr.proses).toLocaleString('id-ID') }}</span>
+                <span class="text-sm">({{ Number(data.pcr_persentase_by_total.proses.toFixed(2)).toLocaleString('id-ID') }}%)</span>
+              </div>
+              <div class="text-sm">
+                Proses Lab
               </div>
             </div>
           </div>
@@ -96,12 +107,14 @@ export default {
           negatif: 0,
           invalid: 0,
           jumlah_sampling: 0,
+          proses: 0,
           tanggal: 0
         },
         pcr_persentase_by_total: {
           positif: 0,
           negatif: 0,
-          invalid: 0
+          invalid: 0,
+          proses: 0,
         }
       },
       showMore: true
@@ -120,6 +133,7 @@ export default {
       self.data.pcr_persentase_by_total.positif = self.data.pcr.positif / self.data.pcr.total * 100
       self.data.pcr_persentase_by_total.negatif = self.data.pcr.negatif / self.data.pcr.total * 100
       self.data.pcr_persentase_by_total.invalid = self.data.pcr.invalid / self.data.pcr.total * 100
+      self.data.pcr_persentase_by_total.proses = self.data.pcr.proses / self.data.pcr.total * 100
     },
     clickShowMore () {
       this.showMore = !this.showMore

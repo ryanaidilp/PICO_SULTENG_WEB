@@ -73,10 +73,16 @@ export default {
         .catch(error => {
           console.log(error);
         });
+    },
+    updater() {
+      setInterval(() => {
+        this.fetchDataPCR()
+      }, 60 * 1000 * 5)
     }
   },
   created() {
     this.fetchDataPCR();
+    this.updater();
   },
   components: {
     DataPCR: () => import('../partial/data/DataPCR/index'),

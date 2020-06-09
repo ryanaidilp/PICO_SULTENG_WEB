@@ -35,36 +35,47 @@
           </div>
         </div>
         <div class="flex flex-col h-auto text-left md:flex-row">
-          <div class="w-full h-auto pl-2 text-left md:w-1/3 lg:w-1/3">
+          <div class="w-full h-auto pl-2 text-left md:w-1/4 lg:w-1/4">
             <div class="h-20 pt-3">
               <div class="mb-1">
                 <span class="text-2xl font-bold">{{ Number(data.rdt.positif).toLocaleString('id-ID') }}</span>
-                <span class="text-sm">({{ Number(data.rdt_persentase_by_jumlah_sampling.positif.toFixed(2)).toLocaleString('id-ID') }})%</span>
+                <span class="text-sm">({{ Number(data.rdt_persentase_by_jumlah_sampling.positif.toFixed(2)).toLocaleString('id-ID') }}%)</span>
               </div>
               <div class="text-sm">
                 Reaktif
               </div>
             </div>
           </div>
-          <div class="w-full h-auto pl-2 text-left md:w-1/3 lg:w-1/3">
+          <div class="w-full h-auto pl-2 text-left md:w-1/4 lg:w-1/4">
             <div class="h-20 pt-3">
               <div class="mb-1">
                 <span class="text-2xl font-bold">{{ Number(data.rdt.negatif).toLocaleString('id-ID') }}</span>
-                <span class="text-sm">({{ Number(data.rdt_persentase_by_jumlah_sampling.negatif.toFixed(2)).toLocaleString('id-ID') }})%</span>
+                <span class="text-sm">({{ Number(data.rdt_persentase_by_jumlah_sampling.negatif.toFixed(2)).toLocaleString('id-ID') }}%)</span>
               </div>
               <div class="text-sm">
                 Non Reaktif
               </div>
             </div>
           </div>
-          <div class="w-full h-auto pl-2 text-left md:w-1/3 lg:w-1/3">
+          <div class="w-full h-auto pl-2 text-left md:w-1/4 lg:w-1/4">
             <div class="h-20 pt-3">
               <div class="mb-1">
                 <span class="text-2xl font-bold">{{ Number(data.rdt.invalid).toLocaleString('id-ID') }}</span>
-                <span class="text-sm">({{ Number(data.rdt_persentase_by_jumlah_sampling.invalid.toFixed(2)).toLocaleString('id-ID') }})%</span>
+                <span class="text-sm">({{ Number(data.rdt_persentase_by_jumlah_sampling.invalid.toFixed(2)).toLocaleString('id-ID') }}%)</span>
               </div>
               <div class="text-sm">
                 Invalid
+              </div>
+            </div>
+          </div>
+          <div class="w-full h-auto pl-2 text-left md:w-1/4 lg:w-1/4">
+            <div class="h-20 pt-3">
+              <div class="mb-1">
+                <span class="text-2xl font-bold">{{ Number(data.rdt.proses).toLocaleString('id-ID') }}</span>
+                <span class="text-sm">({{ Number(data.rdt_persentase_by_jumlah_sampling.proses.toFixed(2)).toLocaleString('id-ID') }}%)</span>
+              </div>
+              <div class="text-sm">
+                Proses Lab
               </div>
             </div>
           </div>
@@ -88,6 +99,7 @@ export default {
           positif: 0,
           negatif: 0,
           invalid: 0,
+          proses: 0,
           tanggal: "",
         }
       })
@@ -101,12 +113,14 @@ export default {
           positif: 0,
           negatif: 0,
           invalid: 0,
+          proses: 0,
           tanggal:"",
         },
         rdt_persentase_by_jumlah_sampling: {
           positif: 0,
           negatif: 0,
           invalid: 0,
+          proses: 0
         }
       }
     }
@@ -123,6 +137,7 @@ export default {
       self.data.rdt_persentase_by_jumlah_sampling.positif = self.data.rdt.positif / self.data.rdt.jumlah_sampling * 100
       self.data.rdt_persentase_by_jumlah_sampling.negatif = self.data.rdt.negatif / self.data.rdt.jumlah_sampling * 100
       self.data.rdt_persentase_by_jumlah_sampling.invalid = self.data.rdt.invalid / self.data.rdt.jumlah_sampling * 100
+      self.data.rdt_persentase_by_jumlah_sampling.proses = self.data.rdt.proses / self.data.rdt.jumlah_sampling * 100
     }
   }
 }

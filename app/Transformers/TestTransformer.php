@@ -14,6 +14,7 @@ class TestTransformer extends TransformerAbstract
                 'positif' => $test->positive,
                 'negatif' => $test->negative,
                 'invalid' => $test->invalid,
+                'proses' => $test->process,
                 'jumlah_sampling' => $test->total,
                 'tanggal' => $test->date,
             ],

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 09, 2020 at 05:17 PM
+-- Generation Time: Jun 10, 2020 at 01:29 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.3.13
 
@@ -48,6 +48,53 @@ INSERT INTO `donations` (`id`, `nama`, `phone`, `image`, `status`, `created_at`,
 (3, 'BakuBantu Mahasiswa Rantau', '0821 8851 5184', 'bakubantu.png', 1, NULL, NULL),
 (4, '#BantuLawanCovid19', '0822 9631 8262', 'sultengbergerak.png', 1, NULL, NULL),
 (5, 'Rapid Test RS Woodward', '082189799500', 'woodward.jpg', 1, '2020-06-05 22:12:21', '2020-06-05 22:12:21');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `genders`
+--
+
+CREATE TABLE `genders` (
+  `day` bigint(20) UNSIGNED NOT NULL,
+  `positive_male` int(11) NOT NULL DEFAULT 0,
+  `positive_female` int(11) NOT NULL DEFAULT 0,
+  `pdp_male` int(11) NOT NULL DEFAULT 0,
+  `pdp_female` int(11) NOT NULL DEFAULT 0,
+  `positive_male_0_14` int(11) NOT NULL DEFAULT 0,
+  `positive_male_15_19` int(11) NOT NULL DEFAULT 0,
+  `positive_male_20_24` int(11) NOT NULL DEFAULT 0,
+  `positive_male_25_49` int(11) NOT NULL DEFAULT 0,
+  `positive_male_50_54` int(11) NOT NULL DEFAULT 0,
+  `positive_male_55` int(11) NOT NULL DEFAULT 0,
+  `positive_female_0_14` int(11) NOT NULL DEFAULT 0,
+  `positive_female_15_19` int(11) NOT NULL DEFAULT 0,
+  `positive_female_20_24` int(11) NOT NULL DEFAULT 0,
+  `positive_female_25_49` int(11) NOT NULL DEFAULT 0,
+  `positive_female_50_54` int(11) NOT NULL DEFAULT 0,
+  `positive_female_55` int(11) NOT NULL DEFAULT 0,
+  `pdp_male_0_14` int(11) NOT NULL DEFAULT 0,
+  `pdp_male_15_19` int(11) NOT NULL DEFAULT 0,
+  `pdp_male_20_24` int(11) NOT NULL DEFAULT 0,
+  `pdp_male_25_49` int(11) NOT NULL DEFAULT 0,
+  `pdp_male_50_54` int(11) NOT NULL DEFAULT 0,
+  `pdp_male_55` int(11) NOT NULL DEFAULT 0,
+  `pdp_female_0_14` int(11) NOT NULL DEFAULT 0,
+  `pdp_female_15_19` int(11) NOT NULL DEFAULT 0,
+  `pdp_female_20_24` int(11) NOT NULL DEFAULT 0,
+  `pdp_female_25_49` int(11) NOT NULL DEFAULT 0,
+  `pdp_female_50_54` int(11) NOT NULL DEFAULT 0,
+  `pdp_female_55` int(11) NOT NULL DEFAULT 0,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `genders`
+--
+
+INSERT INTO `genders` (`day`, `positive_male`, `positive_female`, `pdp_male`, `pdp_female`, `positive_male_0_14`, `positive_male_15_19`, `positive_male_20_24`, `positive_male_25_49`, `positive_male_50_54`, `positive_male_55`, `positive_female_0_14`, `positive_female_15_19`, `positive_female_20_24`, `positive_female_25_49`, `positive_female_50_54`, `positive_female_55`, `pdp_male_0_14`, `pdp_male_15_19`, `pdp_male_20_24`, `pdp_male_25_49`, `pdp_male_50_54`, `pdp_male_55`, `pdp_female_0_14`, `pdp_female_15_19`, `pdp_female_20_24`, `pdp_female_25_49`, `pdp_female_50_54`, `pdp_female_55`, `created_at`, `updated_at`) VALUES
+(80, 116, 43, 120, 79, 8, 7, 9, 65, 9, 18, 3, 2, 3, 24, 4, 7, 13, 11, 3, 63, 9, 21, 8, 8, 2, 41, 6, 14, '2020-06-09 21:20:04', '2020-06-09 21:20:04');
 
 -- --------------------------------------------------------
 
@@ -1135,13 +1182,6 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Fajrian Aidil Pratama', 'fajrianap25@gmail.com', NULL, '$2y$10$2nw0CFqp/jFzl/.aq7GUVeBhDdAcLquREdLBSGHjjyJyC4rojkBU6', 'iWlJxCUDVdbENZynLHRWD29Zq7aQ9vFhlrbjRO6eSlCzsDIryA0jghCkZ1x4', '2020-05-26 06:24:18', '2020-05-26 06:24:18');
-
---
 -- Indexes for dumped tables
 --
 
@@ -1150,6 +1190,12 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `re
 --
 ALTER TABLE `donations`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `genders`
+--
+ALTER TABLE `genders`
+  ADD PRIMARY KEY (`day`);
 
 --
 -- Indexes for table `kabupaten`
@@ -1238,6 +1284,12 @@ ALTER TABLE `donations`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT for table `genders`
+--
+ALTER TABLE `genders`
+  MODIFY `day` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
+
+--
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
@@ -1265,11 +1317,17 @@ ALTER TABLE `tests`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `genders`
+--
+ALTER TABLE `genders`
+  ADD CONSTRAINT `day_foreign_key` FOREIGN KEY (`day`) REFERENCES `stats` (`id`);
 
 --
 -- Constraints for table `local_case_histories`

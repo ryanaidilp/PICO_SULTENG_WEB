@@ -37,3 +37,4 @@ Route::get('/rumahsakit', 'HospitalController@index')->name('hospital.index');
 Route::get('/posko', 'PostsController@index')->name('posts.index');
 
 Route::get('/test', 'TestController@index')->name('test.index');
+Route::get('/gender', 'GendersController@index')->name('gender.index');

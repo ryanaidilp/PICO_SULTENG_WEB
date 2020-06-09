@@ -1,28 +1,38 @@
 <template>
-  <div class="w-full p-3 lg:w-1/4">
-    <div class="p-6 rounded-lg shadow-lg" :class="bg_card">
-      <div class="container flex items-center">
-        <div class="flex-row flex-1 w-3/5 text-left">
-          <h5 class="text-3xl font-bold">{{ title }}</h5>
-          <h5 class="mt-2 text-lg text-left md:mt-0 md:text-sm">Sulawesi Tengah</h5>
-          <h5 class="mt-2 text-base md:text-sm">Indonesia</h5>
-        </div>
-        <div class="w-1/5 ml-2 text-center">
-          <h5 class="text-2xl font-bold" :class="text_color">-</h5>
-          <h5 class="text-4xl font-bold md:text-2xl">{{ cumulative_local }}</h5>
-          <h5 class="mt-2 text-xs font-semibold md:text-sm">{{ cumulative_national }}</h5>
-        </div>
-        <div class="flex flex-col justify-center justify-between w-1/5 ml-2 text-center">
-          <h5 class="text-3xl font-bold" :class="text_color">-</h5>
-          <h5 class="p-0 font-semibold text-white rounded-lg text-md" :class="bg_new">{{ new_local >= 0 ? "+" + new_local : new_local }}</h5>
-          <h5 class="mt-5 text-base font-semibold text-white rounded-md md:mt-3 md:text-sm" :class="bg_new">{{ new_national >= 0 ? "+" + new_national : new_national }}</h5>
-        </div>
-      </div>
+  <div class="p-6 mb-8 rounded-lg shadow-lg lg:mr-5 lg:w-1/4" :class="bg_card">
+    <h4 class="text-3xl font-bold">{{ title }}</h4>
+    <div class="flex items-center justify-between text-base">
+      <p>Sulawesi Tengah</p>
+      <span class="text-3xl font-bold">
+        {{ cumulative_local }}
+          <span
+            class="px-1 py-0 ml-2 text-xl text-white align-middle rounded"
+            :class="bg_new"
+          >{{ new_local >=0 ? "+" + new_local : new_local }}</span>
+      </span>
     </div>
-</div>
+    <div class="flex items-center justify-between text-sm">
+      <p>Indonesia</p>
+      <span class="text-lg font-bold">
+        {{ cumulative_national }}
+        <span
+          class="px-1 py-0 ml-2 text-white align-middle rounded text-md"
+          :class="bg_new"
+        >{{ new_national >= 0 ? "+" + new_national : new_national }}</span>
+      </span>
+    </div>
+  </div>
 </template>
 <script>
 export default {
-    props: ['title', 'cumulative_local', 'new_local', 'cumulative_national', 'new_national', 'bg_card', 'bg_new', 'text_color'],
-}
+  props: [
+    "title",
+    "cumulative_local",
+    "new_local",
+    "cumulative_national",
+    "new_national",
+    "bg_card",
+    "bg_new"
+  ]
+};
 </script>

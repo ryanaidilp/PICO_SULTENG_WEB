@@ -37,10 +37,10 @@
       primaryColor="#ddd"
       secondaryColor="#fff"
     >
-      <rect x="5" y="20" rx="10" ry="10" width="210" height="110" /> 
-		  <rect x="230" y="20" rx="10" ry="10" width="210" height="110" />
-		  <rect x="460" y="20" rx="10" ry="10" width="210" height="110" />
-		  <rect x="690" y="20" rx="10" ry="10" width="210" height="110" />
+      <rect x="5" y="20" rx="10" ry="10" width="210" height="110" />
+      <rect x="230" y="20" rx="10" ry="10" width="210" height="110" />
+      <rect x="460" y="20" rx="10" ry="10" width="210" height="110" />
+      <rect x="690" y="20" rx="10" ry="10" width="210" height="110" />
       <rect x="0" y="150" rx="10" ry="10" width="450" height="210" />
       <rect x="480" y="150" rx="10" ry="10" width="450" height="210" />
     </content-loader>
@@ -50,46 +50,48 @@
           <div
             v-bind:class="{'hidden': openTab !== 1, 'block items-center justify-center flex flex-wrap flex-col md:flex-row w-full': openTab === 1}"
           >
-            <card-case
-              title="Positif"
-              :cumulative_local.sync="totalPositif"
-              :new_local.sync="positifBaru"
-              :cumulative_national.sync="positifNasional"
-              :new_national.sync="positifBaruNasional"
-              bg_card="bg-red-300"
-              bg_new="bg-red-700"
-              text_color="text-red-300"
-            />
-            <card-case
-              title="Dirawat"
-              :cumulative_local.sync="totalDirawat"
-              :new_local.sync="dirawatBaru"
-              :cumulative_national.sync="dirawatNasional"
-              :new_national.sync="dirawatBaruNasional"
-              bg_card="bg-blue-300"
-              bg_new="bg-blue-700"
-              text_color="text-blue-300"
-            />
-            <card-case
-              title="Sembuh"
-              :cumulative_local.sync="totalSembuh"
-              :new_local.sync="sembuhBaru"
-              :cumulative_national.sync="sembuhNasional"
-              :new_national.sync="sembuhBaruNasional"
-              bg_card="bg-green-300"
-              bg_new="bg-green-700"
-              text_color="text-green-300"
-            />
-            <card-case
-              title="Meninggal"
-              :cumulative_local.sync="totalMeninggal"
-              :new_local.sync="meninggalBaru"
-              :cumulative_national.sync="meninggalNasional"
-              :new_national.sync="meninggalBaruNasional"
-              bg_card="bg-orange-300"
-              bg_new="bg-orange-700"
-              text_color="text-orange-300"
-            />
+            <div class="container p-4 mx-auto md:pl-4 md:pr-0">
+              <div>
+                <section class="flex flex-col lg:flex-row lg:flex-no-wrap">
+                  <card-case
+                    title="Positif"
+                    :cumulative_local.sync="totalPositif"
+                    :new_local.sync="positifBaru"
+                    :cumulative_national.sync="positifNasional"
+                    :new_national.sync="positifBaruNasional"
+                    bg_card="bg-red-300"
+                    bg_new="bg-red-700"
+                  />
+                  <card-case
+                    title="Dirawat"
+                    :cumulative_local.sync="totalDirawat"
+                    :new_local.sync="dirawatBaru"
+                    :cumulative_national.sync="dirawatNasional"
+                    :new_national.sync="dirawatBaruNasional"
+                    bg_card="bg-blue-300"
+                    bg_new="bg-blue-700"
+                  />
+                  <card-case
+                    title="Sembuh"
+                    :cumulative_local.sync="totalSembuh"
+                    :new_local.sync="sembuhBaru"
+                    :cumulative_national.sync="sembuhNasional"
+                    :new_national.sync="sembuhBaruNasional"
+                    bg_card="bg-green-300"
+                    bg_new="bg-green-700"
+                  />
+                  <card-case
+                    title="Meninggal"
+                    :cumulative_local.sync="totalMeninggal"
+                    :new_local.sync="meninggalBaru"
+                    :cumulative_national.sync="meninggalNasional"
+                    :new_national.sync="meninggalBaruNasional"
+                    bg_card="bg-orange-300"
+                    bg_new="bg-orange-700"
+                  />
+                </section>
+              </div>
+            </div>
 
             <card-suspect
               title="Pasien Dalam Pengawasan (PDP)"

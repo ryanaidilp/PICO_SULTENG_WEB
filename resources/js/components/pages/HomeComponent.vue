@@ -21,21 +21,14 @@
   </div>
 </template>
 <script>
-import CarouselComponent from "../partial/home/CarouselComponent";
-import CallCenterComponent from "../partial/home/CardCallCenter";
-import Donation from "../partial/home/DonationCard";
-import DataCovid from "../partial/home/DataCovid";
-import InfoCovid from "../partial/home/InfoCovid";
-import Partner from "../partial/PartnerFooter";
-
 export default {
   components: {
-    CarouselComponent,
-    CallCenterComponent,
-    Donation,
-    DataCovid,
-    InfoCovid,
-    Partner
+    CarouselComponent: () => import("../partial/home/CarouselComponent"),
+    CallCenterComponent: () => import("../partial/home/CardCallCenter"),
+    Donation: () => import("../partial/home/DonationCard"),
+    DataCovid: () => import("../partial/home/DataCovid"),
+    InfoCovid: () => import("../partial/home/InfoCovid"),
+    Partner: () => import("../partial/PartnerFooter")
   }
 };
 </script>

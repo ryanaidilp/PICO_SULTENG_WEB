@@ -35,14 +35,13 @@
 </template>
 <script>
 import { ContentLoader } from "vue-content-loader";
-import DataTabs from "./tabs/DataTabs";
 const { format } = require("date-fns");
 const { formatToTimeZone } = require("date-fns-timezone");
 import { id } from "date-fns/locale";
 export default {
   components: {
     ContentLoader,
-    DataTabs,
+    DataTabs: () => import("./tabs/DataTabs"),
   },
   data() {
     return {

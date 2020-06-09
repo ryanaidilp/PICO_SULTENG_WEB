@@ -15,21 +15,21 @@
           <h4 class="font-bold text-left">{{ hospital.nama }}</h4>
           <p class="text-xs text-left md:text-sm">{{ hospital.alamat }}</p>
           <a
-            :href="'tel:'+hospital.telepon"
+            :href.sync="'tel:'+hospital.telepon"
             class="w-full p-2 mx-auto mt-2 text-sm text-left text-white bg-blue-400 rounded-md hover:opacity-75 md:text-base"
           >
             <i class="fas fa-phone-alt"></i>
             {{ hospital.telepon }}
           </a>
           <a
-            :href="'mailto:'+hospital.email"
+            :href.sync="'mailto:'+hospital.email"
             class="w-full p-2 mx-auto mt-2 text-sm text-left text-white bg-blue-600 rounded-md hover:opacity-75 md:text-base"
           >
             <i class="fas fa-mail-bulk"></i>
             {{ hospital.email }}
           </a>
           <a
-            :href="'https://maps.google.com/maps?q='+hospital.latitude+','+hospital.longitude"
+            :href.sync="'https://maps.google.com/maps?q='+hospital.latitude+','+hospital.longitude"
             class="w-full p-2 mx-auto mt-2 text-sm text-left text-white bg-gray-700 rounded-md hover:opacity-75 md:text-base"
           >
             <i class="fas fa-map"></i> Lihat di Map

@@ -22,12 +22,12 @@
       :autoplayTimeout="5000"
     >
       <slide v-for="item in carouselItem" :key="item.phone">
-        <a :href="'tel:'+item.phone" class="hover:opacity-75">
+        <a :href.sync="'tel:'+item.phone" class="hover:opacity-75">
           <img
             v-lazy="'/corona/public/assets/images/' + item.image"
             class="object-fill rounded-lg w-96 sm:w-full xl:max-w-lg xl:max-h-lg"
-            :alt="item.nama"
-            :title="item.nama"
+            :alt.sync="item.nama"
+            :title.sync="item.nama"
           />
         </a>
       </slide>

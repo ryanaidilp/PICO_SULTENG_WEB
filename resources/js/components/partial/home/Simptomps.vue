@@ -5,7 +5,7 @@
       :key="symptomp.id"
       class="flex flex-col p-4 mr-4 text-center align-text-bottom bg-white rounded-md shadow hover:shadow-xl"
     >
-      <img v-lazy="symptomp.image" :alt="symptomp.detail" :title="symptomp.detail" />
+      <img v-lazy="symptomp.image" :alt.sync="symptomp.detail" :title.sync="symptomp.detail" />
       <p class="text-xs font-semibold md:text-base">{{ symptomp.detail }}</p>
     </div>
   </div>

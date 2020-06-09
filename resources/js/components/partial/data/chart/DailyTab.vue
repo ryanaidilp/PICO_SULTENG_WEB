@@ -37,7 +37,7 @@
     </div>
     <div v-if="selected && selectedCase" class="mt-8 border-t-2">
       <keep-alive>
-        <chart-local-positive :wilayah="selected" :kasus="selectedCase" class="mt-4"></chart-local-positive>
+        <chart-local-positive :wilayah.sync="selected" :kasus.sync="selectedCase" class="mt-4"></chart-local-positive>
       </keep-alive>
       <div class="mb-4 text-center">
         <i class="mr-2 fas fa-minus"></i>Rata-Rata Mingguan
@@ -71,13 +71,12 @@
   </div>
 </template>
 <script>
-import ChartLocalPositive from "./DailyChart";
 import VSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
 export default {
   components: {
     VSelect,
-    ChartLocalPositive
+    ChartLocalPositive: () => import("./DailyChart")
   },
   data() {
     return {

@@ -48,15 +48,6 @@
 </template>
 <script>
 import { ContentLoader } from "vue-content-loader";
-import Dashboard from "../partial/data/DashboardData";
-import Partner from "../partial/PartnerFooter";
-import MapTab from "../partial/data/MapTab";
-import ChartTab from "../partial/data/ChartTab";
-import TableTab from "../partial/data/TableTab";
-import ChartSex from "../partial/data/chart/JenisKelamin";
-import NewCase from "../partial/data/chart/NewCase";
-import PieChart from "../partial/data/chart/PieChart";
-import RtChart from "../partial/data/chart/RtChart";
 export default {
   data() {
     return {
@@ -87,16 +78,16 @@ export default {
   components: {
     DataPCR: () => import('../partial/data/DataPCR/index'),
     DataRDT: () => import('../partial/data/DataRDT/index'),
-    RtChart,
-    PieChart,
-    NewCase,
-    ChartSex,
+    RtChart: () => import("../partial/data/chart/RtChart"),
+    PieChart: () => import("../partial/data/chart/PieChart"),
+    NewCase: () => import("../partial/data/chart/NewCase"),
+    ChartSex: () => import("../partial/data/chart/JenisKelamin"),
     ContentLoader,
-    Dashboard,
-    MapTab,
-    TableTab,
-    ChartTab,
-    Partner
+    Dashboard: () => import("../partial/data/DashboardData"),
+    MapTab: () => import("../partial/data/MapTab"),
+    TableTab: () => import("../partial/data/TableTab"),
+    ChartTab: () => import("../partial/data/ChartTab"),
+    Partner: () => import("../partial/PartnerFooter")
   }
 };
 </script>

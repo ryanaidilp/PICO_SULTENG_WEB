@@ -19,10 +19,9 @@
   </div>
 </template>
 <script>
-const Symptomps = () => import("../home/Simptomps")
 export default {
     components: {
-        Symptomps
+        Symptomps: () => import("../home/Simptomps")
     }
 }
 </script>

@@ -13,15 +13,12 @@
 </template>
 
 <script>
-import Partner from "../partial/PartnerFooter";
-import TaskForce from "../partial/contact/TaskForce";
-import Hospital from "../partial/contact/Hospital";
 import { ContentLoader } from "vue-content-loader";
 export default {
   components: {
-    Partner,
-    Hospital,
-    TaskForce
+    Partner: () => import("../partial/PartnerFooter"),
+    Hospital: () => import("../partial/contact/Hospital"),
+    TaskForce: () => import("../partial/contact/TaskForce")
   }
 };
 </script>

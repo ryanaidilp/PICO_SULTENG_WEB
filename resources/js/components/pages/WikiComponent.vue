@@ -18,28 +18,19 @@
   </div>
 </template>
 <script>
-import Partner from "../partial/PartnerFooter";
-import CardLindungi from "../partial/wiki/CardLindungi";
-import CardPhysical from "../partial/wiki/CardPhysical";
-const WhatIsCovid = () => import("../partial/wiki/WhatIsCovid");
-const HowInfected = () => import("../partial/wiki/Infected");
-const Symptomps = () => import("../partial/wiki/GejalaUmum");
-const WhatIfInfected = () => import("../partial/wiki/WhatIfInfected");
-const Mythbuster = () => import("../partial/wiki/Mythbuster");
-const Istilah = () => import("../partial/wiki/Istilah");
 import { ContentLoader } from "vue-content-loader";
 export default {
   components: {
-    Istilah,
+    Istilah: () => import("../partial/wiki/Istilah"),
     ContentLoader,
-    CardLindungi,
-    CardPhysical,
-    WhatIsCovid,
-    HowInfected,
-    Mythbuster,
-    WhatIfInfected,
-    Symptomps,
-    Partner
+    CardLindungi: () => import("../partial/wiki/CardLindungi"),
+    CardPhysical: () => import("../partial/wiki/CardPhysical"),
+    WhatIsCovid: () => import("../partial/wiki/WhatIsCovid"),
+    HowInfected: () => import("../partial/wiki/Infected"),
+    Mythbuster: () => import("../partial/wiki/Mythbuster"),
+    WhatIfInfected: () => import("../partial/wiki/WhatIfInfected"),
+    Symptomps: () => import("../partial/wiki/GejalaUmum"),
+    Partner: () => import("../partial/PartnerFooter")
   }
 };
 </script>

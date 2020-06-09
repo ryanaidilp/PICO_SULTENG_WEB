@@ -114,14 +114,12 @@ const { format } = require("date-fns");
 const { formatToTimeZone } = require("date-fns-timezone");
 import { id } from "date-fns/locale";
 import { ContentLoader } from "vue-content-loader";
-import CardCase from "../home/tabs/CardCase";
-import CardSuspect from "../home/tabs/CardSuspect";
 const NumberFormat = new Intl.NumberFormat("id");
 export default {
   components: {
     ContentLoader,
-    CardCase,
-    CardSuspect
+    CardCase: () => import("../home/tabs/CardCase"),
+    CardSuspect: () => import("../home/tabs/CardSuspect")
   },
   data() {
     return {

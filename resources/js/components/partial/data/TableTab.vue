@@ -41,12 +41,10 @@
   </div>
 </template>
 <script>
-import PositifTab from "./table/TablePositif";
-import OdpPdpTab from "./table/TableODP";
 export default {
   components: {
-    PositifTab,
-    OdpPdpTab
+    PositifTab: () => import("./table/TablePositif"),
+    OdpPdpTab: () => import("./table/TableODP")
   },
   data() {
     return {

@@ -26,12 +26,12 @@
           <div class="tab-content tab-space">
             <div v-bind:class="{'hidden': openTab !== 1, 'block': openTab === 1}">
               <keep-alive>
-                <chart-daily :wilayah="wilayah" :kasus="kasus"></chart-daily>
+                <chart-daily :wilayah.sync="wilayah" :kasus.sync="kasus"></chart-daily>
               </keep-alive>
             </div>
             <div v-bind:class="{'hidden': openTab !== 2, 'block': openTab === 2}">
               <keep-alive>
-                <chart-total :lokasi="lokasi" :kejadian="kejadian"></chart-total>
+                <chart-total :lokasi.sync="lokasi" :kejadian.sync="kejadian"></chart-total>
               </keep-alive>
             </div>
           </div>
@@ -41,13 +41,11 @@
   </div>
 </template>
 <script>
-import ChartDaily from "./chart/DailyTab";
-import ChartTotal from "./chart/CumulativeTab";
 export default {
   props: ["wilayah", "kasus", "kejadian", "lokasi"],
   components: {
-    ChartDaily,
-    ChartTotal
+    ChartDaily: () => import("./chart/DailyTab"),
+    ChartTotal: () => import("./chart/CumulativeTab")
   },
   data() {
     return {

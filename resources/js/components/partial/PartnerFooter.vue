@@ -12,9 +12,9 @@
         >
           <img
             v-lazy="'/corona/public/assets/images/partner/' + partner.image"
-            :alt="partner.name"
+            :alt.sync="partner.name"
             class="object-contain h-20 mx-auto"
-            :title="partner.name"
+            :title.sync="partner.name"
           />
         </a>
       </div>

@@ -42,14 +42,11 @@
   </div>
 </template>
 <script>
-const CardLindungi = () => import("./CardLindung");
-const CardPeriksa = () => import("./CardPeriksa");
-const Simptomps = () => import("./Simptomps")
 export default {
   components: {
-    CardLindungi,
-    CardPeriksa,
-    Simptomps
+    CardLindungi: () => import("./CardLindung"),
+    CardPeriksa: () => import("./CardPeriksa"),
+    Simptomps: () => import("./Simptomps")
   }
 };
 </script>

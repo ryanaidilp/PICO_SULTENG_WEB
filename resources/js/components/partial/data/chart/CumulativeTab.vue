@@ -37,7 +37,7 @@
     </div>
     <div v-if="selected && selectedCase" class="mt-8 border-t-2">
       <keep-alive>
-        <chart-local-cumulative :lokasi="selected" :kejadian="selectedCase" class="mt-4"></chart-local-cumulative>
+        <chart-local-cumulative :lokasi.sync="selected" :kejadian.sync="selectedCase" class="mt-4"></chart-local-cumulative>
       </keep-alive>
     </div>
     <div
@@ -47,13 +47,12 @@
   </div>
 </template>
 <script>
-import ChartLocalCumulative from "./CumulativeChart";
 import VSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
 export default {
   components: {
     VSelect,
-    ChartLocalCumulative
+    ChartLocalCumulative: () => import("./CumulativeChart")
   },
   data() {
     return {

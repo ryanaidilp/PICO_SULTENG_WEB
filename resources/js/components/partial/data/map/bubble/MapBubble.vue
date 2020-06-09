@@ -16,8 +16,6 @@
   </div>
 </template>
 <script>
-import MapLokal from "./MapLokal";
-import MapNasional from "./MapNasional";
 import VSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
 export default {
@@ -33,8 +31,8 @@ export default {
     }
   },
   components: {
-    MapLokal,
-    MapNasional,
+    MapLokal: () => import("./MapLokal"),
+    MapNasional: () => import("./MapNasional"),
     VSelect
   }
 };

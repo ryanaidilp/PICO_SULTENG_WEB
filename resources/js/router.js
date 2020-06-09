@@ -29,6 +29,11 @@ export default new VueRouter({
             path: '/corona/wiki',
             component: WikiComponent
         },
+        {
+            name: "table-data",
+            path: '/corona/table-data',
+            component: () => import('./components/pages/TableData')
+        },
     ],
     mode: 'history',
 })

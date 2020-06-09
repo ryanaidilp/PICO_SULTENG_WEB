@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col flex-grow w-full md:w-1/2 flex-shrinks">
+  <div class="flex flex-col flex-grow w-full lg:w-1/2 flex-shrinks">
     <div class="flex-1 overflow-hidden">
       <div class="p-5 rounded-lg">
         <div class="flex flex-row items-center bg-white rounded-lg shadow-lg">

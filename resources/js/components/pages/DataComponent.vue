@@ -33,11 +33,21 @@
       </keep-alive>
     </div>
     <chart-sex class="mt-8"></chart-sex>
-    <div class="p-6 mx-4 mt-16 text-center bg-white rounded-lg shadow-lg hover:text-blue-400">
+    <div class="flex-col p-6 mx-4 mt-16 text-center bg-white rounded-lg shadow-lg md:flex-row hover:text-blue-400">
+      <router-link
+        to="/corona/table-data"
+        target="_blank"
+        class="mx-auto text-sm font-bold lg:text-xl"
+      >
+        Akses DATA publik - Data PICO SulTeng disini
+        <i class="fas fa-angle-right"></i>
+      </router-link>
+    </div>
+    <div class="flex-col p-6 mx-4 mt-16 text-center bg-white rounded-lg shadow-lg md:flex-row hover:text-blue-400">
       <a
         href="https://banuacoders.com/api/pico"
         target="_blank"
-        class="mx-auto text-sm font-bold lg:text-3xl"
+        class="mx-auto text-sm font-bold lg:text-xl"
       >
         Akses API publik - Data PICO SulTeng disini
         <i class="fas fa-angle-right"></i>

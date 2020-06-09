@@ -114,7 +114,7 @@ export default {
         {
           id: "2",
           width: "w-1/4",
-          link: "https://kawalcovid.id",
+          link: "https://kawalcovid19.id",
           image: "kawalcovid.png",
           name: "Kawal Covid"
         },

@@ -156,9 +156,9 @@ export default {
         {
           id: "8",
           width: "w-1/4",
-          link: "https://highcharts.com/",
-          image: "highchart.png",
-          name: "Highcharts"
+          link: "https://anychart.com/",
+          image: "anychart.png",
+          name: "AnyChart"
         },
         {
           id: "9",

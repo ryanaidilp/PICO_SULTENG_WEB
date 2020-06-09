@@ -110,7 +110,7 @@ export default {
           type: "number"
         }
       ],
-      rows: null,
+      rows: [],
       selected: "Sulawesi Tengah",
       options: ["Sulawesi Tengah", "Indonesia"]
     };

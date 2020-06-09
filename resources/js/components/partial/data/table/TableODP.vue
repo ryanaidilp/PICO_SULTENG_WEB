@@ -61,7 +61,7 @@ export default {
           type: "number"
         }
       ],
-      rows: null
+      rows: []
     };
   },
   methods: {

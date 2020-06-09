@@ -35,3 +35,5 @@ Route::get('/donasi', 'DonationController@index')->name('donation.index');
 
 Route::get('/rumahsakit', 'HospitalController@index')->name('hospital.index');
 Route::get('/posko', 'PostsController@index')->name('posts.index');
+
+Route::get('/test', 'TestController@index')->name('test.index');

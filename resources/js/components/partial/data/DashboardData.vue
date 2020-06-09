@@ -45,30 +45,30 @@
     <div v-else class="flex flex-col flex-wrap items-center justify-center block w-full mt-8 text-gray-800 md:flex-row">
       <card-case
         title="Positif"
-        :cumulative_local="totalPositif"
-        :new_local="positifBaru"
-        :cumulative_national="positifNasional"
-        :new_national="positifBaruNasional"
+        :cumulative_local.sync="totalPositif"
+        :new_local.sync="positifBaru"
+        :cumulative_national.sync="positifNasional"
+        :new_national.sync="positifBaruNasional"
         bg_card="bg-red-300"
         bg_new="bg-red-400"
         text_color="text-red-300"
       />
       <card-case
         title="Sembuh"
-        :cumulative_local="totalSembuh"
-        :new_local="sembuhBaru"
-        :cumulative_national="sembuhNasional"
-        :new_national="sembuhBaruNasional"
+        :cumulative_local.sync="totalSembuh"
+        :new_local.sync="sembuhBaru"
+        :cumulative_national.sync="sembuhNasional"
+        :new_national.sync="sembuhBaruNasional"
         bg_card="bg-green-300"
         bg_new="bg-green-400"
         text_color="text-green-300"
       />
       <card-case
         title="Meninggal"
-        :cumulative_local="totalMeninggal"
-        :new_local="meninggalBaru"
-        :cumulative_national="meninggalNasional"
-        :new_national="meninggalBaruNasional"
+        :cumulative_local.sync="totalMeninggal"
+        :new_local.sync="meninggalBaru"
+        :cumulative_national.sync="meninggalNasional"
+        :new_national.sync="meninggalBaruNasional"
         bg_card="bg-orange-300"
         bg_new="bg-orange-400"
         text_color="text-orange-300"
@@ -76,20 +76,20 @@
 
       <card-suspect
         title="Pasien Dalam Pengawasan (PDP)"
-        :new_case="PDPBaru"
-        :new_finished_case="selesaiPDPBaru"
-        :active_case="PDPAktif"
-        :total_case="totalPDP"
-        :total_finished_case="selesaiPDP"
+        :new_case.sync="PDPBaru"
+        :new_finished_case.sync="selesaiPDPBaru"
+        :active_case.sync="PDPAktif"
+        :total_case.sync="totalPDP"
+        :total_finished_case.sync="selesaiPDP"
         status="Pengawasan"
       />
       <card-suspect
         title="Orang Dalam Pemantauan (ODP)"
-        :new_case="ODPBaru"
-        :new_finished_case="selesaiODPBaru"
-        :active_case="ODPAktif"
-        :total_case="totalODP"
-        :total_finished_case="selesaiODP"
+        :new_case.sync="ODPBaru"
+        :new_finished_case.sync="selesaiODPBaru"
+        :active_case.sync="ODPAktif"
+        :total_case.sync="totalODP"
+        :total_finished_case.sync="selesaiODP"
         status="Pemantauan"
       />
     </div>

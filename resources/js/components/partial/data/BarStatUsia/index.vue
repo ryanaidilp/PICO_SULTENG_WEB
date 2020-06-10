@@ -373,7 +373,6 @@ export default {
     },
     changeGroupUsia(stat) {
       const self = this;
-      console.log(this.jsonDataRekapitulasiSulteng)
       let filter = "positif_per_usia";
       this.resetBarChartUmurJenisKelaminData();
       if (stat === "PDP") {

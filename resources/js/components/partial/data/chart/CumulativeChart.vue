@@ -1,14 +1,14 @@
 <template>
   <div style="height:400px">
     <div class="absolute flex justify-center w-full">
-      <loading
+      <!-- <loading
         :active.sync="isLoading"
         :opacity="0.8"
         :height="300"
         :width="128"
         loader="spinner"
         color="#59F"
-      ></loading>
+      ></loading>-->
     </div>
     <keep-alive>
       <canvas id="chart-cumulative" aria-label="Chart Kumulatif COVID-19" role="img"></canvas>
@@ -21,90 +21,28 @@ import Chart from "chart.js";
 import "chart.js/dist/Chart.min";
 import { id } from "date-fns/locale";
 const { format } = require("date-fns");
-var dataCumulativeChart = {
-  type: "bar",
-  data: {
-    labels: [],
-    datasets: [
-      {
-        label: "",
-        data: [],
-        type: "line",
-        fill: false,
-        pointRadius: 1,
-        backgroundColor: "rgba(255, 99, 132, 0.2)",
-        borderColor: "rgba(255, 99, 132, 0.6)"
-      },
-      {
-        label: "",
-        data: [],
-        type: "line",
-        fill: false,
-        pointRadius: 1,
-        backgroundColor: "rgba(75, 192, 192, 0.2)",
-        borderColor: "rgba(75, 192, 192, 0.6)"
-      },
-      {
-        label: "",
-        data: [],
-        type: "line",
-        fill: false,
-        pointRadius: 1,
-        backgroundColor: "rgba(255, 159, 64, 0.2)",
-        borderColor: "rgba(255, 159, 64, 0.6)"
-      }
-    ]
-  },
-  options: {
-    plugins: {
-      datalabels: {
-        display: false
-      }
-    },
-    scales: {
-      yAxes: [
-        {
-          position: "right",
-          ticks: {
-            beginAtZero: true
-          }
-        }
-      ],
-      xAxes: [
-        {
-          ticks: {
-            callback: function(value, index, values) {
-              var data = value.split(" ");
-              return data[0] + data[1];
-            },
-            maxRotation: 90,
-            minRotation: 90
-          },
-          display: true,
-          scaleLabel: { display: true, labelString: "Tanggal" }
-        }
-      ]
-    },
-    maintainAspectRatio: false,
-    responsive: true,
-    tooltips: {
-      mode: "index",
-      intersect: false,
-      backgroundColor: "rgba(255,255,255,1)",
-      titleFontColor: "#000",
-      bodyFontColor: "#000",
-      borderColor: "#222",
-      borderWidth: 1
-    },
-    hover: { mode: "index", intersect: false },
-    legend: { position: "bottom", usePointStyle: true }
-  }
-};
 export default {
   components: {
     Loading
   },
-  props: ["kejadian", "lokasi"],
+  props: {
+    kejadian: {
+      type: String,
+      default: () => "Positif"
+    },
+    lokasi: {
+      type: Object,
+      default: () => "Sulawesi Tengah"
+    },
+    propsDataRekapitulasiProv: {
+      type: Array,
+      default: () => []
+    },
+    propsDataRekapitulasiNasional: {
+      type: Array,
+      default: () => []
+    }
+  },
   data() {
     return {
       isLoading: false,
@@ -126,7 +64,243 @@ export default {
       finishedPdpBgColor: "rgba(242, 217, 132, 1)",
       finishedPdpBorderColor: "rgba(242, 217, 132, 0.8)",
       activePdpBgColor: "rgba(211, 84, 0, 1)",
-      activePdpBorderColor: "rgba(211, 84, 0, 0.8)"
+      activePdpBorderColor: "rgba(211, 84, 0, 0.8)",
+      jsonDataHarianProvinsi: [],
+      jsonDataHarianNasional: [],
+      jsonDataKabupaten: [
+        {
+          no: 1,
+          nama: "Banggai",
+          dataHarian: []
+        },
+        {
+          no: 2,
+          nama: "Banggai Kepulauan",
+          dataHarian: []
+        },
+        {
+          no: 3,
+          nama: "Banggai Laut",
+          dataHarian: []
+        },
+        {
+          no: 4,
+          nama: "Buol",
+          dataHarian: []
+        },
+        {
+          no: 5,
+          nama: "Donggala",
+          dataHarian: []
+        },
+        {
+          no: 6,
+          nama: "Morowali",
+          dataHarian: []
+        },
+        {
+          no: 7,
+          nama: "Morowali Utara",
+          dataHarian: []
+        },
+        {
+          no: 8,
+          nama: "Parigi Moutong",
+          dataHarian: []
+        },
+        {
+          no: 9,
+          nama: "Poso",
+          dataHarian: []
+        },
+        {
+          no: 10,
+          nama: "Sigi",
+          dataHarian: []
+        },
+        {
+          no: 11,
+          nama: "Tojo Una-Una",
+          dataHarian: []
+        },
+        {
+          no: 12,
+          nama: "Toli-Toli",
+          dataHarian: []
+        },
+        {
+          no: 13,
+          nama: "Kota Palu",
+          dataHarian: []
+        }
+      ],
+      chartHarianOption: {
+        type: "bar",
+        data: {
+          labels: [],
+          datasets: [
+            {
+              label: "",
+              data: [],
+              type: "line",
+              fill: false,
+              pointRadius: 1,
+              backgroundColor: "",
+              borderColor: ""
+            },
+            {
+              label: "",
+              data: [],
+              type: "line",
+              fill: false,
+              pointRadius: 1,
+              backgroundColor: "",
+              borderColor: ""
+            },
+            {
+              label: "",
+              data: [],
+              type: "line",
+              fill: false,
+              pointRadius: 1,
+              backgroundColor: "",
+              borderColor: ""
+            },
+            {
+              label: "",
+              data: [],
+              type: "line",
+              fill: false,
+              pointRadius: 1,
+              backgroundColor: "",
+              borderColor: ""
+            }
+          ]
+        },
+        options: {
+          plugins: {
+            datalabels: {
+              display: false
+            }
+          },
+          scales: {
+            yAxes: [
+              {
+                position: "right",
+                ticks: {
+                  beginAtZero: true
+                }
+              }
+            ],
+            xAxes: [
+              {
+                ticks: {
+                  callback: function(value, index, values) {
+                    var data = value.split(" ");
+                    return data[0] + data[1];
+                  },
+                  maxRotation: 90,
+                  minRotation: 90
+                },
+                display: true,
+                scaleLabel: { display: true, labelString: "Tanggal" }
+              }
+            ]
+          },
+          maintainAspectRatio: false,
+          responsive: true,
+          tooltips: {
+            mode: "index",
+            intersect: false,
+            backgroundColor: "rgba(255,255,255,1)",
+            titleFontColor: "#000",
+            bodyFontColor: "#000",
+            borderColor: "#222",
+            borderWidth: 1
+          },
+          hover: { mode: "index", intersect: false },
+          legend: { position: "bottom", usePointStyle: true }
+        }
+      },
+      chartOdpOption: {
+        type: "bar",
+        data: {
+          labels: [],
+          datasets: [
+            {
+              label: "",
+              data: [],
+              type: "line",
+              fill: false,
+              pointRadius: 1,
+              backgroundColor: "",
+              borderColor: ""
+            },
+            {
+              label: "",
+              data: [],
+              type: "line",
+              fill: false,
+              pointRadius: 1,
+              backgroundColor: "",
+              borderColor: ""
+            },
+            {
+              label: "",
+              data: [],
+              type: "line",
+              fill: false,
+              pointRadius: 1,
+              backgroundColor: "",
+              borderColor: ""
+            }
+          ]
+        },
+        options: {
+          plugins: {
+            datalabels: {
+              display: false
+            }
+          },
+          scales: {
+            yAxes: [
+              {
+                position: "right",
+                ticks: {
+                  beginAtZero: true
+                }
+              }
+            ],
+            xAxes: [
+              {
+                ticks: {
+                  callback: function(value, index, values) {
+                    var data = value.split(" ");
+                    return data[0] + data[1];
+                  },
+                  maxRotation: 90,
+                  minRotation: 90
+                },
+                display: true,
+                scaleLabel: { display: true, labelString: "Tanggal" }
+              }
+            ]
+          },
+          maintainAspectRatio: false,
+          responsive: true,
+          tooltips: {
+            mode: "index",
+            intersect: false,
+            backgroundColor: "rgba(255,255,255,1)",
+            titleFontColor: "#000",
+            bodyFontColor: "#000",
+            borderColor: "#222",
+            borderWidth: 1
+          },
+          hover: { mode: "index", intersect: false },
+          legend: { position: "bottom", usePointStyle: true }
+        }
+      }
     };
   },
   methods: {
@@ -141,151 +315,397 @@ export default {
         options: chartData.options
       });
     },
-    loadData: function() {
-      this.isLoading = true;
-      var baseurl = null;
-      if (this.$props.lokasi == "Sulawesi Tengah") {
-        baseurl = "statistik";
-      } else if (this.$props.lokasi == "Indonesia") {
-        baseurl = "nasional";
-      } else {
-        baseurl = "statistik/" + this.$props.lokasi;
-      }
-      axios.get("/corona/api/" + baseurl).then(response => {
-        var data = response.data.data;
-        var label = [];
-        var positive = [];
-        var cumulativePositive = [];
-        var recovered = [];
-        var cumulativeRecovered = [];
-        var deceased = [];
-        var cumulativeDeceased = [];
-        var cumulativeUnderTreatment = [];
-        var ODP = [];
-        var finishedODP = [];
-        var cumulativeODP = [];
-        var PDP = [];
-        var finishedPDP = [];
-        var cumulativePDP = [];
-
-        for (let i = 0; i < data.length; i++) {
-          var abs = data[i].tanggal.split("/");
-          var tanggal = null;
-          if (abs.length >= 3) {
-            var date = abs[2].split(" ");
-            date = date[0];
-            var month = abs[1];
-            var year = abs[0];
-            tanggal = year + "-" + month + "-" + date;
-          } else {
-            tanggal = data[i].tanggal;
-          }
-          var tanggal = format(Date.parse(tanggal), "dd MMM yyyy", {
-            locale: id
-          });
-          label.push(tanggal);
-          positive.push(data[i].kasus_baru.positif);
-          cumulativePositive.push(data[i].kumulatif.positif);
-          cumulativeUnderTreatment.push(
-            data[i].kumulatif.positif -
-              (data[i].kumulatif.meninggal + data[i].kumulatif.sembuh)
-          );
-          recovered.push(data[i].kasus_baru.sembuh);
-          cumulativeRecovered.push(data[i].kumulatif.sembuh);
-          deceased.push(data[i].kasus_baru.meninggal);
-          cumulativeDeceased.push(data[i].kumulatif.meninggal);
-          if (this.$props.lokasi != "Indonesia") {
-            ODP.push(data[i].aktif.ODP);
-            finishedODP.push(data[i].kumulatif.selesai_ODP);
-            cumulativeODP.push(data[i].kumulatif.ODP);
-            PDP.push(data[i].aktif.PDP);
-            finishedPDP.push(data[i].kumulatif.selesai_PDP);
-            cumulativePDP.push(data[i].kumulatif.PDP);
-          }
-        }
-        if (dataCumulativeChart.data.datasets.length > 3) {
-          dataCumulativeChart.data.datasets.pop();
-        }
-        switch (this.$props.kejadian) {
-          case "Positif":
-            dataCumulativeChart.data.datasets[1].backgroundColor = this.deceasedBgColor;
-            dataCumulativeChart.data.datasets[1].borderColor = this.deceasedBorderColor;
-            dataCumulativeChart.data.datasets[1].label = "Positif - Meninggal";
-            dataCumulativeChart.data.datasets[1].data = cumulativeDeceased;
-            dataCumulativeChart.data.datasets[2].backgroundColor = this.recoveredBgColor;
-            dataCumulativeChart.data.datasets[2].borderColor = this.recoveredBorderColor;
-            dataCumulativeChart.data.datasets[2].label = "Positif - Sembuh";
-            dataCumulativeChart.data.datasets[2].data = cumulativeRecovered;
-            var datasetUnderTreatment = {
-              label: "Positif - Dirawat",
-              data: cumulativeUnderTreatment,
-              type: "line",
-              fill: false,
-              pointRadius: 1,
-              backgroundColor: this.activeOdpBgColor,
-              borderColor: this.activeOdpBorderColor
-            };
-            dataCumulativeChart.data.datasets.push(datasetUnderTreatment);
-            dataCumulativeChart.data.datasets[0].backgroundColor = this.positiveBgColor;
-            dataCumulativeChart.data.datasets[0].borderColor = this.positiveBorderColor;
-            dataCumulativeChart.data.datasets[0].label = "Positif - Total";
-            dataCumulativeChart.data.datasets[0].data = cumulativePositive;
-            break;
-          case "PDP":
-            dataCumulativeChart.data.datasets[1].backgroundColor = this.finishedPdpBgColor;
-            dataCumulativeChart.data.datasets[1].borderColor = this.finishedPdpBorderColor;
-            dataCumulativeChart.data.datasets[1].label = "Selesai";
-            dataCumulativeChart.data.datasets[1].data = finishedPDP;
-            dataCumulativeChart.data.datasets[2].backgroundColor = this.activePdpBgColor;
-            dataCumulativeChart.data.datasets[2].borderColor = this.activePdpBorderColor;
-            dataCumulativeChart.data.datasets[2].label = "Aktif";
-            dataCumulativeChart.data.datasets[2].data = PDP;
-            dataCumulativeChart.data.datasets[0].backgroundColor = this.pdpBgColor;
-            dataCumulativeChart.data.datasets[0].borderColor = this.pdpBorderColor;
-            dataCumulativeChart.data.datasets[0].label = "Total PDP";
-            dataCumulativeChart.data.datasets[0].data = cumulativePDP;
-            break;
-          case "ODP":
-            dataCumulativeChart.data.datasets[1].backgroundColor = this.finishedOdpBgColor;
-            dataCumulativeChart.data.datasets[1].borderColor = this.finishedOdpBorderColor;
-            dataCumulativeChart.data.datasets[1].label = "Selesai";
-            dataCumulativeChart.data.datasets[1].data = finishedODP;
-            dataCumulativeChart.data.datasets[2].backgroundColor = this.activeOdpBgColor;
-            dataCumulativeChart.data.datasets[2].borderColor = this.activeOdpBorderColor;
-            dataCumulativeChart.data.datasets[2].label = "Aktif";
-            dataCumulativeChart.data.datasets[2].data = ODP;
-            dataCumulativeChart.data.datasets[0].backgroundColor = this.odpBgColor;
-            dataCumulativeChart.data.datasets[0].borderColor = this.odpBorderColor;
-            dataCumulativeChart.data.datasets[0].label = "Total ODP";
-            dataCumulativeChart.data.datasets[0].data = cumulativeODP;
-            break;
-        }
-        dataCumulativeChart.data.labels = label;
-        this.chartCumulative.update();
-        this.isLoading = false;
+    dateFormat(date) {
+      var tanggal = format(Date.parse(date), "dd MMM yyyy", {
+        locale: id
       });
+      return tanggal;
     },
-    updater: function() {
-      setInterval(() => {
-        this.loadData();
-        this.chartCumulative();
-      }, 5 * 60 * 1000);
+    fetchDataProvinsi() {
+      const self = this;
+      let total = [];
+      let selesai = [];
+      let meninggal = [];
+      let aktif = [];
+      let label = [];
+      let bgColorTotal = "";
+      let borderColorTotal = "";
+      let bgColorAktif = "";
+      let borderColorAktif = "";
+      let bgColorSelesai = "";
+      let borderColorSelesai = "";
+      let bgColorMeninggal = "";
+      let borderColorMeninggal = "";
+      this.jsonDataHarianProvinsi.forEach(element => {
+        label.push(self.dateFormat(element.tanggal));
+        if (this.kejadian === "Positif") {
+          total.push(element.kumulatif.positif);
+          selesai.push(element.kumulatif.sembuh);
+          meninggal.push(element.kumulatif.meninggal);
+          aktif.push(element.aktif.dalam_perawatan);
+          bgColorTotal = this.positiveBgColor;
+          borderColorTotal = this.positiveBorderColor;
+          bgColorAktif = this.activeOdpBgColor;
+          borderColorAktif = this.activeOdpBorderColor;
+          bgColorMeninggal = this.deceasedBgColor;
+          borderColorMeninggal = this.deceasedBorderColor;
+          bgColorSelesai = this.recoveredBgColor;
+          borderColorSelesai = this.recoveredBorderColor;
+        } else if (this.kejadian === "PDP") {
+          total.push(element.kumulatif.PDP);
+          selesai.push(element.kumulatif.selesai_PDP);
+          aktif.push(element.aktif.PDP);
+          bgColorTotal = this.pdpBgColor;
+          borderColorTotal = this.pdpBorderColor;
+          bgColorAktif = this.activePdpBgColor;
+          borderColorAktif = this.activePdpBorderColor;
+          bgColorSelesai = this.finishedPdpBgColor;
+          borderColorSelesai = this.finishedPdpBorderColor;
+        } else if (this.kejadian === "ODP") {
+          total.push(element.kumulatif.ODP);
+          selesai.push(element.kumulatif.selesai_ODP);
+          aktif.push(element.aktif.ODP);
+          bgColorTotal = this.odpBgColor;
+          borderColorTotal = this.odpBorderColor;
+          bgColorAktif = this.activeOdpBgColor;
+          borderColorAktif = this.activeOdpBorderColor;
+          bgColorSelesai = this.finishedOdpBgColor;
+          borderColorSelesai = this.finishedOdpBorderColor;
+        }
+      });
+      if (self.kejadian === "PDP" || self.kejadian === "ODP") {
+        self.drawChartOdp(
+          label,
+          total,
+          aktif,
+          selesai,
+          bgColorTotal,
+          borderColorTotal,
+          bgColorAktif,
+          borderColorAktif,
+          bgColorSelesai,
+          borderColorSelesai
+        );
+      } else {
+        self.drawChartHarian(
+          label,
+          total,
+          aktif,
+          selesai,
+          meninggal,
+          bgColorTotal,
+          borderColorTotal,
+          bgColorAktif,
+          borderColorAktif,
+          bgColorSelesai,
+          borderColorSelesai,
+          bgColorMeninggal,
+          borderColorMeninggal
+        );
+      }
+    },
+    fetchDataKab(kode) {
+      const self = this;
+      let total = [];
+      let selesai = [];
+      let meninggal = [];
+      let aktif = [];
+      let label = [];
+      let bgColorTotal = "";
+      let borderColorTotal = "";
+      let bgColorAktif = "";
+      let borderColorAktif = "";
+      let bgColorSelesai = "";
+      let borderColorSelesai = "";
+      let bgColorMeninggal = "";
+      let borderColorMeninggal = "";
+      this.jsonDataKabupaten.forEach(kabupaten => {
+        if (kabupaten.no === kode) {
+          kabupaten.dataHarian.forEach(element => {
+            label.push(self.dateFormat(element.tanggal));
+            if (this.kejadian === "Positif") {
+              total.push(element.kasus_baru.positif);
+              selesai.push(element.kasus_baru.sembuh);
+              meninggal.push(element.kasus_baru.meninggal);
+              let dirawat =
+                element.kasus_baru.positif -
+                (element.kasus_baru.sembuh + element.kasus_baru.meninggal);
+              aktif.push(dirawat);
+              bgColorTotal = this.positiveBgColor;
+              borderColorTotal = this.positiveBorderColor;
+              bgColorAktif = this.activeOdpBgColor;
+              borderColorAktif = this.activeOdpBorderColor;
+              bgColorMeninggal = this.deceasedBgColor;
+              borderColorMeninggal = this.deceasedBorderColor;
+              bgColorSelesai = this.recoveredBgColor;
+              borderColorSelesai = this.recoveredBorderColor;
+            } else if (this.kejadian === "PDP") {
+              total.push(element.kasus_baru.PDP);
+              selesai.push(element.selesai.PDP);
+              let dirawat = element.kasus_baru.PDP - element.selesai.PDP;
+              aktif.push(dirawat);
+              bgColorTotal = this.pdpBgColor;
+              borderColorTotal = this.pdpBorderColor;
+              bgColorAktif = this.activePdpBgColor;
+              borderColorAktif = this.activePdpBorderColor;
+              bgColorSelesai = this.finishedPdpBgColor;
+              borderColorSelesai = this.finishedPdpBorderColor;
+            } else if (this.kejadian === "ODP") {
+              total.push(element.kasus_baru.ODP);
+              selesai.push(element.selesai.ODP);
+              let dirawat = element.kasus_baru.ODP - element.selesai.ODP;
+              aktif.push(dirawat);
+              bgColorTotal = this.odpBgColor;
+              borderColorTotal = this.odpBorderColor;
+              bgColorAktif = this.activeOdpBgColor;
+              borderColorAktif = this.activeOdpBorderColor;
+              bgColorSelesai = this.finishedOdpBgColor;
+              borderColorSelesai = this.finishedOdpBorderColor;
+            }
+          });
+        }
+      });
+      let kumulatif = [];
+      let dalam_perawatan = [];
+      let sudah_sembuh = [];
+      let tewas = [];
+      total.reduce(function(a, b, i) {
+        return (kumulatif[i] = a + b);
+      }, 0);
+      selesai.reduce(function(a, b, i) {
+        return (sudah_sembuh[i] = a + b);
+      }, 0);
+      aktif.reduce(function(a, b, i) {
+        return (dalam_perawatan[i] = a + b);
+      }, 0);
+      meninggal.reduce(function(a, b, i) {
+        return (tewas[i] = a + b);
+      }, 0);
+      if (self.kejadian === "PDP" || self.kejadian === "ODP") {
+        self.drawChartOdp(
+          label,
+          kumulatif,
+          dalam_perawatan,
+          sudah_sembuh,
+          bgColorTotal,
+          borderColorTotal,
+          bgColorAktif,
+          borderColorAktif,
+          bgColorSelesai,
+          borderColorSelesai
+        );
+      } else {
+        self.drawChartHarian(
+          label,
+          kumulatif,
+          dalam_perawatan,
+          sudah_sembuh,
+          tewas,
+          bgColorTotal,
+          borderColorTotal,
+          bgColorAktif,
+          borderColorAktif,
+          bgColorSelesai,
+          borderColorSelesai,
+          bgColorMeninggal,
+          borderColorMeninggal
+        );
+      }
+    },
+    fetchDataNasional() {
+      const self = this;
+      let total = [];
+      let selesai = [];
+      let meninggal = [];
+      let aktif = [];
+      let label = [];
+      let bgColorTotal = "";
+      let borderColorTotal = "";
+      let bgColorAktif = "";
+      let borderColorAktif = "";
+      let bgColorSelesai = "";
+      let borderColorSelesai = "";
+      let bgColorMeninggal = "";
+      let borderColorMeninggal = "";
+      this.jsonDataHarianNasional.forEach(element => {
+        label.push(self.dateFormat(element.tanggal));
+        total.push(element.kumulatif.positif);
+        selesai.push(element.kumulatif.sembuh);
+        meninggal.push(element.kumulatif.meninggal);
+        aktif.push(element.kumulatif.dalam_perawatan);
+        bgColorTotal = this.positiveBgColor;
+        borderColorTotal = this.positiveBorderColor;
+        bgColorAktif = this.activeOdpBgColor;
+        borderColorAktif = this.activeOdpBorderColor;
+        bgColorMeninggal = this.deceasedBgColor;
+        borderColorMeninggal = this.deceasedBorderColor;
+        bgColorSelesai = this.recoveredBgColor;
+        borderColorSelesai = this.recoveredBorderColor;
+      });
+      self.drawChartHarian(
+        label,
+        total,
+        aktif,
+        selesai,
+        meninggal,
+        bgColorTotal,
+        borderColorTotal,
+        bgColorAktif,
+        borderColorAktif,
+        bgColorSelesai,
+        borderColorSelesai,
+        bgColorMeninggal,
+        borderColorMeninggal
+      );
+    },
+    fetchData() {
+      const self = this;
+      self.isLoading = true;
+      if (self.lokasi === "Sulawesi Tengah") {
+        self.fetchDataProvinsi();
+      } else if (self.lokasi === "Indonesia") {
+        self.fetchDataNasional();
+      } else {
+        self.fetchDataKab(self.lokasi);
+      }
+      self.isLoading = false;
+    },
+    drawChartHarian(
+      label,
+      total,
+      aktif,
+      selesai,
+      meninggal,
+      bgColorTotal,
+      borderColorTotal,
+      bgColorAktif,
+      borderColorAktif,
+      bgColorSelesai,
+      borderColorSelesai,
+      bgColorMeninggal,
+      borderColorMeninggal
+    ) {
+      const self = this;
+      self.chartHarianOption.data.labels = label;
+      self.chartHarianOption.data.datasets[0].data = total;
+      self.chartHarianOption.data.datasets[0].label = "POSITIF - TOTAL";
+      self.chartHarianOption.data.datasets[0].backgroundColor = bgColorTotal;
+      self.chartHarianOption.data.datasets[0].borderColor = borderColorTotal;
+      self.chartHarianOption.data.datasets[1].data = meninggal;
+      self.chartHarianOption.data.datasets[1].label = "POSITIF - MENINGGAL";
+      self.chartHarianOption.data.datasets[1].backgroundColor = bgColorMeninggal;
+      self.chartHarianOption.data.datasets[1].borderColor = borderColorMeninggal;
+      self.chartHarianOption.data.datasets[2].data = selesai;
+      self.chartHarianOption.data.datasets[2].label = "POSITIF - SEMBUH";
+      self.chartHarianOption.data.datasets[2].backgroundColor = bgColorSelesai;
+      self.chartHarianOption.data.datasets[2].borderColor = borderColorSelesai;
+      self.chartHarianOption.data.datasets[3].data = aktif;
+      self.chartHarianOption.data.datasets[3].label = "POSITIF - DIRAWAT";
+      self.chartHarianOption.data.datasets[3].backgroundColor = bgColorAktif;
+      self.chartHarianOption.data.datasets[3].borderColor = borderColorAktif;
+      self.createCumulativeChart("chart-cumulative", self.chartHarianOption);
+      self.chartCumulative.update();
+    },
+    drawChartOdp(
+      label,
+      total,
+      aktif,
+      selesai,
+      bgColorTotal,
+      borderColorTotal,
+      bgColorAktif,
+      borderColorAktif,
+      bgColorSelesai,
+      borderColorSelesai
+    ) {
+      const self = this;
+      self.chartOdpOption.data.labels = label;
+      self.chartOdpOption.data.datasets[0].data = total;
+      self.chartOdpOption.data.datasets[0].label = "Total kejadian";
+      self.chartOdpOption.data.datasets[0].backgroundColor = bgColorTotal;
+      self.chartOdpOption.data.datasets[0].borderColor = borderColorTotal;
+      self.chartOdpOption.data.datasets[1].data = selesai;
+      self.chartOdpOption.data.datasets[1].label = "Selesai";
+      self.chartOdpOption.data.datasets[1].backgroundColor = bgColorSelesai;
+      self.chartOdpOption.data.datasets[1].borderColor = borderColorSelesai;
+      self.chartOdpOption.data.datasets[2].data = aktif;
+      self.chartOdpOption.data.datasets[2].label = "Aktif";
+      self.chartOdpOption.data.datasets[2].backgroundColor = bgColorAktif;
+      self.chartOdpOption.data.datasets[2].borderColor = borderColorAktif;
+      self.createCumulativeChart("chart-cumulative", self.chartOdpOption);
+      self.chartCumulative.update();
+    },
+    groupDataKab() {
+      this.jsonDataHarianProvinsi.forEach(element => {
+        const temp1 = {
+          hari_ke: element.hari_ke,
+          tanggal: element.tanggal
+        };
+        const temp2 = {
+          kasus_baru: {
+            positif: 0,
+            sembuh: 0,
+            meninggal: 0,
+            ODP: 0,
+            PDP: 0
+          },
+          aktif: {
+            ODP: 0,
+            PDP: 0
+          },
+          selesai: {
+            ODP: 0,
+            PDP: 0
+          }
+        };
+
+        this.jsonDataKabupaten.forEach(kabupaten => {
+          let temp4 = { ...temp1, ...temp2 };
+          element.daftar_kabupaten.forEach(kab => {
+            if (kabupaten.no === kab.no) {
+              const temp5 = {
+                kasus_baru: { ...kab.kasus_baru },
+                aktif: { ...kab.aktif },
+                selesai: { ...kab.selesai }
+              };
+              temp4 = {
+                ...temp1,
+                ...temp5
+              };
+            } else {
+            }
+          });
+          kabupaten.dataHarian.push(temp4);
+        });
+      });
     }
   },
   watch: {
+    propsDataRekapitulasiProv() {
+      this.jsonDataKabupaten.forEach(element => {
+        element.dataHarian = [];
+      });
+      this.jsonDataHarianProvinsi = this.propsDataRekapitulasiProv;
+      this.groupDataKab();
+      this.fetchData();
+    },
+    propsDataRekapitulasiNasional() {
+      if (this.jsonDataHarianNasional.length > 0) {
+        this.jsonDataHarianNasional = [];
+      }
+      this.jsonDataHarianNasional = this.propsDataRekapitulasiNasional;
+      this.fetchData();
+    },
     lokasi: function() {
-      this.createCumulativeChart("chart-cumulative", dataCumulativeChart);
-      this.loadData();
+      console.log(this.jsonDataKabupaten[this.lokasi - 1]);
+      this.fetchData();
     },
     kejadian: function() {
-      this.createCumulativeChart("chart-cumulative", dataCumulativeChart);
-      this.loadData();
+      this.fetchData();
     }
   },
   mounted() {
-    this.createCumulativeChart("chart-cumulative", dataCumulativeChart);
-    this.loadData();
-    this.updater();
+    this.fetchData();
   }
 };
 </script>

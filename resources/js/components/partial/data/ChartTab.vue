@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-wrap mx-6">
+  <div class="flex flex-wrap mx-4">
     <div class="w-full">
       <ul class="flex flex-row flex-wrap w-full pt-3 pb-4 mb-0 list-none md:w-1/2">
         <li class="flex-auto mr-2 -mb-px text-center last:mr-0">
@@ -26,12 +26,18 @@
           <div class="tab-content tab-space">
             <div v-bind:class="{'hidden': openTab !== 1, 'block': openTab === 1}">
               <keep-alive>
-                <chart-daily :wilayah.sync="wilayah" :kasus.sync="kasus"></chart-daily>
+                <chart-daily
+                  :props-data-rekapitulasi-prov.sync="jsonDataRekapitulasiProv"
+                  :props-data-rekapitulasi-nasional.sync="jsonDataRekapitulasiNasional"
+                ></chart-daily>
               </keep-alive>
             </div>
             <div v-bind:class="{'hidden': openTab !== 2, 'block': openTab === 2}">
               <keep-alive>
-                <chart-total :lokasi.sync="lokasi" :kejadian.sync="kejadian"></chart-total>
+                <chart-total
+                  :props-data-rekapitulasi-prov.sync="jsonDataRekapitulasiProv"
+                  :props-data-rekapitulasi-nasional.sync="jsonDataRekapitulasiNasional"
+                ></chart-total>
               </keep-alive>
             </div>
           </div>
@@ -42,15 +48,34 @@
 </template>
 <script>
 export default {
-  props: ["wilayah", "kasus", "kejadian", "lokasi"],
+  props: {
+    propsDataRekapitulasiProv: {
+      type: Array,
+      default: () => []
+    },
+    propsDataRekapitulasiNasional: {
+      type: Array,
+      default: () => []
+    }
+  },
   components: {
     ChartDaily: () => import("./chart/DailyTab"),
     ChartTotal: () => import("./chart/CumulativeTab")
   },
   data() {
     return {
-      openTab: 1
+      openTab: 1,
+      jsonDataRekapitulasiProv: [],
+      jsonDataRekapitulasiNasional: []
     };
+  },
+  watch: {
+    propsDataRekapitulasiProv() {
+      this.jsonDataRekapitulasiProv = this.propsDataRekapitulasiProv;
+    },
+    propsDataRekapitulasiNasional() {
+      this.jsonDataRekapitulasiNasional = this.propsDataRekapitulasiNasional;
+    }
   },
   methods: {
     toggleTabs: function(tabNumber) {
@@ -59,3 +84,6 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+</style>

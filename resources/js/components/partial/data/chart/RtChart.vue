@@ -3,33 +3,44 @@
     <!--Graph Card-->
     <div class="relative bg-white rounded-lg shadow-lg">
       <div class="absolute flex justify-center w-full">
-      <loading
-        :active.sync="isLoading"
-        :opacity="0.8"
-        :height="400"
-        :width="50"
-        loader="spinner"
-        color="#59F"
-      ></loading>
-    </div>
+        <loading
+          :active.sync="isLoading"
+          :opacity="0.8"
+          :height="400"
+          :width="50"
+          loader="spinner"
+          color="#59F"
+        ></loading>
+      </div>
       <div style="height:400px" class="p-5">
         <keep-alive>
           <canvas id="rt-chart" aria-label="Chart Angka Reproduksi" role="img"></canvas>
         </keep-alive>
       </div>
-      <div class="pb-8 mb-8 text-center">
+      <div class="pb-8 text-center">
         <span class="mx-4 text-xs md:text-base">
           <i class="mr-2 text-lg text-blue-600 fas fa-minus"></i>Rt (Angka Reproduksi Efektif)
           <i class="ml-4 mr-2 text-lg fas fa-square-full"></i>Selang Kepercayaan (95%)
         </span>
         <p class="mx-8 mt-8 text-sm text-left text-justify border-t-2">
           *Keterangan :
-          <br /> <b>Rt</b> merupakan <b>rata-rata orang yang bisa terinfeksi dari satu pasien positif</b> usai intervensi pemerintah.
+          <br />
+          <b>Rt</b> merupakan
+          <b>rata-rata orang yang bisa terinfeksi dari satu pasien positif</b> usai intervensi pemerintah.
           Sebagai contoh, Rt = 2 berarti satu orang yang terinfeksi bisa menulari rata-rata dua orang lainnya.
-          Rt dipergunakan sebagai <b>syarat mutlak pelonggaran PSBB</b> di Indonesia. Sesuai ketetapan Badan Perencanaan Pembangunan Nasional (Bappenas), angka Rt di sebuah wilayah harus di bawah 1 selama 14 hari berturut-turut sebelum relaksasi PSBB diberi lampu hijau.
+          Rt dipergunakan sebagai
+          <b>syarat mutlak pelonggaran PSBB</b> di Indonesia. Sesuai ketetapan Badan Perencanaan Pembangunan Nasional (Bappenas), angka Rt di sebuah wilayah harus di bawah 1 selama 14 hari berturut-turut sebelum relaksasi PSBB diberi lampu hijau.
         </p>
         <p class="mx-8 mt-4 text-sm text-left text-justify text-gray-500">
-          Referensi : <a href="https://www.datacamp.com/community/tutorials/replicating-in-r-covid19" class="hover:text-gray-800 font-italic" target="_blank">Estimating COVID-19's <i>Rt</i> in Real-Time</a>
+          Referensi :
+          <a
+            href="https://www.datacamp.com/community/tutorials/replicating-in-r-covid19"
+            class="hover:text-gray-800 font-italic"
+            target="_blank"
+          >
+            Estimating COVID-19's
+            <i>Rt</i> in Real-Time
+          </a>
         </p>
       </div>
     </div>
@@ -96,7 +107,8 @@ var dataChart = {
           display: true,
           scaleLabel: {
             display: true,
-            labelString: "Angka Reproduksi Efektif/Effective Infection Rate (Rt)"
+            labelString:
+              "Angka Reproduksi Efektif/Effective Infection Rate (Rt)"
           }
         }
       ],
@@ -142,12 +154,24 @@ export default {
   components: {
     Loading
   },
-  props: ["kasus", "wilayah"],
+  props: {
+    propsDataRekapitulasiProv: {
+      type : Array,
+      default: () => []
+    }
+  },
   data() {
     return {
+      jsonDataRekapitulasiSulteng: [],
       isLoading: false,
       chart: null
     };
+  },
+  watch: {
+    propsDataRekapitulasiProv() {
+      this.jsonDataRekapitulasiSulteng = this.propsDataRekapitulasiProv;
+      this.fetchDataStatistic();
+    }
   },
   methods: {
     createChart(chartId, chartData) {
@@ -161,18 +185,16 @@ export default {
         options: chartData.options
       });
     },
-    getStatistic: function() {
+    fetchDataStatistic() {
       this.isLoading = true;
-      var baseurl = "statistik";
-      axios.get("/corona/api/" + baseurl).then(response => {
-        var data = response.data.data;
-        var label = [];
-        var rt_value = [];
-        var rt_upper = [];
-        var rt_lower = [];
+        let label = [];
+        let rt_value = [];
+        let rt_upper = [];
+        let rt_lower = [];
 
-        for (let i = 0; i < data.length; i++) {
-          var abs = data[i].tanggal.split("/");
+        for (let i = 0; i < this.jsonDataRekapitulasiSulteng.length; i++) {
+          const temp = this.jsonDataRekapitulasiSulteng[i]
+          var abs = temp.tanggal.split("/");
           var tanggal = null;
           if (abs.length >= 3) {
             var date = abs[2].split(" ");
@@ -181,15 +203,15 @@ export default {
             var year = abs[0];
             tanggal = year + "-" + month + "-" + date;
           } else {
-            tanggal = data[i].tanggal;
+            tanggal = temp.tanggal;
           }
           var tanggal = format(Date.parse(tanggal), "dd MMM yyyy", {
             locale: id
           });
           label.push(tanggal);
-          rt_value.push(data[i].rekap.Rt);
-          rt_upper.push(data[i].rekap.Rt_upper);
-          rt_lower.push(data[i].rekap.Rt_lower);
+          rt_value.push(temp.rekap.Rt);
+          rt_upper.push(temp.rekap.Rt_upper);
+          rt_lower.push(temp.rekap.Rt_lower);
         }
         dataChart.data.datasets[0].data = rt_value;
         dataChart.data.datasets[1].data = rt_lower;
@@ -197,19 +219,11 @@ export default {
         dataChart.data.labels = label;
         this.chart.update();
         this.isLoading = false;
-      });
-    },
-    updater: function() {
-      setInterval(() => {
-        this.createChart("rt-chart", dataChart);
-        this.getStatistic();
-      }, 5 * 60 * 1000);
     }
   },
   mounted() {
     this.createChart("rt-chart", dataChart);
-    this.getStatistic();
-    this.updater();
+    this.fetchDataStatistic();
   }
 };
 </script>

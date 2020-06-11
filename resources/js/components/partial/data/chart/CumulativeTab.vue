@@ -10,6 +10,7 @@
         class="w-1/2 mx-8 mt-4 text-xs rounded-lg md:text-base md:w-1/4"
         v-model="selected"
         :value="selected"
+        :clearable="false"
       />
       <v-select
         v-else
@@ -19,6 +20,7 @@
         class="w-1/2 mx-8 mt-4 text-xs rounded-lg md:text-base md:w-1/4"
         v-model="selected"
         :value="selected"
+        :clearable="false"
       />
       <v-select
         v-if="selected != 'Indonesia'"
@@ -26,6 +28,7 @@
         class="w-1/2 mx-8 mt-4 text-xs rounded-lg md:text-base md:w-1/4"
         v-model="selectedCase"
         :value="selectedCase"
+        :clearable="false"
       />
       <v-select
         v-else
@@ -33,11 +36,18 @@
         class="w-1/2 mx-8 mt-4 text-xs rounded-lg md:text-base md:w-1/4"
         v-model="selectedCase"
         :value="selectedCase"
+        :clearable="false"
       />
     </div>
     <div v-if="selected && selectedCase" class="mt-8 border-t-2">
       <keep-alive>
-        <chart-local-cumulative :lokasi.sync="selected" :kejadian.sync="selectedCase" class="mt-4"></chart-local-cumulative>
+        <chart-local-cumulative
+          :lokasi.sync="selected"
+          :kejadian.sync="selectedCase"
+          :props-data-rekapitulasi-prov.sync="jsonDataRekapitulasiProv"
+          :props-data-rekapitulasi-nasional.sync="jsonDataRekapitulasiNasional"
+          class="mt-4"
+        ></chart-local-cumulative>
       </keep-alive>
     </div>
     <div
@@ -93,10 +103,32 @@ export default {
       ],
       selectedCase: "Positif",
       optionCasesLocal: ["Positif", "ODP", "PDP"],
-      optionCases: ["Positif"]
+      optionCases: ["Positif"],
+      jsonDataRekapitulasiProv: [],
+      jsonDataRekapitulasiNasional: []
     };
   },
+  props: {
+    propsDataRekapitulasiProv: {
+      type: Array,
+      default: () => []
+    },
+    propsDataRekapitulasiKab: {
+      type: Array,
+      default: () => []
+    },
+    propsDataRekapitulasiNasional: {
+      type: Array,
+      default: () => []
+    }
+  },
   watch: {
+    propsDataRekapitulasiProv() {
+      this.jsonDataRekapitulasiProv = this.propsDataRekapitulasiProv;
+    },
+    propsDataRekapitulasiNasional() {
+      this.jsonDataRekapitulasiNasional = this.propsDataRekapitulasiNasional;
+    },
     selected: function() {
       this.options.forEach(element => {
         if (element.code == this.selected) {

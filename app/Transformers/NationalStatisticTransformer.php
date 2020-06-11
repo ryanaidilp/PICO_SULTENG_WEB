@@ -10,6 +10,39 @@ class NationalStatisticTransformer extends TransformerAbstract
 {
     public function transform(NationalCaseHistory $nationalCaseHistory)
     {
+        $weekly_positive_avg = 0;
+        $weekly_recovered_avg = 0;
+        $weekly_death_avg = 0;
+        if ($nationalCaseHistory->day == 1) {
+            $weekly_positive_avg = (float) number_format($nationalCaseHistory->where('day', $nationalCaseHistory->day)->sum('daily_positive_case') / 1, 2);
+            $weekly_recovered_avg = (float) number_format($nationalCaseHistory->where('day', $nationalCaseHistory->day)->sum('daily_recovered_case') / 1, 2);
+            $weekly_death_avg = (float) number_format($nationalCaseHistory->where('day', $nationalCaseHistory->day)->sum('daily_deceased_case') / 1, 2);
+        } elseif ($nationalCaseHistory->day == 2) {
+            $weekly_positive_avg = (float) number_format($nationalCaseHistory->whereBetween('day', [$nationalCaseHistory->day - 1, $nationalCaseHistory->day])->sum('daily_positive_case') / 2, 2);
+            $weekly_recovered_avg = (float) number_format($nationalCaseHistory->whereBetween('day', [$nationalCaseHistory->day - 1, $nationalCaseHistory->day])->sum('daily_recovered_case') / 2, 2);
+            $weekly_death_avg = (float) number_format($nationalCaseHistory->whereBetween('day', [$nationalCaseHistory->day - 1, $nationalCaseHistory->day])->sum('daily_deceased_case') / 2, 2);
+        } elseif ($nationalCaseHistory->day == 3) {
+            $weekly_positive_avg = (float) number_format($nationalCaseHistory->whereBetween('day', [$nationalCaseHistory->day - 2, $nationalCaseHistory->day])->sum('daily_positive_case') / 3, 2);
+            $weekly_recovered_avg = (float) number_format($nationalCaseHistory->whereBetween('day', [$nationalCaseHistory->day - 2, $nationalCaseHistory->day])->sum('daily_recovered_case') / 3, 2);
+            $weekly_death_avg = (float) number_format($nationalCaseHistory->whereBetween('day', [$nationalCaseHistory->day - 2, $nationalCaseHistory->day])->sum('daily_deceased_case') / 3, 2);
+        } elseif ($nationalCaseHistory->day == 4) {
+            $weekly_positive_avg = (float) number_format($nationalCaseHistory->whereBetween('day', [$nationalCaseHistory->day - 3, $nationalCaseHistory->day])->sum('daily_positive_case') / 4, 2);
+            $weekly_recovered_avg = (float) number_format($nationalCaseHistory->whereBetween('day', [$nationalCaseHistory->day - 3, $nationalCaseHistory->day])->sum('daily_recovered_case') / 4, 2);
+            $weekly_death_avg = (float) number_format($nationalCaseHistory->whereBetween('day', [$nationalCaseHistory->day - 3, $nationalCaseHistory->day])->sum('daily_deceased_case') / 4, 2);
+        } elseif ($nationalCaseHistory->day == 5) {
+            $weekly_positive_avg = (float) number_format($nationalCaseHistory->whereBetween('day', [$nationalCaseHistory->day - 4, $nationalCaseHistory->day])->sum('daily_positive_case') / 5, 2);
+            $weekly_recovered_avg = (float) number_format($nationalCaseHistory->whereBetween('day', [$nationalCaseHistory->day - 4, $nationalCaseHistory->day])->sum('daily_recovered_case') / 5, 2);
+            $weekly_death_avg = (float) number_format($nationalCaseHistory->whereBetween('day', [$nationalCaseHistory->day - 4, $nationalCaseHistory->day])->sum('daily_deceased_case') / 5, 2);
+        } elseif ($nationalCaseHistory->day == 6) {
+            $weekly_positive_avg = (float) number_format($nationalCaseHistory->whereBetween('day', [$nationalCaseHistory->day - 5, $nationalCaseHistory->day])->sum('daily_positive_case') / 6, 2);
+            $weekly_recovered_avg = (float) number_format($nationalCaseHistory->whereBetween('day', [$nationalCaseHistory->day - 5, $nationalCaseHistory->day])->sum('daily_recovered_case') / 6, 2);
+            $weekly_death_avg = (float) number_format($nationalCaseHistory->whereBetween('day', [$nationalCaseHistory->day - 5, $nationalCaseHistory->day])->sum('daily_deceased_case') / 6, 2);
+        } elseif ($nationalCaseHistory->day > 7) {
+            $weekly_positive_avg = (float) number_format($nationalCaseHistory->whereBetween('day', [$nationalCaseHistory->day - 6, $nationalCaseHistory->day])->sum('daily_positive_case') / 7, 2);
+            $weekly_recovered_avg = (float) number_format($nationalCaseHistory->whereBetween('day', [$nationalCaseHistory->day - 6, $nationalCaseHistory->day])->sum('daily_recovered_case') / 7, 2);
+            $weekly_death_avg = (float) number_format($nationalCaseHistory->whereBetween('day', [$nationalCaseHistory->day - 6, $nationalCaseHistory->day])->sum('daily_deceased_case') / 7, 2);
+        }
+
         return [
             Lang::get('general.day') => $nationalCaseHistory->day,
             Lang::get('general.date') => $nationalCaseHistory->date,
@@ -27,18 +60,9 @@ class NationalStatisticTransformer extends TransformerAbstract
             ],
             Lang::get('general.recap') => [
                 Lang::get('general.average') => [
-                    Lang::get('general.positive').'_weekly' => $nationalCaseHistory->day > 7 ?
-                (float) number_format(NationalCaseHistory::whereBetween('day', [$nationalCaseHistory->day - 7, $nationalCaseHistory->day])->sum('daily_positive_case') / 7, 2)
-                : 0,
-                    Lang::get('general.under_treatment').'_weekly' => $nationalCaseHistory->day > 7 ?
-                (float) number_format(NationalCaseHistory::whereBetween('day', [$nationalCaseHistory->day - 7, $nationalCaseHistory->day])->sum('daily_under_treatment_case') / 7, 2)
-                : 0,
-                    Lang::get('general.recovered').'_weekly' => $nationalCaseHistory->day > 7 ?
-                (float) number_format(NationalCaseHistory::whereBetween('day', [$nationalCaseHistory->day - 7, $nationalCaseHistory->day])->sum('daily_recovered_case') / 7, 2)
-                : 0,
-                    Lang::get('general.death').'_weekly' => $nationalCaseHistory->day > 7 ?
-                (float) number_format(NationalCaseHistory::whereBetween('day', [$nationalCaseHistory->day - 7, $nationalCaseHistory->day])->sum('daily_deceased_case') / 7, 2)
-                : 0,
+                    Lang::get('general.positive').'_weekly' => $weekly_positive_avg,
+                    Lang::get('general.recovered').'_weekly' => $weekly_recovered_avg,
+                    Lang::get('general.death').'_weekly' => $weekly_death_avg,
                 ],
             ],
         ];

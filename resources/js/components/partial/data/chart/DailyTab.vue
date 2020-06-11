@@ -10,6 +10,7 @@
         class="w-1/2 mx-8 mt-4 text-xs rounded-lg md:text-base md:w-1/4"
         v-model="selected"
         :value="selected"
+        :clearable="false"
       />
       <v-select
         v-else
@@ -19,6 +20,7 @@
         class="w-1/2 mx-8 mt-4 text-xs rounded-lg md:text-base md:w-1/4"
         v-model="selected"
         :value="selected"
+        :clearable="false"
       />
       <v-select
         v-if="selected != 'Indonesia'"
@@ -26,6 +28,7 @@
         class="w-1/2 mx-8 mt-4 text-xs rounded-lg md:text-base md:w-1/4"
         v-model="selectedCase"
         :value="selectedCase"
+        :clearable="false"
       />
       <v-select
         v-else
@@ -33,35 +36,21 @@
         class="w-1/2 mx-8 mt-4 text-xs rounded-lg md:text-base md:w-1/4"
         v-model="selectedCase"
         :value="selectedCase"
+        :clearable="false"
       />
     </div>
     <div v-if="selected && selectedCase" class="mt-8 border-t-2">
       <keep-alive>
-        <chart-local-positive :wilayah.sync="selected" :kasus.sync="selectedCase" class="mt-4"></chart-local-positive>
+        <chart-local-positive
+          :wilayah.sync="selected"
+          :props-data-rekapitulasi-prov.sync="jsonDataRekapitulasiProv"
+          :props-data-rekapitulasi-nasional.sync="jsonDataRekapitulasiNasional"
+          :kasus.sync="selectedCase"
+          class="mt-4"
+        ></chart-local-positive>
       </keep-alive>
       <div class="mb-4 text-center">
-        <i class="mr-2 fas fa-minus"></i>Rata-Rata Mingguan
-        <i
-          class="ml-4 mr-2 fas fa-square-full"
-          :class="{
-            'text-red-600' : selectedCase == 'Positif',
-            'text-green-500' : selectedCase == 'Sembuh',
-            'text-orange-600':selectedCase == 'Meninggal',
-            'text-blue-600': selectedCase == 'ODP',
-            'text-purple-700': selectedCase == 'PDP'
-          }"
-        ></i>
-        Kasus Baru
-        <span v-if="selectedCase == 'ODP' || selectedCase == 'PDP'">
-          <i
-            :class="{
-            'text-blue-800' : selectedCase == 'ODP', 
-            'text-purple-900':selectedCase == 'PDP'
-          }"
-            class="ml-4 mr-2 fas fa-square-full"
-          ></i>
-          Selesai
-        </span>
+        <span v-if="isEmpty" class="text-sm">Data sedang dimuat. Harap menunggu.</span>
       </div>
     </div>
     <div
@@ -80,7 +69,8 @@ export default {
   },
   data() {
     return {
-      name:"Sulawesi Tengah",
+      isEmpty: false,
+      name: "Sulawesi Tengah",
       selected: "Sulawesi Tengah",
       options: [
         { name: "Sulawesi Tengah", code: "Sulawesi Tengah" },
@@ -117,16 +107,62 @@ export default {
       ],
       selectedCase: "Positif",
       optionCasesLocal: ["Positif", "Sembuh", "Meninggal", "ODP", "PDP"],
-      optionCases: ["Positif", "Sembuh", "Meninggal"]
+      optionCases: ["Positif", "Sembuh", "Meninggal"],
+      jsonDataRekapitulasiProv: [],
+      jsonDataRekapitulasiNasional: []
     };
   },
+  props: {
+    propsDataRekapitulasiProv: {
+      type: Array,
+      default: () => []
+    },
+    propsDataRekapitulasiKab: {
+      type: Array,
+      default: () => []
+    },
+    propsDataRekapitulasiNasional: {
+      type: Array,
+      default: () => []
+    }
+  },
+  methods: {
+    checkEmpty() {
+      if (this.selected === "Sulawesi Tengah") {
+        if (this.jsonDataRekapitulasiProv.length > 0) {
+          this.isEmpty = false;
+        } else {
+          this.isEmpty = true;
+        }
+      } else if (this.selected === "Indonesia") {
+        if (this.jsonDataRekapitulasiNasional.length > 0) {
+          this.isEmpty = false;
+        } else {
+          this.isEmpty = true;
+        }
+      } else {
+        if (this.jsonDataRekapitulasiNasional.length > 0) {
+          this.isEmpty = false;
+        } else {
+          this.isEmpty = true;
+        }
+      }
+    }
+  },
   watch: {
+    propsDataRekapitulasiProv() {
+      this.jsonDataRekapitulasiProv = this.propsDataRekapitulasiProv;
+    },
+    propsDataRekapitulasiNasional() {
+      this.jsonDataRekapitulasiNasional = this.propsDataRekapitulasiNasional;
+    },
     selected: function() {
       this.options.forEach(element => {
-        if(element.code == this.selected) {
-          this.name =  element.name
+        if (element.code == this.selected) {
+          this.name = element.name;
         }
-      })
+      });
+      this.checkEmpty();
     }
   }
 };

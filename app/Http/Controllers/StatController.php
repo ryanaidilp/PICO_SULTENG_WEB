@@ -29,7 +29,7 @@ class StatController extends Controller
         return response(array_replace(PicoHelper::setJson([], true, []), $data), 200);
     }
 
-    public function getDistrictHistory($no)
+    private function getAllDistrictHistory($no)
     {
         $localcase = LocalCaseHistory::where('district_id', $no)->get();
         $stat = Stat::all();
@@ -164,6 +164,13 @@ class StatController extends Controller
             $array[$i][Lang::get('general.recap')][Lang::get('general.average')][Lang::get('general.ODP').'_weekly'] = $weekly_ODP_avg;
             $array[$i][Lang::get('general.recap')][Lang::get('general.average')][Lang::get('general.PDP').'_weekly'] = $weekly_PDP_avg;
         }
+
+        return $array;
+    }
+
+    public function getDistrictHistory($no)
+    {
+        $array['data'] = $this->getAllDistrictHistory($no);
 
         return response(PicoHelper::setJson($array, true, []), 200);
     }

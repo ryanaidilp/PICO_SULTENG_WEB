@@ -20,11 +20,49 @@ class StatisticTransformer extends TransformerAbstract
         $weekly_PDP_avg = 0;
         foreach ($histories as $key => $history) {
             $district = District::where('no', $history->district_id)->first();
-            $weekly_positive_avg = $history->day > 7 ? (float) number_format($history->whereBetween('day', [$stats->day - 7, $stats->day])->sum('positive') / 7, 2) : 0;
-            $weekly_recovered_avg = $history->day > 7 ? (float) number_format($history->whereBetween('day', [$stats->day - 7, $stats->day])->sum('recovered') / 7, 2) : 0;
-            $weekly_death_avg = $history->day > 7 ? (float) number_format($history->whereBetween('day', [$stats->day - 7, $stats->day])->sum('death') / 7, 2) : 0;
-            $weekly_ODP_avg = $history->day > 7 ? (float) number_format($history->whereBetween('day', [$stats->day - 7, $stats->day])->sum('new_ODP') / 7, 2) : 0;
-            $weekly_PDP_avg = $history->day > 7 ? (float) number_format($history->whereBetween('day', [$stats->day - 7, $stats->day])->sum('new_PDP') / 7, 2) : 0;
+            if ($history->day == 1) {
+                $weekly_positive_avg = (float) number_format($history->where('day', $history->day)->sum('positive') / 1, 2);
+                $weekly_recovered_avg = (float) number_format($history->where('day', $history->day)->sum('recovered') / 1, 2);
+                $weekly_death_avg = (float) number_format($history->where('day', $history->day)->sum('death') / 1, 2);
+                $weekly_ODP_avg = (float) number_format($history->where('day', $history->day)->sum('new_ODP') / 1, 2);
+                $weekly_PDP_avg = (float) number_format($history->where('day', $history->day)->sum('new_PDP') / 1, 2);
+            } elseif ($history->day == 2) {
+                $weekly_positive_avg = (float) number_format($history->whereBetween('day', [$history->day - 1, $history->day])->sum('positive') / 2, 2);
+                $weekly_recovered_avg = (float) number_format($history->whereBetween('day', [$history->day - 1, $history->day])->sum('recovered') / 2, 2);
+                $weekly_death_avg = (float) number_format($history->whereBetween('day', [$history->day - 1, $history->day])->sum('death') / 2, 2);
+                $weekly_ODP_avg = (float) number_format($history->whereBetween('day', [$history->day - 1, $history->day])->sum('new_ODP') / 2, 2);
+                $weekly_PDP_avg = (float) number_format($history->whereBetween('day', [$history->day - 1, $history->day])->sum('new_PDP') / 2, 2);
+            } elseif ($history->day == 3) {
+                $weekly_positive_avg = (float) number_format($history->whereBetween('day', [$history->day - 2, $history->day])->sum('positive') / 3, 2);
+                $weekly_recovered_avg = (float) number_format($history->whereBetween('day', [$history->day - 2, $history->day])->sum('recovered') / 3, 2);
+                $weekly_death_avg = (float) number_format($history->whereBetween('day', [$history->day - 2, $history->day])->sum('death') / 3, 2);
+                $weekly_ODP_avg = (float) number_format($history->whereBetween('day', [$history->day - 2, $history->day])->sum('new_ODP') / 3, 2);
+                $weekly_PDP_avg = (float) number_format($history->whereBetween('day', [$history->day - 2, $history->day])->sum('new_PDP') / 3, 2);
+            } elseif ($history->day == 4) {
+                $weekly_positive_avg = (float) number_format($history->whereBetween('day', [$history->day - 3, $history->day])->sum('positive') / 4, 2);
+                $weekly_recovered_avg = (float) number_format($history->whereBetween('day', [$history->day - 3, $history->day])->sum('recovered') / 4, 2);
+                $weekly_death_avg = (float) number_format($history->whereBetween('day', [$history->day - 3, $history->day])->sum('death') / 4, 2);
+                $weekly_ODP_avg = (float) number_format($history->whereBetween('day', [$history->day - 3, $history->day])->sum('new_ODP') / 4, 2);
+                $weekly_PDP_avg = (float) number_format($history->whereBetween('day', [$history->day - 3, $history->day])->sum('new_PDP') / 4, 2);
+            } elseif ($history->day == 5) {
+                $weekly_positive_avg = (float) number_format($history->whereBetween('day', [$history->day - 4, $history->day])->sum('positive') / 5, 2);
+                $weekly_recovered_avg = (float) number_format($history->whereBetween('day', [$history->day - 4, $history->day])->sum('recovered') / 5, 2);
+                $weekly_death_avg = (float) number_format($history->whereBetween('day', [$history->day - 4, $history->day])->sum('death') / 5, 2);
+                $weekly_ODP_avg = (float) number_format($history->whereBetween('day', [$history->day - 4, $history->day])->sum('new_ODP') / 5, 2);
+                $weekly_PDP_avg = (float) number_format($history->whereBetween('day', [$history->day - 4, $history->day])->sum('new_PDP') / 5, 2);
+            } elseif ($history->day == 6) {
+                $weekly_positive_avg = (float) number_format($history->whereBetween('day', [$history->day - 5, $history->day])->sum('positive') / 6, 2);
+                $weekly_recovered_avg = (float) number_format($history->whereBetween('day', [$history->day - 5, $history->day])->sum('recovered') / 6, 2);
+                $weekly_death_avg = (float) number_format($history->whereBetween('day', [$history->day - 5, $history->day])->sum('death') / 6, 2);
+                $weekly_ODP_avg = (float) number_format($history->whereBetween('day', [$history->day - 5, $history->day])->sum('new_ODP') / 6, 2);
+                $weekly_PDP_avg = (float) number_format($history->whereBetween('day', [$history->day - 5, $history->day])->sum('new_PDP') / 6, 2);
+            } elseif ($history->day > 7) {
+                $weekly_positive_avg = (float) number_format($history->whereBetween('day', [$history->day - 6, $history->day])->sum('positive') / 7, 2);
+                $weekly_recovered_avg = (float) number_format($history->whereBetween('day', [$history->day - 6, $history->day])->sum('recovered') / 7, 2);
+                $weekly_death_avg = (float) number_format($history->whereBetween('day', [$history->day - 6, $history->day])->sum('death') / 7, 2);
+                $weekly_ODP_avg = (float) number_format($history->whereBetween('day', [$history->day - 6, $history->day])->sum('new_ODP') / 7, 2);
+                $weekly_PDP_avg = (float) number_format($history->whereBetween('day', [$history->day - 6, $history->day])->sum('new_PDP') / 7, 2);
+            }
             $total_odp = $history->whereBetween('day', [1, $stats->day])->where('district_id', $district->no)->sum('new_ODP');
             $total_pdp = $history->whereBetween('day', [1, $stats->day])->where('district_id', $history->district_id)->sum('new_PDP');
             $total_finished_odp = $history->whereBetween('day', [1, $stats->day])->where('district_id', $history->district_id)->sum('finished_ODP');
@@ -33,6 +71,7 @@ class StatisticTransformer extends TransformerAbstract
             $total_recovered = $history->whereBetween('day', [1, $stats->day])->where('district_id', $history->district_id)->sum('recovered');
             $total_death = $history->whereBetween('day', [1, $stats->day])->where('district_id', $history->district_id)->sum('death');
             $total_negative = $history->whereBetween('day', [1, $stats->day])->where('district_id', $history->district_id)->sum('negative');
+            $data[$key][Lang::get('general.no')] = $district->no;
             $data[$key][Lang::get('general.name')] = $district->kabupaten;
             $data[$key][Lang::get('general.new_case')] = [
                 Lang::get('general.positive') => $history->positive,

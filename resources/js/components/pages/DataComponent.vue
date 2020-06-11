@@ -1,72 +1,104 @@
 <template>
-  <div class="text-gray-800">
-    <dashboard></dashboard>
-    <section class="m-8">
-      <dataRDT :props-data-rekapitulasi-sulteng.sync="dataRekapitulasiSulteng[1]" />
+  <div class="container mx-auto text-gray-800">
+    <section class="m-4 mb-8 md:m-8">
+      <div class="w-full">
+        <dashboard></dashboard>
+      </div>
     </section>
-    <section class="m-8">
-      <DataPCR :props-data-rekapitulasi-sulteng.sync="dataRekapitulasiSulteng[0]" />
+    <section class="px-4 m-4 mb-8 md:m-8">
+      <div class="w-full">
+        <dataRDT :props-data-rekapitulasi-sulteng.sync="jsonDataTesProvinsi[1]" />
+      </div>
     </section>
-    <h3
-      class="w-full mt-16 text-lg font-bold text-center md:text-left md:ml-6 md:text-3xl"
-    >Peta Penyebaran Kasus</h3>
-    <keep-alive>
-      <map-tab class="mt-4"></map-tab>
-    </keep-alive>
-    <h3
-      class="w-full mt-16 text-lg font-bold text-center md:text-left md:ml-6 md:text-3xl"
-    >Tabel Penyebaran Kasus</h3>
-    <table-tab class="mt-4"></table-tab>
-    <h3
-      class="w-full mt-16 text-lg font-bold text-center md:text-left md:ml-6 md:text-3xl"
-    >Visualisasi Data Kasus COVID-19</h3>
-    <chart-tab class="mt-4"></chart-tab>
-    <keep-alive>
-      <rt-chart class="mt-12"></rt-chart>
-    </keep-alive>
-    <div class="flex flex-col w-full mt-4 lg:flex-row">
-      <keep-alive>
-        <new-case class="w-full lg:w-1/2"></new-case>
-      </keep-alive>
-      <keep-alive>
-        <pie-chart class="w-full mt-4 lg:w-1/2 lg:mt-0"></pie-chart>
-      </keep-alive>
-    </div>
-    <div class="container mx-auto">
-      <section class="m-4 mb-8 md:m-8">
-        <div class="w-full chart-container">
-          <BarStatJenisKelamin
-            :props-data-rekapitulasi-sulteng.sync="jsonDataRekapitulasiSultengProv"
-          />
-          <BarStatUsia :props-data-rekapitulasi-sulteng.sync="jsonDataRekapitulasiSultengProv" />
+    <section class="px-4 m-4 mb-8 md:m-8">
+      <div class="w-full">
+        <DataPCR :props-data-rekapitulasi-sulteng.sync="jsonDataTesProvinsi[0]" />
+      </div>
+    </section>
+    <section class="m-4 mb-8 md:m-8">
+      <div class="w-full">
+        <h3
+          class="w-full mt-16 text-lg font-bold text-center md:text-left md:ml-6 md:text-3xl"
+        >Peta Penyebaran Kasus</h3>
+        <map-tab class="mt-4"></map-tab>
+      </div>
+    </section>
+    <section class="m-4 mb-8 md:m-8">
+      <div class="w-full">
+        <h3
+          class="w-full text-lg font-bold text-center md:text-left md:ml-6 md:text-3xl"
+        >Tabel Penyebaran Kasus</h3>
+        <table-tab class="mt-4"></table-tab>
+      </div>
+    </section>
+    <section class="m-4 mb-8 md:m-8">
+      <div class="w-full">
+        <h3
+          class="w-full text-lg font-bold text-center md:text-left md:ml-6 md:text-3xl"
+        >Visualisasi Data Kasus COVID-19</h3>
+        <chart-tab
+          :props-data-rekapitulasi-prov.sync="jsonDataRekapitulasiProv"
+          :props-data-rekapitulasi-nasional.sync="jsonDataRekapitulasiNasional"
+          class="mt-4"
+        ></chart-tab>
+      </div>
+    </section>
+    <section class="m-4 mb-8 md:m-8">
+      <div class="w-full">
+        <rt-chart :props-data-rekapitulasi-prov.sync="jsonDataRekapitulasiProv"></rt-chart>
+      </div>
+    </section>
+    <section class="m-4 mb-8">
+      <div class="w-full">
+        <div class="flex flex-col w-full mt-4 lg:flex-row">
+          <keep-alive>
+            <new-case class="w-full lg:w-1/2"></new-case>
+          </keep-alive>
+          <keep-alive>
+            <pie-chart class="w-full mt-4 lg:w-1/2 lg:mt-0"></pie-chart>
+          </keep-alive>
         </div>
-      </section>
-    </div>
-    <div
-      class="flex-col p-6 mx-4 mt-16 text-center bg-white rounded-lg shadow-lg md:flex-row hover:text-blue-400"
-    >
-      <router-link
-        to="/corona/table-data"
-        target="_blank"
-        class="mx-auto text-sm font-bold lg:text-xl"
-      >
-        Akses DATA publik - Data PICO SulTeng disini
-        <i class="fas fa-angle-right"></i>
-      </router-link>
-    </div>
-    <div
-      class="flex-col p-6 mx-4 mt-16 text-center bg-white rounded-lg shadow-lg md:flex-row hover:text-blue-400"
-    >
-      <a
-        href="https://banuacoders.com/api/pico"
-        target="_blank"
-        class="mx-auto text-sm font-bold lg:text-xl"
-      >
-        Akses API publik - Data PICO SulTeng disini
-        <i class="fas fa-angle-right"></i>
-      </a>
-    </div>
+      </div>
+    </section>
+    <section class="m-4 mb-8 md:m-8">
+      <div class="w-full chart-container">
+        <BarStatJenisKelamin :props-data-rekapitulasi-sulteng.sync="jsonDataGenderProvinsi" />
+        <BarStatUsia :props-data-rekapitulasi-sulteng.sync="jsonDataGenderProvinsi" />
+      </div>
+    </section>
+    <section class="m-4 mb-8">
+      <div class="w-full">
+        <div
+          class="flex-col p-6 mx-4 mt-16 text-center bg-white rounded-lg shadow-lg md:flex-row hover:text-blue-400"
+        >
+          <router-link
+            to="/corona/table-data"
+            target="_blank"
+            class="mx-auto text-sm font-bold lg:text-xl"
+          >
+            Akses DATA publik - Data PICO SulTeng disini
+            <i class="fas fa-angle-right"></i>
+          </router-link>
+        </div>
+        <div
+          class="flex-col p-6 mx-4 mt-16 text-center bg-white rounded-lg shadow-lg md:flex-row hover:text-blue-400"
+        >
+          <a
+            href="https://banuacoders.com/api/pico"
+            target="_blank"
+            class="mx-auto text-sm font-bold lg:text-xl"
+          >
+            Akses API publik - Data PICO SulTeng disini
+            <i class="fas fa-angle-right"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+     <section class="m-4 mb-8 ">
+      <div class="w-full">
     <partner class="mt-16"></partner>
+      </div>
+    </section>
   </div>
 </template>
 <script>
@@ -75,26 +107,48 @@ import { ContentLoader } from "vue-content-loader";
 export default {
   data() {
     return {
-      dataRekapitulasiSulteng: [],
-      jsonDataRekapitulasiSultengProv: {}
+      jsonDataRekapitulasiProv: [],
+      jsonDataRekapitulasiNasional: [],
+      jsonDataTesProvinsi: [],
+      jsonDataGenderProvinsi: {}
     };
   },
   methods: {
-    fetchDataPCR() {
+    fetchDataRekapitulasiNasional() {
       axios
-        .get("/corona/api/test")
+        .get("/corona/api/nasional")
         .then(response => {
-          this.dataRekapitulasiSulteng = response.data.data;
+          this.jsonDataRekapitulasiNasional = response.data.data;
         })
         .catch(error => {
           console.log(error);
         });
     },
-    fetchDataRekapitulasiSultengProv() {
+    fetchDataRekapitulasiProvinsi() {
+      axios
+        .get("/corona/api/statistik")
+        .then(response => {
+          this.jsonDataRekapitulasiProv = response.data.data;
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+    fetchDataTes() {
+      axios
+        .get("/corona/api/test")
+        .then(response => {
+          this.jsonDataTesProvinsi = response.data.data;
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+    fetchDataGenderProvinsi() {
       axios
         .get("/corona/api/gender")
         .then(response => {
-          this.jsonDataRekapitulasiSultengProv = response.data.data;
+          this.jsonDataGenderProvinsi = response.data.data;
         })
         .catch(error => {
           console.log(error);
@@ -102,14 +156,18 @@ export default {
     },
     updater() {
       setInterval(() => {
-        this.fetchDataPCR();
-        this.fetchDataRekapitulasiSultengProv();
+        this.fetchDataTes();
+        this.fetchDataRekapitulasiNasional();
+        this.fetchDataRekapitulasiProvinsi();
+        this.fetchDataGenderProvinsi();
       }, 60 * 1000 * 5);
     }
   },
   created() {
-    this.fetchDataPCR();
-    this.fetchDataRekapitulasiSultengProv();
+    this.fetchDataTes();
+    this.fetchDataGenderProvinsi();
+    this.fetchDataRekapitulasiNasional();
+    this.fetchDataRekapitulasiProvinsi();
     this.updater();
   },
   components: {

@@ -17,7 +17,7 @@ class LocalCaseHistory extends Model
 
     public function stat()
     {
-        return $this->belongsTo(Stat::class, 'day');
+        return $this->belongsTo(Stat::class, 'day', 'id');
     }
 
     public function getUnderTreatmentAttribute()

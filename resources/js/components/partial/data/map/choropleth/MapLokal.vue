@@ -1,8 +1,15 @@
 <template>
-  <div class="w-full p-3 text-xs bg-white rounded-lg shadow-lg md:text-base">
+  <div class="relative w-full p-3 text-xs bg-white rounded-lg shadow-lg md:text-base">
     <!--Table Card-->
     <div class="absolute flex justify-center w-full">
-      <loading :active.sync="isLoading"  :opacity="0.8" :height="300" :width="128" loader="spinner" color="#59F"></loading>
+      <loading
+        :active.sync="isLoading"
+        :opacity="0.8"
+        :height="300"
+        :width="128"
+        loader="spinner"
+        color="#59F"
+      ></loading>
     </div>
     <div>
       <div class="flex flex-wrap justify-center max-w-md mx-auto text-center">
@@ -107,24 +114,24 @@ export default {
       districtODPDataset: [],
       districtPDPDataset: [],
       districtPositiveColor: [
-        "#F9CACD",
-        "#F4A8AC",
-        "#EE868B",
-        "#E76569",
-        "#DF4346",
-        "#820029",
-        "#6E002C",
+        "#418a47",
+        "#81a24c",
+        "#bdb75a",
+        "#facb75",
+        "#f39e5b",
+        "#e87050",
+        "#d43d51",
         "#CD0000"
       ],
       districtRecoveredColor: [
-        "#DEEDCF",
-        "#BFE1B0",
-        "#99D492",
-        "#74C67A",
-        "#56B870",
-        "#0E4D64",
-        "#0A2F51",
-        "#1D9A6C"
+        "#398c2a",
+        "#3e982e",
+        "#44a433",
+        "#4ab037",
+        "#4fbc3c",
+        "#55c841",
+        "#5bd445",
+        "#61e14a"
       ],
       districtDeathColor: [
         "#FFF3BA",

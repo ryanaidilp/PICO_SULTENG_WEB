@@ -697,7 +697,6 @@ export default {
       this.fetchData();
     },
     lokasi: function() {
-      console.log(this.jsonDataKabupaten[this.lokasi - 1]);
       this.fetchData();
     },
     kejadian: function() {

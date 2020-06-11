@@ -140,7 +140,6 @@ const formatDate = value => {
       tanggal = value;
     }
     const d = new Date(tanggal);
-    console.log(d);
     const options = {
       day: "numeric",
       month: "short",

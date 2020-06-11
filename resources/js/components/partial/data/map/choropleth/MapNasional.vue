@@ -63,17 +63,17 @@ export default {
       today: new Date(),
       positiveDataset: [],
       positiveColor: [
-        "#F9CACD",
-        "#F4A8AC",
-        "#EE868B",
-        "#E76569",
-        "#DF4346",
-        "#D12E2A",
-        "#BB000E",
-        "#A90019",
-        "#960022",
-        "#820029",
-        "#6E002C",
+        "#418a47",
+        "#689849",
+        "#8da64e",
+        "#b1b356",
+        "#d6bf63",
+        "#facb75",
+        "#f6b063",
+        "#f19557",
+        "#ea7951",
+        "#e15c4f",
+        "#d43d51",
         "#CD0000"
       ],
       recoveredDataset: [],
@@ -110,9 +110,11 @@ export default {
   },
   methods: {
     loadGeoJson: function() {
-      axios.get("/corona/public/assets/geojson/indonesia.json").then(response => {
-        map.geoData(response.data);
-      });
+      axios
+        .get("/corona/public/assets/geojson/indonesia.json")
+        .then(response => {
+          map.geoData(response.data);
+        });
     },
     createChoropleth: function(name, data, color) {
       map.removeAllSeries();

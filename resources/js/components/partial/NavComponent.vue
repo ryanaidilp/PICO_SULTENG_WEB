@@ -1,6 +1,6 @@
 <template>
   <div class="z-50 text-gray-600">
-    <nav ref="header" class="fixed top-0 z-10 w-full bg-white shadow-md">
+    <nav ref="header" class="fixed top-0 w-full bg-white shadow-md main-nav-top">
       <div class="container flex flex-wrap items-center w-full pt-2 pb-3 mx-auto mt-0">
         <div class="w-1/2 pl-2 md:pl-0">
           <a class="flex flex-wrap text-gray-900 no-underline hover:no-underline" href="https://banuacoders.com/corona">
@@ -166,3 +166,9 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+.main-nav-top {
+    z-index: 200;
+  }
+</style>

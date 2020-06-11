@@ -75,8 +75,14 @@
       <p class="pb-8 mx-8 text-sm text-justify text-gray-800">
         Keterangan:
         <br />Data didapatkan dari hasil scraping di
-        <a class="text-blue-800 no-underline hover:underline" href="http://corona.sultengprov.go.id">Website Covid-19 Sulawesi Tengah by Diskominfo</a> & website
-        <a class="text-blue-800 no-underline hover:underline" href="http://dinkes.sultengprov.com">Dinas Kesehatan Provinsi Sulawesi Tengah</a> menggunakan Python dengan plugin PytTesseract untuk mengekstrak data pada gambar.
+        <a
+          class="text-blue-800 no-underline hover:underline"
+          href="http://corona.sultengprov.go.id"
+        >Website Covid-19 Sulawesi Tengah by Diskominfo</a> & website
+        <a
+          class="text-blue-800 no-underline hover:underline"
+          href="http://dinkes.sultengprov.com"
+        >Dinas Kesehatan Provinsi Sulawesi Tengah</a> menggunakan Python dengan plugin PytTesseract untuk mengekstrak data pada gambar.
       </p>
     </section>
   </div>
@@ -456,6 +462,17 @@ export default {
         .then(function(response) {
           self.groupDataKab(response.data.data);
           self.jsonDataKabupaten.forEach(kabupaten => {
+            let prev_data = {
+              odp: 0,
+              odp_selesai: 0,
+              odp_proses: 0,
+              pdp: 0,
+              pdp_selesai: 0,
+              pdp_proses: 0,
+              positif: 0,
+              sembuh: 0,
+              meninggal: 0
+            };
             for (let i = 0; i < kabupaten.dataHarian.length; i++) {
               const harian = kabupaten.dataHarian[i];
               let temp3 = {
@@ -484,15 +501,51 @@ export default {
               };
               temp3.tanggal = harian.tanggal;
               temp3.nama_kab = harian.nama;
-              temp3.odp = harian.kumulatif.ODP;
-              temp3.odp_selesai = harian.kumulatif.selesai_ODP;
-              temp3.odp_proses = harian.aktif.ODP;
-              temp3.pdp = harian.kumulatif.PDP;
-              temp3.pdp_selesai = harian.kumulatif.selesai_PDP;
-              temp3.pdp_proses = harian.aktif.PDP;
-              temp3.positif = harian.kumulatif.positif;
-              temp3.sembuh = harian.kumulatif.sembuh;
-              temp3.meninggal = harian.kumulatif.meninggal;
+              if (harian.kumulatif.ODP === 0 && prev_data.odp !== 0) {
+                temp3.odp = prev_data.odp;
+              } else {
+                temp3.odp = harian.kumulatif.ODP;
+              }
+              if (harian.kumulatif.selesai_ODP === 0 && prev_data.odp_selesai !== 0) {
+                temp3.odp_selesai = prev_data.odp_selesai;
+              } else {
+                temp3.odp_selesai = harian.kumulatif.selesai_ODP;
+              }
+              if (harian.aktif.ODP === 0 && prev_data.odp_proses !== 0) {
+                temp3.odp_proses = prev_data.odp_proses;
+              } else {
+                temp3.odp_proses = harian.aktif.ODP;
+              }
+              if (harian.kumulatif.PDP === 0 && prev_data.pdp !== 0) {
+                temp3.pdp = prev_data.pdp;
+              } else {
+                temp3.pdp = harian.kumulatif.PDP;
+              }
+              if (harian.kumulatif.selesai_PDP == 0 && prev_data.pdp_selesai !== 0) {
+                temp3.pdp_selesai = prev_data.pdp_selesai;
+              } else {
+                temp3.pdp_selesai = harian.kumulatif.selesai_PDP;
+              }
+              if (harian.aktif.PDP == 0 && prev_data.pdp_proses !== 0) {
+                temp3.pdp_proses = prev_data.pdp_proses;
+              } else {
+                temp3.pdp_proses = harian.aktif.PDP;
+              }
+              if (harian.kumulatif.positif == 0 && prev_data.positif !== 0) {
+                temp3.positif = prev_data.positif;
+              } else {
+                temp3.positif = harian.kumulatif.positif;
+              }
+              if (harian.kumulatif.sembuh == 0 && prev_data.sembuh !== 0) {
+                temp3.sembuh = prev_data.sembuh;
+              } else {
+                temp3.sembuh = harian.kumulatif.sembuh;
+              }
+              if (harian.aktif.meninggal == 0 && prev_data.meninggal !== 0) {
+                temp3.meninggal = prev_data.meninggal;
+              } else {
+                temp3.meninggal = harian.aktif.meninggal;
+              }
               temp2.pertumbuhan_odp = harian.kasus_baru.ODP;
               temp2.pertumbuhan_odp_selesai = harian.selesai.ODP;
               temp2.pertumbuhan_odp_proses =
@@ -508,6 +561,7 @@ export default {
                 ...temp3,
                 ...temp2
               });
+              prev_data = {...temp3}
             }
           });
 

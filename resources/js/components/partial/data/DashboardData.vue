@@ -123,6 +123,16 @@ export default {
     CardCase: () => import("../home/tabs/CardCase"),
     CardSuspect: () => import("../home/tabs/CardSuspect")
   },
+  props: {
+    propsDataProvinsi: {
+      type: Object,
+      default: () => {}
+    },
+    propsDataNasional: {
+      type: Object,
+      default: () => {}
+    }
+  },
   data() {
     return {
       lastUpdate: null,
@@ -152,98 +162,87 @@ export default {
       positifBaruNasional: 0,
       dirawatBaruNasional: 0,
       sembuhBaruNasional: 0,
-      meninggalBaruNasional: 0
+      meninggalBaruNasional: 0,
+      jsonDataNasional: {},
+      jsonDataProvinsi: {}
     };
   },
   methods: {
     getStatistics: function() {
-      axios
-        .get("/corona/api/statistik/terkini")
-        .then(response => {
-          var formatter = new Intl.NumberFormat("id-ID");
-          this.statistics = response.data.data;
-          this.totalPositif = NumberFormat.format(
-            this.statistics.kumulatif.positif
-          );
-          this.totalDirawat = NumberFormat.format(
-            this.statistics.aktif.dalam_perawatan
-          );
-          this.totalSembuh = NumberFormat.format(
-            this.statistics.kumulatif.sembuh
-          );
-          this.totalMeninggal = NumberFormat.format(
-            this.statistics.kumulatif.meninggal
-          );
+      var formatter = new Intl.NumberFormat("id-ID");
+      this.statistics = this.jsonDataProvinsi;
+      this.totalPositif = NumberFormat.format(
+        this.statistics.kumulatif.positif
+      );
+      this.totalDirawat = NumberFormat.format(
+        this.statistics.aktif.dalam_perawatan
+      );
+      this.totalSembuh = NumberFormat.format(this.statistics.kumulatif.sembuh);
+      this.totalMeninggal = NumberFormat.format(
+        this.statistics.kumulatif.meninggal
+      );
 
-          this.positifBaru = NumberFormat.format(
-            this.statistics.kasus_baru.positif
-          );
-          this.dirawatBaru = NumberFormat.format(
-            this.statistics.kasus_baru.dalam_perawatan
-          );
-          this.sembuhBaru = NumberFormat.format(
-            this.statistics.kasus_baru.sembuh
-          );
-          this.meninggalBaru = NumberFormat.format(
-            this.statistics.kasus_baru.meninggal
-          );
+      this.positifBaru = NumberFormat.format(
+        this.statistics.kasus_baru.positif
+      );
+      this.dirawatBaru = NumberFormat.format(
+        this.statistics.kasus_baru.dalam_perawatan
+      );
+      this.sembuhBaru = NumberFormat.format(this.statistics.kasus_baru.sembuh);
+      this.meninggalBaru = NumberFormat.format(
+        this.statistics.kasus_baru.meninggal
+      );
 
-          this.totalODP = NumberFormat.format(this.statistics.kumulatif.ODP);
-          this.selesaiODP = NumberFormat.format(
-            this.statistics.kumulatif.selesai_ODP
-          );
-          this.ODPAktif = NumberFormat.format(this.statistics.aktif.ODP);
-          this.ODPBaru = NumberFormat.format(this.statistics.kasus_baru.ODP);
-          this.selesaiODPBaru = NumberFormat.format(
-            this.statistics.selesai.ODP
-          );
+      this.totalODP = NumberFormat.format(this.statistics.kumulatif.ODP);
+      this.selesaiODP = NumberFormat.format(
+        this.statistics.kumulatif.selesai_ODP
+      );
+      this.ODPAktif = NumberFormat.format(this.statistics.aktif.ODP);
+      this.ODPBaru = NumberFormat.format(this.statistics.kasus_baru.ODP);
+      this.selesaiODPBaru = NumberFormat.format(this.statistics.selesai.ODP);
 
-          this.totalPDP = NumberFormat.format(this.statistics.kumulatif.PDP);
-          this.selesaiPDP = NumberFormat.format(
-            this.statistics.kumulatif.selesai_PDP
-          );
-          this.PDPAktif = NumberFormat.format(this.statistics.aktif.PDP);
-          this.PDPBaru = NumberFormat.format(this.statistics.kasus_baru.PDP);
-          this.selesaiPDPBaru = NumberFormat.format(
-            this.statistics.selesai.PDP
-          );
-        })
-        .catch(error => console.log(error));
+      this.totalPDP = NumberFormat.format(this.statistics.kumulatif.PDP);
+      this.selesaiPDP = NumberFormat.format(
+        this.statistics.kumulatif.selesai_PDP
+      );
+      this.PDPAktif = NumberFormat.format(this.statistics.aktif.PDP);
+      this.PDPBaru = NumberFormat.format(this.statistics.kasus_baru.PDP);
+      this.selesaiPDPBaru = NumberFormat.format(this.statistics.selesai.PDP);
     },
     getNationalData: function() {
-      axios.get("/corona/api/nasional/terkini").then(response => {
-        var data = response.data.data;
-        var jam = formatToTimeZone(new Date(data.tanggal), "HH:mm:ss", {
-          timeZone: "Asia/Makassar"
-        });
-        this.lastUpdate = format(new Date(data.tanggal), "EEEE, dd MMMM yyyy", {
-          locale: id
-        });
-        this.lastUpdate += " " + jam;
-        this.positifNasional = NumberFormat.format(data.kumulatif.positif);
-        this.dirawatNasional = NumberFormat.format(
-          data.kumulatif.dalam_perawatan
-        );
-        this.sembuhNasional = NumberFormat.format(data.kumulatif.sembuh);
-        this.meninggalNasional = NumberFormat.format(data.kumulatif.meninggal);
-        this.positifBaruNasional = NumberFormat.format(data.kasus_baru.positif);
-        this.dirawatBaruNasional = NumberFormat.format(
-          data.kasus_baru.dalam_perawatan
-        );
-        this.sembuhBaruNasional = NumberFormat.format(data.kasus_baru.sembuh);
-        this.meninggalBaruNasional = NumberFormat.format(
-          data.kasus_baru.meninggal
-        );
+      var data = this.jsonDataNasional;
+      var jam = formatToTimeZone(new Date(data.tanggal), "HH:mm:ss", {
+        timeZone: "Asia/Makassar"
       });
+      this.lastUpdate = format(new Date(data.tanggal), "EEEE, dd MMMM yyyy", {
+        locale: id
+      });
+      this.lastUpdate += " " + jam;
+      this.positifNasional = NumberFormat.format(data.kumulatif.positif);
+      this.dirawatNasional = NumberFormat.format(
+        data.kumulatif.dalam_perawatan
+      );
+      this.sembuhNasional = NumberFormat.format(data.kumulatif.sembuh);
+      this.meninggalNasional = NumberFormat.format(data.kumulatif.meninggal);
+      this.positifBaruNasional = NumberFormat.format(data.kasus_baru.positif);
+      this.dirawatBaruNasional = NumberFormat.format(
+        data.kasus_baru.dalam_perawatan
+      );
+      this.sembuhBaruNasional = NumberFormat.format(data.kasus_baru.sembuh);
+      this.meninggalBaruNasional = NumberFormat.format(
+        data.kasus_baru.meninggal
+      );
     }
   },
-  mounted() {
-    this.getStatistics();
-    this.getNationalData();
-    setInterval(() => {
+  watch: {
+    propsDataProvinsi() {
+      this.jsonDataProvinsi = this.propsDataProvinsi;
       this.getStatistics();
+    },
+    propsDataNasional() {
+      this.jsonDataNasional = this.propsDataNasional;
       this.getNationalData();
-    }, 60 * 1000);
+    }
   }
 };
 </script>

@@ -71,10 +71,12 @@
           </template>
         </div>
       </div>
-      <hr>
+      <hr />
       <p class="pb-8 mx-8 text-sm text-justify text-gray-800">
         Keterangan:
-        <br />Data hanya berisi perubahan data di setiap Kabupaten pada tanggal yang tertera. Jika data Kabupaten tidak ditemukan pada tanggal tersebut, berarti tidak ada perubahan data di Kabupaten tersebut pada tanggal yang tertera.
+        <br />Data didapatkan dari hasil scraping di
+        <a class="text-blue-800 no-underline hover:underline" href="http://corona.sultengprov.go.id">Website Covid-19 Sulawesi Tengah by Diskominfo</a> & website
+        <a class="text-blue-800 no-underline hover:underline" href="http://dinkes.sultengprov.com">Dinas Kesehatan Provinsi Sulawesi Tengah</a> menggunakan Python dengan plugin PytTesseract untuk mengekstrak data pada gambar.
       </p>
     </section>
   </div>
@@ -163,6 +165,73 @@ export default {
   },
   data() {
     return {
+      jsonDataKabupaten: [
+        {
+          no: 1,
+          nama: "Banggai",
+          dataHarian: []
+        },
+        {
+          no: 2,
+          nama: "Banggai Kepulauan",
+          dataHarian: []
+        },
+        {
+          no: 3,
+          nama: "Banggai Laut",
+          dataHarian: []
+        },
+        {
+          no: 4,
+          nama: "Buol",
+          dataHarian: []
+        },
+        {
+          no: 5,
+          nama: "Donggala",
+          dataHarian: []
+        },
+        {
+          no: 6,
+          nama: "Morowali",
+          dataHarian: []
+        },
+        {
+          no: 7,
+          nama: "Morowali Utara",
+          dataHarian: []
+        },
+        {
+          no: 8,
+          nama: "Parigi Moutong",
+          dataHarian: []
+        },
+        {
+          no: 9,
+          nama: "Poso",
+          dataHarian: []
+        },
+        {
+          no: 10,
+          nama: "Sigi",
+          dataHarian: []
+        },
+        {
+          no: 11,
+          nama: "Tojo Una-Una",
+          dataHarian: []
+        },
+        {
+          no: 12,
+          nama: "Toli-Toli",
+          dataHarian: []
+        },
+        {
+          no: 13,
+          nama: "Kota Palu",
+          dataHarian: []
+        }
+      ],
       isLoading: true,
       jsonDataRekapitulasiSultengKumulatifKab: [],
       headerFields: [
@@ -322,75 +391,126 @@ export default {
     this.fetchDataRekapitulasiSultengKumulatifKab();
   },
   methods: {
+    groupDataKab(data) {
+      const self = this;
+      data.forEach(element => {
+        const temp1 = {
+          hari_ke: element.hari_ke,
+          tanggal: element.tanggal
+        };
+        const temp2 = {
+          nama: "",
+          kasus_baru: {
+            positif: 0,
+            sembuh: 0,
+            meninggal: 0,
+            ODP: 0,
+            PDP: 0
+          },
+          aktif: {
+            dalam_perawatan: 0,
+            ODP: 0,
+            PDP: 0
+          },
+          selesai: {
+            ODP: 0,
+            PDP: 0
+          },
+          kumulatif: {
+            positif: 0,
+            sembuh: 0,
+            meninggal: 0,
+            ODP: 0,
+            PDP: 0,
+            selesai_PDP: 0,
+            selesai_ODP: 0
+          }
+        };
+
+        self.jsonDataKabupaten.forEach(kabupaten => {
+          temp2.nama = kabupaten.nama;
+          let temp4 = { ...temp1, ...temp2 };
+          element.daftar_kabupaten.forEach(kab => {
+            if (kabupaten.no === kab.no) {
+              const temp5 = {
+                nama: kab.nama,
+                kasus_baru: { ...kab.kasus_baru },
+                aktif: { ...kab.aktif },
+                selesai: { ...kab.selesai },
+                kumulatif: { ...kab.kumulatif }
+              };
+              temp4 = {
+                ...temp1,
+                ...temp5
+              };
+            }
+          });
+          kabupaten.dataHarian.push(temp4);
+        });
+      });
+    },
     fetchDataRekapitulasiSultengKumulatifKab() {
       const self = this;
       axios
         .get("/corona/api/statistik")
         .then(function(response) {
-          let temp = response.data.data;
-          for (let i = 0; i < temp.length; i++) {
-            let temp3 = {
-              tanggal: "",
-              nama_kab: "",
-              odp: 0,
-              odp_selesai: 0,
-              odp_proses: 0,
-              pdp: 0,
-              pdp_selesai: 0,
-              pdp_proses: 0,
-              positif: 0,
-              sembuh: 0,
-              meninggal: 0
-            };
-            let temp2 = {
-              pertumbuhan_odp: 0,
-              pertumbuhan_odp_selesai: 0,
-              pertumbuhan_odp_proses: 0,
-              pertumbuhan_pdp: 0,
-              pertumbuhan_pdp_selesai: 0,
-              pertumbuhan_pdp_proses: 0,
-              pertumbuhan_positif: 0,
-              pertumbuhan_sembuh: 0,
-              pertumbuhan_meninggal: 0
-            };
-            for (let j = 0; j < temp[i].daftar_kabupaten.length; j++) {
-              temp3.tanggal = temp[i].tanggal;
-              temp3.nama_kab = temp[i].daftar_kabupaten[j].nama;
-              temp3.odp = temp[i].daftar_kabupaten[j].kumulatif.ODP;
-              temp3.odp_selesai =
-                temp[i].daftar_kabupaten[j].kumulatif.selesai_ODP;
-              temp3.odp_proses = temp[i].daftar_kabupaten[j].aktif.ODP;
-              temp3.pdp = temp[i].daftar_kabupaten[j].kumulatif.PDP;
-              temp3.pdp_selesai =
-                temp[i].daftar_kabupaten[j].kumulatif.selesai_PDP;
-              temp3.pdp_proses = temp[i].daftar_kabupaten[j].aktif.PDP;
-              temp3.positif = temp[i].daftar_kabupaten[j].kumulatif.positif;
-              temp3.sembuh = temp[i].daftar_kabupaten[j].kumulatif.sembuh;
-              temp3.meninggal = temp[i].daftar_kabupaten[j].kumulatif.meninggal;
-              temp2.pertumbuhan_odp =
-                temp[i].daftar_kabupaten[j].kasus_baru.ODP;
-              temp2.pertumbuhan_odp_selesai =
-                temp[i].daftar_kabupaten[j].selesai.ODP;
+          self.groupDataKab(response.data.data);
+          self.jsonDataKabupaten.forEach(kabupaten => {
+            for (let i = 0; i < kabupaten.dataHarian.length; i++) {
+              const harian = kabupaten.dataHarian[i];
+              let temp3 = {
+                tanggal: "",
+                nama_kab: "",
+                odp: 0,
+                odp_selesai: 0,
+                odp_proses: 0,
+                pdp: 0,
+                pdp_selesai: 0,
+                pdp_proses: 0,
+                positif: 0,
+                sembuh: 0,
+                meninggal: 0
+              };
+              let temp2 = {
+                pertumbuhan_odp: 0,
+                pertumbuhan_odp_selesai: 0,
+                pertumbuhan_odp_proses: 0,
+                pertumbuhan_pdp: 0,
+                pertumbuhan_pdp_selesai: 0,
+                pertumbuhan_pdp_proses: 0,
+                pertumbuhan_positif: 0,
+                pertumbuhan_sembuh: 0,
+                pertumbuhan_meninggal: 0
+              };
+              temp3.tanggal = harian.tanggal;
+              temp3.nama_kab = harian.nama;
+              temp3.odp = harian.kumulatif.ODP;
+              temp3.odp_selesai = harian.kumulatif.selesai_ODP;
+              temp3.odp_proses = harian.aktif.ODP;
+              temp3.pdp = harian.kumulatif.PDP;
+              temp3.pdp_selesai = harian.kumulatif.selesai_PDP;
+              temp3.pdp_proses = harian.aktif.PDP;
+              temp3.positif = harian.kumulatif.positif;
+              temp3.sembuh = harian.kumulatif.sembuh;
+              temp3.meninggal = harian.kumulatif.meninggal;
+              temp2.pertumbuhan_odp = harian.kasus_baru.ODP;
+              temp2.pertumbuhan_odp_selesai = harian.selesai.ODP;
               temp2.pertumbuhan_odp_proses =
-                temp[i].daftar_kabupaten[j].aktif.ODP;
-              temp2.pertumbuhan_pdp =
-                temp[i].daftar_kabupaten[j].kasus_baru.PDP;
-              temp2.pertumbuhan_pdp_selesai =
-                temp[i].daftar_kabupaten[j].selesai.PDP;
+                harian.kasus_baru.ODP - harian.selesai.ODP;
+              temp2.pertumbuhan_pdp = harian.kasus_baru.PDP;
+              temp2.pertumbuhan_odp_selesai = harian.selesai.PDP;
               temp2.pertumbuhan_pdp_proses =
-                temp[i].daftar_kabupaten[j].aktif.PDP;
-              temp2.pertumbuhan_positif =
-                temp[i].daftar_kabupaten[j].kasus_baru.positif;
-              temp2.pertumbuhan_sembuh =
-                temp[i].daftar_kabupaten[j].kasus_baru.sembuh;
-              temp2.pertumbuhan_meninggal =
-                temp[i].daftar_kabupaten[j].kasus_baru.meninggal;
+                harian.kasus_baru.PDP - harian.selesai.PDP;
+              temp2.pertumbuhan_positif = harian.kasus_baru.positif;
+              temp2.pertumbuhan_sembuh = harian.kasus_baru.sembuh;
+              temp2.pertumbuhan_meninggal = harian.kasus_baru.meninggal;
               self.jsonDataRekapitulasiSultengKumulatifKab.push({
                 ...temp3,
                 ...temp2
               });
             }
-          }
+          });
+
           self.data = self.jsonDataRekapitulasiSultengKumulatifKab.slice(
             0,
             self.itemsPerPage

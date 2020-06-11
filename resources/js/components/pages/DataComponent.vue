@@ -2,7 +2,10 @@
   <div class="container mx-auto text-gray-800">
     <section class="m-4 mb-8 md:m-8">
       <div class="w-full">
-        <dashboard></dashboard>
+        <dashboard
+          :props-data-provinsi.sync="jsonDataHarianProvinsi"
+          :props-data-nasional.sync="jsonDataHarianNasional"
+        ></dashboard>
       </div>
     </section>
     <section class="px-4 m-4 mb-8 md:m-8">
@@ -28,7 +31,11 @@
         <h3
           class="w-full text-lg font-bold text-center md:text-left md:ml-6 md:text-3xl"
         >Tabel Penyebaran Kasus</h3>
-        <table-tab class="mt-4"></table-tab>
+        <table-tab
+          :props-data-provinsi-nasional.sync="jsonDataProvinsi"
+          :props-data-sulteng-kabupaten.sync="jsonDataKabupaten"
+          class="mt-4"
+        ></table-tab>
       </div>
     </section>
     <section class="m-4 mb-8 md:m-8">
@@ -52,10 +59,13 @@
       <div class="w-full">
         <div class="flex flex-col w-full mt-4 lg:flex-row">
           <keep-alive>
-            <new-case class="w-full lg:w-1/2"></new-case>
+            <new-case :props-data-provinsi.sync="jsonDataHarianProvinsi" class="w-full lg:w-1/2"></new-case>
           </keep-alive>
           <keep-alive>
-            <pie-chart class="w-full mt-4 lg:w-1/2 lg:mt-0"></pie-chart>
+            <pie-chart
+              :props-data-provinsi.sync="jsonDataHarianProvinsi"
+              class="w-full mt-4 lg:w-1/2 lg:mt-0"
+            ></pie-chart>
           </keep-alive>
         </div>
       </div>
@@ -94,9 +104,9 @@
         </div>
       </div>
     </section>
-     <section class="m-4 mb-8 ">
+    <section class="m-4 mb-8">
       <div class="w-full">
-    <partner class="mt-16"></partner>
+        <partner class="mt-16"></partner>
       </div>
     </section>
   </div>
@@ -110,15 +120,48 @@ export default {
       jsonDataRekapitulasiProv: [],
       jsonDataRekapitulasiNasional: [],
       jsonDataTesProvinsi: [],
-      jsonDataGenderProvinsi: {}
+      jsonDataProvinsi: [],
+      jsonDataKabupaten: [],
+      jsonDataGenderProvinsi: {},
+      jsonDataHarianProvinsi: {},
+      jsonDataHarianNasional: {}
     };
   },
   methods: {
+    fetchDataProvinsi() {
+      axios
+        .get("/corona/api/provinsi")
+        .then(response => {
+          this.jsonDataProvinsi = response.data.data;
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+    fetchDataKabupaten() {
+      axios
+        .get("/corona/api/kabupaten")
+        .then(response => {
+          this.jsonDataKabupaten = response.data.data;
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+    fetchDataHarianProvinsi() {
+      const data = this.jsonDataRekapitulasiProv;
+      this.jsonDataHarianProvinsi = data[data.length - 1];
+    },
+    fetchDataHarianNasional() {
+      const data = this.jsonDataRekapitulasiNasional;
+      this.jsonDataHarianNasional = data[data.length - 1];
+    },
     fetchDataRekapitulasiNasional() {
       axios
         .get("/corona/api/nasional")
         .then(response => {
           this.jsonDataRekapitulasiNasional = response.data.data;
+          this.fetchDataHarianNasional();
         })
         .catch(error => {
           console.log(error);
@@ -129,6 +172,7 @@ export default {
         .get("/corona/api/statistik")
         .then(response => {
           this.jsonDataRekapitulasiProv = response.data.data;
+          this.fetchDataHarianProvinsi();
         })
         .catch(error => {
           console.log(error);
@@ -156,18 +200,22 @@ export default {
     },
     updater() {
       setInterval(() => {
-        this.fetchDataTes();
-        this.fetchDataRekapitulasiNasional();
+        this.fetchDataKabupaten();
+        this.fetchDataProvinsi();
         this.fetchDataRekapitulasiProvinsi();
+        this.fetchDataRekapitulasiNasional();
+        this.fetchDataTes();
         this.fetchDataGenderProvinsi();
       }, 60 * 1000 * 5);
     }
   },
   created() {
+    this.fetchDataKabupaten();
+    this.fetchDataProvinsi();
+    this.fetchDataRekapitulasiProvinsi();
+    this.fetchDataRekapitulasiNasional();
     this.fetchDataTes();
     this.fetchDataGenderProvinsi();
-    this.fetchDataRekapitulasiNasional();
-    this.fetchDataRekapitulasiProvinsi();
     this.updater();
   },
   components: {

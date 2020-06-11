@@ -6,8 +6,10 @@
       class="w-1/2 mx-8 mt-4 text-sm md:text-base md:w-1/4"
       v-model="selected"
       :value="selected"
+      :clearable="false"
     ></v-select>
     <vue-good-table
+      :fixed-header="true"
       class="mt-4"
       v-if="selected == 'Sulawesi Tengah'"
       :columns="columnsDistrict"
@@ -22,6 +24,7 @@
       theme="black-rhino"
     ></vue-good-table>
     <vue-good-table
+      :fixed-header="true"
       theme="black-rhino"
       class="mt-4"
       v-else-if="selected == 'Indonesia'"
@@ -47,6 +50,16 @@ import { VueGoodTable } from "vue-good-table";
 import VSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
 export default {
+  props: {
+    propsDataSultengKabupaten: {
+      type: Array,
+      default: () => []
+    },
+    propsDataProvinsiNasional: {
+      type: Array,
+      default: () => []
+    }
+  },
   components: {
     VSelect,
     VueGoodTable
@@ -56,108 +69,131 @@ export default {
       columnsDistrict: [
         {
           label: "Nama",
-          field: "kabupaten"
+          field: "kabupaten",
+          type: "text",
+          thClass: "text-center",
+          tdClass: "text-left font-bold",
+          sortable: false
         },
         {
           label: "Positif",
           field: "positif",
+          thClass: "text-center",
+          tdClass: "text-center",
           type: "number"
         },
         {
           label: "Negatif",
           field: "negatif",
+          thClass: "text-center",
+          tdClass: "text-center",
           type: "number"
         },
         {
           label: "Sembuh",
           field: "sembuh",
+          thClass: "text-center",
+          tdClass: "text-center",
           type: "number"
         },
         {
           label: "Meninggal",
           field: "meninggal",
+          thClass: "text-center",
+          tdClass: "text-center",
+          type: "number"
+        },
+        {
+          label: "% Kematian",
+          field: "rasio_kematian",
+          thClass: "text-center",
+          tdClass: "text-center",
           type: "number"
         }
       ],
       columnsProvince: [
         {
           label: "Nama",
-          field: "provinsi"
+          field: "provinsi",
+          type: "text",
+          thClass: "text-center",
+          tdClass: "text-left font-bold",
+          sortable: false
         },
         {
           label: "Positif",
           field: "positif",
+          thClass: "text-center",
+          tdClass: "text-center",
           type: "number"
         },
         {
           label: "Dalam Perawatan",
           field: "dalam_perawatan",
+          thClass: "text-center",
+          tdClass: "text-center",
           type: "number"
         },
         {
           label: "Sembuh",
           field: "sembuh",
+          thClass: "text-center",
+          tdClass: "text-center",
           type: "number"
         },
         {
           label: "Meninggal",
           field: "meninggal",
+          thClass: "text-center",
+          tdClass: "text-center",
           type: "number"
         },
         {
           label: "% Kematian",
           field: "persentase_kematian",
+          thClass: "text-center",
+          tdClass: "text-center",
           type: "number"
         }
       ],
       rows: [],
+      jsonDataKabupaten: [],
+      jsonDataProvinsi: [],
       selected: "Sulawesi Tengah",
       options: ["Sulawesi Tengah", "Indonesia"]
     };
   },
   methods: {
-    getAllDistricts: function() {
-      axios
-        .get("/corona/api/kabupaten")
-        .then(result => {
-          this.rows = result.data.data;
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    },
-    getAllProvinces: function() {
-      axios
-        .get("/corona/api/provinsi")
-        .then(result => {
-          this.rows = result.data.data;
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    },
-    updater: function() {
-      setInterval(() => {
-        if (this.selected == "Indonesia") {
-          this.getAllProvinces();
-        } else {
-          this.getAllDistricts();
-        }
-      }, 5 * 60 * 1000);
-    }
-  },
-  watch: {
-    selected: function() {
+    fetchData() {
       if (this.selected == "Indonesia") {
         this.getAllProvinces();
       } else {
         this.getAllDistricts();
       }
+    },
+    getAllDistricts: function() {
+      this.rows = this.jsonDataKabupaten;
+    },
+    getAllProvinces: function() {
+      this.rows = this.jsonDataProvinsi;
+    }
+  },
+  watch: {
+    propsDataSultengKabupaten() {
+      this.jsonDataKabupaten = this.propsDataSultengKabupaten;
+      this.fetchData();
+    },
+    propsDataProvinsiNasional() {
+      this.jsonDataProvinsi = this.propsDataProvinsiNasional;
+      this.fetchData();
+    },
+    selected: function() {
+      this.fetchData();
     }
   },
   mounted() {
-    this.getAllDistricts();
-    this.updater();
+    this.fetchData();
   }
 };
 </script>
+

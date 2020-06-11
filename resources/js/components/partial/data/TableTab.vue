@@ -26,12 +26,15 @@
           <div class="tab-content tab-space">
             <div v-bind:class="{'hidden': openTab !== 1, 'block': openTab === 1}">
               <keep-alive>
-                <positif-tab></positif-tab>
+                <positif-tab
+                  :props-data-provinsi-nasional.sync="jsonDataProvinsi"
+                  :props-data-sulteng-kabupaten.sync="jsonDataKabupaten"
+                ></positif-tab>
               </keep-alive>
             </div>
             <div v-bind:class="{'hidden': openTab !== 2, 'block': openTab === 2}">
               <keep-alive>
-                <odp-pdp-tab></odp-pdp-tab>
+                <odp-pdp-tab :props-data-sulteng-kabupaten.sync="jsonDataKabupaten"></odp-pdp-tab>
               </keep-alive>
             </div>
           </div>
@@ -46,14 +49,34 @@ export default {
     PositifTab: () => import("./table/TablePositif"),
     OdpPdpTab: () => import("./table/TableODP")
   },
+  props: {
+    propsDataSultengKabupaten: {
+      type: Array,
+      default: () => []
+    },
+    propsDataProvinsiNasional: {
+      type: Array,
+      default: () => []
+    }
+  },
   data() {
     return {
-      openTab: 1
+      openTab: 1,
+      jsonDataKabupaten: [],
+      jsonDataProvinsi: []
     };
   },
   methods: {
     toggleTabs: function(tabNumber) {
       this.openTab = tabNumber;
+    }
+  },
+  watch: {
+    propsDataSultengKabupaten() {
+      this.jsonDataKabupaten = this.propsDataSultengKabupaten;
+    },
+    propsDataProvinsiNasional() {
+      this.jsonDataProvinsi = this.propsDataProvinsiNasional;
     }
   }
 };

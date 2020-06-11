@@ -14,7 +14,7 @@
         <a
           href="https://corona.detexi.id"
           target="blank"
-          class="w-full mx-auto my-2 text-xs font-bold text-center border-2 border-white rounded-md lg:my-auto lg:mx-2 lg:w-1/4 sm:p-2 lg:mx-16 lg:text-base hover:bg-blue-300"
+          class="w-full p-4 mx-auto my-2 text-sm font-bold text-center border-2 border-white rounded-md lg:my-auto lg:mx-2 lg:w-1/4 sm:p-2 lg:mx-16 lg:text-base hover:bg-blue-300"
         >Periksa Sekarang</a>
       </div>
     </div>

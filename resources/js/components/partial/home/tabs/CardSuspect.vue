@@ -61,10 +61,9 @@ export default {
   },
   methods: {
     percentage: function(value, total) {
-      return (
-        (parseInt(value.replace(".", "")) / parseInt(total.replace(".", ""))) *
-        100
-      ).toFixed(2);
+      let sum = value.toString().replace(".", "");
+      let count = total.toString().replace(".", "");
+      return ((parseInt(sum) / parseInt(count)) * 100).toFixed(2);
     },
     percentageFormat(value) {
       return value + "%";

@@ -498,7 +498,7 @@ export default {
               temp2.pertumbuhan_odp_proses =
                 harian.kasus_baru.ODP - harian.selesai.ODP;
               temp2.pertumbuhan_pdp = harian.kasus_baru.PDP;
-              temp2.pertumbuhan_odp_selesai = harian.selesai.PDP;
+              temp2.pertumbuhan_pdp_selesai = harian.selesai.PDP;
               temp2.pertumbuhan_pdp_proses =
                 harian.kasus_baru.PDP - harian.selesai.PDP;
               temp2.pertumbuhan_positif = harian.kasus_baru.positif;

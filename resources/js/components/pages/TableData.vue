@@ -541,10 +541,10 @@ export default {
               } else {
                 temp3.sembuh = harian.kumulatif.sembuh;
               }
-              if (harian.aktif.meninggal == 0 && prev_data.meninggal !== 0) {
+              if (harian.kumulatif.meninggal == 0 && prev_data.meninggal !== 0) {
                 temp3.meninggal = prev_data.meninggal;
               } else {
-                temp3.meninggal = harian.aktif.meninggal;
+                temp3.meninggal = harian.kumulatif.meninggal;
               }
               temp2.pertumbuhan_odp = harian.kasus_baru.ODP;
               temp2.pertumbuhan_odp_selesai = harian.selesai.ODP;

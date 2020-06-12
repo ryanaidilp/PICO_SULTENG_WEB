@@ -1,18 +1,21 @@
 <template>
-  <div style="height:400px" class="relative">
-    <div class="absolute flex justify-center w-full">
-      <!-- <loading
+  <div  class="vld-parent">
+    <div class="flex justify-center w-full">
+      <loading
         :active.sync="isLoading"
+        :is-full-page="false"
         :opacity="0.8"
-        :height="400"
         :width="100"
-        loader="spinner"
+        :height="400"
+        loader="bars"
         color="#59F"
-      ></loading>-->
+      ></loading>
     </div>
-    <keep-alive>
-      <canvas id="chart-container" aria-label="Chart Harian COVID-19" role="img"></canvas>
-    </keep-alive>
+    <div v-show="!isLoading" style="height:400px">
+      <keep-alive>
+        <canvas id="chart-container" aria-label="Chart Harian COVID-19" role="img"></canvas>
+      </keep-alive>
+    </div>
   </div>
 </template>
 <script>
@@ -45,7 +48,7 @@ export default {
   },
   data() {
     return {
-      isLoading: false,
+      isLoading: true,
       chart: null,
       positiveBgColor: "rgba(246, 71, 71, 1)",
       positiveBorderColor: "rgba(246, 71, 71, 0.8)",
@@ -301,13 +304,12 @@ export default {
 
       // pad beginning of result with null values
       for (var i = 0; i < count - 1; i++) {
-        if(i === 0) {
-          result.push(array[i])
+        if (i === 0) {
+          result.push(array[i]);
         } else {
-          result.push(avg(array.slice(0, i)))
+          result.push(avg(array.slice(0, i)));
         }
-        
-      };
+      }
 
       // calculate average for each subarray and add to result
       for (var i = 0, len = array.length - count; i <= len; i++) {
@@ -506,7 +508,6 @@ export default {
     },
     fetchData() {
       const self = this;
-      self.isLoading = true;
       if (self.wilayah === "Sulawesi Tengah") {
         self.fetchDataProvinsi();
       } else if (self.wilayah === "Indonesia") {
@@ -514,7 +515,6 @@ export default {
       } else {
         self.fetchDataKab(self.wilayah);
       }
-      self.isLoading = false;
     },
     drawChartHarian(label, rataRata, kasusBaru, bgColor, borderColor) {
       const self = this;
@@ -525,6 +525,7 @@ export default {
       self.chartHarianOption.data.datasets[1].borderColor = borderColor;
       self.createChart("chart-container", self.chartHarianOption);
       self.chart.update();
+      this.isLoading = false
     },
     groupDataKab() {
       this.jsonDataHarianProvinsi.forEach(element => {
@@ -574,16 +575,6 @@ export default {
         });
       });
     },
-    checkIfDataLoaded() {
-      if (this.wilayah === "Provinsi") {
-        if (this.jsonDataHarianProvinsi.length > 0) {
-          this.isLoading = false;
-        } else {
-          this.isLoading = true;
-        }
-      } else if (this.wilayah === "Indonesia") {
-      }
-    },
     drawChartOdp(
       label,
       rataRata,
@@ -605,20 +596,21 @@ export default {
       self.chartOdpOption.data.datasets[2].borderColor = borderColor2;
       self.createChart("chart-container", self.chartOdpOption);
       self.chart.update();
+      this.isLoading = false
     }
   },
   watch: {
     propsDataRekapitulasiProv() {
       this.jsonDataKabupaten.forEach(element => {
-        element.dataHarian = []
-      })
+        element.dataHarian = [];
+      });
       this.jsonDataHarianProvinsi = this.propsDataRekapitulasiProv;
       this.groupDataKab();
       this.fetchData();
     },
     propsDataRekapitulasiNasional() {
-      if(this.jsonDataHarianNasional.length > 0) {
-        this.jsonDataHarianNasional = []
+      if (this.jsonDataHarianNasional.length > 0) {
+        this.jsonDataHarianNasional = [];
       }
       this.jsonDataHarianNasional = this.propsDataRekapitulasiNasional;
       this.fetchData();

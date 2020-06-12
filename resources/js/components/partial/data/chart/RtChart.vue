@@ -1,18 +1,20 @@
 <template>
   <div class="w-full p-3 pb-8">
     <!--Graph Card-->
-    <div class="relative bg-white rounded-lg shadow-lg">
-      <div class="absolute flex justify-center w-full">
+    <div class="bg-white rounded-lg shadow-lg vld-parent">
+      <div class="flex justify-center w-full">
         <loading
           :active.sync="isLoading"
+          :is-full-page="false"
           :opacity="0.8"
+          :width="120"
           :height="400"
-          :width="50"
-          loader="spinner"
+          loader="bars"
           color="#59F"
-        ></loading>
+        >
+        </loading>
       </div>
-      <div style="height:400px" class="p-5">
+      <div v-show="!isLoading" style="height:400px" class="p-5">
         <keep-alive>
           <canvas id="rt-chart" aria-label="Chart Angka Reproduksi" role="img"></canvas>
         </keep-alive>
@@ -163,7 +165,7 @@ export default {
   data() {
     return {
       jsonDataRekapitulasiSulteng: [],
-      isLoading: false,
+      isLoading: true,
       chart: null
     };
   },
@@ -186,7 +188,6 @@ export default {
       });
     },
     fetchDataStatistic() {
-      this.isLoading = true;
         let label = [];
         let rt_value = [];
         let rt_upper = [];

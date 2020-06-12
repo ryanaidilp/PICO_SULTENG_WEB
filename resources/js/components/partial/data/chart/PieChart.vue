@@ -1,11 +1,20 @@
 <template>
   <div class="w-full p-3">
     <!--Graph Card-->
-    <div class="relative bg-white rounded-lg shadow-lg">
-      <div class="absolute flex justify-center w-full">
-        <loading :active.sync="isLoading" :opacity="0.8" :width="128" loader="spinner" color="#59F"></loading>
+    <div class="bg-white rounded-lg shadow-lg vld-parent">
+      <div class="flex justify-center w-full">
+        <loading
+          :active.sync="isLoading"
+          :is-full-page="false"
+          :opacity="0.8"
+          :width="120"
+          height="400px"
+          loader="bars"
+          color="#59F"
+        >
+        </loading>
       </div>
-      <div style="height:400px" class="p-5">
+      <div v-show="!isLoading" style="height:400px" class="p-5">
         <keep-alive>
           <canvas id="pie-chart" aria-label="Pie Chart Konfirmasi COVID-19" role="img"></canvas>
         </keep-alive>
@@ -76,7 +85,7 @@ export default {
   },
   data() {
     return {
-      isLoading: false,
+      isLoading: true,
       chart: null,
       jsonDataProvinsi: {}
     };
@@ -94,7 +103,6 @@ export default {
       });
     },
     getStatistic: function() {
-      this.isLoading = true;
       let data = this.jsonDataProvinsi;
       let positif = data.kumulatif.positif;
       let sembuh = data.kumulatif.sembuh;

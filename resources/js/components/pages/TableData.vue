@@ -32,7 +32,77 @@
     </section>
 
     <section class="m-4 mb-8 bg-white rounded-lg shadow-lg md:m-8">
-      <div class="table-wrapper-scroll-y table-wrapper-scroll-x my-custom-scrollbar">
+      <content-loader
+        v-if="isLoading"
+        :height="600"
+        :width="1500"
+        :speed="0.5"
+        viewBox="0 0 1500 600"
+        primaryColor="#ddd"
+        secondaryColor="#fff"
+      >
+        <rect x="27" y="139" rx="4" ry="4" width="20" height="20" />
+        <rect x="67" y="140" rx="10" ry="10" width="85" height="19" />
+        <rect x="188" y="141" rx="10" ry="10" width="169" height="19" />
+        <rect x="402" y="140" rx="10" ry="10" width="85" height="19" />
+        <rect x="523" y="141" rx="10" ry="10" width="169" height="19" />
+        <rect x="731" y="139" rx="10" ry="10" width="85" height="19" />
+        <rect x="852" y="138" rx="10" ry="10" width="85" height="19" />
+        <rect x="1424" y="137" rx="10" ry="10" width="68" height="19" />
+        <rect x="26" y="196" rx="4" ry="4" width="20" height="20" />
+        <rect x="66" y="197" rx="10" ry="10" width="85" height="19" />
+        <rect x="187" y="198" rx="10" ry="10" width="169" height="19" />
+        <rect x="401" y="197" rx="10" ry="10" width="85" height="19" />
+        <rect x="522" y="198" rx="10" ry="10" width="169" height="19" />
+        <rect x="730" y="196" rx="10" ry="10" width="85" height="19" />
+        <rect x="851" y="195" rx="10" ry="10" width="85" height="19" />
+        <circle cx="1456" cy="203" r="12" />
+        <rect x="26" y="258" rx="4" ry="4" width="20" height="20" />
+        <rect x="66" y="259" rx="10" ry="10" width="85" height="19" />
+        <rect x="187" y="260" rx="10" ry="10" width="169" height="19" />
+        <rect x="401" y="259" rx="10" ry="10" width="85" height="19" />
+        <rect x="522" y="260" rx="10" ry="10" width="169" height="19" />
+        <rect x="730" y="258" rx="10" ry="10" width="85" height="19" />
+        <rect x="851" y="257" rx="10" ry="10" width="85" height="19" />
+        <circle cx="1456" cy="265" r="12" />
+        <rect x="26" y="316" rx="4" ry="4" width="20" height="20" />
+        <rect x="66" y="317" rx="10" ry="10" width="85" height="19" />
+        <rect x="187" y="318" rx="10" ry="10" width="169" height="19" />
+        <rect x="401" y="317" rx="10" ry="10" width="85" height="19" />
+        <rect x="522" y="318" rx="10" ry="10" width="169" height="19" />
+        <rect x="730" y="316" rx="10" ry="10" width="85" height="19" />
+        <rect x="851" y="315" rx="10" ry="10" width="85" height="19" />
+        <circle cx="1456" cy="323" r="12" />
+        <rect x="26" y="379" rx="4" ry="4" width="20" height="20" />
+        <rect x="66" y="380" rx="10" ry="10" width="85" height="19" />
+        <rect x="187" y="381" rx="10" ry="10" width="169" height="19" />
+        <rect x="401" y="380" rx="10" ry="10" width="85" height="19" />
+        <rect x="522" y="381" rx="10" ry="10" width="169" height="19" />
+        <rect x="730" y="379" rx="10" ry="10" width="85" height="19" />
+        <rect x="851" y="378" rx="10" ry="10" width="85" height="19" />
+        <circle cx="1456" cy="386" r="12" />
+        <rect x="978" y="138" rx="10" ry="10" width="169" height="19" />
+        <rect x="977" y="195" rx="10" ry="10" width="169" height="19" />
+        <rect x="977" y="257" rx="10" ry="10" width="169" height="19" />
+        <rect x="977" y="315" rx="10" ry="10" width="169" height="19" />
+        <rect x="977" y="378" rx="10" ry="10" width="169" height="19" />
+        <rect x="1183" y="139" rx="10" ry="10" width="85" height="19" />
+        <rect x="1182" y="196" rx="10" ry="10" width="85" height="19" />
+        <rect x="1182" y="258" rx="10" ry="10" width="85" height="19" />
+        <rect x="1182" y="316" rx="10" ry="10" width="85" height="19" />
+        <rect x="1182" y="379" rx="10" ry="10" width="85" height="19" />
+        <rect x="1305" y="137" rx="10" ry="10" width="85" height="19" />
+        <rect x="1304" y="194" rx="10" ry="10" width="85" height="19" />
+        <rect x="1304" y="256" rx="10" ry="10" width="85" height="19" />
+        <rect x="1304" y="314" rx="10" ry="10" width="85" height="19" />
+        <rect x="1304" y="377" rx="10" ry="10" width="85" height="19" />
+        <circle cx="37" cy="97" r="11" />
+        <rect x="26" y="23" rx="5" ry="5" width="153" height="30" />
+        <circle cx="1316" cy="88" r="11" />
+        <rect x="1337" y="94" rx="0" ry="0" width="134" height="3" />
+        <circle cx="77" cy="96" r="11" />
+      </content-loader>
+      <div v-else class="table-wrapper-scroll-y table-wrapper-scroll-x my-custom-scrollbar">
         <data-table
           id="table-download-data"
           v-if="jsonDataRekapitulasiSultengKumulatifKab"
@@ -85,12 +155,16 @@
         >Dinas Kesehatan Provinsi Sulawesi Tengah</a> menggunakan Python dengan plugin PytTesseract untuk mengekstrak data pada gambar.
       </p>
     </section>
+    <div class="md:m-4">
+        <partner-footer ></partner-footer>
+    </div>
   </div>
 </template>
 
 <script>
 /* eslint-disable */
 import { DataTable, ItemsPerPageDropdown, Pagination } from "v-datatable-light";
+import { ContentLoader } from "vue-content-loader";
 import _ from "lodash";
 import XLSX from "xlsx";
 const addZero = value => ("0" + value).slice(-2);
@@ -165,9 +239,11 @@ const formatThousand = value => {
 };
 export default {
   components: {
+    ContentLoader,
     DataTable,
     ItemsPerPageDropdown,
-    Pagination
+    Pagination,
+    PartnerFooter: () => import('../partial/PartnerFooter')
   },
   data() {
     return {

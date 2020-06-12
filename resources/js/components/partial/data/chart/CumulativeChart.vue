@@ -1,18 +1,21 @@
 <template>
-  <div style="height:400px">
-    <div class="absolute flex justify-center w-full">
-      <!-- <loading
+  <div class="vld-parent">
+    <div class="flex justify-center w-full">
+      <loading
         :active.sync="isLoading"
+        :is-full-page="false"
         :opacity="0.8"
-        :height="300"
-        :width="128"
-        loader="spinner"
+        :width="100"
+        :height="400"
+        loader="bars"
         color="#59F"
-      ></loading>-->
+      ></loading>
     </div>
-    <keep-alive>
-      <canvas id="chart-cumulative" aria-label="Chart Kumulatif COVID-19" role="img"></canvas>
-    </keep-alive>
+    <div v-show="!isLoading" style="height:400px">
+      <keep-alive>
+        <canvas id="chart-cumulative" aria-label="Chart Kumulatif COVID-19" role="img"></canvas>
+      </keep-alive>
+    </div>
   </div>
 </template>
 <script>
@@ -45,7 +48,7 @@ export default {
   },
   data() {
     return {
-      isLoading: false,
+      isLoading: true,
       chartCumulative: null,
       positiveBgColor: "rgba(246, 71, 71, 1)",
       positiveBorderColor: "rgba(246, 71, 71, 0.8)",
@@ -560,7 +563,6 @@ export default {
     },
     fetchData() {
       const self = this;
-      self.isLoading = true;
       if (self.lokasi === "Sulawesi Tengah") {
         self.fetchDataProvinsi();
       } else if (self.lokasi === "Indonesia") {

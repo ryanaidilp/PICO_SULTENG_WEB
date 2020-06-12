@@ -6,11 +6,11 @@
         class="text-sm md:text-base"
       >Berikut ini adalah nomor telpon tim gugus tugas COVID-19 di Kab/Kota se Sulawesi Tengah.</p>
       <content-loader v-if="posts.length <= 0"></content-loader>
-      <div v-else class="flex flex-wrap justify-between w-full mt-4 overflow-hidden md:flex-row">
+      <div v-else class="flex flex-col flex-wrap justify-between w-full mt-4 md:flex-row">
         <div
           v-for="(posko, i) in posts"
           :key="i"
-          class="w-full max-w-lg p-4 mx-auto mt-6 border-l-2 border-blue-400 rounded-lg shadow-lg md:m-4 border-left"
+          class="flex flex-col flex-wrap w-full p-4 mx-auto mt-6 border-l-2 border-blue-400 rounded-lg shadow-lg md:m-4 md:max-w-lg border-left"
         >
           <h4 class="font-bold text-left">{{ posko.name }}</h4>
           <p class="text-xs text-left md:text-sm">{{ posko.address }}</p>

@@ -6,25 +6,27 @@
         class="text-sm md:text-base"
       >Berikut ini adalah nomor telpon tim gugus tugas COVID-19 di Kab/Kota se Sulawesi Tengah.</p>
       <content-loader v-if="posts.length <= 0"></content-loader>
-      <div v-else class="flex flex-col flex-wrap justify-between w-full mt-4 md:flex-row">
+      <div v-else class="flex flex-wrap justify-between w-full mt-4 overflow-hidden md:flex-row">
         <div
-          v-for="post in posts"
-          :key="post.no"
-          class="flex flex-col flex-wrap w-full p-4 mx-auto mt-6 border-l-2 border-blue-400 rounded-lg shadow-lg md:m-4 md:max-w-lg border-left"
+          v-for="(posko, i) in posts"
+          :key="i"
+          class="w-full max-w-lg p-4 mx-auto mt-6 border-l-2 border-blue-400 rounded-lg shadow-lg md:m-4 border-left"
         >
-          <h4 class="font-bold text-left">{{ post.nama }}</h4>
-          <p class="my-auto text-xs text-left text-justify md:text-sm">Hotline tim Gugus Tugas COVID-19 {{ post.nama }}</p>
-          <span class="flex flex-wrap" v-for="posko in post.posko" :key="posko.no">
+          <h4 class="font-bold text-left">{{ posko.name }}</h4>
+          <p class="text-xs text-left md:text-sm">{{ posko.address }}</p>
+          <div class="flex flex-row flex-wrap w-full">
             <a
-              v-for="phone in posko.no_hp"
-              :key="phone"
-              :href="'tel:'+phone"
-              class="w-full p-2 mx-auto mt-2 text-sm text-left text-white bg-blue-600 rounded-md hover:opacity-75 md:text-base"
+              v-for="(phone, j) in posko.phones"
+              :key="j"
+              class="inline-block px-4 py-1 mt-2 mr-2 text-sm text-gray-800 bg-blue-100 rounded hover:opacity-50"
+              :href="`tel:${phone}`"
+              target="_blank"
+              :title="`Telpon ${phone}`"
             >
-              <i class="fas fa-phone-alt"></i>
-              {{posko.nama + ' - ' + phone }}
+              <i class="mr-1 fas fa-phone fa-sm" />
+              <span>{{ phone }}</span>
             </a>
-          </span>
+          </div>
         </div>
       </div>
     </div>
@@ -33,9 +35,9 @@
 <script>
 import { ContentLoader } from "vue-content-loader";
 export default {
-    components: {
-        ContentLoader
-    },
+  components: {
+    ContentLoader
+  },
   data() {
     return {
       posts: []
@@ -44,7 +46,24 @@ export default {
   methods: {
     getPosts: function() {
       axios.get("/corona/api/posko").then(response => {
-        this.posts = response.data.data;
+        let data = response.data.data;
+        data.forEach(element => {
+          let phones = [];
+          let post = {
+            name: "",
+            address: "",
+            phones: []
+          };
+          post.name = element.nama;
+          post.address = `Hotline Gugus Tugas COVID-19 di ${element.nama}`;
+          element.posko.forEach(posko => {
+            posko.no_hp.forEach(phone => {
+              phones.push(phone);
+            });
+          });
+          post.phones = phones;
+          this.posts.push(post);
+        });
       });
     }
   },

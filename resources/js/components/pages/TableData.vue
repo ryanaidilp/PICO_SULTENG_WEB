@@ -209,7 +209,7 @@ export default {
         },
         {
           no: 8,
-          nama: "Parigi Moutong",
+          nama: "Parigi Mautong",
           dataHarian: []
         },
         {

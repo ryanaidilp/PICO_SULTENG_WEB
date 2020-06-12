@@ -11,10 +11,10 @@
         <title>{{ config('app.name', 'Laravel') }}</title>
 
         <!-- Scripts -->
-        <script src="{{ asset('public/js/app.js') }}" defer></script>
+        <script src="{{ mix('/js/app.js') }}" defer></script>
 
         <!-- Styles -->
-        <link href="{{ asset('public/css/app.css') }}" rel="stylesheet">
+        <link href="{{ mix('/css/app.css') }}" rel="stylesheet">
         <script src="https://cdn.anychart.com/releases/8.7.1/js/anychart-base.min.js"></script>
         <script src="https://cdn.anychart.com/releases/8.7.1/js/anychart-exports.min.js" async></script>
         <script src="https://cdn.anychart.com/releases/8.7.1/js/anychart-ui.min.js"></script>

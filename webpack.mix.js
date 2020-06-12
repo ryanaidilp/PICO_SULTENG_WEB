@@ -21,7 +21,10 @@ mix.webpackConfig({
             resourceRegExp: /^\.\/locale$/,
             contextRegExp: /moment$/
         }),
-    ]
+    ],
+    output: {
+        chunkFilename: 'corona/public/chunks/[name].js',
+    },
 });
 mix.js('resources/js/app.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css')
@@ -35,3 +38,6 @@ mix.js('resources/js/app.js', 'public/js')
     .purgeCss({
         enabled: false,
     });
+if (mix.inProduction()) {
+    mix.version();
+}

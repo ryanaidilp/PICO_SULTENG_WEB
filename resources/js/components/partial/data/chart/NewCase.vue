@@ -196,6 +196,7 @@ export default {
       dataChart.data.datasets[6].data = districtPDP;
       dataChart.data.datasets[7].data = districtFinishedPDP;
       this.chart.update();
+      this.chart.render();
       this.isLoading = false;
     }
   },

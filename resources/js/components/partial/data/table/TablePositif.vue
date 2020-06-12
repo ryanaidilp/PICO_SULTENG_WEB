@@ -11,9 +11,9 @@
     <vue-good-table
       :fixed-header="true"
       class="mt-4"
-      v-if="selected == 'Sulawesi Tengah'"
+      v-show="selected == 'Sulawesi Tengah'"
       :columns="columnsDistrict"
-      :rows="rows"
+      :rows="rowsKabupaten"
       :search-options="{
             enabled: true,
             trigger: 'enter',
@@ -27,9 +27,9 @@
       :fixed-header="true"
       theme="black-rhino"
       class="mt-4"
-      v-else-if="selected == 'Indonesia'"
+      v-show="selected == 'Indonesia'"
       :columns="columnsProvince"
-      :rows="rows"
+      :rows="rowsProvinsi"
       :search-options="{
             enabled: true,
             trigger: 'enter',
@@ -38,10 +38,6 @@
       max-height="400px"
       :line-numbers="true"
     ></vue-good-table>
-    <div
-      v-else
-      class="pb-8 my-8 text-lg font-bold text-center bg-white rounded-lg"
-    >Tidak Ada wilayah yang dipilih</div>
   </div>
 </template>
 <script>
@@ -68,7 +64,7 @@ export default {
     return {
       columnsDistrict: [
         {
-          label: "Nama",
+          label: "Kabupaten",
           field: "kabupaten",
           type: "text",
           thClass: "text-center",
@@ -113,7 +109,7 @@ export default {
       ],
       columnsProvince: [
         {
-          label: "Nama",
+          label: "Provinsi",
           field: "provinsi",
           type: "text",
           thClass: "text-center",
@@ -128,7 +124,7 @@ export default {
           type: "number"
         },
         {
-          label: "Dalam Perawatan",
+          label: "Dirawat",
           field: "dalam_perawatan",
           thClass: "text-center",
           tdClass: "text-center",
@@ -156,7 +152,8 @@ export default {
           type: "number"
         }
       ],
-      rows: [],
+      rowsProvinsi: [],
+      rowsKabupaten: [],
       jsonDataKabupaten: [],
       jsonDataProvinsi: [],
       selected: "Sulawesi Tengah",
@@ -172,10 +169,10 @@ export default {
       }
     },
     getAllDistricts: function() {
-      this.rows = this.jsonDataKabupaten;
+      this.rowsKabupaten = this.jsonDataKabupaten;
     },
     getAllProvinces: function() {
-      this.rows = this.jsonDataProvinsi;
+      this.rowsProvinsi = this.jsonDataProvinsi;
     }
   },
   watch: {

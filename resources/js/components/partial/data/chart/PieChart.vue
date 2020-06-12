@@ -110,6 +110,7 @@ export default {
       let dirawat = positif - (sembuh + meninggal);
       dataChart.data.datasets[0].data = [dirawat, meninggal, sembuh];
       this.chart.update();
+      this.chart.render();
       this.isLoading = false;
     }
   },

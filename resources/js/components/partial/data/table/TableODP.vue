@@ -39,7 +39,7 @@ export default {
     return {
       columns: [
         {
-          label: "Nama",
+          label: "Kabupaten",
           field: "kabupaten",
           type: "text",
           thClass: "text-center",

@@ -13,9 +13,10 @@
 </template>
 
 <script>
+import Navigation from "./partial/NavComponent"
 export default {
   components: {
-    Navigation: () => import("./partial/NavComponent")
+    Navigation
   }
 };
 </script>

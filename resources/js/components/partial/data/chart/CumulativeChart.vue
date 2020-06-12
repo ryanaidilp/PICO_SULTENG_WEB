@@ -1,33 +1,16 @@
 <template>
-  <div class="vld-parent">
-    <div class="flex justify-center w-full">
-      <loading
-        :active.sync="isLoading"
-        :is-full-page="false"
-        :opacity="0.8"
-        :width="100"
-        :height="400"
-        loader="bars"
-        color="#59F"
-      ></loading>
-    </div>
-    <div v-show="!isLoading" style="height:400px">
-      <keep-alive>
-        <canvas id="chart-cumulative" aria-label="Chart Kumulatif COVID-19" role="img"></canvas>
-      </keep-alive>
-    </div>
+  <div style="height:400px">
+    <keep-alive>
+      <canvas id="chart-cumulative" aria-label="Chart Kumulatif COVID-19" role="img"></canvas>
+    </keep-alive>
   </div>
 </template>
 <script>
-import Loading from "vue-loading-overlay";
 import Chart from "chart.js";
 import "chart.js/dist/Chart.min";
 import { id } from "date-fns/locale";
 const { format } = require("date-fns");
 export default {
-  components: {
-    Loading
-  },
   props: {
     kejadian: {
       type: String,
@@ -48,7 +31,6 @@ export default {
   },
   data() {
     return {
-      isLoading: true,
       chartCumulative: null,
       positiveBgColor: "rgba(246, 71, 71, 1)",
       positiveBorderColor: "rgba(246, 71, 71, 0.8)",
@@ -570,7 +552,6 @@ export default {
       } else {
         self.fetchDataKab(self.lokasi);
       }
-      self.isLoading = false;
     },
     drawChartHarian(
       label,
@@ -607,6 +588,7 @@ export default {
       self.chartHarianOption.data.datasets[3].borderColor = borderColorAktif;
       self.createCumulativeChart("chart-cumulative", self.chartHarianOption);
       self.chartCumulative.update();
+      self.chartCumulative.render();
     },
     drawChartOdp(
       label,
@@ -636,6 +618,7 @@ export default {
       self.chartOdpOption.data.datasets[2].borderColor = borderColorAktif;
       self.createCumulativeChart("chart-cumulative", self.chartOdpOption);
       self.chartCumulative.update();
+      self.chartCumulative.render();
     },
     groupDataKab() {
       this.jsonDataHarianProvinsi.forEach(element => {

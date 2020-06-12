@@ -1,33 +1,16 @@
 <template>
-  <div  class="vld-parent">
-    <div class="flex justify-center w-full">
-      <loading
-        :active.sync="isLoading"
-        :is-full-page="false"
-        :opacity="0.8"
-        :width="100"
-        :height="400"
-        loader="bars"
-        color="#59F"
-      ></loading>
-    </div>
-    <div v-show="!isLoading" style="height:400px">
-      <keep-alive>
-        <canvas id="chart-container" aria-label="Chart Harian COVID-19" role="img"></canvas>
-      </keep-alive>
-    </div>
+  <div style="height:400px">
+    <keep-alive>
+      <canvas id="chart-container" aria-label="Chart Harian COVID-19" role="img"></canvas>
+    </keep-alive>
   </div>
 </template>
 <script>
-import Loading from "vue-loading-overlay";
 import Chart from "chart.js";
 import "chart.js/dist/Chart.min";
 import { id } from "date-fns/locale";
 const { format } = require("date-fns");
 export default {
-  components: {
-    Loading
-  },
   props: {
     kasus: {
       type: String,
@@ -48,7 +31,6 @@ export default {
   },
   data() {
     return {
-      isLoading: true,
       chart: null,
       positiveBgColor: "rgba(246, 71, 71, 1)",
       positiveBorderColor: "rgba(246, 71, 71, 0.8)",
@@ -525,7 +507,7 @@ export default {
       self.chartHarianOption.data.datasets[1].borderColor = borderColor;
       self.createChart("chart-container", self.chartHarianOption);
       self.chart.update();
-      this.isLoading = false
+      self.chart.render();
     },
     groupDataKab() {
       this.jsonDataHarianProvinsi.forEach(element => {
@@ -596,7 +578,7 @@ export default {
       self.chartOdpOption.data.datasets[2].borderColor = borderColor2;
       self.createChart("chart-container", self.chartOdpOption);
       self.chart.update();
-      this.isLoading = false
+      self.chart.render();
     }
   },
   watch: {

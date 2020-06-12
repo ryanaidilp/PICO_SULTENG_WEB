@@ -1,20 +1,8 @@
 <template>
   <div class="w-full p-3 pb-8">
     <!--Graph Card-->
-    <div class="bg-white rounded-lg shadow-lg vld-parent">
-      <div class="flex justify-center w-full">
-        <loading
-          :active.sync="isLoading"
-          :is-full-page="false"
-          :opacity="0.8"
-          :width="120"
-          :height="400"
-          loader="bars"
-          color="#59F"
-        >
-        </loading>
-      </div>
-      <div v-show="!isLoading" style="height:400px" class="p-5">
+    <div class="bg-white rounded-lg shadow-lg">
+      <div style="height:400px" class="p-5">
         <keep-alive>
           <canvas id="rt-chart" aria-label="Chart Angka Reproduksi" role="img"></canvas>
         </keep-alive>
@@ -50,7 +38,6 @@
   </div>
 </template>
 <script>
-import Loading from "vue-loading-overlay";
 import Chart from "chart.js";
 import "chart.js/dist/Chart.min";
 import { id } from "date-fns/locale";
@@ -153,19 +140,15 @@ var dataChart = {
   }
 };
 export default {
-  components: {
-    Loading
-  },
   props: {
     propsDataRekapitulasiProv: {
-      type : Array,
+      type: Array,
       default: () => []
     }
   },
   data() {
     return {
       jsonDataRekapitulasiSulteng: [],
-      isLoading: true,
       chart: null
     };
   },
@@ -188,43 +171,42 @@ export default {
       });
     },
     fetchDataStatistic() {
-        let label = [];
-        let rt_value = [];
-        let rt_upper = [];
-        let rt_lower = [];
+      let label = [];
+      let rt_value = [];
+      let rt_upper = [];
+      let rt_lower = [];
 
-        for (let i = 0; i < this.jsonDataRekapitulasiSulteng.length; i++) {
-          const temp = this.jsonDataRekapitulasiSulteng[i]
-          var abs = temp.tanggal.split("/");
-          var tanggal = null;
-          if (abs.length >= 3) {
-            var date = abs[2].split(" ");
-            date = date[0];
-            var month = abs[1];
-            var year = abs[0];
-            tanggal = year + "-" + month + "-" + date;
-          } else {
-            tanggal = temp.tanggal;
-          }
-          var tanggal = format(Date.parse(tanggal), "dd MMM yyyy", {
-            locale: id
-          });
-          label.push(tanggal);
-          rt_value.push(temp.rekap.Rt);
-          rt_upper.push(temp.rekap.Rt_upper);
-          rt_lower.push(temp.rekap.Rt_lower);
+      for (let i = 0; i < this.jsonDataRekapitulasiSulteng.length; i++) {
+        const temp = this.jsonDataRekapitulasiSulteng[i];
+        var abs = temp.tanggal.split("/");
+        var tanggal = null;
+        if (abs.length >= 3) {
+          var date = abs[2].split(" ");
+          date = date[0];
+          var month = abs[1];
+          var year = abs[0];
+          tanggal = year + "-" + month + "-" + date;
+        } else {
+          tanggal = temp.tanggal;
         }
-        dataChart.data.datasets[0].data = rt_value;
-        dataChart.data.datasets[1].data = rt_lower;
-        dataChart.data.datasets[2].data = rt_upper;
-        dataChart.data.labels = label;
-        this.chart.update();
-        this.isLoading = false;
+        var tanggal = format(Date.parse(tanggal), "dd MMM yyyy", {
+          locale: id
+        });
+        label.push(tanggal);
+        rt_value.push(temp.rekap.Rt);
+        rt_upper.push(temp.rekap.Rt_upper);
+        rt_lower.push(temp.rekap.Rt_lower);
+      }
+      dataChart.data.datasets[0].data = rt_value;
+      dataChart.data.datasets[1].data = rt_lower;
+      dataChart.data.datasets[2].data = rt_upper;
+      dataChart.data.labels = label;
+      this.chart.update();
+      this.chart.render();
     }
   },
   mounted() {
     this.createChart("rt-chart", dataChart);
-    this.fetchDataStatistic();
   }
 };
 </script>

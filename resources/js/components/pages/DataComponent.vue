@@ -216,6 +216,8 @@ export default {
     this.fetchDataRekapitulasiNasional();
     this.fetchDataTes();
     this.fetchDataGenderProvinsi();
+  },
+  mounted() {
     this.updater();
   },
   components: {

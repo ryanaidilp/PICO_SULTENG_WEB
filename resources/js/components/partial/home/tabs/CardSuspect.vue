@@ -9,13 +9,13 @@
             </div>
             <div class="flex items-center mt-4 flex-column">
               <div class="w-1/2">
-                <p>Dalam {{ status }}</p>
+                <p class="text-xs md:text-base">Dalam {{ status }}</p>
                 <h3 class="text-3xl font-bold">{{ active_case }}</h3>
                 <h3 class="text-sm font-bold">({{ newCaseFormat(new_case - new_finished_case) }})</h3>
                 <p class="mt-2 text-xs text-gray-600">({{ percentageFormat(activeCasePercentage) }})</p>
               </div>
               <div class="w-1/2">
-                <p>Selesai {{ status }}</p>
+                <p class="text-xs md:text-base">Selesai {{ status }}</p>
                 <h3 class="text-3xl font-bold">{{ total_finished_case }}</h3>
                 <h3 class="text-sm font-bold">({{ newCaseFormat(new_finished_case) }})</h3>
                 <p

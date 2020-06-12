@@ -506,13 +506,23 @@ export default {
               } else {
                 temp3.odp = harian.kumulatif.ODP;
               }
-              if (harian.kumulatif.selesai_ODP === 0 && prev_data.odp_selesai !== 0) {
+              if (
+                harian.kumulatif.selesai_ODP === 0 &&
+                prev_data.odp_selesai !== 0
+              ) {
                 temp3.odp_selesai = prev_data.odp_selesai;
               } else {
                 temp3.odp_selesai = harian.kumulatif.selesai_ODP;
               }
               if (harian.aktif.ODP === 0 && prev_data.odp_proses !== 0) {
-                temp3.odp_proses = prev_data.odp_proses;
+                if (
+                  harian.kumulatif.ODP !== 0 &&
+                  harian.kumulatif.selesai_ODP != 0
+                ) {
+                  temp3.odp_proses = harian.aktif.ODP;
+                } else {
+                  temp3.odp_proses = prev_data.odp_proses;
+                }
               } else {
                 temp3.odp_proses = harian.aktif.ODP;
               }
@@ -521,13 +531,23 @@ export default {
               } else {
                 temp3.pdp = harian.kumulatif.PDP;
               }
-              if (harian.kumulatif.selesai_PDP == 0 && prev_data.pdp_selesai !== 0) {
+              if (
+                harian.kumulatif.selesai_PDP == 0 &&
+                prev_data.pdp_selesai !== 0
+              ) {
                 temp3.pdp_selesai = prev_data.pdp_selesai;
               } else {
                 temp3.pdp_selesai = harian.kumulatif.selesai_PDP;
               }
               if (harian.aktif.PDP == 0 && prev_data.pdp_proses !== 0) {
-                temp3.pdp_proses = prev_data.pdp_proses;
+                if (
+                  harian.kumulatif.PDP !== 0 &&
+                  harian.kumulatif.selesai_PDP !== 0
+                ) {
+                  temp3.pdp_proses = harian.aktif.PDP;
+                } else {
+                  temp3.pdp_proses = prev_data.pdp_proses;
+                }
               } else {
                 temp3.pdp_proses = harian.aktif.PDP;
               }
@@ -541,7 +561,10 @@ export default {
               } else {
                 temp3.sembuh = harian.kumulatif.sembuh;
               }
-              if (harian.kumulatif.meninggal == 0 && prev_data.meninggal !== 0) {
+              if (
+                harian.kumulatif.meninggal == 0 &&
+                prev_data.meninggal !== 0
+              ) {
                 temp3.meninggal = prev_data.meninggal;
               } else {
                 temp3.meninggal = harian.kumulatif.meninggal;
@@ -561,7 +584,7 @@ export default {
                 ...temp3,
                 ...temp2
               });
-              prev_data = {...temp3}
+              prev_data = { ...temp3 };
             }
           });
 

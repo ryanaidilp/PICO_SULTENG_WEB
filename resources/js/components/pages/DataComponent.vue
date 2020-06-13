@@ -209,15 +209,13 @@ export default {
       }, 60 * 1000 * 5);
     }
   },
-  created() {
+  mounted() {
     this.fetchDataKabupaten();
     this.fetchDataProvinsi();
     this.fetchDataRekapitulasiProvinsi();
     this.fetchDataRekapitulasiNasional();
     this.fetchDataTes();
     this.fetchDataGenderProvinsi();
-  },
-  mounted() {
     this.updater();
   },
   components: {

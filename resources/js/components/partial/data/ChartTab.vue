@@ -27,16 +27,16 @@
             <div v-bind:class="{'hidden': openTab !== 1, 'block': openTab === 1}">
               <keep-alive>
                 <chart-daily
-                  :props-data-rekapitulasi-prov.sync="jsonDataRekapitulasiProv"
-                  :props-data-rekapitulasi-nasional.sync="jsonDataRekapitulasiNasional"
+                  :props-data-rekapitulasi-prov="propsDataRekapitulasiProv"
+                  :props-data-rekapitulasi-nasional="propsDataRekapitulasiNasional"
                 ></chart-daily>
               </keep-alive>
             </div>
             <div v-bind:class="{'hidden': openTab !== 2, 'block': openTab === 2}">
               <keep-alive>
                 <chart-total
-                  :props-data-rekapitulasi-prov.sync="jsonDataRekapitulasiProv"
-                  :props-data-rekapitulasi-nasional.sync="jsonDataRekapitulasiNasional"
+                  :props-data-rekapitulasi-prov="propsDataRekapitulasiProv"
+                  :props-data-rekapitulasi-nasional="propsDataRekapitulasiNasional"
                 ></chart-total>
               </keep-alive>
             </div>
@@ -51,11 +51,9 @@ export default {
   props: {
     propsDataRekapitulasiProv: {
       type: Array,
-      default: () => []
     },
     propsDataRekapitulasiNasional: {
       type: Array,
-      default: () => []
     }
   },
   components: {
@@ -65,17 +63,7 @@ export default {
   data() {
     return {
       openTab: 1,
-      jsonDataRekapitulasiProv: [],
-      jsonDataRekapitulasiNasional: []
     };
-  },
-  watch: {
-    propsDataRekapitulasiProv() {
-      this.jsonDataRekapitulasiProv = this.propsDataRekapitulasiProv;
-    },
-    propsDataRekapitulasiNasional() {
-      this.jsonDataRekapitulasiNasional = this.propsDataRekapitulasiNasional;
-    }
   },
   methods: {
     toggleTabs: function(tabNumber) {

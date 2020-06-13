@@ -4,7 +4,7 @@
     <div class="bg-white rounded-lg shadow-lg vld-parent">
       <div class="flex justify-center w-full">
         <loading
-          :active.sync="isLoading"
+          :active="isLoading"
           :is-full-page="false"
           :opacity="0.8"
           :width="120"

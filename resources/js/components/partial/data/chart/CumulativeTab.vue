@@ -42,10 +42,10 @@
     <div v-if="selected && selectedCase" class="mt-8 border-t-2">
       <keep-alive>
         <chart-local-cumulative
-          :lokasi.sync="selected"
-          :kejadian.sync="selectedCase"
-          :props-data-rekapitulasi-prov.sync="jsonDataRekapitulasiProv"
-          :props-data-rekapitulasi-nasional.sync="jsonDataRekapitulasiNasional"
+          :lokasi="selected"
+          :kejadian="selectedCase"
+          :props-data-rekapitulasi-prov="jsonDataRekapitulasiProv"
+          :props-data-rekapitulasi-nasional="jsonDataRekapitulasiNasional"
           class="mt-4"
         ></chart-local-cumulative>
       </keep-alive>

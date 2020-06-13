@@ -17,5 +17,4 @@ This app is designed to deploy on shared hosting, so you can not run it with `ph
   * After the dependency installation process is complete, run `php artisan key:generate` command to generate **APP_KEY**.
   * Run `php artisan migrate` to create fresh database and tables with empty data or just import **SQL file** under the **database** directory.
   * Copy app directory to **xampp/htdocs** then rename the root directory to **corona**.
-  * Copy/Cut chunks file (1.js, 2.js, etc) from **public** directory to **htdocs** directory.
   * Now app can be access via **localhost/corona**.

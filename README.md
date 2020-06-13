@@ -13,7 +13,7 @@ This app is designed to deploy on shared hosting, so you can not run it with `ph
   * Clone this repository to your PC/laptop.
   * Open terminal/CMD then go to the **root directory** of the clone results.
   * Run this comman `cp .env.example .env` 
-  * Run `composer install` / `composer update` command to install all required dependencies.
+  * Run `composer install` / `composer update` & `npm install` command to install all required dependencies.
   * After the dependency installation process is complete, run `php artisan key:generate` command to generate **APP_KEY**.
   * Run `php artisan migrate` to create fresh database and tables with empty data or just import **SQL file** under the **database** directory.
   * Copy app directory to **xampp/htdocs** then rename the root directory to **corona**.

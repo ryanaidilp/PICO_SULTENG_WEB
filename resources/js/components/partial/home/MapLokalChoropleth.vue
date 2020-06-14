@@ -99,13 +99,13 @@ export default {
       districtODPDataset: [],
       districtPDPDataset: [],
       districtPositiveColor: [
-        "#F9CACD",
-        "#F4A8AC",
-        "#EE868B",
-        "#E76569",
-        "#DF4346",
-        "#820029",
-        "#6E002C",
+        "#418a47",
+        "#81a24c",
+        "#bdb75a",
+        "#facb75",
+        "#f39e5b",
+        "#e87050",
+        "#d43d51",
         "#CD0000"
       ],
       districtRecoveredColor: [
@@ -226,9 +226,18 @@ export default {
         ])
       );
       districtSeries.tooltip().titleFormat(function(e) {
-        return e.getData("id");
+        return (
+          '<span class="font-bold text-left text-gray-900">' +
+          e.getData("id") +
+          "</span>"
+        );
       });
-      districtSeries.tooltip().hideDelay(5000);
+      districtSeries.tooltip().useHtml(true);
+      districtSeries
+        .tooltip()
+        .background()
+        .fill("#fff");
+      districtSeries.tooltip().allowLeaveChart(true);
       districtSeries.tooltip().format(function(e) {
         var positif =
           e.getData("positif") == null
@@ -247,26 +256,54 @@ export default {
         var PDP =
           e.getData("PDP") == null ? e.getData("value") : e.getData("PDP");
         var underTreatment = positif - (sembuh + meninggal);
-
-        return (
-          "Positif: " +
+        let tooltipHtml =
+          '<table class="flex text-xs text-left text-gray-800 table-auto justify-left">' +
+          "<tbody>" +
+          "<tr>" +
+          '<td class="px-1">' +
+          "Positif</td>" +
+          '<td class="px-1 font-bold">' +
           positif +
-          "\n" +
-          "Dirawat: " +
+          "</td>" +
+          "</tr>" +
+          "<tr>" +
+          '<td class="px-1">' +
+          "Dirawat</td>" +
+          '<td class="px-1 font-bold">' +
           underTreatment +
-          "\n" +
-          "Sembuh: " +
+          "</td>" +
+          "</tr>" +
+          "<tr>" +
+          '<td class="px-1">' +
+          "Sembuh</td>" +
+          '<td class="px-1 font-bold">' +
           sembuh +
-          "\n" +
-          "Meninggal: " +
+          "</td>" +
+          "</tr>" +
+          "<tr>" +
+          '<td class="px-1">' +
+          "Meninggal</td>" +
+          '<td class="px-1 font-bold">' +
           meninggal +
-          "\n" +
-          "ODP Aktif: " +
+          "</td>" +
+          "</tr>" +
+          "<tr>" +
+          '<td class="px-1">' +
+          "ODP Aktif</td>" +
+          '<td class="px-1 font-bold">' +
           ODP +
-          "\n" +
-          "PDP Aktif: " +
-          PDP
-        );
+          "</td>" +
+          "</tr>" +
+          "<tr>" +
+          '<td class="px-1">' +
+          "PDP Aktif</td>" +
+          '<td class="px-1 font-bold">' +
+          PDP +
+          "</td>" +
+          "</tr>" +
+          "</tbody>" +
+          "</table>";
+        return tooltipHtml;
       });
       districtSeries.name(name + "(Choropleth)");
       districtSeries.hovered().fill(color[7]);
@@ -306,8 +343,6 @@ export default {
       this.today.getFullYear();
     var fileDistrict = "Data COVID-19 Sulawesi Tengah_" + lastUpdate;
     districtMap.exports().filename(fileDistrict);
-    districtMap.maxBubbleSize(35);
-    districtMap.minBubbleSize(9);
     var districtZoom = anychart.ui.zoom();
     districtZoom.target(districtMap);
     districtZoom.render();
@@ -316,3 +351,24 @@ export default {
   }
 };
 </script>
+<style>
+.anychart-tooltip {
+  justify-content: center;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  z-index: 100;
+  background: rgb(250, 250, 250);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+.anychart-tooltip-separator {
+  height: 1px;
+  background-color: rgba(136, 136, 136, 0.7);
+}
+
+.anychart-tooltip-title {
+  font-size: 0.875rem;
+  text-align: left;
+  font-weight: 700;
+}
+</style>

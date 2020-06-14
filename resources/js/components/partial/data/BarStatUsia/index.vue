@@ -376,8 +376,10 @@ export default {
       let filter = "positif_per_usia";
       this.resetBarChartUmurJenisKelaminData();
       if (stat === "PDP") {
+        this.optionSelected = stat;
         filter = "pdp_total_per_usia";
       } else if (stat === "Positif") {
+        this.optionSelected = stat;
         filter = "positif_per_usia";
       }
       // Semua Umur
@@ -623,5 +625,4 @@ export default {
   padding: 0px;
   margin-right: 20px;
 }
-
 </style>

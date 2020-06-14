@@ -134,6 +134,7 @@ export default {
           { greater: 1000, color: color[10] }
         ])
       );
+      series.tooltip().useHtml(true);
       series.tooltip().format(function(e) {
         var positif =
           e.getData("positif") == null
@@ -149,20 +150,41 @@ export default {
             : e.getData("meninggal");
         var underTreatment = positif - (sembuh + meninggal);
         return (
-          "Positif: " +
+          '<table class="flex text-xs text-left text-gray-800 table-auto justify-left">' +
+          "<tbody>" +
+          "<tr>" +
+          '<td class="px-1">' +
+          "Positif</td>" +
+          '<td class="px-1 font-bold">' +
           positif +
-          "\n" +
-          "Dirawat: " +
+          "</td>" +
+          "</tr>" +
+          "<tr>" +
+          '<td class="px-1">' +
+          "Dirawat</td>" +
+          '<td class="px-1 font-bold">' +
           underTreatment +
-          "\n" +
-          "Sembuh: " +
+          "</td>" +
+          "</tr>" +
+          "<tr>" +
+          '<td class="px-1">' +
+          "Sembuh</td>" +
+          '<td class="px-1 font-bold">' +
           sembuh +
-          "\n" +
-          "Meninggal: " +
-          meninggal
+          "</td>" +
+          "</tr>" +
+          "<tr>" +
+          '<td class="px-1">' +
+          "Meninggal</td>" +
+          '<td class="px-1 font-bold">' +
+          meninggal +
+          "</td>" +
+          "</tr>" +
+          "<tr>" +
+          "</tbody>" +
+          "</table>"
         );
       });
-      series.tooltip().hideDelay(5000);
       var mapTitle = map.title();
       mapTitle.enabled(true);
       mapTitle.text("Choropleth Map kasus " + name + " COVID-19 di Indonesia");
@@ -231,3 +253,25 @@ export default {
   }
 };
 </script>
+<style>
+.anychart-tooltip {
+  justify-content: center;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  z-index: 100;
+  background: rgb(250, 250, 250);
+  color: #2d3748;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+.anychart-tooltip-separator {
+  height: 1px;
+  background-color: rgba(136, 136, 136, 0.7);
+}
+
+.anychart-tooltip-title {
+  font-size: 0.875rem;
+  text-align: left;
+  font-weight: 700;
+}
+</style>

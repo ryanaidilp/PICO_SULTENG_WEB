@@ -18,7 +18,7 @@
             <a
               v-for="(phone, j) in posko.phones"
               :key="j"
-              class="inline-block px-4 py-1 mt-2 mr-2 text-sm text-gray-800 bg-blue-100 rounded hover:opacity-50"
+              class="inline-block px-4 py-1 mt-2 mr-2 text-sm text-white bg-blue-400 rounded hover:opacity-50"
               :href="`tel:${phone}`"
               target="_blank"
               :title="`Telpon ${phone}`"

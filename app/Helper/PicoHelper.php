@@ -27,6 +27,6 @@ class PicoHelper
     {
         $data = $sum / (int) $total;
 
-        return (float) number_format($data, 2);
+        return (float) round($data, 2);
     }
 }

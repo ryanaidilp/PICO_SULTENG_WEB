@@ -34,6 +34,11 @@ export default new VueRouter({
             path: '/corona/table-data',
             component: () => import('./components/pages/TableData')
         },
+        {
+            name: "infographics",
+            path: '/corona/infografis',
+            component: () => import('./components/pages/Infographics')
+        },
     ],
     mode: 'history',
 })

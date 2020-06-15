@@ -32,6 +32,7 @@ Route::get('/nasional', 'NationalStatisticController@index')->name('national.ind
 Route::get('/nasional/terkini', 'NationalStatisticController@latest')->name('national.latest');
 
 Route::get('/donasi', 'DonationController@index')->name('donation.index');
+Route::get('/infografis', 'InfographicsController@index')->name('infographics.index');
 
 Route::get('/rumahsakit', 'HospitalController@index')->name('hospital.index');
 Route::get('/posko', 'PostsController@index')->name('posts.index');

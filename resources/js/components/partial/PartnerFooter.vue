@@ -18,7 +18,7 @@
           />
         </a>
       </div>
-      <hr>
+      <hr />
       <div class="flex content-center justify-center w-full mt-2">
         <a
           class="inline-block h-10 p-2 text-center text-gray-800 no-underline hover:opacity-75 md:h-auto md:p-4"
@@ -87,7 +87,7 @@
           </svg>
         </a>
       </div>
-       <p class="text-xs text-center text-gray-500 md:text-sm">
+      <p class="text-xs text-center text-gray-500 md:text-sm">
         &copy; BanuaCoders 2020. Made with
         <i class="fas fa-heart"></i> by
         <a
@@ -162,21 +162,28 @@ export default {
         },
         {
           id: "9",
-          width: "w-1/3",
+          width: "w-1/4",
           link: "https://dinkes.sultengprov.go.id",
           image: "dinkes.png",
           name: "Dinas Kesehatan Sulawesi Tengah"
         },
         {
           id: "10",
-          width: "w-1/3",
+          width: "w-1/4",
+          link: "https://sultenglawancovid.com",
+          image: "sultenglawancovid.png",
+          name: "Sulteng Lawan COVID"
+        },
+        {
+          id: "11",
+          width: "w-1/4",
           link: "https://banuacoders.com",
           image: "banuacoders.png",
           name: "Banua Coders"
         },
         {
-          id: "11",
-          width: "w-1/3",
+          id: "12",
+          width: "w-1/4",
           link: "https://pikobar.jabarprov.go.id",
           image: "pikobar.png",
           name: "PIKOBAR Jawa Barat"

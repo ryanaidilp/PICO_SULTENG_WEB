@@ -15,7 +15,7 @@ class CreateGendersTable extends Migration
     {
         Schema::create('genders', function (Blueprint $table) {
             $table->unsignedBigInteger('day');
-            $table->foreign('day')->references('day')->on('stats');
+            $table->foreign('day')->references('id')->on('stats');
             $table->integer('positive_male');
             $table->integer('positive_female');
             $table->integer('pdp_male');
@@ -44,6 +44,7 @@ class CreateGendersTable extends Migration
             $table->integer('pdp_female_25_49');
             $table->integer('pdp_female_50_54');
             $table->integer('pdp_female_55');
+            $table->primary('day');
             $table->timestamps();
         });
     }

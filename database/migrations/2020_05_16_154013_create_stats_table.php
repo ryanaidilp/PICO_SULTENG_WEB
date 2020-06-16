@@ -13,7 +13,7 @@ class CreateStatsTable extends Migration
     {
         Schema::create('stats', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('day');
+            $table->integer('day');
             $table->string('date');
             $table->integer('positive');
             $table->integer('recovered');

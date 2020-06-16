@@ -13,9 +13,9 @@ class CreateLocalCaseHistoriesTable extends Migration
     {
         Schema::create('local_case_histories', function (Blueprint $table) {
             $table->timestamps();
-            $table->foreignId('day');
+            $table->unsignedBigInteger('day');
             $table->foreign('day')->references('id')->on('stats');
-            $table->integer('district_id');
+            $table->unsignedBigInteger('district_id');
             $table->foreign('district_id')->references('no')->on('kabupaten');
             $table->integer('positive');
             $table->integer('negative');

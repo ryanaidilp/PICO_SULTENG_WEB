@@ -15,6 +15,7 @@ class CreateDonationsTable extends Migration
             $table->bigIncrements('id');
             $table->string('nama');
             $table->string('phone');
+            $table->string('image');
             $table->boolean('status');
             $table->timestamps();
         });

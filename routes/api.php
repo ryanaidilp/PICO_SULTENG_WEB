@@ -24,7 +24,6 @@ Route::get('/provinsi', 'ProvinceController@index')->name('province.index');
 
 Route::get('/statistik', 'StatController@index')->name('stats.index');
 Route::get('/statistik/terkini', 'StatController@latest')->name('stats.latest');
-Route::get('/statistik/{no}', 'StatController@getDistrictHistory')->name('stats.district');
 
 Route::get('/jeniskelamin', 'SexController@index')->name('sex.index');
 

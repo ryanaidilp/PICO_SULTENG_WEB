@@ -19,6 +19,16 @@
         <link rel="stylesheet" type="text/css" href="https://cdn.anychart.com/releases/8.7.1/css/anychart-ui.min.css" />
         <link rel="stylesheet" type="text/css"
             href="https://cdn.anychart.com/releases/8.7.1/fonts/css/anychart-font.min.css" />
+            <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-165600458-2"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+        
+          gtag('config', 'UA-165600458-2');
+        </script>
+
     </head>
 
     <body class="flex flex-col">

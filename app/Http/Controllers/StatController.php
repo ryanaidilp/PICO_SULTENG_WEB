@@ -22,7 +22,7 @@ class StatController extends Controller
 
     public function index()
     {
-        $stat = Stat::all();
+        $stat = Stat::with('histories')->get();
         $resource = new Collection($stat, new StatisticTransformer());
         $data = $this->fractal->createData($resource)->toArray();
         $response_data = cache()->remember('STATISTICS.ALL', now()->addMinutes(5), function () use ($data) {
@@ -34,7 +34,7 @@ class StatController extends Controller
 
     public function latest()
     {
-        $stat = Stat::all()->last();
+        $stat = Stat::with('histories')->get()->last();
         $resource = new Item($stat, new StatisticTransformer());
         $data = $this->fractal->createData($resource)->toArray();
         $response_data = cache()->remember("STATISTICS.LATEST", now()->addMinutes(5), function () use ($data) {

@@ -2,11 +2,34 @@
 
 namespace App\Transformers;
 
-use App\Gender;
+use App\Models\Gender;
 use League\Fractal\TransformerAbstract;
 
-class GenderTransformers extends TransformerAbstract
+class GenderTransformer extends TransformerAbstract
 {
+    /**
+     * List of resources to automatically include
+     *
+     * @var array
+     */
+    protected $defaultIncludes = [
+        //
+    ];
+
+    /**
+     * List of resources possible to include
+     *
+     * @var array
+     */
+    protected $availableIncludes = [
+        //
+    ];
+
+    /**
+     * A Fractal transformer.
+     *
+     * @return array
+     */
     public function transform(Gender $gender)
     {
         return [

@@ -20,3 +20,8 @@ Route::get('/wiki', [MainController::class, 'wiki'])->name('wiki');
 Route::get('/data', [MainController::class, 'data'])->name('data');
 Route::get('/infografis', [MainController::class, 'infographic'])->name('infographic');
 Route::get('/tabel-data', [MainController::class, 'table'])->name('table');
+
+
+Route::group(['prefix' => 'admin'], function () {
+    Voyager::routes();
+});

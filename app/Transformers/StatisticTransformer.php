@@ -2,14 +2,37 @@
 
 namespace App\Transformers;
 
-use App\District;
-use App\Stat;
+use App\Models\District;
+use App\Models\Statistic;
 use Illuminate\Support\Facades\Lang;
 use League\Fractal\TransformerAbstract;
 
 class StatisticTransformer extends TransformerAbstract
 {
-    public function transform(Stat $stats)
+    /**
+     * List of resources to automatically include
+     *
+     * @var array
+     */
+    protected $defaultIncludes = [
+        //
+    ];
+
+    /**
+     * List of resources possible to include
+     *
+     * @var array
+     */
+    protected $availableIncludes = [
+        //
+    ];
+
+    /**
+     * A Fractal transformer.
+     *
+     * @return array
+     */
+    public function transform(Statistic $stats)
     {
         $data = array();
         $histories = $stats->histories;
@@ -100,11 +123,6 @@ class StatisticTransformer extends TransformerAbstract
                 Lang::get('general.finished_param', ['case' => 'ODP']) => (int) $total_finished_odp,
                 Lang::get('general.finished_param', ['case' => 'PDP']) => (int) $total_finished_pdp,
             ];
-            $data[$key][Lang::get('general.links')] =
-                [Lang::get('general.self') => [
-                    Lang::get('general.full') => route('district.index') . '/' . $history->district_id,
-                    Lang::get('general.endpoint') => 'kabupaten/' . $history->district_id,
-                ]];
         }
 
         return [

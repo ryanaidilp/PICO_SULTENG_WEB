@@ -4,18 +4,16 @@ $fa-font-path: "../fonts/font-awesome" !default;
 @import '~@fortawesome/fontawesome-free/scss/brands.scss';
 @import url('https://fonts.googleapis.com/css?family=Karla:400,700&display=swap');
 
+
+
 @tailwind base;
+
 @tailwind components;
+
 @tailwind utilities;
 
-
-.router-link-exact-active {
-    @apply border-blue-600 text-blue-600
-}
-
 input[type="radio"]+label span {
-    transition: background .2s,
-        transform .2s;
+    transition: background 0.2s, transform 0.2s;
 }
 
 input[type="radio"]+label span:hover,
@@ -24,12 +22,12 @@ input[type="radio"]+label:hover span {
 }
 
 input[type="radio"]:checked+label span {
-    background-color: #3490DC; //bg-blue
+    background-color: #3490DC;
     box-shadow: 0px 0px 0px 2px white inset;
 }
 
 input[type="radio"]:checked+label {
-    color: #3490DC; //text-blue
+    color: #3490DC;
 }
 
 .font-family-karla {

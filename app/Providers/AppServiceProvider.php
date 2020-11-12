@@ -2,22 +2,29 @@
 
 namespace App\Providers;
 
+use Carbon\Carbon;
 use Illuminate\Support\ServiceProvider;
+use Inertia\Inertia;
 
 class AppServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.
+     *
+     * @return void
      */
     public function register()
     {
-        require_once base_path('app').'/Helper/PicoHelper.php';
+        //
     }
 
     /**
      * Bootstrap any application services.
+     *
+     * @return void
      */
     public function boot()
     {
+        Carbon::setLocale(app()->getLocale());
     }
 }

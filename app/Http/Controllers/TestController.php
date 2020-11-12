@@ -2,27 +2,84 @@
 
 namespace App\Http\Controllers;
 
-use App\Helper\PicoHelper;
-use App\Test;
-use App\Transformers\TestTransformer;
-use League\Fractal\Manager;
-use League\Fractal\Resource\Collection;
+use App\Models\Test;
+use Illuminate\Http\Request;
 
 class TestController extends Controller
 {
-    private $fractal;
-
-    public function __construct()
-    {
-        $this->fractal = new Manager();
-    }
-
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
-        $tests = Test::all();
-        $resource = new Collection($tests, new TestTransformer());
-        $data = $this->fractal->createData($resource)->toArray();
+        //
+    }
 
-        return response(array_replace(PicoHelper::setJson([], true, []), $data), 200);
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Test  $test
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Test $test)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Test  $test
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Test $test)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Test  $test
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, Test $test)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Test  $test
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Test $test)
+    {
+        //
     }
 }

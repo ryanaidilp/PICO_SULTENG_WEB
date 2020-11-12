@@ -27,9 +27,9 @@ class CreateStatsTable extends Migration
             $table->integer('new_PDP'); //New case of person under supervision
             $table->integer('finished_ODP'); //New finished case of person under observation
             $table->integer('finished_PDP'); //New finished case of person under supervision
-            $table->double('Rt'); //Effective reproduction number (Rt) on given day
-            $table->double('Rt_upper'); //Effective reproduction number (Rt) on given day
-            $table->double('Rt_lower'); //Effective reproduction number (Rt) on given day
+            $table->double('Rt')->nullable(); //Effective reproduction number (Rt) on given day
+            $table->double('Rt_upper')->nullable(); //Effective reproduction number (Rt) on given day
+            $table->double('Rt_lower')->nullable(); //Effective reproduction number (Rt) on given day
             $table->timestamps();
         });
     }

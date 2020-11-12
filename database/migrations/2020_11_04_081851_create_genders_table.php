@@ -14,7 +14,6 @@ class CreateGendersTable extends Migration
     public function up()
     {
         Schema::create('genders', function (Blueprint $table) {
-            $table->id();
             $table->foreignId('day')->references('id')->on('stats');
             $table->integer('positive_male');
             $table->integer('positive_female');
@@ -45,6 +44,7 @@ class CreateGendersTable extends Migration
             $table->integer('pdp_female_50_54');
             $table->integer('pdp_female_55');
             $table->timestamps();
+            $table->primary('day');
         });
     }
 

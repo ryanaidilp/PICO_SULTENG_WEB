@@ -14,8 +14,8 @@ class CreateNationalCaseHistoriesTable extends Migration
     public function up()
     {
         Schema::create('national_case_histories', function (Blueprint $table) {
-            $table->id();
             $table->integer('day');
+            $table->dateTime('date');
             $table->integer('cumulative_positive');
             $table->integer('cumulative_recovered');
             $table->integer('cumulative_deceased');
@@ -25,6 +25,7 @@ class CreateNationalCaseHistoriesTable extends Migration
             $table->integer('daily_deceased_case');
             $table->integer('daily_under_treatment_case');
             $table->timestamps();
+            $table->primary('day');
         });
     }
 

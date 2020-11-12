@@ -2,38 +2,84 @@
 
 namespace App\Http\Controllers;
 
-use App\Helper\PicoHelper;
-use App\Hospital;
+use App\Models\Hospital;
+use Illuminate\Http\Request;
 
 class HospitalController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
-        if (Hospital::all()->count() > 0) {
-            return response(
-                PicoHelper::setJson(Hospital::all(), true, []),
-                200
-            )
-                ->header('Content-Type', 'Application/json');
-        } else {
-            return response(PicoHelper::setJson(['Hospital data is still empty!'], true, []), 200);
-        }
+        //
     }
 
-    public function show($no)
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
     {
-        $hospital = Hospital::where('no', $no)->first();
-        if ($hospital === null) {
-            return response(
-                PicoHelper::setJson($hospital, true, ['code' => 404, 'message' => 'Hospital not found!']),
-                404
-            );
-        } else {
-            return response(
-                PicoHelper::setJson(Hospital::where('no', $no)->first(), true, []),
-                200
-            )
-                ->header('Content-Type', 'Application/json');
-        }
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Hospital  $hospital
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Hospital $hospital)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Hospital  $hospital
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Hospital $hospital)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Hospital  $hospital
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, Hospital $hospital)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Hospital  $hospital
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Hospital $hospital)
+    {
+        //
     }
 }

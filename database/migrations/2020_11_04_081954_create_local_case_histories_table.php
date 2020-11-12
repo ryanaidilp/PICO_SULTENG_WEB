@@ -17,7 +17,7 @@ class CreateLocalCaseHistoriesTable extends Migration
         Schema::create('local_case_histories', function (Blueprint $table) {
             $table->id();
             $table->foreignId('day')->references('id')->on('stats');
-            $table->foreignId('district_id')->references('id')->on('kabupaten');
+            $table->foreignId('district_id')->references('no')->on('kabupaten');
             $table->integer('positive'); //New positive case
             $table->integer('negative'); //New negative case
             $table->integer('recovered'); //New recovered case

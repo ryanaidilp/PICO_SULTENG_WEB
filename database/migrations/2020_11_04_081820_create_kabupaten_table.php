@@ -14,7 +14,7 @@ class CreateKabupatenTable extends Migration
     public function up()
     {
         Schema::create('kabupaten', function (Blueprint $table) {
-            $table->bigIncrements('no')->primary();
+            $table->bigIncrements('no');
             $table->string('kabupaten'); //District Name
             $table->integer('ODP'); //Person under observation
             $table->integer('PDP'); //Person under supervision

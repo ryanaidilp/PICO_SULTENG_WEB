@@ -18,7 +18,7 @@ class CreateDonationsTable extends Migration
             $table->string('nama'); //name
             $table->string('phone');
             $table->string('image');
-            $table->bool('status'); //determine  the donation is no longer active
+            $table->boolean('status'); //determine  the donation is no longer active
             $table->timestamps();
         });
     }

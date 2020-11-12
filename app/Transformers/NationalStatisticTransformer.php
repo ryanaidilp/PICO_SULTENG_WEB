@@ -2,12 +2,35 @@
 
 namespace App\Transformers;
 
-use App\NationalCaseHistory;
+use App\Models\NationalCaseHistory;
 use Illuminate\Support\Facades\Lang;
 use League\Fractal\TransformerAbstract;
 
 class NationalStatisticTransformer extends TransformerAbstract
 {
+    /**
+     * List of resources to automatically include
+     *
+     * @var array
+     */
+    protected $defaultIncludes = [
+        //
+    ];
+
+    /**
+     * List of resources possible to include
+     *
+     * @var array
+     */
+    protected $availableIncludes = [
+        //
+    ];
+
+    /**
+     * A Fractal transformer.
+     *
+     * @return array
+     */
     public function transform(NationalCaseHistory $nationalCaseHistory)
     {
         $weekly_positive_avg = 0;

@@ -14,11 +14,12 @@ class CreateInfographicImagesTable extends Migration
     public function up()
     {
         Schema::create('infographic_images', function (Blueprint $table) {
+            $table->id();
             $table->integer('id');
             $table->foreignId('id_infographic')->references('id')->on('infographics');
             $table->string('link'); //Image link
             $table->timestamps();
-            $table->primary(['id', 'id_infographic']);
+            $table->unique(['id', 'id_infographic']);
         });
     }
 

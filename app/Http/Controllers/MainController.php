@@ -102,7 +102,16 @@ class MainController extends Controller
             'national' => $national,
             'tests' => $tests['data'],
             'districts' => $districts,
-            'provinces' => $provinces,
+            'provinces' => $provinces->map(function ($province) {
+                return [
+                    'provinsi' => $province->provinsi,
+                    'meninggal' => $province->meninggal,
+                    'sembuh' => $province->sembuh,
+                    'positif' => $province->positif,
+                    'persentase_kematian' => $province->rasio_kematian,
+                    'dalam_perawatan' => $province->dalam_perawatan
+                ];
+            })->toArray(),
             'recapLocal' => function () use ($data) {
                 return  $data['data'];
             },

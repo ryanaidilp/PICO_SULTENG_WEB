@@ -17,7 +17,7 @@ class CreateRumahSakitTable extends Migration
     {
         Schema::create('rumah_sakit', function (Blueprint $table) {
             $table->bigIncrements('no');
-            $table->string('namea'); //Name
+            $table->string('nama'); //Name
             $table->text('alamat'); //Address
             $table->string('telepon'); //Telephone number
             $table->string('email'); //Email

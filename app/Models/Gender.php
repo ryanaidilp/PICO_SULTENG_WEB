@@ -12,6 +12,10 @@ class Gender extends Model
 
     protected $guarded = [];
 
+    protected $primaryKey = 'day';
+
+    public $inrementing = false;
+
     public function stat()
     {
         return $this->belongsTo(Statistic::class, 'day', 'id');

@@ -17,4 +17,5 @@ class NationalCaseHistory extends Model
         'daily_recovered_case' => 'integer',
         'daily_deceased_case' => 'integer',
     ];
+    protected $primaryKey = 'day';
 }

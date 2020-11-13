@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\TestHistories;
+use App\Models\TestHistory;
 use Illuminate\Http\Request;
 
-class TestHistoriesController extends Controller
+class TestHistoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class TestHistoriesController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\TestHistories  $testHistories
+     * @param  \App\Models\TestHistory  $testHistoys
      * @return \Illuminate\Http\Response
      */
-    public function show(TestHistories $testHistories)
+    public function show(TestHistory $testHistory)
     {
         //
     }
@@ -52,10 +52,10 @@ class TestHistoriesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\TestHistories  $testHistories
+     * @param  \App\Models\TestHistory  $testHistoys
      * @return \Illuminate\Http\Response
      */
-    public function edit(TestHistories $testHistories)
+    public function edit(TestHistory $testHistory)
     {
         //
     }
@@ -64,10 +64,10 @@ class TestHistoriesController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\TestHistories  $testHistories
+     * @param  \App\Models\TestHistory  $testHistoys
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, TestHistories $testHistories)
+    public function update(Request $request, TestHistory $testHistory)
     {
         //
     }
@@ -75,10 +75,10 @@ class TestHistoriesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\TestHistories  $testHistories
+     * @param  \App\Models\TestHistory  $testHistoys
      * @return \Illuminate\Http\Response
      */
-    public function destroy(TestHistories $testHistories)
+    public function destroy(TestHistory $testHistory)
     {
         //
     }

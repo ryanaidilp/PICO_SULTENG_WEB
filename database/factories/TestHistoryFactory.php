@@ -2,17 +2,17 @@
 
 namespace Database\Factories;
 
-use App\Models\TestHistories;
+use App\Models\TestHistory;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class TestHistoriesFactory extends Factory
+class TestHistoryFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = TestHistories::class;
+    protected $model = TestHistory::class;
 
     /**
      * Define the model's default state.

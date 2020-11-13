@@ -13,4 +13,6 @@ class Hospital extends Model
     protected $casts = [
         'no' => 'integer',
     ];
+
+    protected $primaryKey = 'no';
 }

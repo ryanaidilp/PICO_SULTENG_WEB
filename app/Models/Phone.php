@@ -12,6 +12,12 @@ class Phone extends Model
 
     protected $table = 'phone';
 
+    protected $primaryKey = 'phone';
+
+    public $incrementing = false;
+
+    protected $keyType = 'string';
+
     public function posko()
     {
         return $this->belongsTo(Facility::class, 'id_posko');

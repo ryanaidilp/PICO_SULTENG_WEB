@@ -14,8 +14,7 @@ class CreatePhoneTable extends Migration
     public function up()
     {
         Schema::create('phone', function (Blueprint $table) {
-            $table->id();
-            $table->string('phone')->unique();
+            $table->string('phone')->primary();
             $table->foreignId('id_posko')->references('id')->on('posko');
             $table->timestamps();
         });

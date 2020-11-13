@@ -23,6 +23,9 @@ class Province extends Model
         'rasio_kematian',
     ];
 
+    protected $primaryKey = 'kode_provinsi';
+    public $incrementing = false;
+
     public function getDalamPerawatanAttribute()
     {
         return $this->positif - ($this->sembuh + $this->meninggal);

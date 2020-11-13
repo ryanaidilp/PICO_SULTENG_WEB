@@ -28,6 +28,8 @@ class District extends Model
         'selesai_pemantauan' => 'integer',
     ];
 
+    protected $primaryKey = 'no';
+
     public function posts()
     {
         return $this->hasMany(Facility::class, 'kode_kabupaten', 'no');

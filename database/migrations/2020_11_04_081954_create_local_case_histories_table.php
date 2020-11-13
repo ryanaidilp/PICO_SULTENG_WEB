@@ -16,6 +16,7 @@ class CreateLocalCaseHistoriesTable extends Migration
     {
         Schema::create('local_case_histories', function (Blueprint $table) {
             $table->id();
+            $table->timestamps();
             $table->foreignId('day')->references('id')->on('stats');
             $table->foreignId('district_id')->references('no')->on('kabupaten');
             $table->integer('positive'); //New positive case
@@ -26,7 +27,7 @@ class CreateLocalCaseHistoriesTable extends Migration
             $table->integer('finished_ODP'); //New finished person under observation case
             $table->integer('new_PDP'); //New person under supervision case
             $table->integer('finished_PDP'); //New finished person under supervision case
-            $table->timestamps();
+            $table->unique(['district_id', 'day']);
         });
     }
 

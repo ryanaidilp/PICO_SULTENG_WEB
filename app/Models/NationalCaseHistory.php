@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class NationalCaseHistory extends Model
 {
     use HasFactory;
+    protected $guarded = [];
     protected $table = 'national_case_histories';
     protected $casts = [
         'cumulative_positive' => 'integer',

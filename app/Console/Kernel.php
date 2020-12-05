@@ -2,6 +2,8 @@
 
 namespace App\Console;
 
+use App\Console\Commands\UpdateData;
+use App\Console\Commands\UpdateProvince;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use Illuminate\Support\Facades\Log;
@@ -14,7 +16,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        UpdateData::class,
+        UpdateProvince::class
     ];
 
     /**
@@ -25,7 +28,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->command('covid:update')->dailyAt('18:00');
+        $schedule->command('covid:province')->dailyAt('18:00')->hourly()->between('18:00', '19:00');
         $schedule->command('cache:clear')->dailyAt('02:00');
         $schedule->command('view:clear')->dailyAt('02:00');
     }

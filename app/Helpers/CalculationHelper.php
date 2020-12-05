@@ -28,3 +28,9 @@ function averageCount($sum, $total)
 
     return (float) round($data, 2);
 }
+
+function formatCase($value)
+{
+    $prefix = $value > 0 ? '+' : '';
+    return $prefix . number_format($value, 0, ',', '.') . " kasus baru";
+}

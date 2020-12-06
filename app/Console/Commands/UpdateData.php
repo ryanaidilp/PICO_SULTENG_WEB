@@ -70,9 +70,7 @@ class UpdateData extends Command
     private function sendMessage($data)
     {
         $now = now()->translatedFormat('d F Y');
-        $heading = [
-            'en' => 'Update kasus COVID-19 di Indonesia, ' . $now,
-        ];
+        $heading = 'Update kasus COVID-19 di Indonesia, ' . $now;
 
         $positive_new =  formatCase($data->penambahan->jumlah_positif);
         $recovered_new =  formatCase($data->penambahan->jumlah_sembuh);
@@ -81,27 +79,15 @@ class UpdateData extends Command
 
         $positive_cumulative = number_format($data->total->jumlah_positif, 0, ',', '.');
         $recovered_cumulative = number_format($data->total->jumlah_sembuh, 0, ',', '.');
-        $deceased_cumulative = number_format($data->total->jumlah_meninggal, 0, ',', '.');;
-        $under_treatment_cumulative = number_format($data->total->jumlah_dirawat, 0, ',', '.');;
+        $deceased_cumulative = number_format($data->total->jumlah_meninggal, 0, ',', '.');
+        $under_treatment_cumulative = number_format($data->total->jumlah_dirawat, 0, ',', '.');
 
-        $content = [
-            'en' => "Kasus COVID-19 di Indonesia sampai $now : \n
+        $content =  "Kasus COVID-19 di Indonesia sampai $now : \n
             $positive_new Positif : $positive_cumulative Kasus\n
             $recovered_new Sembuh : $recovered_cumulative  Kasus\n
             $deceased_new Meninggal : $deceased_cumulative Kasus\n
-            $under_treatment_new Dirawat : $under_treatment_cumulative Kasus"
-        ];
+            $under_treatment_new Dirawat : $under_treatment_cumulative Kasus";
 
-        $fields = [
-            'app_id' => env('ONESIGNAL_APP_ID'),
-            'included_segments' => ['All'],
-            'contents' => $content,
-            'headings' => $heading,
-            'url' => 'https://banuacoders.com/corona/data'
-        ];
-        Http::withHeaders([
-            'Content-Type' => 'application/json',
-            'Authorization' => 'Basic ' . env('ONESIGNAL_API_KEY')
-        ])->retry(3, 1000)->post(env('ONESIGNAL_API_URL'), $fields);
+        sendNotification($content, $heading);
     }
 }

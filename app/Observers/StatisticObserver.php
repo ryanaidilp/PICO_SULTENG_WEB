@@ -29,7 +29,7 @@ class StatisticObserver
         $positive_new =  formatCase($statistic->positive);
         $recovered_new =  formatCase($statistic->recovered);
         $deceased_new = formatCase($statistic->death);
-        $under_treatment_new =  formatCase($statistic->positif - ($statistic->recovered + $statistic->death));
+        $under_treatment_new =  formatCase($statistic->positive - ($statistic->recovered + $statistic->death));
 
         $positive_cumulative = number_format($statistic->cumulative_positive, 0, ',', '.');
         $recovered_cumulative = number_format($statistic->cumulative_recovered, 0, ',', '.');

@@ -32,5 +32,5 @@ function averageCount($sum, $total)
 function formatCase($value)
 {
     $prefix = $value > 0 ? '+' : '';
-    return $prefix . number_format($value, 0, ',', '.') . " kasus baru";
+    return $prefix . number_format($value, 0, ',', '.');
 }

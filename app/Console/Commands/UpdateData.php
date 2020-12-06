@@ -69,17 +69,27 @@ class UpdateData extends Command
 
     private function sendMessage($data)
     {
+        $now = now()->translatedFormat('d F Y');
         $heading = [
-            'id' => 'Update kasus COVID-19 di Indonesia, ' . now()->translatedFormat('d F Y')
+            'en' => 'Update kasus COVID-19 di Indonesia, ' . $now,
         ];
-        $content = [
-            'id' => "
-            Kasus COVID-19 di Indonesia sampai " . now()->translatedFormat('d F Y') . " : \n"
-                . formatCase($data->penambahan->jumlah_positif) . " Positif : " . formatCase($data->total->jumlah_positif) . ' Kasus\n'
-                . formatCase($data->penambahan->jumlah_sembuh) . " Sembuh : " . formatCase($data->total->jumlah_sembuh) . ' Kasus\n'
-                . formatCase($data->penambahan->jumlah_meninggal) . " Meninggal : " . formatCase($data->total->jumlah_meninggal) . ' Kasus\n'
-                . formatCase($data->penambahan->jumlah_dirawat) . " Dirawat : " . formatCase($data->total->jumlah_dirawat) . ' Kasus\n'
 
+        $positive_new =  formatCase($data->penambahan->jumlah_positif);
+        $recovered_new =  formatCase($data->penambahan->jumlah_sembuh);
+        $deceased_new = formatCase($data->penambahan->jumlah_meninggal);
+        $under_treatment_new =  formatCase($data->penambahan->jumlah_dirawat);
+
+        $positive_cumulative = number_format($data->total->jumlah_positif, 0, ',', '.');
+        $recovered_cumulative = number_format($data->total->jumlah_sembuh, 0, ',', '.');
+        $deceased_cumulative = number_format($data->total->jumlah_meninggal, 0, ',', '.');;
+        $under_treatment_cumulative = number_format($data->total->jumlah_dirawat, 0, ',', '.');;
+
+        $content = [
+            'en' => "Kasus COVID-19 di Indonesia sampai $now : \n
+            $positive_new Positif : $positive_cumulative Kasus\n
+            $recovered_new Sembuh : $recovered_cumulative  Kasus\n
+            $deceased_new Meninggal : $deceased_cumulative Kasus\n
+            $under_treatment_new Dirawat : $under_treatment_cumulative Kasus"
         ];
 
         $fields = [
@@ -90,8 +100,8 @@ class UpdateData extends Command
             'url' => 'https://banuacoders.com/corona/data'
         ];
         Http::withHeaders([
-            'Content-Type: application/json; charset=utf-8',
-            'Authorization: Basic ' . env('ONESIGNAL_API_KEY')
+            'Content-Type' => 'application/json',
+            'Authorization' => 'Basic ' . env('ONESIGNAL_API_KEY')
         ])->retry(3, 1000)->post(env('ONESIGNAL_API_URL'), $fields);
     }
 }

@@ -2,9 +2,9 @@
 
 namespace App\Console\Commands;
 
-use App\Models\NationalCaseHistory;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
+use App\Models\NationalCaseHistory;
 use Illuminate\Support\Facades\Http;
 
 class UpdateData extends Command
@@ -59,35 +59,10 @@ class UpdateData extends Command
                 'daily_recovered_case' => $newCase->jumlah_sembuh,
                 'daily_deceased_case' => $newCase->jumlah_meninggal,
             ]);
-            $this->sendMessage($response);
             $this->info('Successfully updated data');
         } else {
             $this->error('Failed create connection to the server');
         }
         return 0;
-    }
-
-    private function sendMessage($data)
-    {
-        $now = now()->translatedFormat('d F Y');
-        $heading = 'Update kasus COVID-19 di Indonesia, ' . $now;
-
-        $positive_new =  formatCase($data->penambahan->jumlah_positif);
-        $recovered_new =  formatCase($data->penambahan->jumlah_sembuh);
-        $deceased_new = formatCase($data->penambahan->jumlah_meninggal);
-        $under_treatment_new =  formatCase($data->penambahan->jumlah_dirawat);
-
-        $positive_cumulative = number_format($data->total->jumlah_positif, 0, ',', '.');
-        $recovered_cumulative = number_format($data->total->jumlah_sembuh, 0, ',', '.');
-        $deceased_cumulative = number_format($data->total->jumlah_meninggal, 0, ',', '.');
-        $under_treatment_cumulative = number_format($data->total->jumlah_dirawat, 0, ',', '.');
-
-        $content =  "Kasus COVID-19 di Indonesia sampai $now : \n
-            $positive_new Positif : $positive_cumulative Kasus\n
-            $recovered_new Sembuh : $recovered_cumulative  Kasus\n
-            $deceased_new Meninggal : $deceased_cumulative Kasus\n
-            $under_treatment_new Dirawat : $under_treatment_cumulative Kasus";
-
-        sendNotification($content, $heading);
     }
 }

@@ -2,11 +2,13 @@
 
 namespace App\Providers;
 
-use App\Models\LocalCaseHistory;
 use App\Models\Statistic;
-use App\Observers\LocalCaseHistoryObserver;
+use App\Models\LocalCaseHistory;
+use App\Models\NationalCaseHistory;
 use App\Observers\StatisticObserver;
 use Illuminate\Support\ServiceProvider;
+use App\Observers\LocalCaseHistoryObserver;
+use App\Observers\NationalCaseHistoryObserver;
 
 class ModelEventObserverServiceProvider extends ServiceProvider
 {
@@ -27,7 +29,8 @@ class ModelEventObserverServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        LocalCaseHistory::observe(new LocalCaseHistoryObserver);
         Statistic::observe(new StatisticObserver);
+        LocalCaseHistory::observe(new LocalCaseHistoryObserver);
+        NationalCaseHistory::observe(new NationalCaseHistoryObserver);
     }
 }

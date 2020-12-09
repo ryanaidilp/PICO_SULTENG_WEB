@@ -19,12 +19,12 @@ class NationalCaseHistoryObserver
 
         $positive_new =  formatCase($nationalCaseHistory->daily_positive_case);
         $recovered_new =  formatCase($nationalCaseHistory->daily_recovered_case);
-        $deceased_new = formatCase($nationalCaseHistory->penambahan->daily_deceased_case);
+        $deceased_new = formatCase($nationalCaseHistory->daily_deceased_case);
         $under_treatment_new =  formatCase($nationalCaseHistory->daily_under_treatment_case);
 
         $positive_cumulative = number_format($nationalCaseHistory->cumulative_positive, 0, ',', '.');
         $recovered_cumulative = number_format($nationalCaseHistory->cumulative_recovered, 0, ',', '.');
-        $deceased_cumulative = number_format($nationalCaseHistory->total->cumulative_deceased, 0, ',', '.');
+        $deceased_cumulative = number_format($nationalCaseHistory->cumulative_deceased, 0, ',', '.');
         $under_treatment_cumulative = number_format($nationalCaseHistory->cumulative_under_treatment, 0, ',', '.');
 
         $content =  "Kasus COVID-19 di Indonesia sampai $now :

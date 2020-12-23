@@ -27,11 +27,7 @@ class NationalCaseHistoryObserver
         $deceased_cumulative = number_format($nationalCaseHistory->cumulative_deceased, 0, ',', '.');
         $under_treatment_cumulative = number_format($nationalCaseHistory->cumulative_under_treatment, 0, ',', '.');
 
-        $content =  "Kasus COVID-19 di Indonesia sampai $now :
-        \n$positive_new Positif : $positive_cumulative Kasus
-        \n$recovered_new Sembuh : $recovered_cumulative  Kasus
-        \n$deceased_new Meninggal : $deceased_cumulative Kasus
-        \n$under_treatment_new Dirawat : $under_treatment_cumulative Kasus";
+        $content =  "Kasus COVID-19 di Indonesia sampai $now :\n$positive_new Positif : $positive_cumulative Kasus\n$recovered_new Sembuh : $recovered_cumulative  Kasus\n$deceased_new Meninggal : $deceased_cumulative Kasus\n$under_treatment_new Dirawat : $under_treatment_cumulative Kasus";
 
         sendNotification($content, $heading);
     }

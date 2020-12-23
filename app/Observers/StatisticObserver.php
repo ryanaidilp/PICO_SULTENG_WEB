@@ -38,11 +38,7 @@ class StatisticObserver
 
         $now = today()->translatedFormat('l, d F Y');
         $header = "Update COVID-19 di Sulawesi Tengah.  $now!";
-        $content = "Kasus COVID-19 di Sulawesi Tengah sampai $now : 
-        \n$positive_new Positif : $positive_cumulative Kasus
-        \n$recovered_new Sembuh : $recovered_cumulative Kasus
-        \n$deceased_new Meninggal : $deceased_cumulative Kasus
-        \n$under_treatment_new Dirawat : $under_treatment_cumulative Kasus";
+        $content = "Kasus COVID-19 di Sulawesi Tengah sampai $now :\n$positive_new Positif : $positive_cumulative Kasus\n$recovered_new Sembuh : $recovered_cumulative Kasus\n$deceased_new Meninggal : $deceased_cumulative Kasus\n$under_treatment_new Dirawat : $under_treatment_cumulative Kasus";
 
         sendNotification($content, $header);
 

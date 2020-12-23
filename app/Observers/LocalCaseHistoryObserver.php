@@ -25,6 +25,24 @@ class LocalCaseHistoryObserver
         $district->selesai_pemantauan += $created->finished_ODP;
         $district->selesai_pengawasan += $created->finished_PDP;
         $district->save();
+
+        $now = now()->translatedFormat('l, d F Y');
+
+        $heading = "Update kasus COVID-19 di $district->kabupaten. $now!";
+
+        $positive_new =  formatCase($created->positive);
+        $recovered_new =  formatCase($created->recovered);
+        $deceased_new = formatCase($created->death);
+        $under_treatment_new =  formatCase($created->positive - ($created->recovered + $created->death));
+
+        $positive_cumulative = number_format($district->positif, 0, ',', '.');
+        $recovered_cumulative = number_format($district->sembuh, 0, ',', '.');
+        $deceased_cumulative = number_format($district->meninggal, 0, ',', '.');
+        $under_treatment_cumulative = number_format($district->positif - ($district->meninggal + $district->sembuh), 0, ',', '.');
+
+        $content =  "Kasus COVID-19 di $district->kabupaten sampai $now :\n$positive_new Positif : $positive_cumulative Kasus\n$recovered_new Sembuh : $recovered_cumulative  Kasus\n$deceased_new Meninggal : $deceased_cumulative Kasus\n$under_treatment_new Dirawat : $under_treatment_cumulative Kasus";
+
+        sendNotification($content, $heading);
     }
 
     /**

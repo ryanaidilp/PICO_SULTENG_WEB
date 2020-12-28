@@ -26,18 +26,6 @@
              Sebaran Titik
           </a>
         </li>
-        <li class="flex-auto mr-2 -mb-px text-center last:mr-0">
-          <a
-            class="block px-5 py-3 text-xs font-bold leading-normal uppercase border-t-2 rounded shadow-lg md:border-t-0"
-            v-on:click="toggleTabs(3)"
-            v-bind:class="{
-              'text-blue-600 bg-white': openTab !== 3,
-              'text-white bg-blue-600': openTab === 3,
-            }"
-          >
-            Time Slider
-          </a>
-        </li>
       </ul>
       <div class="relative flex flex-col w-full min-w-0 mb-6 break-words">
         <div class="flex-auto pt-5 bg-white rounded-lg shadow-lg">
@@ -51,14 +39,6 @@
               <keep-alive>
                 <map-bubble :districts="districts" :provinces="provinces"></map-bubble>
               </keep-alive>
-            </div>
-            <div
-              v-bind:class="{
-                hidden: openTab !== 3,
-                'block mb-6': openTab === 3,
-              }"
-            >
-              <p class="mx-auto my-auto font-bold text-center">COMING SOON</p>
             </div>
           </div>
         </div>

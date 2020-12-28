@@ -2,25 +2,17 @@
   <div class="p-5 overflow-hidden text-white rounded-lg shadow-lg pcr-main">
     <b class="text-lg">PCR <i>(Polymerase Chain Reaction)</i></b>
     <div class="flex flex-col mt-2 mb-2 md:flex-row">
-      <div class="w-full h-auto mt-2 mr-10 text-sm md:w-3/6 lg:w-3/6">
-        <i>Polymerase Chain Reaction</i> atau PCR merupakan pemeriksaan diagnostik yang
-        dianggap paling akurat untuk memastikan apakah seseorang menderita
-        COVID-19 atau tidak.<br />
-        <br /><b style="font-size: larger">Keterangan :</b><br />
-        <span 
-          >Jumlah tes PCR yang ditampilkan diolah dari data yang dipublikasikan Dinas Kesehatan Sulawesi
-          Tengah.</span
-        >
-        <br/>
-        <br/>
-        <span>
-          <b>
-            Pembaruan Terakhir :
-            <br />
-            <p class="px-1 py-0 text-sm align-middle">{{ data.pcr.tanggal }}</p>
-            <br /><br />
-          </b>
-        </span>
+      <div class="w-full h-auto mt-2 mr-10 text-sm text-justify md:w-3/6 lg:w-3/6">
+        <i>Polymerase Chain Reaction</i> atau PCR merupakan pemeriksaan
+        diagnostik yang dianggap paling akurat untuk memastikan apakah seseorang
+        menderita COVID-19 atau tidak. Jumlah tes PCR yang ditampilkan diolah
+        dari data yang dipublikasikan Dinas Kesehatan Sulawesi Tengah.<br />
+        <br /><b style="font-size: larger">
+          Pembaruan Terakhir :
+          <br />
+          <p class="px-1 py-0 text-sm align-middle">{{ data.pcr.tanggal }}</p>
+        </b>
+        <br />
         <br />
       </div>
       <div class="w-full h-auto mr-10 text-sm md:w-3/6 lg:w-3/6 row">

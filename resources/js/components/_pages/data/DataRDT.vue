@@ -4,7 +4,7 @@
   >
     <b class="text-lg">RDT <i>(Rapid Diagnostic Test)</i></b>
     <div class="flex flex-col mt-2 mb-2 md:flex-row">
-      <div class="w-full h-auto mt-2 mr-10 text-sm md:w-3/6 lg:w-3/6">
+      <div class="w-full h-auto mt-2 mr-10 text-sm text-justify md:w-3/6 lg:w-3/6">
         <i>Rapid Diagnostic Test</i> (RDT) atau test diagnostik cepat merupakan test yang digunakan sebagai skrining medis awal untuk mendeteksi COVID-19. Pada hasil RDT yang Reaktif akan dilakukan pemeriksaan konfirmasi lebih lanjut dengan metode SWAB/<i>Polymerase Chain Reaction</i> (PCR).
         <span>
           <br><br>

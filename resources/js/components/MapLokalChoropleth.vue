@@ -2,7 +2,7 @@
   <div class="w-full p-3 text-xs bg-white rounded-lg shadow-lg md:text-base">
     <!--Table Card-->
     <div>
-      <div class="flex flex-wrap justify-center max-w-md mx-auto text-center">
+      <div class="flex flex-wrap justify-center max-w-lg mx-auto text-center">
         <div class="flex items-center mr-4">
           <input
             id="district-positif"
@@ -27,6 +27,32 @@
               class="inline-block w-4 h-4 mr-1 border rounded-full border-grey"
             ></span>
             Positif
+          </label>
+        </div>
+
+        <div class="flex items-center mr-4">
+          <input
+            id="district-dirawat"
+            type="radio"
+            name="data_covid"
+            value="Dirawat"
+            class="hidden"
+            v-on:change="
+              createChoroplethMapLocal(
+                'Dirawat',
+                districtUnderTreatmentDataset,
+                districtPositiveColor
+              )
+            "
+          />
+          <label
+            for="district-dirawat"
+            class="flex items-center cursor-pointer"
+          >
+            <span
+              class="inline-block w-4 h-4 mr-1 border rounded-full border-grey"
+            ></span>
+            Dirawat
           </label>
         </div>
 
@@ -146,6 +172,7 @@ export default {
       today: new Date(),
       districtRecoveredDataset: [],
       districtPositiveDataset: [],
+      districtUnderTreatmentDataset: [],
       districtDeathDataset: [],
       districtODPDataset: [],
       districtPDPDataset: [],
@@ -218,6 +245,16 @@ export default {
             value: district.positif,
             sembuh: district.sembuh,
             meninggal: district.meninggal,
+            dirawat: district.positif - (district.sembuh + district.meninggal),
+            ODP: district.dalam_pemantauan,
+            PDP: district.dalam_pengawasan,
+          });
+          this.districtUnderTreatmentDataset.push({
+            id: district.kabupaten,
+            positif: district.positif,
+            sembuh: district.sembuh,
+            meninggal: district.meninggal,
+            value: district.positif - (district.sembuh + district.meninggal),
             ODP: district.dalam_pemantauan,
             PDP: district.dalam_pengawasan,
           });
@@ -301,7 +338,9 @@ export default {
           e.getData("ODP") == null ? e.getData("value") : e.getData("ODP");
         var PDP =
           e.getData("PDP") == null ? e.getData("value") : e.getData("PDP");
-        var underTreatment = positif - (sembuh + meninggal);
+        var underTreatment =  e.getData("dirawat") == null
+            ? e.getData("value")
+            : e.getData("dirawat");
         let tooltipHtml =
           '<table class="flex text-xs text-left text-gray-800 table-auto justify-left">' +
           "<tbody>" +

@@ -48,7 +48,7 @@
       <rect x="0" y="150" rx="10" ry="10" width="450" height="210" />
       <rect x="480" y="150" rx="10" ry="10" width="450" height="210" />
     </content-loader>
-    <statistics :local="local" :national="national" />
+    <statistics :local="local" :national="national" class="mt-4" />
   </div>
 </template>
 <script>

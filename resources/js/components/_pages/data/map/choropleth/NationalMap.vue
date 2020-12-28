@@ -25,6 +25,25 @@
 
         <div class="flex items-center mr-4">
           <input
+            id="dirawat"
+            type="radio"
+            name="data_covid"
+            value="Dirawat"
+            class="hidden"
+            v-on:change="
+              createChoropleth('Dirawat', underTreatmentDataset, positiveColor)
+            "
+          />
+          <label for="dirawat" class="flex items-center cursor-pointer">
+            <span
+              class="inline-block w-4 h-4 mr-1 border rounded-full border-grey"
+            ></span>
+            Dirawat
+          </label>
+        </div>
+
+        <div class="flex items-center mr-4">
+          <input
             id="sembuh"
             type="radio"
             name="data_covid"
@@ -79,6 +98,7 @@ export default {
     return {
       today: new Date(),
       positiveDataset: [],
+      underTreatmentDataset: [],
       positiveColor: [
         "#418a47",
         "#689849",
@@ -136,21 +156,55 @@ export default {
     createChoropleth: function (name, data, color) {
       map.removeAllSeries();
       var series = map.choropleth(data);
-      series.colorScale(
-        anychart.scales.ordinalColor([
-          { less: 100, color: color[0] },
-          { from: 100, to: 200, color: color[1] },
-          { from: 200, to: 300, color: color[2] },
-          { from: 300, to: 400, color: color[3] },
-          { from: 400, to: 500, color: color[4] },
-          { from: 500, to: 600, color: color[5] },
-          { from: 600, to: 700, color: color[6] },
-          { from: 700, to: 800, color: color[7] },
-          { from: 800, to: 900, color: color[8] },
-          { from: 900, to: 1000, color: color[9] },
-          { greater: 1000, color: color[10] },
-        ])
-      );
+      if (name == "Sembuh") {
+        series.colorScale(
+          anychart.scales.ordinalColor([
+            { less: 2500, color: color[0] },
+            { from: 2500, to: 5000, color: color[1] },
+            { from: 5000, to: 7500, color: color[2] },
+            { from: 7500, to: 10000, color: color[3] },
+            { from: 10000, to: 12500, color: color[4] },
+            { from: 12500, to: 15000, color: color[5] },
+            { from: 15000, to: 17500, color: color[6] },
+            { from: 17500, to: 20000, color: color[7] },
+            { from: 20000, to: 22500, color: color[8] },
+            { from: 22500, to: 25000, color: color[9] },
+            { greater: 25000, color: color[10] },
+          ])
+        );
+      } else if (name == "Positif") {
+        series.colorScale(
+          anychart.scales.ordinalColor([
+            { less: 10000, color: color[0] },
+            { from: 10000, to: 20000, color: color[1] },
+            { from: 20000, to: 30000, color: color[2] },
+            { from: 30000, to: 40000, color: color[3] },
+            { from: 40000, to: 50000, color: color[4] },
+            { from: 50000, to: 60000, color: color[5] },
+            { from: 60000, to: 70000, color: color[6] },
+            { from: 70000, to: 80000, color: color[7] },
+            { from: 80000, to: 90000, color: color[8] },
+            { from: 90000, to: 100000, color: color[9] },
+            { greater: 100000, color: color[10] },
+          ])
+        );
+      } else {
+        series.colorScale(
+          anychart.scales.ordinalColor([
+            { less: 100, color: color[0] },
+            { from: 100, to: 200, color: color[1] },
+            { from: 200, to: 300, color: color[2] },
+            { from: 300, to: 400, color: color[3] },
+            { from: 400, to: 500, color: color[4] },
+            { from: 500, to: 600, color: color[5] },
+            { from: 600, to: 700, color: color[6] },
+            { from: 700, to: 800, color: color[7] },
+            { from: 800, to: 900, color: color[8] },
+            { from: 900, to: 1000, color: color[9] },
+            { greater: 1000, color: color[10] },
+          ])
+        );
+      }
       series.tooltip().useHtml(true);
       series.tooltip().format(function (e) {
         var positif =
@@ -165,7 +219,10 @@ export default {
           e.getData("meninggal") == null
             ? e.getData("value")
             : e.getData("meninggal");
-        var underTreatment = positif - (sembuh + meninggal);
+        var underTreatment =
+          e.getData("dirawat") == null
+            ? e.getData("value")
+            : e.getData("dirawat");
         return (
           '<table class="flex text-xs text-left text-gray-800 table-auto justify-left">' +
           "<tbody>" +
@@ -226,18 +283,28 @@ export default {
           value: province.positif,
           sembuh: province.sembuh,
           meninggal: province.meninggal,
+          dirawat: province.positif - (province.sembuh + province.meninggal),
+        });
+        this.underTreatmentDataset.push({
+          id: province.map_id,
+          positif: province.positif,
+          sembuh: province.sembuh,
+          meninggal: province.meninggal,
+          value: province.positif - (province.sembuh + province.meninggal),
         });
         this.recoveredDataset.push({
           id: province.map_id,
           value: province.sembuh,
           positif: province.positif,
           meninggal: province.meninggal,
+          dirawat: province.positif - (province.sembuh + province.meninggal),
         });
         this.deathDataset.push({
           id: province.map_id,
           value: province.meninggal,
           positif: province.positif,
           sembuh: province.sembuh,
+          dirawat: province.positif - (province.sembuh + province.meninggal),
         });
       });
     },

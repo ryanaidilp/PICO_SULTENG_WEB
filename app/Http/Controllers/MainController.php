@@ -109,7 +109,8 @@ class MainController extends Controller
                     'sembuh' => $province->sembuh,
                     'positif' => $province->positif,
                     'persentase_kematian' => $province->rasio_kematian,
-                    'dalam_perawatan' => $province->dalam_perawatan
+                    'dalam_perawatan' => $province->dalam_perawatan,
+                    'map_id' => $province->map_id
                 ];
             })->toArray(),
             'recapLocal' => function () use ($data) {

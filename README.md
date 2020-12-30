@@ -1,8 +1,8 @@
 <h1 align="center"> Dashboard COVID-19 Sulawesi Tengah </h1>
 
-![Dashboard COVID-19](https://i.ibb.co/8b5cFjL/newpico.jpg)
+![PICO SulTeng WEB](https://i.ibb.co/8b5cFjL/newpico.jpg)
 
-[Dashboard COVID-19 SulTeng](https://banuacoders.com/corona) is the web version of PICO SulTeng (*Pusat Informasi COVID-19 Sulawesi Tengah*/COVID-19 Information Center of Central Sulawesi). It was built on [Laravel](https://laravel.com/), [Vue.js](https://vuejs.org), [Tailwind CSS](https://tailwindcss.com), & [Inertia Js](https://inertiajs.com).  This website is built to facilitate the people of Central Sulawesi in obtaining information about the current situation of COVID-19 in Central Sulawesi.
+[PICO SulTeng WEB](https://banuacoders.com/corona) is the web version of PICO SulTeng (*Pusat Informasi COVID-19 Sulawesi Tengah*/COVID-19 Information Center of Central Sulawesi). It is built using [Laravel](https://laravel.com/), [Vue.js](https://vuejs.org), [Tailwind CSS](https://tailwindcss.com), & [Inertia Js](https://inertiajs.com).  This website is built to facilitate the people of Central Sulawesi in obtaining information about the current situation of COVID-19 in Central Sulawesi.
 
 ## Configuration
 

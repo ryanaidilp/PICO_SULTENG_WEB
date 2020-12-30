@@ -1,4 +1,4 @@
-<h1 align="center"> Dashboard COVID-19 Sulawesi Tengah </h1>
+<h1 align="center"> PICO SulTeng WEB </h1>
 
 ![PICO SulTeng WEB](https://i.ibb.co/8b5cFjL/newpico.jpg)
 

@@ -4,7 +4,7 @@ namespace App\Transformers;
 
 use League\Fractal\Serializer\ArraySerializer;
 
-class DetexiSerializer extends ArraySerializer
+class AppSerializer extends ArraySerializer
 {
     public function collection($resourceKey, array $data)
     {

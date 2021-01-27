@@ -10,8 +10,8 @@
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --config=node_modules/laravel-mix/setup/webpack.config.js"
     },
     "devDependencies": {
-        "@fortawesome/fontawesome-free": "^5.15.1",
-        "@inertiajs/inertia": "^0.6.3",
+        "@fortawesome/fontawesome-free": "^5.15.2",
+        "@inertiajs/inertia": "^0.8.4",
         "@inertiajs/inertia-vue": "^0.4.3",
         "@inertiajs/progress": "^0.2.4",
         "@tailwindcss/typography": "^0.2.0",
@@ -30,8 +30,8 @@
         "postcss-import": "^12.0.1",
         "postcss-loader": "^3.0.0",
         "resolve-url-loader": "^3.1.0",
-        "sass": "^1.30.0",
-        "sass-loader": "^10.1.0",
+        "sass": "^1.32.5",
+        "sass-loader": "^10.1.1",
         "spin.js": "^4.1.0",
         "v-datatable-light": "^0.8.2",
         "vue": "^2.6.12",
@@ -39,7 +39,7 @@
         "vue-carousel": "^0.18.0",
         "vue-content-loader": "^0.2.3",
         "vue-gallery-slideshow": "^1.5.2",
-        "vue-good-table": "^2.21.1",
+        "vue-good-table": "^2.21.3",
         "vue-google-charts": "^0.3.3",
         "vue-lazyload": "^1.3.3",
         "vue-loading-overlay": "^3.4.2",
@@ -52,7 +52,6 @@
         "vue-template-compiler": "^2.6.12",
         "vuejs-datatable": "^2.0.0-alpha.7",
         "vuejs-datatables": "^1.0.30",
-        "vuetable-2": "^1.7.5",
         "xlsx": "^0.16.9"
     },
     "dependencies": {

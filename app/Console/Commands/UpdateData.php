@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use App\Models\NationalCaseHistory;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
 
 class UpdateData extends Command
@@ -47,9 +48,14 @@ class UpdateData extends Command
             $newCase = $response->penambahan;
             $cumulative = $response->total;
             $latest = NationalCaseHistory::latest()->first();
+            $date = Carbon::parse($newCase->created);
+            if (!$date->isToday()) {
+                Log::notice("Data tidak diperbarui!");
+                return;
+            }
             NationalCaseHistory::create([
                 'day' => $latest->day + 1,
-                'date' => Carbon::parse($newCase->created),
+                'date' => $date,
                 'cumulative_positive' => $cumulative->jumlah_positif,
                 'cumulative_under_treatment' => $cumulative->jumlah_dirawat,
                 'cumulative_recovered' => $cumulative->jumlah_sembuh,

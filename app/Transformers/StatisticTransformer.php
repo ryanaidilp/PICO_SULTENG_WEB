@@ -163,9 +163,6 @@ class StatisticTransformer extends TransformerAbstract
                     Lang::get('general.under_treatment') => $stats->under_treatment_percentage,
                 ],
                 Lang::get('general.average') => [
-                    Lang::get('general.positive') => $stats->daily_positive_case,
-                    Lang::get('general.recovered') => $stats->daily_recovered_case,
-                    Lang::get('general.death') => $stats->daily_death_case,
                     Lang::get('general.positive') . '_weekly' => $weekly_positive_avg,
                     Lang::get('general.recovered') . '_weekly' => $weekly_recovered_avg,
                     Lang::get('general.death') . '_weekly' => $weekly_death_avg,

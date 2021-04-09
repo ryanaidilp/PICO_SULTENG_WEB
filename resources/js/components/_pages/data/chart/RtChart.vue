@@ -1,8 +1,19 @@
 <template>
   <div class="w-full p-3 pb-8">
     <!--Graph Card-->
-    <div class="bg-white rounded-lg shadow-lg">
-      <div style="height: 400px" class="p-5">
+    <div class="bg-white rounded-lg shadow-lg vld-parent">
+      <div v-if="isLoading()" class="vld-icon">
+        <loading
+          :active="isLoading()"
+          :is-full-page="false"
+          :opacity="0.8"
+          :height="400"
+          loader="bars"
+          color="#59F"
+        >
+        </loading>
+      </div>
+      <div v-show="!isLoading()" style="height: 400px" class="p-5">
         <keep-alive>
           <canvas
             id="rt-chart"
@@ -47,6 +58,7 @@
   </div>
 </template>
 <script>
+import Loading from "vue-loading-overlay";
 import Chart from "chart.js";
 import "chart.js/dist/Chart.min";
 import { id } from "date-fns/locale";
@@ -131,13 +143,13 @@ var dataChart = {
     maintainAspectRatio: false,
     responsive: true,
     tooltips: {
-    //   filter: function (tooltipItem) {
-    //     if (tooltipItem.datasetIndex == 0) {
-    //       return true;
-    //     } else {
-    //       return false;
-    //     }
-    //   },
+      //   filter: function (tooltipItem) {
+      //     if (tooltipItem.datasetIndex == 0) {
+      //       return true;
+      //     } else {
+      //       return false;
+      //     }
+      //   },
       mode: "index",
       intersect: false,
       backgroundColor: "rgba(255,255,255,1)",
@@ -157,6 +169,9 @@ export default {
       default: () => [],
     },
   },
+  components: {
+    Loading,
+  },
   data() {
     return {
       jsonDataRekapitulasiSulteng: [],
@@ -170,6 +185,9 @@ export default {
     },
   },
   methods: {
+    isLoading() {
+      return this.jsonDataRekapitulasiSulteng.length == 0 ? true : false;
+    },
     createChart(chartId, chartData) {
       const ctx = document.getElementById(chartId);
       if (this.chart != null) {
@@ -219,7 +237,16 @@ export default {
   mounted() {
     this.jsonDataRekapitulasiSulteng = this.propsDataRekapitulasiProv;
     this.createChart("rt-chart", dataChart);
-    this.fetchDataStatistic()
+    this.fetchDataStatistic();
   },
 };
 </script>
+
+<style scoped>
+.vld-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+</style>

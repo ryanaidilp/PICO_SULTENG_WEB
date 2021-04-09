@@ -152,10 +152,14 @@ export default {
     "tests",
     "districts",
     "provinces",
-    "recapLocal",
     "recapNational",
     "genders",
   ],
+  data() {
+    return {
+      recapLocal: [],
+    };
+  },
   components: {
     Layout,
     Partner,
@@ -172,8 +176,14 @@ export default {
     PieChart,
   },
   methods: {
+    loadStatistics() {
+      axios.get(route("home") + "api/statistics").then((response) => {
+        this.recapLocal = response.data.data;
+      });
+    },
     reloadData() {
       setInterval(() => {
+        this.loadStatistics();
         Inertia.reload({
           only: [
             "local",
@@ -181,7 +191,6 @@ export default {
             "lastUpdate",
             "districts",
             "provinces",
-            "recapLocal",
             "recapNational",
           ],
         });
@@ -189,6 +198,7 @@ export default {
     },
   },
   mounted() {
+    this.loadStatistics();
     this.reloadData();
   },
 };

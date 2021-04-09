@@ -1,5 +1,5 @@
 <template>
-  <div class="text-gray-800 bg-white rounded-lg">
+  <div class="text-gray-800 bg-white rounded-lg vld-parent">
     <p class="ml-8 font-semibold md:text-xl">
       Kasus harian {{ selectedCase }} di {{ name }}
     </p>
@@ -44,6 +44,7 @@
     <div v-if="selected && selectedCase" class="mt-8 border-t-2">
       <keep-alive>
         <chart-local-positive
+          v-show="!isLoading()"
           :wilayah="selected"
           :props-data-rekapitulasi-prov="jsonDataRekapitulasiProv"
           :props-data-rekapitulasi-nasional="jsonDataRekapitulasiNasional"
@@ -51,18 +52,22 @@
           class="mt-4"
         ></chart-local-positive>
       </keep-alive>
-      <div class="mb-4 text-center">
-        <span v-if="isEmpty" class="text-sm"
-          >Data sedang dimuat. Harap menunggu.</span
-        >
-      </div>
     </div>
-    <div v-else class="my-8 text-lg font-bold text-center bg-white rounded-lg">
-      Tidak Ada wilayah/kasus yang dipilih
+    <div v-if="isLoading()" class="vld-icon" style="height: 400px">
+      <loading
+        :active="isLoading()"
+        :is-full-page="false"
+        :opacity="0.8"
+        :height="400"
+        loader="bars"
+        color="#59F"
+      >
+      </loading>
     </div>
   </div>
 </template>
 <script>
+import Loading from "vue-loading-overlay";
 import VSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
 import ChartLocalPositive from "@/components/_pages/data/chart/DailyChart";
@@ -70,6 +75,7 @@ export default {
   components: {
     VSelect,
     ChartLocalPositive,
+    Loading,
   },
   data() {
     return {
@@ -131,6 +137,12 @@ export default {
     },
   },
   methods: {
+    isLoading() {
+      return this.jsonDataRekapitulasiProv.length == 0 ||
+        this.jsonDataRekapitulasiNasional.length == 0
+        ? true
+        : false;
+    },
     checkEmpty() {
       if (this.selected === "Sulawesi Tengah") {
         if (this.jsonDataRekapitulasiProv.length > 0) {
@@ -172,6 +184,15 @@ export default {
   mounted() {
     this.jsonDataRekapitulasiProv = this.propsDataRekapitulasiProv;
     this.jsonDataRekapitulasiNasional = this.propsDataRekapitulasiNasional;
-  }
+  },
 };
 </script>
+
+<style scoped>
+.vld-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+</style>

@@ -25,3 +25,12 @@ function sendNotification($body, $header)
         'Authorization' => 'Basic ' . env('ONESIGNAL_API_KEY')
     ])->retry(3, 1000)->post(env('ONESIGNAL_API_URL'), $fields);
 }
+
+function setResponse($data, $errors, $isSuccess)
+{
+    return [
+        'success' => $isSuccess,
+        'errors' => $errors,
+        'data' => $data
+    ];
+}

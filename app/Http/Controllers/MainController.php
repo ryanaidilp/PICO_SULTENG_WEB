@@ -93,7 +93,6 @@ class MainController extends Controller
         $districts = District::all();
         $provinces = Province::all();
         $tests = fractal(Test::all(), new TestTransformer)->toArray();
-        $data = fractal(Statistic::with('histories')->get(), new StatisticTransformer)->toArray();
         $nationals = fractal(NationalCaseHistory::all(), new NationalStatisticTransformer)->toArray();
         $genders = fractal(Gender::latest()->first(), new GenderTransformer)->toArray();
         return Inertia::render("Data/Index", [
@@ -113,9 +112,6 @@ class MainController extends Controller
                     'map_id' => $province->map_id
                 ];
             })->toArray(),
-            'recapLocal' => function () use ($data) {
-                return  $data['data'];
-            },
             'recapNational' => function () use ($nationals) {
                 return $nationals['data'];
             },

@@ -11,7 +11,7 @@
           target="_blank"
         >
           <img
-            v-lazy="route('home')+'assets/images/partner/' + partner.image"
+            v-lazy="route('home') + 'assets/images/partner/' + partner.image"
             :alt="partner.name"
             class="object-contain h-20 mx-auto"
             :title="partner.name"
@@ -22,7 +22,7 @@
       <div class="flex content-center justify-center w-full mt-2">
         <a
           class="inline-block h-10 p-2 text-center text-gray-800 no-underline hover:opacity-75 md:h-auto md:p-4"
-          href="https://github.com/ryanaidilp/Dashboard-COVID-19-Sulawesi-Tengah"
+          href="https://github.com/ryanaidilp/PICO_SULTENG_WEB"
           target="_blank"
           data-tippy-content="@github_handle"
         >
@@ -61,7 +61,7 @@
           class="inline-block h-10 p-2 text-center text-blue-500 no-underline hover:opacity-75 hover:text-underline md:h-auto md:p-4"
           target="_blank"
           data-tippy-content="#facebook_id"
-          href="https://www.facebook.com/banuacoders"
+          href="https://www.facebook.com/banuacoder"
         >
           <svg
             class="h-6 fill-current"
@@ -94,20 +94,21 @@
         </a>
       </div>
       <p class="text-xs text-center text-gray-500 md:text-sm">
-        &copy; BanuaCoders 2020. Made with
-        <i class="fas fa-heart"></i> by
+        Made with <i class="fas fa-heart"></i> by
         <a
           href="https://linkedin.com/in/ryanaidilp"
           target="_blank"
           class="hover:text-gray-800"
           >Fajrian Aidil Pratama</a
         >
+        <br />
+        &copy; Copyright 2020 - {{ new Date().getFullYear() }} BanuaCoders .
       </p>
     </div>
   </div>
 </template>
 <script>
 export default {
-  props: ['partners']
+  props: ["partners"],
 };
 </script>

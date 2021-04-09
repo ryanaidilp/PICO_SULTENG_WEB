@@ -4,17 +4,17 @@
     <div class="bg-white rounded-lg shadow-lg vld-parent">
       <div class="flex justify-center w-full">
         <loading
-          :active.sync="isLoading"
+          :active="isLoading()"
           :is-full-page="false"
           :opacity="0.8"
           :width="120"
-          height="400px"
+          :height="400"
           loader="bars"
           color="#59F"
         >
         </loading>
       </div>
-      <div v-show="!isLoading" style="height: 400px" class="p-5">
+      <div v-show="!isLoading()" style="height: 400px" class="p-5">
         <keep-alive>
           <canvas
             id="pie-chart"
@@ -89,12 +89,14 @@ export default {
   },
   data() {
     return {
-      isLoading: true,
       chart: null,
       jsonDataProvinsi: {},
     };
   },
   methods: {
+    isLoading() {
+      return this.jsonDataProvinsi === undefined ? true : false;
+    },
     createChart(chartId, chartData) {
       const ctx = document.getElementById(chartId);
       if (this.chart != null) {
@@ -108,14 +110,13 @@ export default {
     },
     getStatistic: function () {
       let data = this.jsonDataProvinsi;
-      let positif = data.kumulatif.positif;
-      let sembuh = data.kumulatif.sembuh;
-      let meninggal = data.kumulatif.meninggal;
+      let positif = data == undefined ? 0 : data.kumulatif.positif;
+      let sembuh = data == undefined ? 0 : data.kumulatif.sembuh;
+      let meninggal = data == undefined ? 0 : data.kumulatif.meninggal;
       let dirawat = positif - (sembuh + meninggal);
       dataChart.data.datasets[0].data = [dirawat, meninggal, sembuh];
       this.chart.update();
       this.chart.render();
-      this.isLoading = false;
     },
   },
   watch: {

@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use Carbon\Carbon;
 use App\Models\Gender;
 use App\Models\Statistic;
 use App\Models\TestHistory;
@@ -36,7 +37,7 @@ class StatisticObserver
         $deceased_cumulative = number_format($statistic->cumulative_death, 0, ',', '.');;
         $under_treatment_cumulative = number_format($statistic->under_treatment, 0, ',', '.');
 
-        $now = today()->translatedFormat('l, d F Y');
+        $now = Carbon::parse($statistic->date)->translatedFormat('l, d F Y');
         $header = "Update COVID-19 di Sulawesi Tengah.  $now!";
         $content = "Kasus COVID-19 di Sulawesi Tengah sampai $now :\n$positive_new Positif : $positive_cumulative Kasus\n$recovered_new Sembuh : $recovered_cumulative Kasus\n$deceased_new Meninggal : $deceased_cumulative Kasus\n$under_treatment_new Dirawat : $under_treatment_cumulative Kasus";
 

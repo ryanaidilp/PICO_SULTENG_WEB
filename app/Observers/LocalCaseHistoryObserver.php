@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use Carbon\Carbon;
 use App\Models\District;
 use App\Models\LocalCaseHistory;
 
@@ -13,27 +14,27 @@ class LocalCaseHistoryObserver
      * @param  \App\Models\LocalCaseHistory  $localCaseHistory
      * @return void
      */
-    public function created(LocalCaseHistory $created)
+    public function created(LocalCaseHistory $localCaseHistory)
     {
-        $district = District::find($created->district_id);
-        $district->positif += $created->positive;
-        $district->negatif += $created->negative;
-        $district->sembuh += $created->recovered;
-        $district->meninggal += $created->death;
-        $district->ODP += $created->new_ODP;
-        $district->PDP += $created->new_PDP;
-        $district->selesai_pemantauan += $created->finished_ODP;
-        $district->selesai_pengawasan += $created->finished_PDP;
+        $district = District::find($localCaseHistory->district_id);
+        $district->positif += $localCaseHistory->positive;
+        $district->negatif += $localCaseHistory->negative;
+        $district->sembuh += $localCaseHistory->recovered;
+        $district->meninggal += $localCaseHistory->death;
+        $district->ODP += $localCaseHistory->new_ODP;
+        $district->PDP += $localCaseHistory->new_PDP;
+        $district->selesai_pemantauan += $localCaseHistory->finished_ODP;
+        $district->selesai_pengawasan += $localCaseHistory->finished_PDP;
         $district->save();
 
-        $now = now()->translatedFormat('l, d F Y');
+        $now = Carbon::parse($localCaseHistory->stat->date)->translatedFormat('l, d F Y');
 
         $heading = "Update kasus COVID-19 di $district->kabupaten. $now!";
 
-        $positive_new =  formatCase($created->positive);
-        $recovered_new =  formatCase($created->recovered);
-        $deceased_new = formatCase($created->death);
-        $under_treatment_new =  formatCase($created->positive - ($created->recovered + $created->death));
+        $positive_new =  formatCase($localCaseHistory->positive);
+        $recovered_new =  formatCase($localCaseHistory->recovered);
+        $deceased_new = formatCase($localCaseHistory->death);
+        $under_treatment_new =  formatCase($localCaseHistory->positive - ($localCaseHistory->recovered + $localCaseHistory->death));
 
         $positive_cumulative = number_format($district->positif, 0, ',', '.');
         $recovered_cumulative = number_format($district->sembuh, 0, ',', '.');

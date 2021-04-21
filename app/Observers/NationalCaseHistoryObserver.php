@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use Carbon\Carbon;
 use App\Models\NationalCaseHistory;
 
 class NationalCaseHistoryObserver
@@ -14,7 +15,7 @@ class NationalCaseHistoryObserver
      */
     public function created(NationalCaseHistory $nationalCaseHistory)
     {
-        $now = now()->translatedFormat('l, d F Y');
+        $now = Carbon::parse($nationalCaseHistory->date)->translatedFormat('l, d F Y');
         $heading = "Update kasus COVID-19 di Indonesia. $now!";
 
         $positive_new =  formatCase($nationalCaseHistory->daily_positive_case);

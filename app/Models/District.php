@@ -15,7 +15,7 @@ class District extends Model
 
     protected $guarded = [];
     protected $hidden = ['created_at'];
-    protected $appends = ['dalam_pengawasan', 'dalam_pemantauan', 'rasio_kematian'];
+    protected $appends = ['dalam_pengawasan', 'dalam_pemantauan', 'rasio_kematian', 'dirawat'];
     protected $casts = [
         'no' => 'integer',
         'ODP' => 'integer',
@@ -53,5 +53,10 @@ class District extends Model
     public function getRasioKematianAttribute()
     {
         return ($this->positif > 0) ? round(($this->meninggal / $this->positif) * 100, 2) : 0;
+    }
+
+    public function getDirawatAttribute()
+    {
+        return $this->positif - ($this->meninggal + $this->sembuh);
     }
 }

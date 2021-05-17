@@ -79,8 +79,8 @@ export default {
           type: "number",
         },
         {
-          label: "Negatif",
-          field: "negatif",
+          label: "Dirawat",
+          field: "dirawat",
           thClass: "text-center",
           tdClass: "text-center",
           type: "number",

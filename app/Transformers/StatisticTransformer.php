@@ -42,7 +42,7 @@ class StatisticTransformer extends TransformerAbstract
         $weekly_ODP_avg = 0;
         $weekly_PDP_avg = 0;
         foreach ($histories as $key => $history) {
-            $district = District::where('no', $history->district_id)->first();
+            $district = $history->district;
             if ($history->day == 1) {
                 $weekly_positive_avg = (float) round($history->where('day', $history->day)->sum('positive') / 1, 2);
                 $weekly_recovered_avg = (float) round($history->where('day', $history->day)->sum('recovered') / 1, 2);
@@ -79,7 +79,7 @@ class StatisticTransformer extends TransformerAbstract
                 $weekly_death_avg = (float) round($history->whereBetween('day', [$history->day - 5, $history->day])->sum('death') / 6, 2);
                 $weekly_ODP_avg = (float) round($history->whereBetween('day', [$history->day - 5, $history->day])->sum('new_ODP') / 6, 2);
                 $weekly_PDP_avg = (float) round($history->whereBetween('day', [$history->day - 5, $history->day])->sum('new_PDP') / 6, 2);
-            } elseif ($history->day > 7) {
+            } elseif ($history->day >= 7) {
                 $weekly_positive_avg = (float) round($history->whereBetween('day', [$history->day - 6, $history->day])->sum('positive') / 7, 2);
                 $weekly_recovered_avg = (float) round($history->whereBetween('day', [$history->day - 6, $history->day])->sum('recovered') / 7, 2);
                 $weekly_death_avg = (float) round($history->whereBetween('day', [$history->day - 6, $history->day])->sum('death') / 7, 2);

@@ -17,7 +17,7 @@ class StatisticController extends Controller
      */
     public function index()
     {
-        $statistics = Statistic::with(['histories'])->get();
+        $statistics = Statistic::with(['histories', 'histories.district'])->get();
         $statistics = \fractal($statistics, new StatisticTransformer, new AppSerializer)->toArray();
         $statistics = \setResponse($statistics, [], true);
         return \response($statistics, 200);

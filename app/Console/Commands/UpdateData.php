@@ -49,6 +49,11 @@ class UpdateData extends Command
             $cumulative = $response->total;
             $latest = NationalCaseHistory::latest()->first();
             $date = Carbon::parse($newCase->created);
+            $data = NationalCaseHistory::whereDate('date', $date)->get()->first();
+            if ($data) {
+                $this->error('Data already exists!');
+                return;
+            }
             if (!$date->isToday()) {
                 Log::notice("Data tidak diperbarui!");
                 return;

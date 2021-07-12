@@ -23,6 +23,9 @@ class CreateNationalCasesTable extends Migration
             $table->integer("cumulative_positive");
             $table->integer("cumulative_recovered");
             $table->integer("cumulative_deceased");
+            $table->double("rt")->nullable();
+            $table->double("rt_upper")->nullable();
+            $table->double("rt_lower")->nullable();
             $table->timestamps();
         });
     }

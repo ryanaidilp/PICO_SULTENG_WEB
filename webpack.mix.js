@@ -1,5 +1,5 @@
-const mix = require("laravel-mix")
-const tailwindcss = require("tailwindcss")
+const mix = require("laravel-mix");
+const tailwindcss = require("tailwindcss");
 
 /*
  |--------------------------------------------------------------------------
@@ -13,7 +13,10 @@ const tailwindcss = require("tailwindcss")
  */
 
 mix.js("resources/js/app.js", "public/js")
-    .vue()
+    .vue({
+        extractStyles: true,
+        globalStyles: false
+    })
     .sass("resources/sass/app.scss", "public/css")
     .options({
         processCssUrls: false,
@@ -21,8 +24,11 @@ mix.js("resources/js/app.js", "public/js")
             tailwindcss("./tailwind.config.js")
         ]
     })
-    .webpackConfig("./webpack.config.js")
+    .webpackConfig(require("./webpack.config"))
+    .sourceMaps();
+
+mix.disableNotifications();
 
 if (mix.inProduction()) {
-    mix.version()
+    mix.version();
 }

@@ -14,6 +14,7 @@ class ProvinceTest extends Model
     use HasFactory;
 
     protected $guarded = [];
+    protected $appends = ["total"];
 
     const PCR = 1;
     const RDT = 2;
@@ -55,4 +56,8 @@ class ProvinceTest extends Model
     // Methods
 
     // Mutators & Accessors
+    public function getTotalAttribute()
+    {
+        return $this->process + $this->invalid + $this->positive + $this->negative;
+    }
 }

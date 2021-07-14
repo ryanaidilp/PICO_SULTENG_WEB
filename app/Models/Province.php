@@ -9,6 +9,7 @@ use App\Models\ProvinceCase;
 use App\Models\ProvinceTest;
 use App\Models\ProvinceGenderCase;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
@@ -38,6 +39,16 @@ class Province extends Model
     public function cases(): HasMany
     {
         return $this->hasMany(ProvinceCase::class, "province_id", "id");
+    }
+
+    /**
+     * Get the case associated with the Province
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function case(): HasOne
+    {
+        return $this->hasOne(ProvinceCase::class, "province_id", "id")->latest("day");
     }
 
     /**

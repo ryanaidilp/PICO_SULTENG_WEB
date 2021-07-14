@@ -29,7 +29,15 @@
 </template>
 <script>
 import Loading from "vue-loading-overlay";
-import Chart from "chart.js";
+import {
+  Chart,
+  PieController,
+  DatasetController,
+  PointElement,
+  Title,
+  Tooltip,
+} from "chart.js";
+Chart.register(PieController, DatasetController, PointElement, Title, Tooltip);
 import "chartjs-plugin-datalabels";
 import "chart.js/dist/Chart.min";
 import { id } from "date-fns/locale";
@@ -71,10 +79,10 @@ var dataChart = {
         },
         color: "#fff",
       },
+      legend: { position: "bottom", usePointStyle: false, display: true },
     },
     maintainAspectRatio: false,
     responsive: true,
-    legend: { position: "bottom", usePointStyle: false, display: true },
   },
 };
 export default {

@@ -29,7 +29,27 @@
 </template>
 <script>
 import Loading from "vue-loading-overlay";
-import Chart from "chart.js";
+import {
+  Chart,
+  BarController,
+  DatasetController,
+  BarElement,
+  PointElement,
+  LinearScale,
+  Title,
+  scales,
+  Tooltip,
+} from "chart.js";
+Chart.register(
+  BarController,
+  DatasetController,
+  BarElement,
+  PointElement,
+  LinearScale,
+  Title,
+  scales,
+  Tooltip
+);
 import "chart.js/dist/Chart.min";
 import { id } from "date-fns/locale";
 const { format } = require("date-fns");

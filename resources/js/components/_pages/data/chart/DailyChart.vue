@@ -1,12 +1,40 @@
 <template>
-  <div style="height:400px">
+  <div style="height: 400px">
     <keep-alive>
-      <canvas id="chart-container" aria-label="Chart Harian COVID-19" role="img"></canvas>
+      <canvas
+        id="chart-container"
+        aria-label="Chart Harian COVID-19"
+        role="img"
+      ></canvas>
     </keep-alive>
   </div>
 </template>
 <script>
-import Chart from "chart.js";
+import {
+  Chart,
+  DatasetController,
+  BarController,
+  BarElement,
+  LineController,
+  LineElement,
+  PointElement,
+  LinearScale,
+  Title,
+  scales,
+  Tooltip,
+} from "chart.js";
+Chart.register(
+  DatasetController,
+  BarController,
+  BarElement,
+  LineController,
+  LineElement,
+  PointElement,
+  LinearScale,
+  Title,
+  scales,
+  Tooltip
+);
 import "chart.js/dist/Chart.min";
 import { id } from "date-fns/locale";
 const { format } = require("date-fns");
@@ -14,20 +42,20 @@ export default {
   props: {
     kasus: {
       type: String,
-      default: () => "Positif"
+      default: () => "Positif",
     },
     wilayah: {
       type: String,
-      default: () => "Sulawesi Tengah"
+      default: () => "Sulawesi Tengah",
     },
     propsDataRekapitulasiProv: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     propsDataRekapitulasiNasional: {
       type: Array,
-      default: () => []
-    }
+      default: () => [],
+    },
   },
   data() {
     return {
@@ -52,68 +80,68 @@ export default {
         {
           no: 1,
           nama: "Banggai",
-          dataHarian: []
+          dataHarian: [],
         },
         {
           no: 2,
           nama: "Banggai Kepulauan",
-          dataHarian: []
+          dataHarian: [],
         },
         {
           no: 3,
           nama: "Banggai Laut",
-          dataHarian: []
+          dataHarian: [],
         },
         {
           no: 4,
           nama: "Buol",
-          dataHarian: []
+          dataHarian: [],
         },
         {
           no: 5,
           nama: "Donggala",
-          dataHarian: []
+          dataHarian: [],
         },
         {
           no: 6,
           nama: "Morowali",
-          dataHarian: []
+          dataHarian: [],
         },
         {
           no: 7,
           nama: "Morowali Utara",
-          dataHarian: []
+          dataHarian: [],
         },
         {
           no: 8,
           nama: "Parigi Moutong",
-          dataHarian: []
+          dataHarian: [],
         },
         {
           no: 9,
           nama: "Poso",
-          dataHarian: []
+          dataHarian: [],
         },
         {
           no: 10,
           nama: "Sigi",
-          dataHarian: []
+          dataHarian: [],
         },
         {
           no: 11,
           nama: "Tojo Una-Una",
-          dataHarian: []
+          dataHarian: [],
         },
         {
           no: 12,
           nama: "Toli-Toli",
-          dataHarian: []
+          dataHarian: [],
         },
         {
           no: 13,
           nama: "Kota Palu",
-          dataHarian: []
-        }
+          dataHarian: [],
+        },
       ],
       chartHarianOption: {
         type: "bar",
@@ -127,22 +155,32 @@ export default {
               fill: false,
               pointRadius: 1,
               pointBackgroundColor: "rgba(106, 113, 118, 1)",
-              borderColor: "rgba(106, 113, 118, 1)"
+              borderColor: "rgba(106, 113, 118, 1)",
             },
             {
               label: "Kasus Baru",
               data: [],
               yAxisID: "kasus-baru",
               backgroundColor: "",
-              borderColor: ""
-            }
-          ]
+              borderColor: "",
+            },
+          ],
         },
         options: {
           plugins: {
             datalabels: {
-              display: false
-            }
+              display: false,
+            },
+            tooltips: {
+              mode: "index",
+              intersect: false,
+              backgroundColor: "rgba(255,255,255,1)",
+              titleFontColor: "#000",
+              bodyFontColor: "#000",
+              borderColor: "#222",
+              borderWidth: 1,
+            },
+            legend: { position: "bottom", usePointStyle: true, display: true },
           },
           scales: {
             yAxes: [
@@ -151,39 +189,29 @@ export default {
                 id: "kasus-baru",
                 position: "right",
                 display: true,
-                scaleLabel: { display: true, labelString: "Kasus Baru" }
-              }
+                scaleLabel: { display: true, labelString: "Kasus Baru" },
+              },
             ],
             xAxes: [
               {
                 ticks: {
-                  callback: function(value, index, values) {
+                  callback: function (value, index, values) {
                     var data = value.split(" ");
                     return data[0] + data[1];
                   },
                   maxRotation: 90,
-                  minRotation: 90
+                  minRotation: 90,
                 },
                 display: true,
                 stacked: true,
-                scaleLabel: { display: true, labelString: "Tanggal" }
-              }
-            ]
+                scaleLabel: { display: true, labelString: "Tanggal" },
+              },
+            ],
           },
           maintainAspectRatio: false,
           responsive: true,
-          tooltips: {
-            mode: "index",
-            intersect: false,
-            backgroundColor: "rgba(255,255,255,1)",
-            titleFontColor: "#000",
-            bodyFontColor: "#000",
-            borderColor: "#222",
-            borderWidth: 1
-          },
           hover: { mode: "index", intersect: false },
-          legend: { position: "bottom", usePointStyle: true, display: true }
-        }
+        },
       },
       chartOdpOption: {
         type: "bar",
@@ -197,28 +225,39 @@ export default {
               fill: false,
               pointRadius: 1,
               pointBackgroundColor: "rgba(106, 113, 118, 1)",
-              borderColor: "rgba(106, 113, 118, 1)"
+              borderColor: "rgba(106, 113, 118, 1)",
             },
             {
               label: "Kasus Baru",
               data: [],
               yAxisID: "kasus-baru",
               backgroundColor: "",
-              borderColor: ""
+              borderColor: "",
             },
             {
               label: "Selesai",
               data: [],
               backgroundColor: "",
-              borderColor: ""
-            }
-          ]
+              borderColor: "",
+            },
+          ],
         },
         options: {
           plugins: {
             datalabels: {
-              display: false
-            }
+              display: false,
+            },
+            responsive: true,
+            tooltips: {
+              mode: "index",
+              intersect: false,
+              backgroundColor: "rgba(255,255,255,1)",
+              titleFontColor: "#000",
+              bodyFontColor: "#000",
+              borderColor: "#222",
+              borderWidth: 1,
+            },
+            legend: { position: "bottom", usePointStyle: true, display: true },
           },
           scales: {
             yAxes: [
@@ -227,46 +266,38 @@ export default {
                 id: "kasus-baru",
                 position: "right",
                 display: true,
-                scaleLabel: { display: true, labelString: "Kasus Baru/Selesai" }
-              }
+                scaleLabel: {
+                  display: true,
+                  labelString: "Kasus Baru/Selesai",
+                },
+              },
             ],
             xAxes: [
               {
                 ticks: {
-                  callback: function(value, index, values) {
+                  callback: function (value, index, values) {
                     var data = value.split(" ");
                     return data[0] + data[1];
                   },
                   maxRotation: 90,
-                  minRotation: 90
+                  minRotation: 90,
                 },
                 display: true,
                 stacked: true,
-                scaleLabel: { display: true, labelString: "Tanggal" }
-              }
-            ]
+                scaleLabel: { display: true, labelString: "Tanggal" },
+              },
+            ],
           },
           maintainAspectRatio: false,
-          responsive: true,
-          tooltips: {
-            mode: "index",
-            intersect: false,
-            backgroundColor: "rgba(255,255,255,1)",
-            titleFontColor: "#000",
-            bodyFontColor: "#000",
-            borderColor: "#222",
-            borderWidth: 1
-          },
           hover: { mode: "index", intersect: false },
-          legend: { position: "bottom", usePointStyle: true, display: true }
-        }
-      }
+        },
+      },
     };
   },
   methods: {
     movingAvg(array, count, qualifier) {
       // calculate average for subarray
-      var avg = function(array, qualifier) {
+      var avg = function (array, qualifier) {
         var sum = 0,
           count = 0,
           val;
@@ -310,12 +341,12 @@ export default {
       this.chart = new Chart(ctx, {
         type: chartData.type,
         data: chartData.data,
-        options: chartData.options
+        options: chartData.options,
       });
     },
     dateFormat(date) {
       var tanggal = format(Date.parse(date), "dd MMM yyyy", {
-        locale: id
+        locale: id,
       });
       return tanggal;
     },
@@ -329,7 +360,7 @@ export default {
       let borderColor = "";
       let bgColor2 = "";
       let borderColor2 = "";
-      this.jsonDataHarianProvinsi.forEach(element => {
+      this.jsonDataHarianProvinsi.forEach((element) => {
         label.push(self.dateFormat(element.tanggal));
         if (this.kasus === "Positif") {
           rataRata.push(element.rekap.rata_rata.positif_weekly);
@@ -389,9 +420,9 @@ export default {
       let borderColor = "";
       let bgColor2 = "";
       let borderColor2 = "";
-      this.jsonDataKabupaten.forEach(kabupaten => {
+      this.jsonDataKabupaten.forEach((kabupaten) => {
         if (kabupaten.no === kode) {
-          kabupaten.dataHarian.forEach(element => {
+          kabupaten.dataHarian.forEach((element) => {
             label.push(self.dateFormat(element.tanggal));
             switch (self.kasus) {
               case "Positif":
@@ -457,7 +488,7 @@ export default {
       let label = [];
       let bgColor = "";
       let borderColor = "";
-      this.jsonDataHarianNasional.forEach(element => {
+      this.jsonDataHarianNasional.forEach((element) => {
         label.push(self.dateFormat(element.tanggal));
         switch (self.kasus) {
           case "Positif":
@@ -510,10 +541,10 @@ export default {
       self.chart.render();
     },
     groupDataKab() {
-      this.jsonDataHarianProvinsi.forEach(element => {
+      this.jsonDataHarianProvinsi.forEach((element) => {
         const temp1 = {
           hari_ke: element.hari_ke,
-          tanggal: element.tanggal
+          tanggal: element.tanggal,
         };
         const temp2 = {
           kasus_baru: {
@@ -521,11 +552,11 @@ export default {
             sembuh: 0,
             meninggal: 0,
             ODP: 0,
-            PDP: 0
+            PDP: 0,
           },
           selesai: {
             ODP: 0,
-            PDP: 0
+            PDP: 0,
           },
           kumulatif: {
             positif: 0,
@@ -534,22 +565,22 @@ export default {
             ODP: 0,
             PDP: 0,
             selesai_PDP: 0,
-            selesai_ODP: 0
-          }
+            selesai_ODP: 0,
+          },
         };
 
-        this.jsonDataKabupaten.forEach(kabupaten => {
+        this.jsonDataKabupaten.forEach((kabupaten) => {
           let temp4 = { ...temp1, ...temp2 };
-          element.daftar_kabupaten.forEach(kab => {
+          element.daftar_kabupaten.forEach((kab) => {
             if (kabupaten.no === kab.no) {
               const temp5 = {
                 kasus_baru: { ...kab.kasus_baru },
                 selesai: { ...kab.selesai },
-                kumulatif: { ...kab.kumulatif }
+                kumulatif: { ...kab.kumulatif },
               };
               temp4 = {
                 ...temp1,
-                ...temp5
+                ...temp5,
               };
             }
           });
@@ -579,11 +610,11 @@ export default {
       self.createChart("chart-container", self.chartOdpOption);
       self.chart.update();
       self.chart.render();
-    }
+    },
   },
   watch: {
     propsDataRekapitulasiProv() {
-      this.jsonDataKabupaten.forEach(element => {
+      this.jsonDataKabupaten.forEach((element) => {
         element.dataHarian = [];
       });
       this.jsonDataHarianProvinsi = this.propsDataRekapitulasiProv;
@@ -597,15 +628,15 @@ export default {
       this.jsonDataHarianNasional = this.propsDataRekapitulasiNasional;
       this.fetchData();
     },
-    wilayah: function() {
+    wilayah: function () {
       this.fetchData();
     },
-    kasus: function() {
+    kasus: function () {
       this.fetchData();
-    }
+    },
   },
   mounted() {
     this.fetchData();
-  }
+  },
 };
 </script>

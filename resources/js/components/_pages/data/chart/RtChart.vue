@@ -59,7 +59,27 @@
 </template>
 <script>
 import Loading from "vue-loading-overlay";
-import Chart from "chart.js";
+import {
+  Chart,
+  LineController,
+  DatasetController,
+  LineElement,
+  PointElement,
+  LinearScale,
+  Title,
+  scales,
+  Tooltip,
+} from "chart.js";
+Chart.register(
+  LineController,
+  DatasetController,
+  LineElement,
+  PointElement,
+  LinearScale,
+  Title,
+  scales,
+  Tooltip
+);
 import "chart.js/dist/Chart.min";
 import { id } from "date-fns/locale";
 const { format } = require("date-fns");
@@ -98,18 +118,35 @@ var dataChart = {
     ],
   },
   options: {
-    title: {
-      display: true,
-      fontSize: 16,
-      text: [
-        "Angka Reproduksi (Rt) COVID-19 di Sulawesi Tengah",
-        "Dihitung dengan metode Sequential-Bayes.",
-      ],
-    },
     plugins: {
+      title: {
+        display: true,
+        fontSize: 16,
+        text: [
+          "Angka Reproduksi (Rt) COVID-19 di Sulawesi Tengah",
+          "Dihitung dengan metode Sequential-Bayes.",
+        ],
+      },
       datalabels: {
         display: false,
       },
+      tooltips: {
+        //   filter: function (tooltipItem) {
+        //     if (tooltipItem.datasetIndex == 0) {
+        //       return true;
+        //     } else {
+        //       return false;
+        //     }
+        //   },
+        mode: "index",
+        intersect: false,
+        backgroundColor: "rgba(255,255,255,1)",
+        titleFontColor: "#000",
+        bodyFontColor: "#000",
+        borderColor: "#222",
+        borderWidth: 1,
+      },
+      legend: { position: "bottom", usePointStyle: true, display: false },
     },
     scales: {
       yAxes: [
@@ -142,24 +179,7 @@ var dataChart = {
     },
     maintainAspectRatio: false,
     responsive: true,
-    tooltips: {
-      //   filter: function (tooltipItem) {
-      //     if (tooltipItem.datasetIndex == 0) {
-      //       return true;
-      //     } else {
-      //       return false;
-      //     }
-      //   },
-      mode: "index",
-      intersect: false,
-      backgroundColor: "rgba(255,255,255,1)",
-      titleFontColor: "#000",
-      bodyFontColor: "#000",
-      borderColor: "#222",
-      borderWidth: 1,
-    },
     hover: { mode: "index", intersect: false },
-    legend: { position: "bottom", usePointStyle: true, display: false },
   },
 };
 export default {

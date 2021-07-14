@@ -11,6 +11,11 @@ class Contact extends Model
 {
     use HasFactory;
 
+    const EMAIL = 1;
+    const TELEPHONE = 2;
+    const FAKS = 3;
+    const WEBSITE = 4;
+
     protected $guarded = [];
 
     public function contactable()

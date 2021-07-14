@@ -7,6 +7,7 @@ use App\Models\Province;
 use App\Models\TaskForce;
 use App\Models\RegencyCase;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -36,6 +37,16 @@ class Regency extends Model
     public function cases(): HasMany
     {
         return $this->hasMany(RegencyCase::class, "regency_id", "id");
+    }
+
+    /**
+     * Get the case associated with the Regency
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function case(): HasOne
+    {
+        return $this->hasOne(RegencyCase::class, "regency_id", "id")->latest("day");
     }
 
     /**

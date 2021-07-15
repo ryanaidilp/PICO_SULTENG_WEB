@@ -33,7 +33,7 @@ function sendNotification($message, $header)
 }
 
 
-function setResponse($data, $errors, $is_success)
+function setResponse($data, $errors = [], $is_success = true)
 {
     return [
         "success" => $is_success,

@@ -4,7 +4,7 @@ namespace {{ namespace }};
 
 use {{ namespacedModel }};
 use Illuminate\Http\Request;
-use {{ rootNamespace }}Http\Controllers\Controller;
+use {{ rootNamespace }}Http\Controllers\Api\ApiController as Controller;
 
 class {{ class }} extends Controller
 {

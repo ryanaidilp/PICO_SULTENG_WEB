@@ -10,6 +10,7 @@
         "production": "mix --production"
     },
     "devDependencies": {
+        "@fortawesome/fontawesome-free": "^5.15.3",
         "anychart": "^8.10.0",
         "autoprefixer": "^10.3.0",
         "axios": "^0.21",
@@ -52,6 +53,8 @@
         "@inertiajs/inertia": "^0.9.2",
         "@inertiajs/inertia-vue": "^0.6.2",
         "@inertiajs/progress": "^0.2.5",
+        "@turf/turf": "^6.5.0",
+        "esri-loader": "^3.2.0",
         "vuex": "^3.6.2"
     }
 }

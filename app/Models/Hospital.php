@@ -22,7 +22,7 @@ class Hospital extends Model
 
     public function contacts()
     {
-        return $this->morphMany(Contact::class, "contactable");
+        return $this->morphMany(Contact::class, "contactable")->orderBy("contact_type_id");
     }
 
     /**
@@ -42,6 +42,6 @@ class Hospital extends Model
      */
     public function beds(): HasMany
     {
-        return $this->hasMany(HospitalBed::class, "hospital_id", "id");
+        return $this->hasMany(HospitalBed::class, "hospital_id", "id")->orderBy("hospital_bed_type_id");
     }
 }

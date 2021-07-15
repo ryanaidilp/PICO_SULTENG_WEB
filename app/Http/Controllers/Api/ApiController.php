@@ -49,15 +49,15 @@ class ApiController extends Controller
         return $this->setStatusCode(204);
     }
 
-    public function response($data, $headers = [])
+    public function response($data, $headers = [], $errors = [])
     {
+        $data = \setResponse($data, $errors, is_null($errors));
         return response()->json($data, $this->getStatusCode(), $headers);
     }
 
     protected function responseWithError($message)
     {
-        $errors = ["message" => $message, "code" => $this->getStatusCode()];
-        $responses = \setResponse([], $errors, false);
-        return $this->response($responses);
+        $errors = [["message" => $message, "code" => $this->getStatusCode()]];
+        return $this->response([], [], $errors);
     }
 }

@@ -1,5 +1,14 @@
 // Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+$fa-font-path: "../fonts/font-awesome" !default;
+@import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
+@import "~@fortawesome/fontawesome-free/scss/solid.scss";
+@import "~@fortawesome/fontawesome-free/scss/brands.scss";
+
+@import url("https://fonts.googleapis.com/css?family=Nunito");
+
+body {
+    font-family: "Nunito", sans-serif;
+}
 
 @tailwind base;
 

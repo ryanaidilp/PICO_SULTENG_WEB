@@ -1,6 +1,7 @@
 require("./bootstrap")
 
-import Vue from "vue"
+import Vue from "vue";
+import store from "./store";
 
 import {
     createInertiaApp
@@ -41,7 +42,8 @@ createInertiaApp({
         props
     }) {
         new Vue({
-            render: h => h(app, props)
+            render: h => h(app, props),
+            store
         }).$mount(el)
     }
 })

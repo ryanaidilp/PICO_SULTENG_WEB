@@ -16,7 +16,9 @@ class ProvinceCase extends Model
     protected $appends = [
         "death_ratio",
         "under_treatment",
-        "cumulative_under_treatment"
+        "cumulative_under_treatment",
+        "active_person_under_supervision",
+        "active_person_under_observation",
     ];
 
     /**
@@ -54,5 +56,15 @@ class ProvinceCase extends Model
     public function getCumulativeUnderTreatmentAttribute()
     {
         return $this->cumulative_positive - ($this->cumulative_recovered + $this->cumulative_deceased);
+    }
+
+    public function getActivePersonUnderSupervisionAttribute()
+    {
+        return $this->cumulative_person_under_supervision - $this->cumulative_finished_person_under_supervision;
+    }
+
+    public function getActivePersonUnderObservationAttribute()
+    {
+        return $this->cumulative_person_under_observation - $this->cumulative_finished_person_under_observation;
     }
 }

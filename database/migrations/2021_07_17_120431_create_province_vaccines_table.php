@@ -17,7 +17,7 @@ class CreateProvinceVaccinesTable extends Migration
             $table->id();
             $table->foreignId("day")->constrained("national_vaccines", "id");
             $table->integer("province_id");
-            $table->date("date");
+            $table->dateTime("date");
             $table->integer("total_vaccination_target")->default(0);
             $table->integer("first_vaccination_received")->default(0);
             $table->integer("second_vaccination_received")->default(0);

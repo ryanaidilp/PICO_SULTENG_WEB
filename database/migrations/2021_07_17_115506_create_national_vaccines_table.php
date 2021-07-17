@@ -16,7 +16,7 @@ class CreateNationalVaccinesTable extends Migration
         Schema::create("national_vaccines", function (Blueprint $table) {
             $table->id();
             $table->integer("day");
-            $table->date("date");
+            $table->dateTime("date");
             $table->integer("total_vaccination_target")->default(0);
             $table->integer("first_vaccination_received")->default(0);
             $table->integer("second_vaccination_received")->default(0);

@@ -7,6 +7,7 @@ use App\Models\Hospital;
 use App\Models\TaskForce;
 use App\Models\ProvinceCase;
 use App\Models\ProvinceTest;
+use App\Models\ProvinceVaccine;
 use App\Models\ProvinceGenderCase;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -59,6 +60,36 @@ class Province extends Model
     public function tests(): HasMany
     {
         return $this->hasMany(ProvinceTest::class, "province_id", "id");
+    }
+
+    /**
+     * Get the test associated with the Province
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function test(): HasOne
+    {
+        return $this->hasOne(ProvinceTest::class, "province_id", "id")->latest("day");
+    }
+
+    /**
+     * Get all of the vaccines for the Province
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function vaccines(): HasMany
+    {
+        return $this->hasMany(ProvinceVaccine::class, "province_id", "id");
+    }
+
+    /**
+     * Get the vaccine associated with the Province
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function vaccine(): HasOne
+    {
+        return $this->hasOne(ProvinceVaccine::class, "province_id", "id")->latest("day");
     }
 
     /**

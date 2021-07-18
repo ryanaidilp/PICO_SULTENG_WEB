@@ -5,7 +5,7 @@
       class="fixed top-0 w-full bg-white shadow-md main-nav-top"
     >
       <div
-        class="container flex flex-wrap items-center w-full pt-2 pb-3 mx-auto mt-0"
+        class="container flex flex-wrap items-center w-full pt-2 pb-3 mx-auto mt-0 "
       >
         <div class="w-1/2 pl-2 md:pl-0">
           <a
@@ -14,13 +14,13 @@
           >
             <div class="hidden mt-2 mr-3 md:mt-1 md:block">
               <img
-                :src="route('home') + 'assets/images/logo.png'"
+                :src="asset('/images/logo.png')"
                 alt="PICO"
                 class="w-5 h-5 md:w-10 md:h-10"
               />
             </div>
             <div>
-              <span class="text-xs font-bold text-gray-800 md:text-lg"
+              <span class="text-xs font-semibold text-gray-800 md:text-lg"
                 >Pusat Informasi COVID-19</span
               >
               <br />
@@ -34,14 +34,15 @@
         <div class="w-1/2 pr-0">
           <div class="relative flex float-right">
             <div
-              class="relative z-20 flex-grow hidden w-full mt-2 text-sm bg-white lg:block"
+              class="relative z-20 flex-grow hidden w-full mt-2 text-sm bg-white  lg:block"
             >
               <ul class="items-center flex-1 px-4 list-reset lg:flex md:px-0">
                 <li class="my-2 mr-6 md:my-0">
                   <inertia-link
                     :href="route('home')"
                     :class="isActive('home')"
-                    class="block py-1 pl-1 text-gray-500 no-underline align-middle border-b-2 border-white md:py-3 hover:text-gray-900 hover:border-blue-600"
+                    @click.prevent="changePage(route('home'))"
+                    class="block py-1 pl-1 text-gray-500 no-underline align-middle border-b-2 border-white  md:py-3 hover:text-gray-900 hover:border-blue-600"
                     exact
                   >
                     <span class="pb-1 text-sm font-semibold md:pb-0"
@@ -52,8 +53,9 @@
                 <li class="my-2 mr-6 md:my-0">
                   <inertia-link
                     :href="route('data')"
-                    :class="isActive('data')"                
-                    class="block py-1 pl-1 text-gray-500 no-underline align-middle border-b-2 border-white md:py-3 hover:text-gray-900 hover:border-blue-500"
+                    :class="isActive('data')"
+                    @click.prevent="changePage(route('data'))"
+                    class="block py-1 pl-1 text-gray-500 no-underline align-middle border-b-2 border-white  md:py-3 hover:text-gray-900 hover:border-blue-500"
                   >
                     <span class="pb-1 text-sm font-semibold md:pb-0">Data</span>
                   </inertia-link>
@@ -62,7 +64,8 @@
                   <inertia-link
                     :href="route('contact')"
                     :class="isActive('contact')"
-                    class="block py-1 pl-1 text-gray-500 no-underline align-middle border-b-2 border-white md:py-3 hover:text-gray-900 hover:border-blue-500"
+                    @click.prevent="changePage(route('contact'))"
+                    class="block py-1 pl-1 text-gray-500 no-underline align-middle border-b-2 border-white  md:py-3 hover:text-gray-900 hover:border-blue-500"
                   >
                     <span class="pb-1 text-sm font-semibold md:pb-0"
                       >Kontak</span
@@ -72,8 +75,9 @@
                 <li class="my-2 mr-6 md:my-0">
                   <inertia-link
                     :href="route('wiki')"
-                  :class="isActive('wiki')"
-                    class="block py-1 pl-1 text-gray-500 no-underline align-middle border-b-2 border-white md:py-3 hover:text-gray-900 hover:border-blue-500"
+                    :class="isActive('wiki')"
+                    @click.prevent="changePage(route('wiki'))"
+                    class="block py-1 pl-1 text-gray-500 no-underline align-middle border-b-2 border-white  md:py-3 hover:text-gray-900 hover:border-blue-500"
                   >
                     <span class="pb-1 text-sm font-semibold md:pb-0">Wiki</span>
                   </inertia-link>
@@ -82,7 +86,7 @@
                   <a
                     href="https://banuacoders.com/app/pico"
                     target="_blank"
-                    class="block py-2 text-white no-underline align-middle bg-blue-500 rounded-lg hover:bg-blue-700"
+                    class="block py-2 text-white no-underline align-middle bg-blue-500 rounded-lg  hover:bg-blue-700"
                   >
                     <span class="px-3 text-sm font-bold md:pb-0"
                       >Download App</span
@@ -95,7 +99,7 @@
             <div class="block pr-4 lg:hidden">
               <button
                 ref="nav-toggle"
-                class="flex items-center px-3 py-2 text-gray-500 border border-gray-600 rounded appearance-none hover:text-gray-900 hover:border-blue-500 focus:outline-none"
+                class="flex items-center px-3 py-2 text-gray-500 border border-gray-600 rounded appearance-none  hover:text-gray-900 hover:border-blue-500 focus:outline-none"
               >
                 <svg
                   class="w-3 h-3 fill-current"
@@ -111,7 +115,7 @@
         </div>
 
         <div
-          class="fixed bottom-0 left-0 w-full h-16 px-2 text-center bg-gray-900 lg:hidden"
+          class="fixed bottom-0 left-0 w-full h-16 px-2 text-center bg-gray-900  lg:hidden"
         >
           <div class="w-full mx-auto">
             <ul class="flex flex-row text-center">
@@ -119,7 +123,8 @@
                 <inertia-link
                   :href="route('home')"
                   :class="isActive('home')"
-                  class="block py-1 pl-1 text-white no-underline align-middle border-b-2 border-gray-800 hover:text-blue-500 hover:border-blue-500"
+                  @click.prevent="changePage(route('home'))"
+                  class="block py-1 pl-1 text-white no-underline align-middle border-b-2 border-gray-800  hover:text-blue-500 hover:border-blue-500"
                 >
                   <i class="pr-0 fas fa-home"></i>
                   <span class="block pb-1 text-xs">Beranda</span>
@@ -129,8 +134,8 @@
                 <inertia-link
                   :href="route('data')"
                   :class="isActive('data')"
-                  
-                  class="block py-1 pl-1 text-white no-underline align-middle border-b-2 border-gray-800 hover:text-blue-500 hover:border-blue-500"
+                  @click.prevent="changePage(route('data'))"
+                  class="block py-1 pl-1 text-white no-underline align-middle border-b-2 border-gray-800  hover:text-blue-500 hover:border-blue-500"
                 >
                   <i class="pr-0 fas fa-chart-bar"></i>
                   <span class="block pb-1 text-xs">Data</span>
@@ -140,7 +145,8 @@
                 <inertia-link
                   :href="route('contact')"
                   :class="isActive('contact')"
-                  class="block py-1 pl-1 text-white no-underline align-middle border-b-2 border-gray-800 hover:text-blue-500 hover:border-blue-500"
+                  @click.prevent="changePage(route('contact'))"
+                  class="block py-1 pl-1 text-white no-underline align-middle border-b-2 border-gray-800  hover:text-blue-500 hover:border-blue-500"
                 >
                   <i class="pr-0 fas fa-address-book"></i>
                   <span class="block pb-1 text-xs">Kontak</span>
@@ -150,7 +156,8 @@
                 <inertia-link
                   :href="route('wiki')"
                   :class="isActive('wiki')"
-                  class="block py-1 pl-1 text-white no-underline align-middle border-b-2 border-gray-800 hover:text-blue-500 hover:border-blue-500"
+                  @click.prevent="changePage(route('wiki'))"
+                  class="block py-1 pl-1 text-white no-underline align-middle border-b-2 border-gray-800  hover:text-blue-500 hover:border-blue-500"
                 >
                   <i class="pr-0 fas fa-question"></i>
                   <span class="block pb-1 text-xs">Wiki</span>
@@ -169,7 +176,7 @@
               <a
                 href="https://banuacoders.com/app/pico"
                 target="_blank"
-                class="block py-2 text-center text-white no-underline align-middle bg-blue-500 rounded-lg hover:text-gray-900 hover:bg-blue-700"
+                class="block py-2 text-center text-white no-underline align-middle bg-blue-500 rounded-lg  hover:text-gray-900 hover:bg-blue-700"
               >
                 <span class="px-3 text-sm md:pb-0">Download App</span>
               </a>
@@ -184,9 +191,14 @@
 export default {
   methods: {
     isActive(link) {
-      return this.route().current(link) ?
-      'text-blue-500 border-blue-500 hover:text-blue-800' : ''
-    }
+      return this.route().current(link)
+        ? "text-blue-500 border-blue-500 hover:text-blue-800"
+        : "";
+    },
+    changePage(page) {
+      this.$emit("change-page");
+      this.$inertia.visit(page);
+    },
   },
   mounted() {
     var navMenuDiv = this.$refs["nav-content"];

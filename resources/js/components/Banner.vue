@@ -1,69 +1,69 @@
 <template>
-    <div
-      @mouseover="showNavigation = true"
-      @mouseleave="showNavigation = false"
-      class="relative"
-    >
-      <template v-if="isLoading" class="absolute flex justify-center w-full">
-        <content-loader :speed="2" width="400" height="200">
-          <rect x="0" y="0" rx="0" ry="0" width="100%" height="100%" />
-        </content-loader>
-      </template>
-      <template v-else>
-        <carousel
-          ref="vueCarousel"
-          :per-page="1"
-          :mouse-drag="false"
-          :autoplay="true"
-          :navigationEnabled="false"
-          :paginationEnabled="false"
-          :loop="true"
-          :mouseDrag="true"
-          :autoplayTimeout="5000"
-        >
-          <slide v-for="item in carouselItem" :key="item.phone">
-            <a :href="'tel:' + item.phone">
-              <img
-                :src="route('home')+'assets/images/' + item.image"
-                class="object-fill rounded-lg w-96 h-96 sm:w-full md:w-full xl:max-w-lg xl:max-h-lg"
-                :alt="item.nama"
-                :title="item.nama"
-              />
-            </a>
-          </slide>
-        </carousel>
-      </template>
-      <div
-        class="absolute top-0 left-0 right-0 flex-row items-center justify-between hidden h-full p-4 pointer-events-none md:flex"
+  <div
+    @mouseover="showNavigation = true"
+    @mouseleave="showNavigation = false"
+    class="relative"
+  >
+    <template v-if="isLoading" class="absolute flex justify-center w-full">
+      <content-loader :speed="2" width="400" height="200">
+        <rect x="0" y="0" rx="0" ry="0" width="100%" height="100%" />
+      </content-loader>
+    </template>
+    <template v-else>
+      <carousel
+        ref="vueCarousel"
+        :per-page="1"
+        :mouse-drag="false"
+        :autoplay="true"
+        :navigationEnabled="false"
+        :paginationEnabled="false"
+        :loop="true"
+        :mouseDrag="true"
+        :autoplayTimeout="5000"
       >
-        <transition
-          name="carousel-nav-appear-transition"
-          enter-class="carousel-nav-appear-transition-enter--left"
-          leave-to-class="carousel-nav-appear-transition-leave-to--left"
+        <slide v-for="item in carouselItem" :key="item.id">
+          <a :href="`${item.url_type}:${item.url}`" target="_blank">
+            <img
+              :src="item.image"
+              class="object-fill w-full rounded-lg  h-96 md:w-full xl:max-w-2xl xl:max-h-lg"
+              :alt="item.title"
+              :title="item.title"
+            />
+          </a>
+        </slide>
+      </carousel>
+    </template>
+    <div
+      class="absolute top-0 left-0 right-0 flex-row items-center justify-between hidden h-full p-4 pointer-events-none  md:flex"
+    >
+      <transition
+        name="carousel-nav-appear-transition"
+        enter-class="carousel-nav-appear-transition-enter--left"
+        leave-to-class="carousel-nav-appear-transition-leave-to--left"
+      >
+        <button
+          v-show="showNavigation"
+          class="carousel-nav-button carousel-nav-button--left"
+          @click="navigate('prev')"
         >
-          <button
-            v-show="showNavigation"
-            class="carousel-nav-button carousel-nav-button--left"
-            @click="navigate('prev')"
-          >
-            <i class="fas fa-chevron-left"></i>
-          </button>
-        </transition>
-        <transition
-          name="carousel-nav-appear-transition"
-          enter-class="carousel-nav-appear-transition-enter--right"
-          leave-to-class="carousel-nav-appear-transition-leave-to--right"
+          <i class="fas fa-chevron-left"></i>
+        </button>
+      </transition>
+      <transition
+        name="carousel-nav-appear-transition"
+        enter-class="carousel-nav-appear-transition-enter--right"
+        leave-to-class="carousel-nav-appear-transition-leave-to--right"
+      >
+        <button
+          v-show="showNavigation"
+          class="carousel-nav-button carousel-nav-button--right"
+          @click="navigate('next')"
         >
-          <button
-            v-show="showNavigation"
-            class="carousel-nav-button carousel-nav-button--right"
-            @click="navigate('next')"
-          >
-            <i class="fas fa-chevron-right"></i>
-          </button>
-        </transition>
-      </div>
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </transition>
     </div>
+  </div>
 </template>
 <script>
 import { ContentLoader } from "vue-content-loader";
@@ -81,6 +81,11 @@ export default {
     Carousel,
     ContentLoader,
     Slide,
+  },
+  watch: {
+    banners: function (newValue) {
+      this.getDonation();
+    },
   },
   methods: {
     navigate(where) {

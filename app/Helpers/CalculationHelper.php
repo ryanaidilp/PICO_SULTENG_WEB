@@ -28,3 +28,12 @@ function formatCase($value)
     $value = number_format($value, 0, ",", ".");
     return $prefix . $value;
 }
+
+function calculateRate($latest, $old)
+{
+    if ($old == 0) {  // avoid division by zero
+        return 0;
+    }
+
+    return ($latest  / $old) * 100;
+}

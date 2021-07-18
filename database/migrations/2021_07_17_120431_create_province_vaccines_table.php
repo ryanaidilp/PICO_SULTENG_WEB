@@ -21,8 +21,8 @@ class CreateProvinceVaccinesTable extends Migration
             $table->integer("total_vaccination_target")->default(0);
             $table->integer("first_vaccination_received")->default(0);
             $table->integer("second_vaccination_received")->default(0);
-            $table->integer("cumulative_first_vaccine_received")->default(0);
-            $table->integer("cumulative_second_vaccine_received")->default(0);
+            $table->integer("cumulative_first_vaccination_received")->default(0);
+            $table->integer("cumulative_second_vaccination_received")->default(0);
             $table->integer("health_worker_vaccination_target")->default(0);
             $table->integer("health_worker_first_vaccination_received")->default(0);
             $table->integer("health_worker_second_vaccination_received")->default(0);

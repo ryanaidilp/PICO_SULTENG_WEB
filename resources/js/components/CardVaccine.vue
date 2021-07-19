@@ -115,7 +115,7 @@ export default {
       return `${prefix}${NumberFormat.format(this.addition)}`;
     },
     growth() {
-      return `${NumberFormat.format(Math.abs(this.growthRate))}%`;
+      return `${NumberFormat.format(Math.abs(this.growthRate))} %`;
     },
   },
   methods: {
@@ -123,7 +123,7 @@ export default {
       return `width: ${Math.min(100, (value / total) * 100)}%`;
     },
     percentage(value, total) {
-      return `${NumberFormat.format(Math.min(100, (value / total) * 100))}%`;
+      return `${NumberFormat.format(Math.min(100, (value / total) * 100))} %`;
     },
     icon(value) {
       if (value === 0) {

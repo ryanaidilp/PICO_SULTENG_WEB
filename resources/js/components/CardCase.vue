@@ -36,30 +36,37 @@ export default {
     title: {
       type: String,
       required: true,
+      default: () => "",
     },
     cumulativeLocal: {
       type: Number,
       required: true,
+      default: () => 0,
     },
     cumulativeNational: {
       type: Number,
       required: true,
+      default: () => 0,
     },
     newLocal: {
       type: Number,
       required: true,
+      default: () => 0,
     },
     newNational: {
       type: Number,
       required: true,
+      default: () => 0,
     },
     bgColor: {
       type: String,
       required: true,
+      default: () => "",
     },
     textColor: {
       type: String,
       required: true,
+      default: () => "",
     },
   },
   methods: {

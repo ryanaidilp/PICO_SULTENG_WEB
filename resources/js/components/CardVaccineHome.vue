@@ -16,16 +16,25 @@
     <div class="flex flex-row justify-between my-4">
       <div class="flex flex-row w-5/6 h-8 bg-gray-200 rounded-md">
         <div
-          class="h-full bg-orange-500 rounded-l-md"
-          :style="progress(healthWorkerTotal, target)"
-        ></div>
-        <div
-          class="h-full bg-blue-500"
+          class="h-full bg-blue-500 rounded-l-md"
           :style="progress(elderlyTotal, target)"
         ></div>
         <div
-          class="h-full bg-purple-500 rounded-r-md"
+          class="h-full bg-purple-500"
           :style="progress(publicWorkerTotal, target)"
+        ></div>
+        <div
+          class="h-full bg-orange-500"
+          :style="progress(healthWorkerTotal, target)"
+        ></div>
+        <div
+          class="h-full bg-pink-500 rounded-r-md"
+          :style="
+            progress(
+              total - (healthWorkerTotal + elderlyTotal + publicWorkerTotal),
+              target
+            )
+          "
         ></div>
       </div>
       <p
@@ -39,22 +48,35 @@
       <b class="text-gray-800">{{ target_vaccinated }}</b> telah divaksin
     </p>
     <div
-      class="flex flex-row justify-between mt-3 text-2xl font-semibold text-orange-500 "
-    >
-      <p>Tenaga Kesehatan</p>
-      <p>{{ percentage(healthWorkerTotal, healthWorkerTarget) }}</p>
-    </div>
-    <div
-      class="flex flex-row justify-between text-2xl font-semibold text-blue-500"
+      class="flex flex-row justify-between mt-3 text-xl font-semibold text-blue-500 "
     >
       <p>Lansia</p>
       <p>{{ percentage(elderlyTotal, elderlyTarget) }}</p>
     </div>
     <div
-      class="flex flex-row justify-between text-2xl font-semibold text-purple-500 "
+      class="flex flex-row justify-between text-xl font-semibold text-purple-500 "
     >
       <p>Petugas Publik</p>
       <p>{{ percentage(publicWorkerTotal, publicWorkerTarget) }}</p>
+    </div>
+    <div
+      class="flex flex-row justify-between text-xl font-semibold text-orange-500 "
+    >
+      <p>Tenaga Kesehatan</p>
+      <p>{{ percentage(healthWorkerTotal, healthWorkerTarget) }}</p>
+    </div>
+    <div
+      class="flex flex-row justify-between text-xl font-semibold text-pink-500"
+    >
+      <p>Masyarakat Umum</p>
+      <p>
+        {{
+          percentage(
+            total - (healthWorkerTotal + publicWorkerTotal + elderlyTotal),
+            target - (healthWorkerTarget + elderlyTarget + publicWorkerTarget)
+          )
+        }}
+      </p>
     </div>
   </div>
 </template>
@@ -130,7 +152,7 @@ export default {
       return `${prefix}${NumberFormat.format(this.addition)}`;
     },
     growth() {
-      return `${NumberFormat.format(Math.abs(this.growthRate))}%`;
+      return `${NumberFormat.format(Math.abs(this.growthRate))} %`;
     },
   },
   methods: {
@@ -138,7 +160,7 @@ export default {
       return `width: ${Math.min(100, (value / total) * 100)}%`;
     },
     percentage(value, total) {
-      return `${NumberFormat.format(Math.min(100, (value / total) * 100))}%`;
+      return `${NumberFormat.format(Math.min(100, (value / total) * 100))} %`;
     },
     icon(value) {
       if (value === 0) {

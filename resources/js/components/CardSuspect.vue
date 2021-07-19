@@ -54,30 +54,37 @@ export default {
     title: {
       type: String,
       required: true,
+      default: () => "",
     },
     newCase: {
       type: Number,
       required: true,
+      default: () => 0,
     },
     newFinishedCase: {
       type: Number,
       required: true,
+      default: () => 0,
     },
     activeCase: {
       type: Number,
       required: true,
+      default: () => 0,
     },
     totalCase: {
       type: Number,
       required: true,
+      default: () => 0,
     },
     totalFinishedCase: {
       type: Number,
       required: true,
+      default: () => 0,
     },
     status: {
       type: String,
       required: true,
+      default: () => "",
     },
   },
   computed: {

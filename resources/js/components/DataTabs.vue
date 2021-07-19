@@ -20,7 +20,7 @@
       </li>
     </ul>
     <content-loader
-      v-if="!national && !this.local"
+      v-if="checkNull(local) && checkNull(national)"
       :height="400"
       :width="900"
       :speed="2"
@@ -103,6 +103,9 @@ export default {
         return "text-blue-600 border-blue-600 border-b-2";
       }
       return "text-gray-400";
+    },
+    checkNull(value) {
+      return _.isEmpty(value);
     },
   },
 };

@@ -4,7 +4,7 @@
       <ul class="flex flex-row flex-wrap pt-3 pb-4 mb-0 list-none">
         <li class="flex-auto mr-2 -mb-px text-center last:mr-0">
           <a
-            class="block px-5 py-3 text-xs font-bold leading-normal uppercase rounded shadow-lg"
+            class="block px-5 py-3 text-xs font-bold leading-normal uppercase rounded shadow-lg "
             v-on:click="toggleTabs(1)"
             v-bind:class="{
               'text-blue-600 bg-white': openTab !== 1,
@@ -16,14 +16,14 @@
         </li>
         <li class="flex-auto mr-2 -mb-px text-center last:mr-0">
           <a
-            class="block px-5 py-3 text-xs font-bold leading-normal uppercase rounded shadow-lg"
+            class="block px-5 py-3 text-xs font-bold leading-normal uppercase rounded shadow-lg "
             v-on:click="toggleTabs(2)"
             v-bind:class="{
               'text-blue-600 bg-white': openTab !== 2,
               'text-white bg-blue-600': openTab === 2,
             }"
           >
-             Sebaran Titik
+            Sebaran Titik
           </a>
         </li>
       </ul>
@@ -32,12 +32,18 @@
           <div class="tab-content tab-space">
             <div v-bind:class="{ hidden: openTab !== 1, block: openTab === 1 }">
               <keep-alive>
-                <map-choropleth :districts="districts" :provinces="provinces"></map-choropleth>
+                <map-choropleth
+                  :districts="districts"
+                  :provinces="provinces"
+                ></map-choropleth>
               </keep-alive>
             </div>
             <div v-bind:class="{ hidden: openTab !== 2, block: openTab === 2 }">
               <keep-alive>
-                <map-bubble :districts="districts" :provinces="provinces"></map-bubble>
+                <map-bubble
+                  :districts="districts"
+                  :provinces="provinces"
+                ></map-bubble>
               </keep-alive>
             </div>
           </div>
@@ -48,10 +54,19 @@
 </template>
 <script>
 import MapChoropleth from "@/components/_pages/data/map/choropleth/MapChoropleth";
-import MapBubble from '@/components/_pages/data/map/bubble/MapBubble'
+import MapBubble from "@/components/_pages/data/map/bubble/MapBubble";
 
 export default {
-    props: ['districts', 'provinces'],
+  props: {
+    districts: {
+      type: Array,
+      required: true,
+    },
+    provinces: {
+      type: Array,
+      required: true,
+    },
+  },
   components: {
     MapChoropleth,
     MapBubble,

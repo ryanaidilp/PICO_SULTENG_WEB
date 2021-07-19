@@ -65,7 +65,24 @@ import Statistics from "@/components/Statistics";
 import VaccineData from "@/components/_pages/home/VaccineData";
 import SeeMoreLink from "@/components/SeeMoreLink";
 export default {
-  props: ["national", "local", "nationalVaccine", "provinceVaccine"],
+  props: {
+    national: {
+      type: Object,
+      required: true,
+    },
+    local: {
+      type: Object,
+      required: true,
+    },
+    nationalVaccine: {
+      type: Object,
+      required: true,
+    },
+    provinceVaccine: {
+      type: Object,
+      required: true,
+    },
+  },
   components: {
     ContentLoader,
     Statistics,

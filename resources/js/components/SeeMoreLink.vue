@@ -11,6 +11,11 @@
 
 <script>
 export default {
-  props: ["linkUrl"],
+  props: {
+    linkUrl: {
+      type: String,
+      required: true,
+    },
+  },
 };
 </script>

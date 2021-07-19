@@ -4,7 +4,7 @@
       <br />
       <header class="mx-8 my-4">
         <h3
-          class="text-lg font-bold leading-none text-left text-gray-900 md:text-3xl"
+          class="text-lg font-bold leading-none text-left text-gray-900  md:text-3xl"
           style="margin-bottom: 10px"
         >
           Data COVID-19 Sulawesi Tengah (Public Version): DATA
@@ -113,7 +113,7 @@
         </content-loader>
         <div
           v-else
-          class="table-wrapper-scroll-y table-wrapper-scroll-x my-custom-scrollbar"
+          class=" table-wrapper-scroll-y table-wrapper-scroll-x my-custom-scrollbar"
         >
           <data-table
             id="table-download-data"
@@ -257,7 +257,16 @@ const formatThousand = (value) => {
   return "0";
 };
 export default {
-  props: ["partners", "statistics"],
+  props: {
+    partners: {
+      type: Array,
+      required: true,
+    },
+    statistics: {
+      type: Array,
+      required: true,
+    },
+  },
   components: {
     ContentLoader,
     DataTable,

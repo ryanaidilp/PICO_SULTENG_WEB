@@ -69,7 +69,12 @@
 import { ContentLoader } from "vue-content-loader";
 import { Carousel, Slide } from "vue-carousel";
 export default {
-  props: ["banners"],
+  props: {
+    banners: {
+      type: Array,
+      required: true,
+    },
+  },
   data() {
     return {
       carouselItem: [],

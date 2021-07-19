@@ -166,7 +166,12 @@
 import Anychart from "anychart";
 var districtMap = anychart.map();
 export default {
-  props: ["districts"],
+  props: {
+    districts: {
+      type: Array,
+      required: true,
+    },
+  },
   data() {
     return {
       today: new Date(),
@@ -257,7 +262,7 @@ export default {
             value: district.positif - (district.sembuh + district.meninggal),
             ODP: district.dalam_pemantauan,
             PDP: district.dalam_pengawasan,
-          })
+          });
           this.districtRecoveredDataset.push({
             id: district.kabupaten,
             value: district.sembuh,

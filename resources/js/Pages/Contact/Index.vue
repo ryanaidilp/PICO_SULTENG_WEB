@@ -9,7 +9,7 @@
         pemeriksaan pasien COVID-19
       </p>
       <hospital :hospitals="hospitals" class="md:mt-16"></hospital>
-      <task-force :districts="task_forces" class="mt-16"></task-force>
+      <task-force :districts="taskForces" class="mt-16"></task-force>
       <Partner :partners="partners" class="mt-16" />
     </div>
   </layout>
@@ -21,7 +21,20 @@ import Layout from "@/layout/Layout";
 import Hospital from "@/components/_pages/contact/Hospitals";
 import TaskForce from "@/components/_pages/contact/TaskForce";
 export default {
-  props: ["partners", "hospitals", "task_forces"],
+  props: {
+    partners: {
+      type: Array,
+      required: true,
+    },
+    hospitals: {
+      type: Array,
+      required: true,
+    },
+    taskForces: {
+      type: Array,
+      required: true,
+    },
+  },
   components: {
     Layout,
     Partner,

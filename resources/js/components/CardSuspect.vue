@@ -13,10 +13,10 @@
           <div class="w-1/2">
             <p class="text-xs md:text-base">Dalam {{ status }}</p>
             <h3 class="text-3xl font-bold">
-              {{ formatNumber(active_case) }}
+              {{ formatNumber(activeCase) }}
             </h3>
             <h3 class="text-sm font-bold">
-              ({{ newCaseFormat(new_case - new_finished_case) }})
+              ({{ newCaseFormat(newCase - newFinishedCase) }})
             </h3>
             <p class="mt-2 text-sm text-gray-600">
               ({{ percentageFormat(activeCasePercentage) }})
@@ -25,10 +25,10 @@
           <div class="w-1/2">
             <p class="text-xs md:text-base">Selesai {{ status }}</p>
             <h3 class="text-3xl font-bold">
-              {{ formatNumber(total_finished_case) }}
+              {{ formatNumber(totalFinishedCase) }}
             </h3>
             <h3 class="text-sm font-bold">
-              ({{ newCaseFormat(new_finished_case) }})
+              ({{ newCaseFormat(newFinishedCase) }})
             </h3>
             <p class="mt-2 text-sm text-gray-600">
               ({{ percentageFormat(finishedCasePercentage) }})
@@ -37,10 +37,10 @@
         </div>
         <div class="mb-4 text-center">
           <p>Total</p>
-          <h3 class="text-3xl font-bold">{{ formatNumber(total_case) }}</h3>
+          <h3 class="text-3xl font-bold">{{ formatNumber(totalCase) }}</h3>
           <h3 class="text-sm font-bold">
             <i class="fas fa-arrow-up"></i>
-            {{ formatNumber(new_case) }}
+            {{ formatNumber(newCase) }}
           </h3>
         </div>
       </div>
@@ -50,24 +50,42 @@
 <script>
 const NumberFormat = new Intl.NumberFormat("id");
 export default {
-  props: [
-    "title",
-    "new_case",
-    "new_finished_case",
-    "active_case",
-    "total_case",
-    "total_finished_case",
-    "status",
-  ],
+  props: {
+    title: {
+      type: String,
+      required: true,
+    },
+    newCase: {
+      type: Number,
+      required: true,
+    },
+    newFinishedCase: {
+      type: Number,
+      required: true,
+    },
+    activeCase: {
+      type: Number,
+      required: true,
+    },
+    totalCase: {
+      type: Number,
+      required: true,
+    },
+    totalFinishedCase: {
+      type: Number,
+      required: true,
+    },
+    status: {
+      type: String,
+      required: true,
+    },
+  },
   computed: {
     finishedCasePercentage: function () {
-      return this.percentage(
-        this.$props.total_finished_case,
-        this.$props.total_case
-      );
+      return this.percentage(this.totalFinishedCase, this.totalCase);
     },
     activeCasePercentage: function () {
-      return this.percentage(this.$props.active_case, this.$props.total_case);
+      return this.percentage(this.activeCase, this.totalCase);
     },
   },
   methods: {

@@ -141,7 +141,12 @@
 import Anychart from "anychart";
 var districtMap = anychart.map();
 export default {
-    props: ['districts'],
+  props: {
+    districts: {
+      type: Array,
+      required: true,
+    },
+  },
   data() {
     return {
       today: new Date(),
@@ -211,7 +216,7 @@ export default {
         this.districtODPDataset = [];
         this.districtPDPDataset = [];
       }
-      var data = this.districts
+      var data = this.districts;
       data.forEach((district) => {
         this.districtPositiveDataset.push({
           id: district.kabupaten,

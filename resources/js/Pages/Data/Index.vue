@@ -23,7 +23,7 @@
       <section class="m-4 mb-8 md:m-8">
         <div class="w-full">
           <h3
-            class="w-full mt-16 text-lg font-bold text-center md:text-left md:ml-6 md:text-3xl"
+            class="w-full mt-16 text-lg font-bold text-center  md:text-left md:ml-6 md:text-3xl"
           >
             Peta Penyebaran Kasus
           </h3>
@@ -37,7 +37,7 @@
       <section class="m-4 mb-8 md:m-8">
         <div class="w-full">
           <h3
-            class="w-full text-lg font-bold text-center md:text-left md:ml-6 md:text-3xl"
+            class="w-full text-lg font-bold text-center  md:text-left md:ml-6 md:text-3xl"
           >
             Tabel Penyebaran Kasus
           </h3>
@@ -51,7 +51,7 @@
       <section class="m-4 mb-8 md:m-8">
         <div class="w-full">
           <h3
-            class="w-full text-lg font-bold text-center md:text-left md:ml-6 md:text-3xl"
+            class="w-full text-lg font-bold text-center  md:text-left md:ml-6 md:text-3xl"
           >
             Visualisasi Data Kasus COVID-19
           </h3>
@@ -94,7 +94,7 @@
       <section class="m-4 mb-8">
         <div class="grid w-full grid-cols-1 gap-6 md:grid-cols-2">
           <div
-            class="flex-col p-6 mx-4 text-center bg-white rounded-lg shadow-lg md:flex-row hover:text-blue-400"
+            class="flex-col p-6 mx-4 text-center bg-white rounded-lg shadow-lg  md:flex-row hover:text-blue-400"
           >
             <inertia-link
               :href="route('table')"
@@ -106,7 +106,7 @@
             </inertia-link>
           </div>
           <div
-            class="flex-col p-6 mx-4 text-center bg-white rounded-lg shadow-lg md:flex-row hover:text-blue-400"
+            class="flex-col p-6 mx-4 text-center bg-white rounded-lg shadow-lg  md:flex-row hover:text-blue-400"
           >
             <a
               href="https://banuacoders.com/api/pico"
@@ -144,17 +144,48 @@ import RtChart from "@/components/_pages/data/chart/RtChart";
 import NewCase from "@/components/_pages/data/chart/NewCase";
 import PieChart from "@/components/_pages/data/chart/PieChart";
 export default {
-  props: [
-    "partners",
-    "local",
-    "national",
-    "lastUpdate",
-    "tests",
-    "districts",
-    "provinces",
-    "recapNational",
-    "genders",
-  ],
+  props: {
+    partners: {
+      type: Array,
+      required: true,
+    },
+    local: {
+      type: Object,
+      required: true,
+    },
+    national: {
+      type: Object,
+      required: true,
+    },
+    national: {
+      type: Object,
+      required: true,
+    },
+    lastUpdate: {
+      type: Object,
+      required: true,
+    },
+    tests: {
+      type: Array,
+      required: true,
+    },
+    districts: {
+      type: Array,
+      required: true,
+    },
+    provinces: {
+      type: Array,
+      required: true,
+    },
+    recapNational: {
+      type: Object,
+      required: true,
+    },
+    genders: {
+      type: Array,
+      required: true,
+    },
+  },
   data() {
     return {
       recapLocal: [],

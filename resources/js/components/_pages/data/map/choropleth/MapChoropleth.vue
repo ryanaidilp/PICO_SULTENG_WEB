@@ -29,7 +29,16 @@ import "vue-select/dist/vue-select.css";
 import LocalMap from "@/components/_pages/data/map/choropleth/LocalMap";
 import NationalMap from "@/components/_pages/data/map/choropleth/NationalMap";
 export default {
-  props: ["districts", "provinces"],
+  props: {
+    districts: {
+      type: Array,
+      required: true,
+    },
+    provinces: {
+      type: Array,
+      required: true,
+    },
+  },
   data() {
     return {
       selected: "Sulawesi Tengah",

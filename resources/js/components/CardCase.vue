@@ -1,29 +1,29 @@
 <template>
-  <div class="w-full p-4 bg-white rounded-lg shadow-lg" :class="text_color">
+  <div class="w-full p-4 bg-white rounded-lg shadow-lg" :class="textColor">
     <h4 class="text-2xl font-bold text-center uppercase">{{ title }}</h4>
     <div class="flex flex-row mt-3 font-bold text-center">
       <div class="w-1/2">
         <b class="text-sm font-semibold text-gray-800">Sulawesi Tengah</b>
         <div class="text-2xl">
-          {{ totalLocal }}
+          {{ formatNumber(cumulativeLocal) }}
         </div>
         <div>
-          <span class="px-2 pb-1 mr-1 rounded-full" :class="bg_color">
-            <i class="text-xs text-white fas" :class="icon(new_local)"></i>
+          <span class="px-2 pb-1 mr-1 rounded-full" :class="bgColor">
+            <i class="text-xs text-white fas" :class="icon(newLocal)"></i>
           </span>
-          {{ newLocal }}
+          {{ formatNumber(newLocal) }}
         </div>
       </div>
       <div class="w-1/2">
         <b class="text-sm font-semibold text-gray-800">Indonesia</b>
         <div class="text-2xl">
-          {{ totalNational }}
+          {{ formatNumber(cumulativeNational) }}
         </div>
         <div>
-          <span class="px-2 pb-1 mr-1 rounded-full" :class="bg_color">
-            <i class="text-xs text-white fas" :class="icon(new_national)"></i>
+          <span class="px-2 pb-1 mr-1 rounded-full" :class="bgColor">
+            <i class="text-xs text-white fas" :class="icon(newNational)"></i>
           </span>
-          {{ newNational }}
+          {{ formatNumber(newNational) }}
         </div>
       </div>
     </div>
@@ -32,15 +32,36 @@
 <script>
 const NumberFormat = new Intl.NumberFormat("id");
 export default {
-  props: [
-    "title",
-    "cumulative_local",
-    "new_local",
-    "cumulative_national",
-    "new_national",
-    "bg_color",
-    "text_color",
-  ],
+  props: {
+    title: {
+      type: String,
+      required: true,
+    },
+    cumulativeLocal: {
+      type: Number,
+      required: true,
+    },
+    cumulativeNational: {
+      type: Number,
+      required: true,
+    },
+    newLocal: {
+      type: Number,
+      required: true,
+    },
+    newNational: {
+      type: Number,
+      required: true,
+    },
+    bgColor: {
+      type: String,
+      required: true,
+    },
+    textColor: {
+      type: String,
+      required: true,
+    },
+  },
   methods: {
     icon(value) {
       if (value >= 0) {
@@ -48,19 +69,8 @@ export default {
       }
       return "fa-angle-double-down";
     },
-  },
-  computed: {
-    totalLocal() {
-      return NumberFormat.format(this.cumulative_local);
-    },
-    newLocal() {
-      return NumberFormat.format(this.new_local);
-    },
-    totalNational() {
-      return NumberFormat.format(this.cumulative_national);
-    },
-    newNational() {
-      return NumberFormat.format(this.new_national);
+    formatNumber(value) {
+      return NumberFormat.format(value);
     },
   },
 };

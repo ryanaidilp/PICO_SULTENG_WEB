@@ -34,10 +34,10 @@
                   <img
                     @click="changeImage(item.images)"
                     :src="item.images[0]"
-                    class="object-cover object-left-top w-full rounded-lg shadow-lg cursor-pointer infographic-list__item-image"
+                    class="object-cover object-left-top w-full rounded-lg shadow-lg cursor-pointer  infographic-list__item-image"
                   />
                   <div
-                    class="absolute inset-0 flex-row items-center justify-center hidden text-white rounded-lg action-overlay lg:flex"
+                    class="absolute inset-0 flex-row items-center justify-center hidden text-white rounded-lg  action-overlay lg:flex"
                     style="background-color: rgba(0, 0, 0, 0.75)"
                   >
                     <button
@@ -81,7 +81,16 @@ import VueGallerySlideshow from "vue-gallery-slideshow";
 import Layout from "@/layout/Layout";
 import PartnerFooter from "@/Shared/PartnerFooter";
 export default {
-  props: ["infographics", "partners"],
+  props: {
+    infographics: {
+      type: Array,
+      required: true,
+    },
+    partners: {
+      type: Array,
+      required: true,
+    },
+  },
   components: {
     Layout,
     VueGallerySlideshow,

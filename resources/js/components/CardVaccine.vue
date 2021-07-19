@@ -15,7 +15,7 @@
     </p>
     <p class="text-right text-gray-500">Dosis telah diberikan</p>
     <div class="flex flex-row justify-between my-4">
-      <div class="flex flex-row w-5/6 h-8 bg-gray-300 rounded-md">
+      <div class="flex flex-row w-5/6 h-8 bg-gray-200 rounded-md">
         <div
           class="h-full rounded-md"
           :class="bgColor"

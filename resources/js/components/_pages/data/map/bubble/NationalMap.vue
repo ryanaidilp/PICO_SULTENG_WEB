@@ -78,7 +78,12 @@
 import Anychart from "anychart";
 var map = anychart.map();
 export default {
-  props: ["provinces"],
+  props: {
+    provinces: {
+      type: Array,
+      required: true,
+    },
+  },
   data() {
     return {
       today: new Date(),
@@ -174,7 +179,7 @@ export default {
         this.deathDataset = [];
       }
 
-      var data = this.provinces
+      var data = this.provinces;
 
       data.forEach((province) => {
         this.positiveDataset.push({

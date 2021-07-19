@@ -47,13 +47,28 @@ const { format } = require("date-fns");
 const { formatToTimeZone } = require("date-fns-timezone");
 import { id } from "date-fns/locale";
 export default {
-  props: [
-    "lastUpdate",
-    "national",
-    "local",
-    "nationalVaccine",
-    "provinceVaccine",
-  ],
+  props: {
+    lastUpdate: {
+      type: String,
+      required: true,
+    },
+    national: {
+      type: Object,
+      required: true,
+    },
+    local: {
+      type: Object,
+      required: true,
+    },
+    nationalVaccine: {
+      type: Object,
+      required: true,
+    },
+    provinceVaccine: {
+      type: Object,
+      required: true,
+    },
+  },
   components: {
     ContentLoader,
     DataTabs,

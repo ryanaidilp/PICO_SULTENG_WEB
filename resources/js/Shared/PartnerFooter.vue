@@ -109,6 +109,11 @@
 </template>
 <script>
 export default {
-  props: ["partners"],
+  props: {
+    partners: {
+      type: Array,
+      requred: true,
+    },
+  },
 };
 </script>

@@ -9,39 +9,39 @@
         >
           <card-case
             title="Positif"
-            :cumulative_local.sync="local.cumulative_positive"
-            :new_local.sync="local.positive"
-            :cumulative_national.sync="national.cumulative_positive"
-            :new_national.sync="national.positive"
-            bg_color="bg-red-800"
-            text_color="text-red-800"
+            :cumulative-local.sync="local.cumulative_positive"
+            :new-local.sync="local.positive"
+            :cumulative-national.sync="national.cumulative_positive"
+            :new-national.sync="national.positive"
+            bg-color="bg-red-800"
+            text-color="text-red-800"
           />
           <card-case
             title="Dirawat"
-            :cumulative_local.sync="local.cumulative_under_treatment"
-            :new_local.sync="local.under_treatment"
-            :cumulative_national.sync="national.cumulative_under_treatment"
-            :new_national.sync="national.under_treatment"
-            bg_color="bg-blue-600"
-            text_color="text-blue-600"
+            :cumulative-local.sync="local.cumulative_under_treatment"
+            :new-local.sync="local.under_treatment"
+            :cumulative-national.sync="national.cumulative_under_treatment"
+            :new-national.sync="national.under_treatment"
+            bg-color="bg-blue-600"
+            text-color="text-blue-600"
           />
           <card-case
             title="Sembuh"
-            :cumulative_local.sync="local.cumulative_recovered"
-            :new_local.sync="local.recovered"
-            :cumulative_national.sync="national.cumulative_recovered"
-            :new_national.sync="national.recovered"
-            bg_color="bg-green-500"
-            text_color="text-green-500"
+            :cumulative-local.sync="local.cumulative_recovered"
+            :new-local.sync="local.recovered"
+            :cumulative-national.sync="national.cumulative_recovered"
+            :new-national.sync="national.recovered"
+            bg-color="bg-green-500"
+            text-color="text-green-500"
           />
           <card-case
             title="Meninggal"
-            :cumulative_local.sync="local.cumulative_deceased"
-            :new_local.sync="local.deceased"
-            :cumulative_national.sync="national.cumulative_deceased"
-            :new_national.sync="national.deceased"
-            bg_color="bg-orange-500"
-            text_color="text-orange-500"
+            :cumulative-local.sync="local.cumulative_deceased"
+            :new-local.sync="local.deceased"
+            :cumulative-national.sync="national.cumulative_deceased"
+            :new-national.sync="national.deceased"
+            bg-color="bg-orange-500"
+            text-color="text-orange-500"
           />
         </div>
       </div>
@@ -51,22 +51,22 @@
       >
         <card-suspect
           title="Pasien Dalam Pengawasan (PDP)"
-          :new_case.sync="local.person_under_supervision"
-          :new_finished_case.sync="local.finished_person_under_supervision"
-          :active_case.sync="local.active_person_under_supervision"
-          :total_case.sync="local.cumulative_person_under_supervision"
-          :total_finished_case.sync="
+          :new-case.sync="local.person_under_supervision"
+          :new-finished-case.sync="local.finished_person_under_supervision"
+          :active-case.sync="local.active_person_under_supervision"
+          :total-case.sync="local.cumulative_person_under_supervision"
+          :total-finished-case.sync="
             local.cumulative_finished_person_under_supervision
           "
           status="Pengawasan"
         />
         <card-suspect
           title="Orang Dalam Pemantauan (ODP)"
-          :new_case.sync="local.person_under_observation"
-          :new_finished_case.sync="local.finished_person_under_observation"
-          :active_case.sync="local.active_person_under_observation"
-          :total_case.sync="local.cumulative_person_under_observation"
-          :total_finished_case.sync="
+          :new-case.sync="local.person_under_observation"
+          :new-finished-case.sync="local.finished_person_under_observation"
+          :active-case.sync="local.active_person_under_observation"
+          :total-case.sync="local.cumulative_person_under_observation"
+          :total-finished-case.sync="
             local.cumulative_finished_person_under_observation
           "
           status="Pemantauan"
@@ -79,7 +79,16 @@
 import CardCase from "@/components/CardCase";
 import CardSuspect from "@/components/CardSuspect";
 export default {
-  props: ["local", "national"],
+  props: {
+    local: {
+      type: Object,
+      required: true,
+    },
+    national: {
+      type: Object,
+      required: true,
+    },
+  },
   components: {
     CardCase,
     CardSuspect,

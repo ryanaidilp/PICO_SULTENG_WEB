@@ -141,7 +141,12 @@
 import Anychart from "anychart";
 var districtMap = anychart.map();
 export default {
-  props: ["districts"],
+  props: {
+    districts: {
+      type: Array,
+      required: true,
+    },
+  },
   data() {
     return {
       today: new Date(),
@@ -286,7 +291,7 @@ export default {
     },
     loadMap: function () {
       axios
-        .get(route('home')+"assets/geojson/sulteng.json")
+        .get(route("home") + "assets/geojson/sulteng.json")
         .then((response) => {
           districtMap.geoData(response.data);
         });

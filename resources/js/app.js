@@ -24,9 +24,32 @@ InertiaProgress.init({
 // Mixin or Plugin Installation
 
 Vue.mixin({
-    methods: routes
+    methods: {
+        route,
+        asset(path) {
+            return `${this.route('home')}/assets/${path}`;
+        },
+        api(path) {
+            return `${this.route('home')}/api/v1/${path}`;
+        },
+        formatDate(value) {
+            let date = Intl.DateTimeFormat("id-ID", {
+                    weekday: "long",
+                    day: "numeric",
+                    month: "long",
+                    year: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    second: "2-digit",
+                    timeZoneName: "short",
+                })
+                .format(new Date(value))
+                .replaceAll(".", ":");
+
+            return date;
+        }
+    }
 })
-Vue.use(plugin)
 Vue.use(BackToTop)
 Vue.use(VueLazyload, {
     preLoad: 1.3,

@@ -18,8 +18,8 @@
       <div class="flex flex-row w-5/6 h-8 bg-gray-200 rounded-md">
         <div
           class="h-full rounded-md"
-          :class="bgColor"
-          :style="progress(healthWorkerTotal, target)"
+          :class="progressColor"
+          :style="progress(total, target)"
         ></div>
       </div>
       <p
@@ -69,30 +69,6 @@ export default {
       type: Number,
       required: true,
     },
-    healthWorkerTotal: {
-      type: Number,
-      required: true,
-    },
-    healthWorkerTarget: {
-      type: Number,
-      required: true,
-    },
-    elderlyTotal: {
-      type: Number,
-      required: true,
-    },
-    elderlyTarget: {
-      type: Number,
-      required: true,
-    },
-    publicWorkerTotal: {
-      type: Number,
-      required: true,
-    },
-    publicWorkerTarget: {
-      type: Number,
-      required: true,
-    },
   },
   computed: {
     target_vaccinated() {
@@ -100,15 +76,6 @@ export default {
     },
     total_vaccinated() {
       return NumberFormat.format(this.total);
-    },
-    health_worker_vaccinated() {
-      return NumberFormat.format(this.healthWorkerTotal);
-    },
-    elderly_vaccinated() {
-      return NumberFormat.format(this.elderlyTotal);
-    },
-    public_worker_vaccinated() {
-      return NumberFormat.format(this.publicWorkerTotal);
     },
     new_vaccinated() {
       let prefix = this.addition >= 0 ? "+" : "";

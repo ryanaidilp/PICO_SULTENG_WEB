@@ -62,6 +62,18 @@
                 </li>
                 <li class="my-2 mr-6 md:my-0">
                   <inertia-link
+                    :href="route('vaccine')"
+                    :class="isActive('vaccine')"
+                    @click.prevent="changePage(route('vaccine'))"
+                    class="block py-1 pl-1 text-gray-500 no-underline align-middle border-b-2 border-white  md:py-3 hover:text-gray-900 hover:border-blue-500"
+                  >
+                    <span class="pb-1 text-sm font-semibold md:pb-0"
+                      >Vaksin</span
+                    >
+                  </inertia-link>
+                </li>
+                <li class="my-2 mr-6 md:my-0">
+                  <inertia-link
                     :href="route('contact')"
                     :class="isActive('contact')"
                     @click.prevent="changePage(route('contact'))"

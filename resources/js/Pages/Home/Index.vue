@@ -16,7 +16,7 @@
       <data-covid
         :national.sync="national"
         :local.sync="local"
-        :lastUpdate="formatDate(local.national_case.date)"
+        :last-update="formatDate(updated_at)"
         :national-vaccine="nationalVaccine"
         :province-vaccine="provinceVaccine"
         class="mt-8"
@@ -104,13 +104,18 @@ import { Inertia } from "@inertiajs/inertia";
 
 export default {
   props: {
-    national: {
-      type: Object,
-    },
     local: {
       type: Object,
+      required: true,
     },
-
+    national: {
+      type: Object,
+      required: true,
+    },
+    banners: {
+      type: Array,
+      required: true,
+    },
     hospitals: {
       type: Array,
     },
@@ -127,11 +132,7 @@ export default {
       type: Object,
     },
   },
-  data() {
-    return {
-      banners: [],
-    };
-  },
+
   components: {
     Layout,
     Donation,
@@ -144,26 +145,23 @@ export default {
     ShareableItems,
     PartnerFooter,
   },
-  methods: {
-    loadBanners() {
-      axios
-        .get(this.api(`banners`))
-        .then((response) => {
-          this.banners = response.data.data;
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+  computed: {
+    updated_at() {
+      if (_.isEmpty(this.local)) {
+        return new Date();
+      }
+      return this.local.national_case.date;
     },
+  },
+  methods: {
     reloadData() {
       setInterval(() => {
-        this.loadBanners();
         Inertia.reload({
           only: [
-            "donations",
-            "lastUpdate",
             "local",
             "national",
+            "banners",
+            "donations",
             "infographics",
             "nationalVaccine",
             "provinceVaccine",
@@ -173,7 +171,6 @@ export default {
     },
   },
   mounted() {
-    this.loadBanners();
     this.reloadData();
   },
 };

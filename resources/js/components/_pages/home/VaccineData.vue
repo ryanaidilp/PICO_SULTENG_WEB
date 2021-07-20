@@ -31,6 +31,31 @@
           <br />
           {{ formatDate(nationalVaccine.date) }}
         </p>
+        <div
+          class="grid grid-cols-1 gap-5 my-8 lg:grid-cols-2"
+          v-if="showTargetCard"
+        >
+          <card-vaccine-target
+            :target="nationalVaccine.total_vaccination_target"
+            label="Total Sasaran Vaksinasi"
+            text-color="text-green-700"
+          />
+          <card-vaccine-target
+            :target="nationalVaccine.elderly_vaccination_target"
+            label="Sasaran Vaksinasi Lansia"
+            text-color="text-blue-500"
+          />
+          <card-vaccine-target
+            :target="nationalVaccine.public_officer_vaccination_target"
+            label="Sasaran Vaksinasi Petugas Publik"
+            text-color="text-purple-500"
+          />
+          <card-vaccine-target
+            :target="nationalVaccine.health_worker_vaccination_target"
+            label="Sasaran Vaksinasi Petugas Kesehatan"
+            text-color="text-orange-500"
+          />
+        </div>
         <div class="grid grid-cols-1 gap-5 lg:grid-cols-2">
           <card-vaccine-home
             :title="'Vaksinasi Dosis 1'"
@@ -90,6 +115,31 @@
           <br />
           {{ formatDate(provinceVaccine.date) }}
         </p>
+        <div
+          class="grid grid-cols-1 gap-5 my-8 lg:grid-cols-2"
+          v-if="showTargetCard"
+        >
+          <card-vaccine-target
+            :target="provinceVaccine.total_vaccination_target"
+            label="Total Sasaran Vaksinasi"
+            text-color="text-green-700"
+          />
+          <card-vaccine-target
+            :target="provinceVaccine.elderly_vaccination_target"
+            label="Sasaran Vaksinasi Lansia"
+            text-color="text-blue-500"
+          />
+          <card-vaccine-target
+            :target="provinceVaccine.public_officer_vaccination_target"
+            label="Sasaran Vaksinasi Petugas Publik"
+            text-color="text-purple-500"
+          />
+          <card-vaccine-target
+            :target="provinceVaccine.health_worker_vaccination_target"
+            label="Sasaran Vaksinasi Petugas Kesehatan"
+            text-color="text-orange-500"
+          />
+        </div>
         <div class="grid grid-cols-1 gap-5 lg:grid-cols-2">
           <card-vaccine-home
             :title="'Vaksinasi Dosis 1'"
@@ -148,6 +198,7 @@
 </template>
 <script>
 import CardVaccineHome from "@/components/CardVaccineHome";
+import CardVaccineTarget from "@/components/CardVaccineTarget";
 export default {
   props: {
     nationalVaccine: {
@@ -157,6 +208,10 @@ export default {
     provinceVaccine: {
       type: Object,
       required: true,
+    },
+    showTargetCard: {
+      type: Boolean,
+      default: () => false,
     },
   },
   data() {
@@ -177,6 +232,7 @@ export default {
   },
   components: {
     CardVaccineHome,
+    CardVaccineTarget,
   },
 };
 </script>

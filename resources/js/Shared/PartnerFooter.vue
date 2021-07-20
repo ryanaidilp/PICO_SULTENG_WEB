@@ -2,11 +2,11 @@
   <div class="w-full mt-4">
     <div class="p-6 mx-4 bg-white rounded-lg shadow-lg">
       <h3 class="text-xl font-bold text-center">Pranala Luar</h3>
-      <div class="flex flex-col flex-wrap justify-center w-full md:flex-row">
+      <div class="grid justify-center w-full md:grid-cols-4">
         <a
           v-for="partner in partners"
           :key="partner.id"
-          class="w-full p-2 mt-4 md:w-1/4 hover:opacity-75"
+          class="w-full p-2 mt-4 hover:opacity-75"
           :href="partner.link"
           target="_blank"
         >
@@ -102,7 +102,7 @@
           >Fajrian Aidil Pratama</a
         >
         <br />
-        &copy; Copyright 2020 - {{ new Date().getFullYear() }} BanuaCoders .
+        &copy; Copyright 2020 - {{ new Date().getFullYear() }} BanuaCoders.
       </p>
     </div>
   </div>

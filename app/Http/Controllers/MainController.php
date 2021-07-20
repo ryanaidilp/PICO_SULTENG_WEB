@@ -2,21 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Banner;
 use App\Models\Test;
 
 use Inertia\Inertia;
-use App\Models\Banner;
 use App\Models\Gender;
-use App\Models\Regency;
 use App\Models\Hospital;
 use App\Models\Province;
 use App\Models\Infographic;
 use App\Models\NationalCase;
 use App\Models\ProvinceCase;
-use App\Models\NationalVaccine;
-use App\Models\ProvinceVaccine;
-use App\Transformers\AppSerializer;
-use App\Transformers\Api\v1\RegencyTransformer;
+use App\Services\NationalCaseService;
+use App\Services\NationalVaccineService;
+use App\Services\ProvinceCaseService;
+use App\Services\ProvinceVaccineService;
 
 class MainController extends Controller
 {
@@ -27,33 +26,22 @@ class MainController extends Controller
      */
     public function index()
     {
-        $local = ProvinceCase::with(["national_case:id,date"])
-            ->where("province_id", 72)
-            ->latest("day")->first();
-        $national = NationalCase::latest("day")->first();
+
+        $local = (new ProvinceCaseService)->latest(72);
+        $banners = Banner::active()->get();
+        $national = (new NationalCaseService)->latest();
         $hospitals = Hospital::with([
             "contacts", "contacts.contact_type"
         ])
             ->inRandomOrder()->take(3)->get();
         $infographics = Infographic::with("images")->latest()->take(10)->get();
-        $vaccine = NationalVaccine::latest("day")->take(2)->get();
-        $vaccine_last = $vaccine->last();
-        $vaccine = $vaccine->first();
-        $vaccine->first_vaccination_received_changes = $vaccine->first_vaccination_received - $vaccine_last->first_vaccination_received;
-        $vaccine->first_vaccination_received_changes_rate = \calculateRate($vaccine->first_vaccination_received_changes, $vaccine->first_vaccination_received);
-        $vaccine->second_vaccination_received_changes = $vaccine->second_vaccination_received - $vaccine_last->second_vaccination_received;
-        $vaccine->second_vaccination_received_changes_rate = \calculateRate($vaccine->second_vaccination_received_changes, $vaccine->second_vaccination_received);
-        $province_vaccine = ProvinceVaccine::where("province_id", 72)->latest("day")->take(2)->get();
-        $province_vaccine_last = $province_vaccine->last();
-        $province_vaccine = $province_vaccine->first();
-        $province_vaccine->first_vaccination_received_changes = $province_vaccine->first_vaccination_received - $province_vaccine_last->first_vaccination_received;
-        $province_vaccine->first_vaccination_received_changes_rate = \calculateRate($province_vaccine->first_vaccination_received_changes, $province_vaccine_last->first_vaccination_received);
-        $province_vaccine->second_vaccination_received_changes = $province_vaccine->second_vaccination_received - $province_vaccine_last->second_vaccination_received;
-        $province_vaccine->second_vaccination_received_changes_rate = \calculateRate($province_vaccine->second_vaccination_received_changes, $province_vaccine_last->second_vaccination_received);
+        $vaccine = (new NationalVaccineService)->latest();
+        $province_vaccine = (new ProvinceVaccineService)->latest(72);
 
         return Inertia::render("Home/Index", [
             "local" => $local,
             "national" => $national,
+            "banners" => $banners,
             "hospitals" => $hospitals,
             "infographics" => $infographics->map(function ($infographic) {
                 return [
@@ -69,6 +57,16 @@ class MainController extends Controller
         ]);
     }
 
+    public function vaccine()
+    {
+        $province_vaccine = (new ProvinceVaccineService)->latest(72);
+        $national_vaccine = (new NationalVaccineService)->latest();
+
+        return Inertia::render("Vaccine/Index", [
+            "provinceVaccine" => $province_vaccine,
+            "nationalVaccine" => $national_vaccine
+        ]);
+    }
 
     public function contact()
     {

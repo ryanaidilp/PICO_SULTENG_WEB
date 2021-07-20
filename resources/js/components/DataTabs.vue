@@ -55,7 +55,9 @@
         </div>
       </div>
     </div>
-    <see-more-link :linkUrl="route('data')" />
+    <see-more-link
+      :linkUrl="openTab === 1 ? route('data') : route('vaccine')"
+    />
   </div>
 </template>
 

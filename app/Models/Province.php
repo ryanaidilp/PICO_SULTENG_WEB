@@ -8,6 +8,7 @@ use App\Models\TaskForce;
 use App\Models\ProvinceCase;
 use App\Models\ProvinceTest;
 use App\Models\ProvinceVaccine;
+use App\Models\VaccineLocation;
 use App\Models\ProvinceGenderCase;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -118,6 +119,23 @@ class Province extends Model
     {
         return $this->hasManyThrough(
             TaskForce::class,
+            Regency::class,
+            "province_id",
+            "regency_id",
+            "id",
+            "id"
+        );
+    }
+
+    /**
+     * Get all of the vaccine_locations for the Province
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
+     */
+    public function vaccine_locations(): HasManyThrough
+    {
+        return $this->hasManyThrough(
+            VaccineLocation::class,
             Regency::class,
             "province_id",
             "regency_id",

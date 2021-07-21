@@ -6,6 +6,7 @@ use App\Models\Hospital;
 use App\Models\Province;
 use App\Models\TaskForce;
 use App\Models\RegencyCase;
+use App\Models\VaccineLocation;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -67,5 +68,15 @@ class Regency extends Model
     public function hospitals(): HasMany
     {
         return $this->hasMany(Hospital::class, "regency_id", "id");
+    }
+
+    /**
+     * Get all of the vaccine_locations for the Regency
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function vaccine_locations(): HasMany
+    {
+        return $this->hasMany(VaccineLocation::class, "regency_id", "id");
     }
 }

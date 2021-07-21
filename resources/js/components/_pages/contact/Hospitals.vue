@@ -11,28 +11,28 @@
         sebelum akhirnya dapat dirujuk ke rumah sakit di bawah ini.
       </p>
       <content-loader v-if="hospitals.length <= 0"></content-loader>
-      <div v-else class="grid grid-cols-1 gap-5 mt-8 md:grid-cols-2">
+      <div v-else class="grid grid-cols-1 gap-5 mt-8 md:grid-cols-3">
         <div
           v-for="hospital in hospitals"
-          :key="hospital.no"
-          class="flex flex-col flex-wrap w-full p-4 border-l-2 border-blue-400 rounded-lg shadow-lg  border-left"
+          :key="hospital.id"
+          class="flex flex-col flex-wrap w-full p-4 border-l-2 border-blue-400 rounded-lg  border-left"
         >
-          <h4 class="font-bold text-left">{{ hospital.nama }}</h4>
-          <p class="text-xs text-left md:text-sm">{{ hospital.alamat }}</p>
-          <a
-            :href="'tel:' + hospital.telepon"
-            class="w-full p-2 mx-auto mt-2 text-sm text-left text-white bg-blue-400 rounded-md  hover:opacity-75 md:text-base"
-          >
-            <i class="fas fa-phone-alt"></i>
-            {{ hospital.telepon }}
-          </a>
-          <a
-            :href="'mailto:' + hospital.email"
-            class="w-full p-2 mx-auto mt-2 text-sm text-left text-white bg-blue-600 rounded-md  hover:opacity-75 md:text-base"
-          >
-            <i class="fas fa-mail-bulk"></i>
-            {{ hospital.email }}
-          </a>
+          <h4 class="font-bold text-left">{{ hospital.name }}</h4>
+          <p class="text-xs text-left md:text-sm">{{ hospital.address }}</p>
+          <p class="text-sm">
+            <a
+              class="inline-block px-4 py-1 mt-2 mr-2 text-xs text-white rounded  hover:opacity-50"
+              v-for="contact in hospital.contacts"
+              :key="contact.id"
+              :href="setHref(contact)"
+              target="_blank"
+              :title="setLinkTitle(contact)"
+              :class="setBgColor(contact)"
+            >
+              <i class="mr-1 -ml-2 fas fa-sm" :class="setIcon(contact)" />
+              <span>{{ contact.contact }}</span>
+            </a>
+          </p>
           <a
             :href="
               'https://maps.google.com/maps?q=' +
@@ -57,6 +57,73 @@ export default {
       type: Array,
       required: true,
       default: () => [],
+    },
+  },
+  methods: {
+    setHref(contact) {
+      let prefix = "";
+      switch (contact.contact_type_id) {
+        case 1:
+          prefix = "mailto:";
+          break;
+        case 2:
+          prefix = "tel:";
+          break;
+        case 3:
+          prefix = "fax:";
+          break;
+        default:
+          prefix = "https:";
+      }
+
+      return prefix.length > 0
+        ? `${prefix}${contact.contact}`
+        : contact.contact;
+    },
+    setLinkTitle(contact) {
+      let prefix = "";
+
+      switch (contact.contact_type_id) {
+        case 1:
+          prefix = "Kirim Email ke ";
+          break;
+        case 2:
+          prefix = "Telpon ";
+          break;
+        case 3:
+          prefix = "Fax ";
+          break;
+        default:
+          prefix = "Kunjungi ";
+      }
+
+      return prefix.length > 0
+        ? `${prefix}${contact.contact}`
+        : contact.contact;
+    },
+    setIcon(contact) {
+      switch (contact.contact_type_id) {
+        case 1:
+          return "fa-envelope";
+        case 2:
+          return "fa-phone";
+        case 3:
+          return "fa-fax";
+        default:
+          return "fa-globe";
+      }
+    },
+    setBgColor(contact) {
+      switch (contact.contact_type_id) {
+        case 1:
+          return "bg-green-500";
+        case 2:
+          return "bg-blue-500";
+        case 3:
+          return "bg-purple-500";
+        default:
+          return "bg-gray-500";
+      }
     },
   },
   components: {

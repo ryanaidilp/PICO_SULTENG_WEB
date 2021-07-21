@@ -9,7 +9,7 @@
         pemeriksaan pasien COVID-19
       </p>
       <hospital :hospitals="hospitals" class="md:mt-16"></hospital>
-      <task-force :districts="taskForces" class="mt-16"></task-force>
+      <task-force :task-forces="taskForces" class="mt-16"></task-force>
       <Partner :partners="partners" class="mt-16" />
     </div>
   </layout>

@@ -8,78 +8,34 @@
         Berikut ini adalah nomor telpon tim gugus tugas COVID-19 di Kab/Kota se
         Sulawesi Tengah.
       </p>
-      <content-loader v-if="posts.length <= 0"></content-loader>
-      <div v-else class="grid grid-cols-1 gap-5 mt-8 md:grid-cols-2">
-        <div
-          v-for="(posko, i) in posts"
-          :key="i"
-          class="flex flex-col flex-wrap w-full p-4 border-l-2 border-blue-500 rounded-lg shadow-md  border-left"
-        >
-          <h4 class="font-bold text-left">{{ posko.name }}</h4>
-          <p class="text-xs text-left md:text-sm">{{ posko.address }}</p>
-          <div class="flex flex-row flex-wrap w-full">
-            <a
-              v-for="(phone, j) in posko.phones"
-              :key="j"
-              class="inline-block px-4 py-1 mt-2 mr-2 text-sm text-white bg-blue-500 rounded  hover:opacity-50"
-              :href="`tel:${phone.phone}`"
-              target="_blank"
-              :title="`${phone.name}`"
-            >
-              <i class="mr-1 fas fa-phone fa-sm" />
-              <span>{{ phone.phone }}</span>
-            </a>
-          </div>
-        </div>
-      </div>
+      <content-loader v-if="taskForces.length <= 0"></content-loader>
+      <ul v-else class="items-stretch block mt-8 lg:grid lg:grid-cols-3">
+        <li v-for="(taskForce, index) in taskForces" :key="index">
+          <ContactListItem
+            :regency="taskForce.regency"
+            :label="`Gugus Tugas COVID-19 ${taskForce.regency}`"
+            :contacts="taskForce.contacts"
+          />
+        </li>
+      </ul>
     </div>
   </div>
 </template>
 <script>
 import { ContentLoader } from "vue-content-loader";
+import ContactListItem from "@/components/TaskForceContactListItem";
 export default {
   props: {
-    districts: {
+    taskForces: {
       type: Array,
       required: true,
       default: () => [],
     },
   },
-  data() {
-    return {
-      posts: [],
-    };
-  },
+
   components: {
     ContentLoader,
-  },
-  methods: {
-    getPosts() {
-      let data = this.districts;
-      data.forEach((element) => {
-        let phones = [];
-        let post = {
-          name: "",
-          address: "",
-          phones: [],
-        };
-        post.name = element.name;
-        post.address = `Hotline Gugus Tugas COVID-19 di ${element.name}`;
-        element.posts.forEach((post) => {
-          post.phones.forEach((phone) => {
-            phones.push({
-              name: post.name,
-              phone: phone,
-            });
-          });
-        });
-        post.phones = phones;
-        this.posts.push(post);
-      });
-    },
-  },
-  mounted() {
-    this.getPosts();
+    ContactListItem,
   },
 };
 </script>

@@ -1,0 +1,34 @@
+regency_id,name,address,operational_time,is_first_vaccination,is_second_vaccination,daily_vaccination_quota,vaccination_stock_remaining,notes,updated_at
+7271,Gerai Vaksinasi Presisi Mapolda,"Jl. Soekarno-Hatta, Palu",08:00 - 12:00,0,0,,,Akan dibuka setelah Idul Adha (22 Juli 2021),2021-07-19 14:00:21
+7271,Gerai Vaksinasi Presisi Polres Palu,Taman GOR,08:00 - 12:00,0,0,,,Akan dibuka setelah Idul Adha (22 Juli 2021),2021-07-19 14:00:21
+7271,Kantor Gubernur Sulawesi Tengah,Kantor Gubernur,08:00 - Selesai,0,0,,,Melayani vaksin anak,2021-07-19 14:00:21
+7271,Kantor Bapelkes,Jalan M. Yamin,08:00 - 12:00,0,0,100,,Tidak melayani umum,2021-07-19 14:00:21
+7271,RSU Undata,"Jl. Trans Sulawesi, Talise, Mantikulore",08:00 - Selesai,0,1,,,,2021-07-19 14:00:21
+7271,RSU Anutapura,"Jl. Kankung No.1, Donggala Kodi, Ulujadi",08:00 - Selesai,0,1,,,Melayani vaksin anak,2021-07-19 14:00:21
+7271,RS Bhayangkara,"Jl. DR Suharso Lrg. III, No. 02, Besusu Barat",08:00 - Selesai,0,1,,,,2021-07-19 14:00:21
+7271,RS Alkhairat,"Jl. SIS Aljufri No.72, Siranindi",08:00 - Selesai,0,1,,,,2021-07-19 14:00:21
+7271,RS Samaritan,"Jl Towua No.77, Tatura Selatan",08:00 - Selesai,0,1,,,,2021-07-19 14:00:21
+7271,RS Budi Agung,"Jl. Maluku No.4, Lolu Selatan",08:00 - Selesai,0,1,,,,2021-07-19 14:00:21
+7271,RS Untad/Aula Fakulta Kedokteran,"UNTAD, Tondo, Mantikulore",08:00 - Selesai,0,1,,,Bisa untuk umum,2021-07-19 14:00:21
+7271,RST Wirabuana Sindhu Trisno/Rumkit,"Jl. Sisingamangaraja No.4 ",08:00 - Selesai,0,1,,,,2021-07-19 14:00:21
+7271,Lanal Palu Talise (Gedung Serbaguna TNI AL Palu),Samping SPBU Yos Sudarso,08:00 - Selesai,0,0,,,,2021-07-19 14:00:21
+7271,Polsek Palu Timur,Jl. RE Martadinata,08:00 - Selesai,0,0,,,Akan dibuka setelah Idul Adha (22 Juli 2021),2021-07-19 14:00:21
+7271,RS Bala Keselamatan,Jl. Woodward,08:00 - Selesai,0,0,,,,2021-07-19 14:00:21
+7271,Kantor Kodim (Makodim 1306/Dgl),Samping lapangan vatulemo,08:00 - Selesai,0,0,,,,2021-07-19 14:00:21
+7271,Instalasi Farmasi Kota Palu,-,08:00 - Selesai,1,1,70,0,,2021-07-19 14:00:21
+7271,Lapangan Faqih Rasyid,Jalan ke arah bandara,08:00 - Selesai,0,1,,,,2021-07-19 14:00:21
+7202,Puskesmas Kampung Baru Luwuk,"Luwuk, Kab. Banggai",08:00 - Selesai,1,1,,,,2021-07-19 14:00:21
+7271,Puskesmas Pantoloan,Pantoloan,08:00 - Selesai,1,1,70,12,,2021-07-19 14:00:21
+7271,Puskesmas Tawaeli,Tawaeli,08:00 - Selesai,0,1,70,27,,2021-07-19 14:00:21
+7271,Puskesmas Mamboro,Mamboro,08:00 - Selesai,1,1,70,0,,2021-07-19 14:00:21
+7271,Puskesmas Talise Lt.2,Talise,08:00 - Selesai,0,1,70,12,,2021-07-19 14:00:21
+7271,"Puskesmas Kawatuna ",Kawatuna,08:00 - Selesai,1,1,70,16,,2021-07-19 14:00:21
+7271,Puskesmas Birobuli,Birobuli,08:00 - Selesai,0,1,70,20,Melayani vaksin anak,2021-07-19 14:00:21
+7271,Puskesmas Bulili,Bulili,08:00 - Selesai,1,1,50,53,,2021-07-19 14:00:21
+7271,Puskesmas Mabelopura,Jl. I Gusti Ngurah Rai No.18,08:00 - Selesai,1,1,70,10,,2021-07-19 14:00:21
+7271,Puskesmas Sangurara,"Jl. Pomandu, Duyu",08:00 - Selesai,1,1,70,14,,2021-07-19 14:00:21
+7271,Puskesmas Nosarara,"Jl. Malonta, Pengawu",08:00 - Selesai,0,1,70,20,,2021-07-19 14:00:21
+7271,Puskesmas Kamonji,Kamonji,08:00 - Selesai,1,1,70,0,,
+7271,Puskesmas Tipo,"Tipo,Palu",08:00 - Selesai,1,1,70,12,,
+7271,Puskesmas Singgani,"Jl. Dr. Moh. Hatta No.5, Lolu Utara",08:00 - Selesai,0,1,70,22,,
+7271,Puskesmas Lere,"Jl. Tomampe, Lere, Kec. Palu Barat",08:00 - Selesai,1,1,70,10,,

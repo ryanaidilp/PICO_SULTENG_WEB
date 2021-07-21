@@ -10,12 +10,11 @@ use App\Models\Gender;
 use App\Models\Hospital;
 use App\Models\Province;
 use App\Models\Infographic;
-use App\Models\NationalCase;
-use App\Models\ProvinceCase;
 use App\Services\NationalCaseService;
-use App\Services\NationalVaccineService;
 use App\Services\ProvinceCaseService;
+use App\Services\NationalVaccineService;
 use App\Services\ProvinceVaccineService;
+use App\Services\VaccineLocationService;
 
 class MainController extends Controller
 {
@@ -61,10 +60,12 @@ class MainController extends Controller
     {
         $province_vaccine = (new ProvinceVaccineService)->latest(72);
         $national_vaccine = (new NationalVaccineService)->latest();
+        $vaccine_locations = (new VaccineLocationService)->all(72);
 
         return Inertia::render("Vaccine/Index", [
             "provinceVaccine" => $province_vaccine,
-            "nationalVaccine" => $national_vaccine
+            "nationalVaccine" => $national_vaccine,
+            "vaccineLocations" => $vaccine_locations,
         ]);
     }
 

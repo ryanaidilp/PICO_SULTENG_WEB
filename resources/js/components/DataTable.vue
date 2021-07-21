@@ -8,12 +8,18 @@
         :header-fields="headerFields"
         :sort-field="sortField"
         :sort="sort"
-        :data="data || []"
+        :data="items || []"
         :css="datatableCss"
         not-found-msg="Items not found"
         @on-update="dtUpdateSort"
       />
     </div>
+    <hr />
+    <p class="py-2 mx-8 my-auto text-sm text-justify text-gray-800">
+      Menampilkan {{ formatNumber(start) }} - {{ formatNumber(end) }} data dari
+      total {{ formatNumber(totalItems) }} data.
+    </p>
+    <hr />
     <div class="p-4 m-2 my-auto" style="display: flow-root">
       <!-- <div slot="ItemsPerPage" class="items-per-page"> -->
       <div class="mr-4 items-per-page" style="float: left">
@@ -40,6 +46,7 @@
       </div>
     </div>
     <hr />
+
     <p class="py-8 mx-8 my-auto text-sm text-justify text-gray-800">
       Keterangan:
       <br />
@@ -70,6 +77,8 @@ export default {
       sort: "asc",
       sortField: "tanggal",
       listItemsPerPage: [10, 20, 50, 100],
+      start: 0,
+      end: 10,
       itemsPerPage: 50,
       currentPage: 1,
       totalItems: 0,
@@ -94,6 +103,7 @@ export default {
       itemsPerPageCss: {
         select: "item-per-page-dropdown",
       },
+      items: null,
     };
   },
   methods: {
@@ -101,25 +111,43 @@ export default {
       const sortedData = _.orderBy(this.data, [sortField], [sort]);
       const start = (this.currentPage - 1) * this.itemsPerPage;
       const end = this.currentPage * this.itemsPerPage;
-      this.data = sortedData.slice(start, end);
+      this.updateStartAndEnd();
+      this.items = sortedData.slice(start, end);
     },
     updateItemsPerPage: function (itemsPerPage) {
       this.itemsPerPage = parseInt(itemsPerPage);
       if (itemsPerPage >= this.data.length) {
-        this.data = this.data;
+        this.items = this.data;
       } else {
-        this.data = this.data.slice(0, itemsPerPage);
+        this.items = this.data.slice(0, itemsPerPage);
       }
+      this.updateStartAndEnd();
     },
     changePage: function (currentPage) {
       this.currentPage = currentPage;
       const start = (currentPage - 1) * this.itemsPerPage;
       const end = currentPage * this.itemsPerPage;
-      this.data = this.data.slice(start, end);
+      this.updateStartAndEnd();
+      this.items = this.data.slice(start, end);
     },
     updateCurrentPage: function (currentPage) {
       this.currentPage = currentPage;
     },
+    updateStartAndEnd() {
+      this.start = Math.max(this.itemsPerPage * (this.currentPage - 1), 1);
+      this.end = Math.min(
+        this.itemsPerPage * this.currentPage,
+        this.totalItems
+      );
+    },
+    formatNumber(value) {
+      return new Intl.NumberFormat("id-ID").format(value);
+    },
+  },
+  mounted() {
+    this.items = this.data;
+    this.totalItems = this.data.length;
+    this.updateStartAndEnd();
   },
 };
 </script>
@@ -144,10 +172,10 @@ export default {
   vertical-align: center;
 }
 .table thead th:first-child {
-  border-radius: 10px 0px 0px 0px;
+  border-radius: 0.5rem 0px 0px 0px;
 }
 .table thead th:last-child {
-  border-radius: 0px 10px 0px 0px;
+  border-radius: 0px 0.5rem 0px 0px;
 }
 
 .table thead th {
@@ -381,6 +409,7 @@ export default {
   min-height: 30px;
   border: 1px solid #337ab7;
   border-radius: 5px;
+  align-items: center;
   color: #337ab7;
 }
 .item-per-page-dropdown:hover {

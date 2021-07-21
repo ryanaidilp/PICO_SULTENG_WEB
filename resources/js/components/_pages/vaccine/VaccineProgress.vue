@@ -25,12 +25,20 @@
         v-if="active_tabs === 1"
         class="container p-4 mx-auto text-gray-800 lg:py-4 lg:px-0"
       >
-        <p class="mb-4">
+        <p>
           <span class="text-gray-500">Pembaruan Terakhir </span>
           <br />
           {{ formatDate(nationalVaccine.date) }}
         </p>
-        <div class="grid w-full gap-5 xl:grid-cols-2">
+        <i class="text-xs text-gray-600">
+          Sumber data :
+          <hyperlink
+            text-color="text-gray-600"
+            href="https://vaksin.kemkes.go.id"
+            label="https://vaksin.kemkes.go.id"
+          />
+        </i>
+        <div class="grid w-full gap-5 mt-4 xl:grid-cols-2">
           <div class="grid w-full grid-cols-1 gap-5">
             <p class="text-2xl font-semibold">Vaksinasi Dosis 1</p>
             <card-vaccine
@@ -151,12 +159,20 @@
         v-if="active_tabs === 2"
         class="container p-4 mx-auto text-gray-800 lg:py-4 lg:px-0"
       >
-        <p class="mb-4">
+        <p>
           <span class="text-gray-500">Pembaruan Terakhir </span>
           <br />
           {{ formatDate(provinceVaccine.date) }}
         </p>
-        <div class="grid w-full gap-5 xl:grid-cols-2">
+        <i class="text-xs text-gray-600">
+          Sumber data :
+          <hyperlink
+            text-color="text-gray-600"
+            href="https://dinkes.sultengprov.go.id"
+            label="https://dinkes.sultengprov.go.id"
+          />
+        </i>
+        <div class="grid w-full gap-5 mt-4 xl:grid-cols-2">
           <div class="grid w-full grid-cols-1 gap-5">
             <p class="text-2xl font-semibold">Vaksinasi Dosis 1</p>
             <card-vaccine
@@ -277,6 +293,7 @@
   </div>
 </template>
 <script>
+import Hyperlink from "@/components/Hyperlink";
 import CardVaccine from "@/components/CardVaccine";
 export default {
   props: {
@@ -290,6 +307,7 @@ export default {
     },
   },
   components: {
+    Hyperlink,
     CardVaccine,
   },
   data() {

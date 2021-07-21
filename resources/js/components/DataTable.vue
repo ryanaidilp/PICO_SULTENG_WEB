@@ -47,8 +47,8 @@
     </div>
     <hr />
 
-    <p class="py-8 mx-8 my-auto text-sm text-justify text-gray-800">
-      Keterangan:
+    <p class="py-4 mx-8 my-auto text-sm text-justify text-gray-800">
+      <span class="text-gray-500">Keterangan:</span>
       <br />
       <slot name="notes"> </slot>
     </p>

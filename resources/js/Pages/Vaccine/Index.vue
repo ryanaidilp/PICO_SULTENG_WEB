@@ -25,17 +25,15 @@
               Informasi ini dikumpulkan dari masyarakat. Oleh karen itu, jika
               anda mempunyai informasi terbaru, silahkan bagikan melalui DM ke
               Instagram
-              <a
+              <hyperlink
                 href="https://instagram.com/infopalu"
-                class="text-blue-500 hover:text-blue-700 hover:cursor-pointer"
-                >@infopalu</a
-              >
+                label="@infopalu"
+              />
               atau
-              <a
+              <hyperlink
                 href="https://instagram.com/sultenglawancovid"
-                class="text-blue-500 hover:text-blue-700 hover:cursor-pointer"
-                >@sultenglawancovid</a
-              >
+                label="@sultenglawancovid"
+              />
             </p>
           </div>
           <div class="flex flex-row my-2">
@@ -63,22 +61,19 @@
         >
           <template #notes>
             Data didapatkan dari hasil pendataan
-            <a
+            <hyperlink
               href="https://instagram.com/infopalu"
-              class="text-blue-800 no-underline hover:underline"
-              >@infopalu</a
-            >
+              label="@infopalu"
+            />
             &
-            <a
+            <hyperlink
               href="https://instagram.com/sultenglawancovid"
-              class="text-blue-800 no-underline hover:underline"
-              >@sultenglawancovid</a
-            >. Untuk melihat data selengkapnya silahkan kunjungi
-            <a
+              label="@sultenglawancovid"
+            />. Untuk melihat data selengkapnya silahkan kunjungi
+            <hyperlink
               href="https://bit.ly/lokasivaksinpalu"
-              class="text-blue-800 no-underline hover:underline"
-              >https://bit.ly/lokasivaksinpalu</a
-            >
+              label="https://bit.ly/lokasivaksinpalu"
+            />.
           </template>
         </data-table>
       </section>
@@ -113,6 +108,7 @@ import PartnerFooter from "@/Shared/PartnerFooter";
 import VaccineData from "@/components/_pages/home/VaccineData";
 import VaccineProgress from "@/components/_pages/vaccine/VaccineProgress";
 import DataTable from "@/components/DataTable";
+import Hyperlink from "@/components/Hyperlink";
 
 const formatDate = (value) => {
   if (value) {
@@ -237,6 +233,7 @@ export default {
   components: {
     Layout,
     DataTable,
+    Hyperlink,
     VaccineData,
     PartnerFooter,
     VaccineProgress,

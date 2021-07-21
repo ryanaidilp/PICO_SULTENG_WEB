@@ -24,11 +24,11 @@
       <br />
       <i class="text-xs text-gray-600">
         Sumber data :
-        <a
+        <hyperlink
+          text-color="text-gray-600"
           href="https://dinkes.sultengprov.go.id"
-          class="no-underline hover:underline hover:text-blue-800"
-          >https://dinkes.sultengprov.go.id</a
-        >
+          label="https://dinkes.sultengprov.go.id"
+        />
       </i>
     </p>
     <data-tabs
@@ -42,6 +42,7 @@
 </template>
 <script>
 import DataTabs from "@/components/DataTabs";
+import Hyperlink from "@/components/Hyperlink";
 import { ContentLoader } from "vue-content-loader";
 const { format } = require("date-fns");
 const { formatToTimeZone } = require("date-fns-timezone");
@@ -70,8 +71,9 @@ export default {
     },
   },
   components: {
-    ContentLoader,
     DataTabs,
+    Hyperlink,
+    ContentLoader,
   },
 };
 </script>

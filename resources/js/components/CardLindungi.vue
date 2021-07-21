@@ -69,12 +69,19 @@
       </div>
       <i class="mt-8 text-xs text-gray-600">
         Sumber materi :
-        <a
+        <hyperlink
           href="https://pikobar.jabarprov.go.id"
-          class="no-underline hover:no-underline hover:text-blue-200"
-          >https://pikobar.jabarprov.go.id</a
-        >
+          label="https://pikobar.jabarprov.go.id"
+          text-color="text-gray-600"
+        />
       </i>
     </div>
   </div>
 </template>
+<script>
+export default {
+  components: {
+    Hyperlink: () => import("@/components/Hyperlink"),
+  },
+};
+</script>

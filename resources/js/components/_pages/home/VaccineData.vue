@@ -26,11 +26,19 @@
         v-if="active_tabs === 1"
         class="container p-4 mx-auto text-gray-800 lg:py-4 lg:px-0"
       >
-        <p class="mb-4">
+        <p>
           <span class="text-gray-500">Pembaruan Terakhir </span>
           <br />
           {{ formatDate(nationalVaccine.date) }}
         </p>
+        <i class="mb-4 text-xs text-gray-600">
+          Sumber data :
+          <hyperlink
+            text-color="text-gray-600"
+            href="https://vaksin.kemkes.go.id"
+            label="https://vaksin.kemkes.go.id"
+          />
+        </i>
         <div
           class="grid grid-cols-1 gap-5 my-8 lg:grid-cols-2"
           v-if="showTargetCard"
@@ -110,11 +118,19 @@
         </div>
       </div>
       <div v-else class="container p-4 mx-auto text-gray-800 lg:px-0 lg:py-4">
-        <p class="mb-4">
+        <p>
           <span class="text-gray-500">Pembaruan Terakhir </span>
           <br />
           {{ formatDate(provinceVaccine.date) }}
         </p>
+        <i class="mb-4 text-xs text-gray-600">
+          Sumber data :
+          <hyperlink
+            text-color="text-gray-600"
+            href="https://dinkes.sultengprov.go.id"
+            label="https://dinkes.sultengprov.go.id"
+          />
+        </i>
         <div
           class="grid grid-cols-1 gap-5 my-8 lg:grid-cols-2"
           v-if="showTargetCard"
@@ -197,6 +213,7 @@
   </div>
 </template>
 <script>
+import Hyperlink from "@/components/Hyperlink";
 import CardVaccineHome from "@/components/CardVaccineHome";
 import CardVaccineTarget from "@/components/CardVaccineTarget";
 export default {
@@ -231,6 +248,7 @@ export default {
     },
   },
   components: {
+    Hyperlink,
     CardVaccineHome,
     CardVaccineTarget,
   },

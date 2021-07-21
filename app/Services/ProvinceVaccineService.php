@@ -21,17 +21,17 @@ class ProvinceVaccineService
         $province_vaccine->second_vaccination_received_changes = $province_vaccine->second_vaccination_received - $province_vaccine_last->second_vaccination_received;
         $province_vaccine->second_vaccination_received_changes_rate = \calculateRate($province_vaccine->second_vaccination_received_changes, $province_vaccine_last->second_vaccination_received);
         $province_vaccine->health_worker_first_vaccination_received_changes = $province_vaccine->health_worker_first_vaccination_received - $province_vaccine_last->health_worker_first_vaccination_received;
-        $province_vaccine->health_worker_first_vaccination_received_changes_rate = \calculateRate($province_vaccine->health_worker_first_vaccination_changes, $province_vaccine->health_worker_first_vaccination_received);
+        $province_vaccine->health_worker_first_vaccination_received_changes_rate = \calculateRate($province_vaccine->health_worker_first_vaccination_received_changes, $province_vaccine->health_worker_first_vaccination_received);
         $province_vaccine->health_worker_second_vaccination_received_changes = $province_vaccine->health_worker_second_vaccination_received - $province_vaccine_last->health_worker_second_vaccination_received;
-        $province_vaccine->health_worker_second_vaccination_received_changes_rate = \calculateRate($province_vaccine->health_worker_second_vaccination_changes, $province_vaccine->health_worker_second_vaccination_received);
+        $province_vaccine->health_worker_second_vaccination_received_changes_rate = \calculateRate($province_vaccine->health_worker_second_vaccination_received_changes, $province_vaccine->health_worker_second_vaccination_received);
         $province_vaccine->elderly_first_vaccination_received_changes = $province_vaccine->elderly_first_vaccination_received - $province_vaccine_last->elderly_first_vaccination_received;
-        $province_vaccine->elderly_first_vaccination_received_changes_rate = \calculateRate($province_vaccine->elderly_first_vaccination_changes, $province_vaccine->elderly_first_vaccination_received);
+        $province_vaccine->elderly_first_vaccination_received_changes_rate = \calculateRate($province_vaccine->elderly_first_vaccination_received_changes, $province_vaccine->elderly_first_vaccination_received);
         $province_vaccine->elderly_second_vaccination_received_changes = $province_vaccine->elderly_second_vaccination_received - $province_vaccine_last->elderly_second_vaccination_received;
-        $province_vaccine->elderly_second_vaccination_received_changes_rate = \calculateRate($province_vaccine->elderly_second_vaccination_changes, $province_vaccine->elderly_second_vaccination_received);
+        $province_vaccine->elderly_second_vaccination_received_changes_rate = \calculateRate($province_vaccine->elderly_second_vaccination_received_changes, $province_vaccine->elderly_second_vaccination_received);
         $province_vaccine->public_officer_first_vaccination_received_changes = $province_vaccine->public_officer_first_vaccination_received - $province_vaccine_last->public_officer_first_vaccination_received;
-        $province_vaccine->public_officer_first_vaccination_received_changes_rate = \calculateRate($province_vaccine->public_officer_first_vaccination_changes, $province_vaccine->public_officer_first_vaccination_received);
+        $province_vaccine->public_officer_first_vaccination_received_changes_rate = \calculateRate($province_vaccine->public_officer_first_vaccination_received_changes, $province_vaccine->public_officer_first_vaccination_received);
         $province_vaccine->public_officer_second_vaccination_received_changes = $province_vaccine->public_officer_second_vaccination_received - $province_vaccine_last->public_officer_second_vaccination_received;
-        $province_vaccine->public_officer_second_vaccination_received_changes_rate = \calculateRate($province_vaccine->public_officer_second_vaccination_changes, $province_vaccine->public_officer_second_vaccination_received);
+        $province_vaccine->public_officer_second_vaccination_received_changes_rate = \calculateRate($province_vaccine->public_officer_second_vaccination_received_changes, $province_vaccine->public_officer_second_vaccination_received);
         return $province_vaccine;
     }
 }

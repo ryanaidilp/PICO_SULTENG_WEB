@@ -31,7 +31,7 @@
           <br />
           {{ formatDate(nationalVaccine.date) }}
         </p>
-        <i class="mb-4 text-xs text-gray-600">
+        <i class="text-xs text-gray-600">
           Sumber data :
           <hyperlink
             text-color="text-gray-600"
@@ -64,7 +64,10 @@
             text-color="text-orange-500"
           />
         </div>
-        <div class="grid grid-cols-1 gap-5 lg:grid-cols-2">
+        <div
+          class="grid grid-cols-1 gap-5 lg:grid-cols-2"
+          :class="showTargetCard ? '' : 'mt-8'"
+        >
           <card-vaccine-home
             :title="'Vaksinasi Dosis 1'"
             :total="nationalVaccine.cumulative_first_vaccination_received"
@@ -123,7 +126,7 @@
           <br />
           {{ formatDate(provinceVaccine.date) }}
         </p>
-        <i class="mb-4 text-xs text-gray-600">
+        <i class="text-xs text-gray-600">
           Sumber data :
           <hyperlink
             text-color="text-gray-600"
@@ -156,7 +159,10 @@
             text-color="text-orange-500"
           />
         </div>
-        <div class="grid grid-cols-1 gap-5 lg:grid-cols-2">
+        <div
+          class="grid grid-cols-1 gap-5 lg:grid-cols-2"
+          :class="showTargetCard ? '' : 'mt-8'"
+        >
           <card-vaccine-home
             :title="'Vaksinasi Dosis 1'"
             :total="provinceVaccine.cumulative_first_vaccination_received"

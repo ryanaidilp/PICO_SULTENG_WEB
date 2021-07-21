@@ -1,19 +1,22 @@
 <template>
   <div class="w-full p-4 text-gray-800 bg-white rounded-lg shadow-lg">
-    <h4 class="mb-2 text-2xl font-semibold">
+    <h4 class="mb-2 text-sm font-semibold md:text-2xl">
       {{ title }}
     </h4>
     <p :class="textColor" class="font-semibold">
       {{ new_vaccinated }}
       <span class="text-sm">
-        ( <i class="text-xs fas" :class="icon(growthRate)"></i>
+        ( <i class="text-xs fas" :class="icon(addition)"></i>
         {{ growth }} )</span
       >
     </p>
-    <p class="my-4 font-semibold text-center text-8xl" :class="textColor">
+    <p
+      class="my-4 text-5xl font-semibold text-center md:text-8xl"
+      :class="textColor"
+    >
       {{ total_vaccinated }}
     </p>
-    <p class="text-right text-gray-500">Dosis telah diberikan</p>
+    <p class="text-xs text-right text-gray-500 md:text-base">Dosis telah diberikan</p>
     <div class="flex flex-row justify-between my-4">
       <div class="flex flex-row w-5/6 h-8 bg-gray-200 rounded-md">
         <div
@@ -23,13 +26,13 @@
         ></div>
       </div>
       <p
-        class="w-1/6 my-auto text-xl font-semibold text-center lg:text-2xl"
+        class="w-1/6 mx-auto my-auto text-xs font-semibold text-center md:text-xl lg:text-2xl"
         :class="textColor"
       >
         {{ percentage(total, target) }}
       </p>
     </div>
-    <p class="text-gray-500">
+    <p class="text-xs text-gray-500 md:text-base">
       <b class="text-gray-800">{{ percentage(total, target) }}</b> dari
       <b class="text-gray-800">{{ target_vaccinated }}</b> telah divaksin
     </p>

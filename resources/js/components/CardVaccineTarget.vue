@@ -2,7 +2,7 @@
   <div
     class="w-full p-4 text-center text-gray-800 bg-white rounded-lg shadow-lg"
   >
-    <p class="font-semibold text-7xl" :class="textColor">
+    <p class="text-5xl font-semibold md:text-7xl" :class="textColor">
       {{ target_formatted }}
     </p>
     <p class="mt-4 text-gray-800">{{ label }}</p>

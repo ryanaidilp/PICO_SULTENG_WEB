@@ -17,7 +17,10 @@
         <rect x="30" y="0" rx="3" ry="3" width="400" height="15" />
       </content-loader>
     </div>
-    <p v-else class="w-full h-10 text-center lg:text-left md:ml-8 md:text-lg">
+    <p
+      v-else
+      class="w-full h-10 text-sm text-center lg:text-left md:ml-8 md:text-lg"
+    >
       <span class="text-gray-500">Pembaruan Terakhir :</span>
       {{ lastUpdate }}
 

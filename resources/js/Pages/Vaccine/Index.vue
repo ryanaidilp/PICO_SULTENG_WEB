@@ -97,6 +97,137 @@
           :national-vaccine="nationalVaccine"
         />
       </section>
+      <section class="px-4 py-8 mx-4 my-16 bg-white rounded-lg shadow-lg">
+        <h2 class="mb-8 text-2xl text-left md:text-3xl">
+          <b>Informasi Vaksinasi COVID-19</b>
+        </h2>
+        <div class="mb-8">
+          <h2 class="mb-2 text-xl font-semibold">Rangkuman</h2>
+          <p class="text-sm text-justify break-words md:text-base">
+            Vaksinasi COVID-19 sudah dimulai sejak 13 Januari 2021. Program
+            vaksinasi ini akan dilakukan secara bertahap dalam 2 gelombang yang
+            akan berlangsung hingga Maret 2022. Vaksin akan membuat tubuh
+            seseorang mengenali virus COVID-19, sehingga bila terpapar virus
+            tersebut akan menjadi lebih kebal. Jika pelaksanaan program
+            vaksinasi ini tinggi dan merata, maka akan mendorong terbentuknya
+            herd immunity (kekebalan kelompok) yang dapat membantu kita
+            menghadapi pandemi agar segera usai.
+            <br />
+            <i class="text-xs text-gray-600">
+              Sumber:
+              <hyperlink
+                text-color="text-gray-600"
+                href="https://kesmas.kemkes.go.id"
+                label="https://kesmas.kemkes.go.id"
+              />
+            </i>
+          </p>
+        </div>
+        <div class="mb-8">
+          <h2 class="mb-2 text-xl font-semibold">Apa itu vaksinasi?</h2>
+          <p class="text-sm text-justify break-words md:text-base">
+            Vaksinasi adalah proses di dalam tubuh, dimana seseorang menjadi
+            kebal atau terlindungi dari suatu penyakit sehingga apabila suatu
+            saat terpajan dengan penyakit tersebut maka tidak akan sakit atau
+            hanya mengalami sakit ringan, biasanya dengan pemberian vaksin.
+            <br />
+            <i class="text-xs text-gray-600">
+              Sumber:
+              <hyperlink
+                text-color="text-gray-600"
+                href="https://kesmas.kemkes.go.id"
+                label="https://kesmas.kemkes.go.id"
+              />
+            </i>
+          </p>
+        </div>
+        <div class="mb-8">
+          <h2 class="mb-2 text-xl font-semibold">Apakah Vaksin itu obat?</h2>
+          <p class="text-sm text-justify break-words md:text-base">
+            Vaksin bukanlah obat, vaksin mendorong pembentukan kekebalan
+            spesifik tubuh agar terhindar dari tertular ataupun kemungkinan
+            sakit berat. Selama belum ada obat yang defenitif untuk COVID-19,
+            maka vaksin COVID-19 yang aman dan efektif serta perilaku 3M
+            (memakasi masker, mencuci tangan dengan sabun dan menjaga jarak)
+            adalah upaya perlindungan yang bisa kita lakukan agar terhindar dari
+            penyakit COVID-19.
+            <br />
+            <i class="text-xs text-gray-600">
+              Sumber:
+              <hyperlink
+                text-color="text-gray-600"
+                href="https://kesmas.kemkes.go.id"
+                label="https://kesmas.kemkes.go.id"
+              />
+            </i>
+          </p>
+        </div>
+        <div class="mb-8">
+          <h2 class="mb-2 text-xl font-semibold">
+            Apa yang dimaksud dengan kekebalan kelompok (herd immunity)?
+          </h2>
+          <p class="text-sm text-justify break-words md:text-base">
+            Kekebalan kelompok atau herd Immunity merupakan situasi dimana
+            sebagian besar masyarakat terlindung/kebal terhadap penyakit
+            tertentu sehingga menimbulkan dampak tidak langsung (indirect
+            effect), yaitu turut terlindunginya kelompok masyarakat yang rentan
+            dan bukan merupakan sasaran vaksinasi. Kondisi tersebut hanya dapat
+            tercapai dengan cakupan vaksinasi yang tinggi dan merata.
+            <br />
+            <i class="text-xs text-gray-600">
+              Sumber:
+              <hyperlink
+                text-color="text-gray-600"
+                href="https://kesmas.kemkes.go.id"
+                label="https://kesmas.kemkes.go.id"
+              />
+            </i>
+          </p>
+        </div>
+        <div class="mb-8">
+          <h2 class="mb-2 text-xl font-semibold">
+            Apakah ada efek samping dari vaksinasi?
+          </h2>
+          <p class="text-sm text-justify break-words md:text-base">
+            Secara umum, efek samping yang timbul dapat beragam, pada umumnya
+            ringan dan bersifat sementara, dan tidak selalu ada, serta
+            bergantung pada kondisi tubuh. Efek simpang ringan seperti demam dan
+            nyeri otot atau ruam-ruam pada bekas suntikan adalah hal yang wajar
+            namun tetap perlu dimonitor. Melalui tahapan pengembangan dan
+            pengujian vaksin yang lengkap, efek samping yang berat dapat
+            terlebih dahulu terdeteksi sehingga dapat dievaluasi lebih lanjut.
+            Manfaat vaksin jauh lebih besar dibandingkan risiko sakit karena
+            terinfeksi bila tidak divaksin. Apabila nanti terjadi Kejadian
+            Ikutan Pasca Imunisasi (KIPI), kita sudah ada Komite Nasional
+            Pengkajian dan Penanggulangan KIPI maupun komite di setiap daerah
+            untuk memantau dan menanggulangi KIPI.
+
+            <br />
+            <i class="text-xs text-gray-600">
+              Sumber:
+              <hyperlink
+                text-color="text-gray-600"
+                href="https://kesmas.kemkes.go.id"
+                label="https://kesmas.kemkes.go.id"
+              />
+            </i>
+          </p>
+        </div>
+        <div class="mb-8">
+          <h2 class="mb-2 text-xl font-semibold">
+            Dimana bisa mendapatkan informasi terbaru seputar soal KIPI / dampak
+            vaksin COVID-19?
+          </h2>
+          <p class="text-sm text-justify break-words md:text-base">
+            Anda dapat mendapatkan informasi terbaru seputar KIPI / dampak
+            vaksin COVID-19 di sini:
+            <hyperlink
+              href="https://kipi.covid19.go.id"
+              label="https://kipi.covid19.go.id"
+            />
+          </p>
+        </div>
+      </section>
 
       <partner-footer :partners="partners" class="mt-8" />
     </div>
@@ -132,21 +263,21 @@ const formatStock = (value) => {
   if (value) {
     return `${value.toLocaleString("id-ID")} vial`;
   }
-  return "Belum Ada Info";
+  return "-";
 };
 
 const formatBoolean = (value) => {
   if (value) {
     return `Ya`;
   }
-  return "Tidak";
+  return "-";
 };
 
 const formatQuota = (value) => {
   if (value) {
     return `${value.toLocaleString("id-ID")}/hari`;
   }
-  return "Belum Ada Info";
+  return "-";
 };
 
 const formatNotes = (value) => {

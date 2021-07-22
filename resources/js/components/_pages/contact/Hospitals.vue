@@ -15,11 +15,13 @@
         <div
           v-for="hospital in hospitals"
           :key="hospital.id"
-          class="flex flex-col flex-wrap w-full p-4 border-l-2 border-blue-400 rounded-lg  border-left"
+          class="flex flex-col flex-wrap w-full p-4 border-l-2 border-r-2 border-blue-400 rounded-lg "
         >
           <h4 class="font-bold text-left">{{ hospital.name }}</h4>
-          <p class="text-xs text-left md:text-sm">{{ hospital.address }}</p>
-          <p class="text-sm">
+          <p class="flex-1 text-xs text-left md:text-sm">
+            {{ hospital.address }}
+          </p>
+          <div class="flex-1 text-sm">
             <a
               class="inline-block px-4 py-1 mt-2 mr-2 text-xs text-white rounded  hover:opacity-50"
               v-for="contact in hospital.contacts"
@@ -32,18 +34,29 @@
               <i class="mr-1 -ml-2 fas fa-sm" :class="setIcon(contact)" />
               <span>{{ contact.contact }}</span>
             </a>
-          </p>
-          <a
-            :href="
-              'https://maps.google.com/maps?q=' +
-              hospital.latitude +
-              ',' +
-              hospital.longitude
-            "
-            class="w-full p-2 mx-auto mt-2 text-sm text-left text-white bg-gray-700 rounded-md  hover:opacity-75 md:text-base"
-          >
-            <i class="fas fa-map"></i> Lihat di Map
-          </a>
+          </div>
+          <hr class="my-2" />
+          <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
+            <a
+              :href="
+                'https://maps.google.com/maps?q=' +
+                hospital.latitude +
+                ',' +
+                hospital.longitude
+              "
+              target="_blank"
+              class="w-full p-2 mx-auto text-sm text-center text-white bg-gray-700 rounded-md  hover:opacity-75 md:text-base"
+            >
+              <i class="fas fa-map"></i> Lihat di Peta
+            </a>
+            <a
+              :href="checkBed(hospital.hospital_code)"
+              target="_blank"
+              class="w-full p-2 mx-auto text-sm text-center text-white bg-pink-700 rounded-md  hover:opacity-75 md:text-base"
+            >
+              <i class="fas fa-procedures"></i> Lihat Tempat Tidur
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -124,6 +137,9 @@ export default {
         default:
           return "bg-gray-500";
       }
+    },
+    checkBed(hospitalCode) {
+      return `https://yankes.kemkes.go.id/app/siranap/tempat_tidur?kode_rs=${hospitalCode}&jenis=1&propinsi=72prop`;
     },
   },
   components: {

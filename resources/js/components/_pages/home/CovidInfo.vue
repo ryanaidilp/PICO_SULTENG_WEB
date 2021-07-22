@@ -1,17 +1,17 @@
 <template>
   <div>
-    <div class="mt-12">
+    <div class="mt-12 md:px-4">
       <h3 class="w-auto font-bold text-center text-md md:ml-10 md:text-3xl">
         Apa yang Harus Dilakukan?
       </h3>
       <card-periksa />
       <card-lindungi class="mt-8" />
     </div>
-    <div class="mt-12">
+    <div class="px-4 mt-12 md:px-8">
       <h3 class="w-auto font-bold text-center text-md md:ml-10 md:text-3xl">
         Apa yang Harus Diketahui?
       </h3>
-      <div class="w-full mt-4">
+      <div class="w-full mx-auto mt-4 bg-white rounded-lg shadow-lg">
         <div class="p-6 mx-4">
           <h3 class="text-xl font-bold lg:text-2xl">Apa Itu COVID-19?</h3>
           <div class="flex flex-row w-full">

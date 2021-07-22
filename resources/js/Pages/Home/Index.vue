@@ -1,14 +1,12 @@
 <template>
   <layout>
     <div class="w-full leading-normal xl:px-0 xl:mt-8">
-      <div class="flex flex-wrap justify-center">
+      <div class="flex flex-wrap items-center justify-between md:px-8">
         <banner
           :banners="banners"
           class="w-full px-4 rounded-lg shadow-lg  sm:px-0 h-96 xl:max-w-2xl xl:w-full"
         />
-        <div
-          class="flex flex-col flex-wrap w-full mt-4 xl:w-1/2 xl:ml-12 xl:-mt-3"
-        >
+        <div class="flex flex-col flex-wrap w-full xl:w-1/2">
           <call-center class="flex flex-wrap justify-center w-full" />
           <donation />
         </div>
@@ -21,7 +19,7 @@
         :province-vaccine="provinceVaccine"
         class="mt-8"
       />
-      <covid-info class="mt-16 md:mx-auto" />
+      <covid-info class="mb-16 md:mx-auto" />
       <see-more-link :linkUrl="route('wiki')" />
       <section class="m-4 mt-4 md:mt-8">
         <div
@@ -40,7 +38,7 @@
           </p>
           <br />
           <br />
-          <ul class="items-stretch block mt-8 lg:grid lg:grid-cols-3">
+          <ul class="items-stretch block gap-5 mt-8 lg:grid lg:grid-cols-3">
             <li v-for="(h, index) in hospitals" :key="index">
               <ContactListItem
                 :nama="h.name"

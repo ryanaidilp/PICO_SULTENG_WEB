@@ -9,11 +9,11 @@
         Sulawesi Tengah.
       </p>
       <content-loader v-if="taskForces.length <= 0"></content-loader>
-      <ul v-else class="items-stretch block mt-8 lg:grid lg:grid-cols-3">
+      <ul v-else class="items-stretch block gap-5 mt-8 lg:grid lg:grid-cols-3">
         <li v-for="(taskForce, index) in taskForces" :key="index">
           <ContactListItem
             :regency="taskForce.regency"
-            :label="`Gugus Tugas COVID-19 ${taskForce.regency}`"
+            :label="`Call Center & Hotline Gugus Tugas COVID-19 ${taskForce.regency}`"
             :contacts="taskForce.contacts"
           />
         </li>

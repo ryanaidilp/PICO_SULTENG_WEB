@@ -3,7 +3,7 @@
     <div
       class="flex flex-row items-center justify-between p-6 mx-4 text-gray-800 bg-white rounded-lg shadow-lg "
     >
-      <p class="w-1/2 mt-4 text-justify md:text-lg">
+      <p class="w-1/2 mt-4 text-xs text-justify md:text-lg">
         Ikuti perkembangan dan situasi terkini COVID-19 di Sulawesi Tengah
         dengan mengikuti kanal sosial media Sulteng Lawan Covid
       </p>

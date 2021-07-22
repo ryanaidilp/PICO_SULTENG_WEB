@@ -1,10 +1,10 @@
 <template>
   <layout>
     <div class="text-gray-800">
-      <h5 class="mt-8 ml-6 text-lg font-bold md:text-3xl md:text-left md:ml-6">
+      <h5 class="mx-6 mt-8 text-lg font-bold md:text-3xl md:text-left">
         Kontak Rumah Sakit dan Hotline Gugus Tugas di Kabupaten
       </h5>
-      <p class="ml-6 text-xs md:text-lg md:text-left md:ml-6">
+      <p class="mx-6 text-xs md:text-lg md:text-left">
         Informasi nomor telpon dan alamat rumah sakit yang menjadi rujukan
         pemeriksaan pasien COVID-19
       </p>

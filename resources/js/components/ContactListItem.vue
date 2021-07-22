@@ -3,7 +3,7 @@
     <div class="absolute top-0 bottom-0 left-0 w-1 bg-blue-300" />
     <h5 class="inline-block text-lg font-bold leading-loose">{{ nama }}</h5>
     <p class="opacity-75 text-md">{{ alamat }}</p>
-    <p class="text-sm">
+    <div class="text-sm">
       <a
         class="inline-block px-4 py-1 mt-2 mr-2 text-xs text-white rounded  hover:opacity-50"
         v-for="contact in contacts"
@@ -16,7 +16,7 @@
         <i class="mr-1 -ml-2 fas fa-sm" :class="setIcon(contact)" />
         <span>{{ contact.contact }}</span>
       </a>
-    </p>
+    </div>
   </div>
 </template>
 

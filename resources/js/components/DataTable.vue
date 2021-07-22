@@ -197,7 +197,7 @@ export default {
 }
 
 .table-bordered td {
-  border: 1px solid gray;
+  border: 1px solid rgb(206, 206, 206);
 }
 .table-bordered thead th,
 .table-bordered thead td {

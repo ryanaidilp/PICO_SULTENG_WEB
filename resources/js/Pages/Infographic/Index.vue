@@ -32,7 +32,7 @@
               >
                 <div class="relative overflow-hidden img-container">
                   <img
-                    @click="changeImage(item.images)"
+                    @click="show(item.images)"
                     :src="item.images[0]"
                     class="object-cover object-left-top w-full rounded-lg shadow-lg cursor-pointer  infographic-list__item-image"
                   />
@@ -42,7 +42,7 @@
                   >
                     <button
                       class="px-2 py-2 mr-1 rounded-md hover:bg-gray-800"
-                      @click="changeImage(item.images)"
+                      @click="show(item.images)"
                     >
                       <i class="mr-1 fas fa-eye"></i>
                       <span>Lihat</span>
@@ -59,7 +59,7 @@
                 <caption class="block w-full mt-4 text-left opacity-75">
                   <button
                     class="font-bold hover:underline"
-                    @click="changeImage(item.images)"
+                    @click="show(item.images)"
                   >
                     {{ item.title }}
                   </button>
@@ -77,7 +77,6 @@
 </template>
 
 <script>
-import VueGallerySlideshow from "vue-gallery-slideshow";
 import Layout from "@/layout/Layout";
 import PartnerFooter from "@/Shared/PartnerFooter";
 export default {
@@ -93,7 +92,6 @@ export default {
   },
   components: {
     Layout,
-    VueGallerySlideshow,
     PartnerFooter,
   },
   data() {
@@ -104,9 +102,10 @@ export default {
     };
   },
   methods: {
-    changeImage(images) {
-      this.idx = 0;
-      this.selectedImage = images;
+    show(images) {
+      this.$viewerApi({
+        images: images,
+      });
     },
   },
 };

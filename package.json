@@ -54,7 +54,7 @@
         "vue-template-compiler": "^2.6.12",
         "vuejs-datatable": "^2.0.0-alpha.7",
         "vuejs-datatables": "^1.0.30",
-        "xlsx": "^0.16.9"
+        "xlsx": "^0.17.0"
     },
     "dependencies": {
         "autoprefixer": "^10.2.6",

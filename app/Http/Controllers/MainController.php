@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Banner;
 use App\Models\Test;
-
 use Inertia\Inertia;
 use App\Models\Gender;
+use App\Models\Banner;
 use App\Models\Hospital;
 use App\Models\Province;
 use App\Models\Infographic;
+use App\Services\HospitalService;
+use App\Services\TaskForceService;
 use App\Services\NationalCaseService;
 use App\Services\ProvinceCaseService;
 use App\Services\NationalVaccineService;
@@ -33,7 +34,7 @@ class MainController extends Controller
             "contacts", "contacts.contact_type"
         ])
             ->inRandomOrder()->take(3)->get();
-        $infographics = Infographic::with("images")->latest()->take(10)->get();
+        $infographics = Infographic::with("images")->orderBy("id", "desc")->take(10)->get();
         $vaccine = (new NationalVaccineService)->latest();
         $province_vaccine = (new ProvinceVaccineService)->latest(72);
 
@@ -72,25 +73,13 @@ class MainController extends Controller
     public function contact()
     {
 
-        $districts = District::with("posts")->get();
-        $posts = $districts->map(function ($district) {
-            return [
-                "name" => $district->kabupaten,
-                "address" => "Hotline Gugus Tugas COVID-19 di " . $district->kabupaten,
-                "posts" => $district->posts->map(function ($post) {
-                    return [
-                        "name" => $post->nama,
-                        "phones" => $post->phones->map(function ($phone) {
-                            return $phone->phone;
-                        })->toArray()
-                    ];
-                })->toArray()
-            ];
-        })->toArray();
+        $task_forces = (new TaskForceService)->all(72);
+        $hospitals = (new HospitalService)->all(72);
+
 
         return Inertia::render("Contact/Index", [
-            "hospitals" => Hospital::all(),
-            "task_forces" => $posts
+            "hospitals" => $hospitals,
+            "taskForces" => $task_forces
         ]);
     }
 
@@ -137,14 +126,14 @@ class MainController extends Controller
 
     public function infographic()
     {
-        $infographics = Infographic::with("images")->latest()->get();
+        $infographics = Infographic::with("images")->orderBy("id", "desc")->get();
         return Inertia::render("Infographic/Index", [
             "infographics" => $infographics->map(function ($infographic) {
                 return [
                     "title" => $infographic->title,
-                    "route" => $infographic->link,
+                    "route" => $infographic->source,
                     "images" => $infographic->images->map(function ($image) {
-                        return $image->link;
+                        return $image->image_url;
                     })
                 ];
             })

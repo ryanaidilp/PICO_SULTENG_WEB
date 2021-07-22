@@ -6,6 +6,8 @@ $fa-font-path: "../fonts/font-awesome" !default;
 
 @import url("https://fonts.googleapis.com/css?family=Nunito");
 
+@import "viewerjs/dist/viewer.css";
+
 body {
     font-family: "Nunito", sans-serif;
 }

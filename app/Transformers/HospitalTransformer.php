@@ -38,6 +38,7 @@ class HospitalTransformer extends TransformerAbstract
             "address" => $hospital->address,
             "latitude" => $hospital->latitude,
             "longitude" => $hospital->longitude,
+            "hospital_code" => $hospital->hospital_code,
             "contacts"  => $hospital->contacts->map(function ($contact) {
                 return [
                     "contact_type_id" => $contact->contact_type_id,

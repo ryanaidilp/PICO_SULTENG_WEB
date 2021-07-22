@@ -35,7 +35,6 @@
         "vue-backtotop": "^1.6.1",
         "vue-carousel": "^0.18.0",
         "vue-content-loader": "^0.2.3",
-        "vue-gallery-slideshow": "^1.5.2",
         "vue-good-table": "^2.21.10",
         "vue-google-charts": "^0.3.3",
         "vue-lazyload": "^1.3.3",
@@ -57,6 +56,7 @@
         "@inertiajs/progress": "^0.2.5",
         "@turf/turf": "^6.5.0",
         "esri-loader": "^3.2.0",
+        "v-viewer": "^1.6.4",
         "vuex": "^3.6.2"
     }
 }

@@ -39,12 +39,12 @@
               class="inline-block px-4 py-1 mt-2 mr-2 text-xs text-white rounded  hover:opacity-50"
               v-for="contact in hospital.contacts"
               :key="contact.id"
-              :href="setHref(contact)"
+              :href="`${contact.prefix}${contact.contact}`"
               target="_blank"
-              :title="setLinkTitle(contact)"
-              :class="setBgColor(contact)"
+              :title="`${contact.label} ${contact.contact}`"
+              :class="contact.bg_color"
             >
-              <i class="mr-1 -ml-2 fas fa-sm" :class="setIcon(contact)" />
+              <i class="mr-1 -ml-2" :class="contact.icon" />
               <span>{{ contact.contact }}</span>
             </a>
           </div>
@@ -86,71 +86,6 @@ export default {
     },
   },
   methods: {
-    setHref(contact) {
-      let prefix = "";
-      switch (contact.contact_type_id) {
-        case 1:
-          prefix = "mailto:";
-          break;
-        case 2:
-          prefix = "tel:";
-          break;
-        case 3:
-          prefix = "fax:";
-          break;
-        default:
-          prefix = "https:";
-      }
-
-      return prefix.length > 0
-        ? `${prefix}${contact.contact}`
-        : contact.contact;
-    },
-    setLinkTitle(contact) {
-      let prefix = "";
-
-      switch (contact.contact_type_id) {
-        case 1:
-          prefix = "Kirim Email ke ";
-          break;
-        case 2:
-          prefix = "Telpon ";
-          break;
-        case 3:
-          prefix = "Fax ";
-          break;
-        default:
-          prefix = "Kunjungi ";
-      }
-
-      return prefix.length > 0
-        ? `${prefix}${contact.contact}`
-        : contact.contact;
-    },
-    setIcon(contact) {
-      switch (contact.contact_type_id) {
-        case 1:
-          return "fa-envelope";
-        case 2:
-          return "fa-phone";
-        case 3:
-          return "fa-fax";
-        default:
-          return "fa-globe";
-      }
-    },
-    setBgColor(contact) {
-      switch (contact.contact_type_id) {
-        case 1:
-          return "bg-green-500";
-        case 2:
-          return "bg-blue-500";
-        case 3:
-          return "bg-purple-500";
-        default:
-          return "bg-gray-500";
-      }
-    },
     checkBed(hospitalCode) {
       return `https://yankes.kemkes.go.id/app/siranap/tempat_tidur?kode_rs=${hospitalCode}&jenis=1&propinsi=72prop`;
     },

@@ -41,6 +41,10 @@ class TaskForceTransformer extends TransformerAbstract
                         "contact_type_id" => $contact->contact_type_id,
                         "contact" => $contact->contact,
                         "name" => $task_force->name,
+                        "prefix" => $contact->contact_type->prefix,
+                        "bg_color" => $contact->contact_type->bg_color,
+                        "icon" => $contact->contact_type->icon,
+                        "label" => $contact->contact_type->label,
                     ];
                 });
             });

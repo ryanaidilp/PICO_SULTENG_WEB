@@ -43,8 +43,13 @@ class HospitalTransformer extends TransformerAbstract
             "bed_update" => \optional($hospital->beds->first())->updated_at,
             "contacts"  => $hospital->contacts->map(function ($contact) {
                 return [
+                    "id" => (int) $contact->id,
                     "contact_type_id" => $contact->contact_type_id,
-                    "contact" => $contact->contact
+                    "contact" => $contact->contact,
+                    "prefix" => $contact->contact_type->prefix,
+                    "bg_color" => $contact->contact_type->bg_color,
+                    "icon" => $contact->contact_type->icon,
+                    "label" => $contact->contact_type->label,
                 ];
             }),
         ];

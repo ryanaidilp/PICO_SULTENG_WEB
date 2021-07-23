@@ -10,13 +10,16 @@
           <div class="flex flex-row my-2">
             <p class="mr-2 font-semibold">1.</p>
             <p>
-              Berdasarkan informasi dari @soalpalu, stok vaksin di Kota Palu
-              pada minggu ini (11-17 Juli 2021) sedang menipis. Oleh karena itu,
-              untuk vaksinasi suntikan pertama kemungkinan tidak dilayani.
-              Vaksinasi sedang diprioritaskan untuk masyarakat yang akan
-              melakukan penyuntikan kedua. Bagi masyarakat yang ingin melakukan
-              penyuntikan pertama, dimohon untuk ke fasilitas kesehatan terdekat
-              mulai minggu depan.
+              Berdasarkan informasi dari
+              <hyperlink
+                href="https://instagram.com/soalpalu"
+                label="@soalpalu"
+              />, stok vaksin di Kota Palu pada minggu ini (11-17 Juli 2021)
+              sedang menipis. Oleh karena itu, untuk vaksinasi suntikan pertama
+              kemungkinan tidak dilayani. Vaksinasi sedang diprioritaskan untuk
+              masyarakat yang akan melakukan penyuntikan kedua. Bagi masyarakat
+              yang ingin melakukan penyuntikan pertama, dimohon untuk ke
+              fasilitas kesehatan terdekat mulai minggu depan.
             </p>
           </div>
           <div class="flex flex-row my-2">

@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Test;
 use Inertia\Inertia;
-use App\Models\Gender;
 use App\Models\Banner;
+use App\Models\Gender;
 use App\Models\Hospital;
 use App\Models\Province;
 use App\Models\Infographic;
@@ -13,6 +13,7 @@ use App\Services\HospitalService;
 use App\Services\TaskForceService;
 use App\Services\NationalCaseService;
 use App\Services\ProvinceCaseService;
+use App\Services\TelemedicineService;
 use App\Services\NationalVaccineService;
 use App\Services\ProvinceVaccineService;
 use App\Services\VaccineLocationService;
@@ -30,10 +31,7 @@ class MainController extends Controller
         $local = (new ProvinceCaseService)->latest(72);
         $banners = Banner::active()->get();
         $national = (new NationalCaseService)->latest();
-        $hospitals = Hospital::with([
-            "contacts", "contacts.contact_type"
-        ])
-            ->inRandomOrder()->take(3)->get();
+        $hospitals = (new HospitalService)->random(3, 72);
         $infographics = Infographic::with("images")->orderBy("id", "desc")->take(10)->get();
         $vaccine = (new NationalVaccineService)->latest();
         $province_vaccine = (new ProvinceVaccineService)->latest(72);
@@ -67,6 +65,15 @@ class MainController extends Controller
             "provinceVaccine" => $province_vaccine,
             "nationalVaccine" => $national_vaccine,
             "vaccineLocations" => $vaccine_locations,
+        ]);
+    }
+
+    public function selfIsolation()
+    {
+        $telemedicines = (new TelemedicineService)->all();
+
+        return Inertia::render("Isolation/Index", [
+            "telemedicines" => $telemedicines,
         ]);
     }
 

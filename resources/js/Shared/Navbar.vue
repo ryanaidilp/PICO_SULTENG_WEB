@@ -20,7 +20,7 @@
               />
             </div>
             <div>
-              <span class="text-xs font-bold text-gray-800 md:text-lg"
+              <span class="text-xs font-semibold text-gray-800 md:text-lg"
                 >Pusat Informasi COVID-19</span
               >
               <br />
@@ -74,6 +74,18 @@
                 </li>
                 <li class="my-2 mr-6 md:my-0">
                   <inertia-link
+                    :href="route('self-isolation')"
+                    :class="isActive('self-isolation')"
+                    @click.prevent="changePage(route('self-isolation'))"
+                    class="block py-1 pl-1 text-gray-500 no-underline align-middle border-b-2 border-white  md:py-3 hover:text-gray-900 hover:border-blue-500"
+                  >
+                    <span class="pb-1 text-sm font-semibold md:pb-0"
+                      >Isoman</span
+                    >
+                  </inertia-link>
+                </li>
+                <li class="my-2 mr-6 md:my-0">
+                  <inertia-link
                     :href="route('contact')"
                     :class="isActive('contact')"
                     @click.prevent="changePage(route('contact'))"
@@ -98,11 +110,9 @@
                   <a
                     href="https://banuacoders.com/app/pico"
                     target="_blank"
-                    class="block py-2 text-white no-underline align-middle bg-blue-500 rounded-lg  hover:bg-blue-700"
+                    class="block px-3 py-2 text-sm font-bold text-center text-white no-underline align-middle bg-blue-500 rounded-lg  hover:bg-blue-700"
                   >
-                    <span class="px-3 text-sm font-bold md:pb-0"
-                      >Download App</span
-                    >
+                    Download App
                   </a>
                 </li>
               </ul>
@@ -200,8 +210,20 @@
                   target="_blank"
                   class="flex justify-between py-2 text-center text-gray-600 no-underline align-middle border-b-2 border-gray-300  hover:text-blue-500 hover:border-blue-500"
                 >
-                  <i class="fas fa-stethoscope"></i>
+                  <i class="px-3 fas fa-syringe"></i>
                   <span class="px-3">Vaksin</span>
+                </inertia-link>
+              </li>
+              <li class="my-2 md:my-0">
+                <inertia-link
+                  :href="route('self-isolation')"
+                  :class="isActive('self-isolation')"
+                  @click.prevent="changePage(route('self-isolation'))"
+                  target="_blank"
+                  class="flex justify-between py-2 text-center text-gray-600 no-underline align-middle border-b-2 border-gray-300  hover:text-blue-500 hover:border-blue-500"
+                >
+                  <i class="px-3 fas fa-procedures"></i>
+                  <span class="px-3">Isoman</span>
                 </inertia-link>
               </li>
               <li class="my-2 md:my-0">
@@ -212,7 +234,7 @@
                   target="_blank"
                   class="flex justify-between py-2 text-center text-gray-600 no-underline align-middle border-b-2 border-gray-300  hover:text-blue-500 hover:border-blue-500"
                 >
-                  <i class="pr-0 fas fa-question"></i>
+                  <i class="px-3 fas fa-question"></i>
                   <span class="px-3">Wiki</span>
                 </inertia-link>
               </li>

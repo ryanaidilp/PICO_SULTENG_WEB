@@ -11,14 +11,27 @@
         sebelum akhirnya dapat dirujuk ke rumah sakit di bawah ini.
       </p>
       <content-loader v-if="hospitals.length <= 0"></content-loader>
-      <div v-else class="grid grid-cols-1 gap-5 mt-8 md:grid-cols-3">
+      <div
+        v-else
+        class="grid grid-cols-1 gap-5 mt-8 md:grid-cols-2 xl:grid-cols-3"
+      >
         <div
           v-for="hospital in hospitals"
           :key="hospital.id"
           class="flex flex-col flex-wrap w-full p-4 border-l-2 border-r-2 border-blue-400 rounded-lg "
         >
-          <h4 class="font-bold text-left">{{ hospital.name }}</h4>
-          <p class="flex-1 text-xs text-left md:text-sm">
+          <h4 class="font-bold text-left">
+            {{ hospital.name }}
+            <span v-if="hospital.igd_count > 0" class="font-normal">
+              (<b>{{ hospital.igd_count }}</b> IGD tersedia)
+            </span>
+            <span v-else class="font-normal text-red-600"> (IGD Penuh!) </span>
+          </h4>
+          <p class="my-2 text-xs text-left">
+            <span class="text-gray-500">Pembaruan Terakhir : </span>
+            {{ formatDate(hospital.bed_update) }}
+          </p>
+          <p class="flex-1 my-2 text-xs text-left md:text-sm">
             {{ hospital.address }}
           </p>
           <div class="flex-1 text-sm">
@@ -45,14 +58,14 @@
                 hospital.longitude
               "
               target="_blank"
-              class="w-full p-2 mx-auto text-sm text-center text-white bg-gray-700 rounded-md  hover:opacity-75 md:text-base"
+              class="w-full p-2 mx-auto text-sm text-center text-white bg-gray-700 rounded-md  hover:opacity-75 xl:text-base"
             >
               <i class="fas fa-map"></i> Lihat di Peta
             </a>
             <a
               :href="checkBed(hospital.hospital_code)"
               target="_blank"
-              class="w-full p-2 mx-auto text-sm text-center text-white bg-pink-700 rounded-md  hover:opacity-75 md:text-base"
+              class="w-full p-2 mx-auto text-sm text-center text-white bg-pink-700 rounded-md  hover:opacity-75 xl:text-base"
             >
               <i class="fas fa-procedures"></i> Lihat Tempat Tidur
             </a>

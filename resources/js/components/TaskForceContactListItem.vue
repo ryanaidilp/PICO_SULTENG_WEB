@@ -3,24 +3,19 @@
     <div class="absolute top-0 bottom-0 left-0 w-1 bg-blue-300" />
     <h5 class="inline-block text-lg font-bold leading-loose">{{ regency }}</h5>
     <p class="opacity-75 text-md">{{ label }}</p>
-    <p class="text-sm">
-      <a
-        class="inline-block px-4 py-1 mt-2 mr-2 text-xs text-white rounded  hover:opacity-50"
+    <div class="mt-4 space-y-2 text-sm">
+      <contact-button
         v-for="contact in contacts"
         :key="contact.id"
-        :href="setHref(contact)"
-        target="_blank"
-        :title="setLinkTitle(contact)"
-        :class="setBgColor(contact)"
-      >
-        <i class="mr-1 -ml-2" :class="setIcon(contact)" />
-        <span>{{ contact.contact }}</span>
-      </a>
-    </p>
+        :contact="contact"
+        margin-right="mr-2"
+      />
+    </div>
   </div>
 </template>
 
 <script>
+import ContactButton from "@/components/ContactButton";
 export default {
   props: {
     contacts: {
@@ -36,19 +31,8 @@ export default {
       default: "",
     },
   },
-  methods: {
-    setHref(contact) {
-      return `${contact.prefix}${contact.contact}`;
-    },
-    setLinkTitle(contact) {
-      return `${contact.label} ${contact.contact}`;
-    },
-    setIcon(contact) {
-      return contact.icon;
-    },
-    setBgColor(contact) {
-      return contact.bg_color;
-    },
+  components: {
+    ContactButton,
   },
 };
 </script>

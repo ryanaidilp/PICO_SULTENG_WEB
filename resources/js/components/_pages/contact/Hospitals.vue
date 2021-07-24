@@ -34,19 +34,14 @@
           <p class="flex-1 my-2 text-xs text-left md:text-sm">
             {{ hospital.address }}
           </p>
-          <div class="flex-1 text-sm">
-            <a
-              class="inline-block px-4 py-1 mt-2 mr-2 text-xs text-white rounded  hover:opacity-50"
+          <div class="flex-1 space-y-2">
+            <contact-button
               v-for="contact in hospital.contacts"
               :key="contact.id"
-              :href="`${contact.prefix}${contact.contact}`"
-              target="_blank"
-              :title="`${contact.label} ${contact.contact}`"
-              :class="contact.bg_color"
-            >
-              <i class="mr-1 -ml-2" :class="contact.icon" />
-              <span>{{ contact.contact }}</span>
-            </a>
+              :contact="contact"
+              margin-right="mr-2"
+              class="flex-none"
+            />
           </div>
           <hr class="my-2" />
           <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
@@ -77,6 +72,7 @@
 </template>
 <script>
 import { ContentLoader } from "vue-content-loader";
+import ContactButton from "@/components/ContactButton";
 export default {
   props: {
     hospitals: {
@@ -92,6 +88,7 @@ export default {
   },
   components: {
     ContentLoader,
+    ContactButton,
   },
 };
 </script>

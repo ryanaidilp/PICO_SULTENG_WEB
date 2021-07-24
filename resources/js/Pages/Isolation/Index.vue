@@ -24,7 +24,7 @@
             </div>
             <a
               :href="information.url"
-              :target="information.isBlank ? '_blank' : ''"
+              :target="information.is_blank ? '_blank' : '_self'"
               class="flex flex-row items-center justify-between w-full p-2 text-white transition-all duration-150 bg-blue-600 rounded-lg  hover:bg-blue-700"
             >
               <span class="font-bold">{{ information.label }}</span>
@@ -428,6 +428,40 @@
         </div>
       </section>
       <section
+        id="donations"
+        class="px-4 py-2 mx-4 my-8 bg-white rounded-lg shadow-lg"
+      >
+        <div class="text-justify">
+          <p class="my-2 font-bold md:text-lg">Donasi Isoman</p>
+          <p>
+            Bagi teman-teman, roa-roa semua yang ingin berdonasi untuk
+            masyarakat yang tidak mampu dan sedang menjalani isolasi mandiri,
+            silahkan menyalurkan bantuan atau donasi yang sedang digalang oleh
+            teman-teman baik berikut.
+          </p>
+          <br />
+          <p>
+            Jika kita masih diberi rezeki dan memiliki kelebihan di tengah
+            pandemi ini, tidak ada salahnya kita baku bantu. Mari baku jaga.
+          </p>
+          <br />
+          <hr />
+          <p class="mx-auto my-4 font-bold text-center">
+            Daftar Donasi Khusus Pasien Isoman
+          </p>
+          <div class="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
+            <donation-card
+              v-for="donation in donations"
+              :key="donation.id"
+              :donation="donation"
+            />
+          </div>
+          <p class="mt-2 text-sm text-right text-gray-500">
+            Sumber : Berbagai Sumber
+          </p>
+        </div>
+      </section>
+      <section
         id="telemedicine"
         class="px-4 py-2 mx-4 my-8 bg-white rounded-lg shadow-lg"
       >
@@ -473,51 +507,14 @@
             Daftar <i>Telemedicine</i> Khusus Pasien Isoman
           </p>
           <div class="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
-            <div
+            <telemedicine-card
               v-for="telemedicine in telemedicines"
               :key="telemedicine.id"
-              class="px-4 py-2 text-gray-800 transition-all duration-300 border border-gray-600 rounded-lg  hover:shadow-lg hover:border-gray-400"
-            >
-              <h2 class="text-lg font-semibold">
-                {{ telemedicine.name }}
-                <span class="text-sm italic text-gray-600">
-                  ({{ telemedicine.is_free ? "Gratis" : "Berbayar" }})
-                </span>
-              </h2>
-              <hr class="my-2" />
-              <div>
-                <a
-                  class="inline-block px-4 py-1 mr-2 text-white transition-all duration-300 rounded  hover:opacity-50"
-                  v-for="contact in telemedicine.contacts"
-                  :key="contact.id"
-                  :href="setHref(contact)"
-                  target="_blank"
-                  :title="setLinkTitle(contact)"
-                  :class="setBgColor(contact)"
-                >
-                  <i class="mr-1 -ml-2" :class="setIcon(contact)" />
-                  <span class="font-semibold">{{ contact.contact }}</span>
-                </a>
-              </div>
-              <hr class="my-2" />
-              <p>Jadwal</p>
-              <div class="grid grid-cols-2 gap-2 text-xs">
-                <div
-                  v-for="schedule in telemedicine.schedules"
-                  :key="schedule.id"
-                  class="flex flex-col"
-                >
-                  <div>
-                    <i class="text-gray-600 fas fa-calendar"></i>
-                    {{ schedule.operational_day }}
-                  </div>
-                  <div>
-                    <i class="text-gray-600 fas fa-clock"></i>
-                    {{ `${schedule.operational_time} ${schedule.timezone}` }}
-                  </div>
-                </div>
-              </div>
-            </div>
+              :name="telemedicine.name"
+              :is-free="telemedicine.is_free"
+              :contacts="telemedicine.contacts"
+              :schedules="telemedicine.schedules"
+            />
           </div>
           <p class="mt-2 text-sm text-right text-gray-500">
             Sumber : Berbagai Sumber
@@ -532,6 +529,8 @@
 import Layout from "@/layout/Layout";
 import Hyperlink from "@/components/Hyperlink";
 import PartnerFooter from "@/Shared/PartnerFooter";
+import DonationCard from "@/components/_pages/isolation/DonationCard";
+import TelemedicineCard from "@/components/_pages/isolation/TelemedicineCard";
 export default {
   props: {
     partners: {
@@ -540,11 +539,16 @@ export default {
     telemedicines: {
       type: Array,
     },
+    donations: {
+      type: Array,
+    },
   },
   components: {
     Layout,
     Hyperlink,
     PartnerFooter,
+    DonationCard,
+    TelemedicineCard,
   },
   data() {
     return {
@@ -556,7 +560,7 @@ export default {
           label: "Tanyakan Sekarang",
           description:
             " Bagi warga yang membutuhkan obat atau konsultasi, yuk konsultasikan terlebih dahulu dengan dokter melalui layanan telekonsultasi dokter.",
-          isBlanK: false,
+          is_blank: false,
         },
         {
           url: "https://form.jotform.com/212021090712034",
@@ -565,7 +569,7 @@ export default {
           label: "Isi Sekarang",
           description:
             "Pendataan pasien isoman dan kebutuhan selama isoman untuk membantu tim relawan dalam mendistribusikan bantuan kebutuhan pokok untuk pasien isolasi mandiri.",
-          isBlanK: true,
+          is_blank: true,
         },
         {
           url: "https://bit.ly/faqisoman",
@@ -573,34 +577,20 @@ export default {
           title: "Pertanyaan Seputar Isoman",
           label: "Lihat",
           description:
-            "Kumpulan tanya jawab seputar isoman dari teman-teman dokter seputar Isoman dan COVID-19.",
-          isBlanK: true,
+            "Kumpulan tanya jawab dari teman-teman dokter dan nakes seputar Isoman dan COVID-19.",
+          is_blank: true,
         },
         {
-          url: "#",
+          url: "#donations",
           image: "delivery",
           title: "Donasi Untuk Pasien Isoman",
           label: "Donasi Sekarang",
           description:
             "Kumpulan donasi yang diinisiasi oleh teman-teman baik untuk membantu warga yang sedang melakukan isolasi mandiri.",
-          isBlanK: false,
+          is_blank: false,
         },
       ],
     };
-  },
-  methods: {
-    setHref(contact) {
-      return `${contact.prefix}${contact.contact}`;
-    },
-    setLinkTitle(contact) {
-      return `${contact.label} ${contact.contact}`;
-    },
-    setIcon(contact) {
-      return contact.icon;
-    },
-    setBgColor(contact) {
-      return contact.bg_color;
-    },
   },
 };
 </script>

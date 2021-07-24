@@ -30,15 +30,14 @@ class ProvinceCaseSeeder extends Seeder
             $first_case_province = Carbon::parse($first_case_province);
             $diff = $first_case_date->diffInDays($first_case_province);
 
-            $data = collect($data["list_perkembangan"]);
-            $data = $data->filter(function ($daily) use ($first_case_date) {
-                $dateint = (int) substr(Str::of($daily["tanggal"]), 0, -3);
-                $date = Carbon::parse($dateint);
-                return $date->isYesterday();
-            })->all();
+            // $data = collect($data["list_perkembangan"]);
+            // $data = $data->filter(function ($daily) use ($first_case_date) {
+            //     $dateint = (int) substr(Str::of($daily["tanggal"]), 0, -3);
+            //     $date = Carbon::parse($dateint);
+            //     return $date->isYesterday();
+            // })->all();
 
-            dd($data);
-
+            // dd($data);
             if ($first_case_province->isBefore($first_case_date)) {
                 $cases = $data["list_perkembangan"];
                 for ($i = 1; $i < count($cases) - $diff; $i++) {

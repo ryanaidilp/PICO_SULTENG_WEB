@@ -4,6 +4,7 @@ namespace App\Transformers;
 
 use App\Models\Hospital;
 use League\Fractal\TransformerAbstract;
+use App\Transformers\ContactTransformer;
 
 class HospitalTransformer extends TransformerAbstract
 {
@@ -13,7 +14,7 @@ class HospitalTransformer extends TransformerAbstract
      * @var array
      */
     protected $defaultIncludes = [
-        //
+        "contacts"
     ];
 
     /**
@@ -41,17 +42,12 @@ class HospitalTransformer extends TransformerAbstract
             "hospital_code" => $hospital->hospital_code,
             "igd_count" => $hospital->igd_count,
             "bed_update" => \optional($hospital->beds->first())->updated_at,
-            "contacts"  => $hospital->contacts->map(function ($contact) {
-                return [
-                    "id" => (int) $contact->id,
-                    "contact_type_id" => $contact->contact_type_id,
-                    "contact" => $contact->contact,
-                    "prefix" => $contact->contact_type->prefix,
-                    "bg_color" => $contact->contact_type->bg_color,
-                    "icon" => $contact->contact_type->icon,
-                    "label" => $contact->contact_type->label,
-                ];
-            }),
+
         ];
+    }
+
+    public function includeContacts(Hospital $hospital)
+    {
+        return $this->collection($hospital->contacts, new ContactTransformer);
     }
 }

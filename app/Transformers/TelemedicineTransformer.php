@@ -4,6 +4,8 @@ namespace App\Transformers;
 
 use App\Models\Telemedicine;
 use League\Fractal\TransformerAbstract;
+use App\Transformers\ContactTransformer;
+use App\Transformers\TelemedicineScheduleTransformer;
 
 class TelemedicineTransformer extends TransformerAbstract
 {
@@ -13,7 +15,7 @@ class TelemedicineTransformer extends TransformerAbstract
      * @var array
      */
     protected $defaultIncludes = [
-        //
+        "contacts", "schedules"
     ];
 
     /**
@@ -34,27 +36,17 @@ class TelemedicineTransformer extends TransformerAbstract
     {
         return [
             "name" => $telemedicine->name,
-            "is_free" => $telemedicine->is_free,
-            "contacts" => $telemedicine->contacts->map(function ($contact) {
-                return [
-                    "id" => $contact->id,
-                    "name" => $contact->name,
-                    "contact" => $contact->contact,
-                    "contact_type_id" => $contact->contact_type_id,
-                    "prefix" => $contact->contact_type->prefix,
-                    "bg_color" => $contact->contact_type->bg_color,
-                    "icon" => $contact->contact_type->icon,
-                    "label" => $contact->contact_type->label,
-                ];
-            })->toArray(),
-            "schedules" => $telemedicine->schedules->map(function ($schedule) {
-                return [
-                    "id" => $schedule->id,
-                    "operational_day" => $schedule->operational_day,
-                    "operational_time"  => $schedule->operational_time,
-                    "timezone" => $schedule->timezone,
-                ];
-            })->toArray(),
+            "is_free" => (bool) $telemedicine->is_free,
         ];
+    }
+
+    public function includeContacts(Telemedicine $telemedicine)
+    {
+        return $this->collection($telemedicine->contacts, new ContactTransformer);
+    }
+
+    public function includeSchedules(Telemedicine $telemedicine)
+    {
+        return $this->collection($telemedicine->schedules, new TelemedicineScheduleTransformer);
     }
 }

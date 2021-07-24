@@ -9,6 +9,7 @@ use App\Models\Gender;
 use App\Models\Hospital;
 use App\Models\Province;
 use App\Models\Infographic;
+use App\Services\DonationService;
 use App\Services\HospitalService;
 use App\Services\TaskForceService;
 use App\Services\NationalCaseService;
@@ -32,7 +33,7 @@ class MainController extends Controller
         $banners = Banner::active()->get();
         $national = (new NationalCaseService)->latest();
         $hospitals = (new HospitalService)->random(3, 72);
-        $infographics = Infographic::with("images")->orderBy("id", "desc")->take(10)->get();
+        $infographics = Infographic::with("images")->orderBy("id", "desc")->take(5)->get();
         $vaccine = (new NationalVaccineService)->latest();
         $province_vaccine = (new ProvinceVaccineService)->latest(72);
 
@@ -71,9 +72,11 @@ class MainController extends Controller
     public function selfIsolation()
     {
         $telemedicines = (new TelemedicineService)->all();
+        $donations = (new DonationService)->all();
 
         return Inertia::render("Isolation/Index", [
             "telemedicines" => $telemedicines,
+            "donations" => $donations
         ]);
     }
 

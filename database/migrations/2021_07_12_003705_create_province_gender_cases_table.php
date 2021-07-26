@@ -33,12 +33,12 @@ class CreateProvinceGenderCasesTable extends Migration
             $table->integer("positive_female_25_49");
             $table->integer("positive_female_50_54");
             $table->integer("positive_female_55");
-            $table->integer("odp_female_0_14");
-            $table->integer("odp_female_15_19");
-            $table->integer("odp_female_20_24");
-            $table->integer("odp_female_25_49");
-            $table->integer("odp_female_50_54");
-            $table->integer("odp_female_55");
+            $table->integer("pdp_male_0_14");
+            $table->integer("pdp_male_15_19");
+            $table->integer("pdp_male_20_24");
+            $table->integer("pdp_male_25_49");
+            $table->integer("pdp_male_50_54");
+            $table->integer("pdp_male_55");
             $table->integer("pdp_female_0_14");
             $table->integer("pdp_female_15_19");
             $table->integer("pdp_female_20_24");

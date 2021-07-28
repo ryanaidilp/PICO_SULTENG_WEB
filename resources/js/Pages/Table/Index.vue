@@ -183,9 +183,9 @@
 /* eslint-disable */
 import { DataTable, ItemsPerPageDropdown, Pagination } from "v-datatable-light";
 import { ContentLoader } from "vue-content-loader";
-import _ from "lodash";
 import XLSX from "xlsx";
 import Layout from "@/layout/Layout";
+import { mapState, mapActions } from "vuex";
 const addZero = (value) => ("0" + value).slice(-2);
 const formatDate = (value) => {
   if (value) {
@@ -262,10 +262,6 @@ export default {
       type: Array,
       required: true,
     },
-    statistics: {
-      type: Array,
-      required: true,
-    },
   },
   components: {
     ContentLoader,
@@ -277,73 +273,7 @@ export default {
   },
   data() {
     return {
-      jsonDataKabupaten: [
-        {
-          no: 1,
-          nama: "Banggai",
-          dataHarian: [],
-        },
-        {
-          no: 2,
-          nama: "Banggai Kepulauan",
-          dataHarian: [],
-        },
-        {
-          no: 3,
-          nama: "Banggai Laut",
-          dataHarian: [],
-        },
-        {
-          no: 4,
-          nama: "Buol",
-          dataHarian: [],
-        },
-        {
-          no: 5,
-          nama: "Donggala",
-          dataHarian: [],
-        },
-        {
-          no: 6,
-          nama: "Morowali",
-          dataHarian: [],
-        },
-        {
-          no: 7,
-          nama: "Morowali Utara",
-          dataHarian: [],
-        },
-        {
-          no: 8,
-          nama: "Parigi Mautong",
-          dataHarian: [],
-        },
-        {
-          no: 9,
-          nama: "Poso",
-          dataHarian: [],
-        },
-        {
-          no: 10,
-          nama: "Sigi",
-          dataHarian: [],
-        },
-        {
-          no: 11,
-          nama: "Tojo Una-Una",
-          dataHarian: [],
-        },
-        {
-          no: 12,
-          nama: "Toli-Toli",
-          dataHarian: [],
-        },
-        {
-          no: 13,
-          nama: "Kota Palu",
-          dataHarian: [],
-        },
-      ],
+      jsonDataKabupaten: [],
       isLoading: true,
       jsonDataRekapitulasiSultengKumulatifKab: [],
       headerFields: [
@@ -499,85 +429,24 @@ export default {
       createHeaderName: "created:header",
     };
   },
+  computed: {
+    ...mapState(["regencies_daily"]),
+  },
+
   mounted() {
     this.fetchDataRekapitulasiSultengKumulatifKab();
   },
   methods: {
-    groupDataKab(data) {
-      const self = this;
-      data.forEach((element) => {
-        const temp1 = {
-          hari_ke: element.hari_ke,
-          tanggal: element.tanggal,
-        };
-        const temp2 = {
-          nama: "",
-          kasus_baru: {
-            positif: 0,
-            sembuh: 0,
-            meninggal: 0,
-            ODP: 0,
-            PDP: 0,
-          },
-          aktif: {
-            dalam_perawatan: 0,
-            ODP: 0,
-            PDP: 0,
-          },
-          selesai: {
-            ODP: 0,
-            PDP: 0,
-          },
-          kumulatif: {
-            positif: 0,
-            sembuh: 0,
-            meninggal: 0,
-            ODP: 0,
-            PDP: 0,
-            selesai_PDP: 0,
-            selesai_ODP: 0,
-          },
-        };
-
-        self.jsonDataKabupaten.forEach((kabupaten) => {
-          temp2.nama = kabupaten.nama;
-          let temp4 = { ...temp1, ...temp2 };
-          element.daftar_kabupaten.forEach((kab) => {
-            if (kabupaten.no === kab.no) {
-              const temp5 = {
-                nama: kab.nama,
-                kasus_baru: { ...kab.kasus_baru },
-                aktif: { ...kab.aktif },
-                selesai: { ...kab.selesai },
-                kumulatif: { ...kab.kumulatif },
-              };
-              temp4 = {
-                ...temp1,
-                ...temp5,
-              };
-            }
-          });
-          kabupaten.dataHarian.push(temp4);
-        });
-      });
-    },
+    ...mapActions(["loadRegenciesWithDaily"]),
     fetchDataRekapitulasiSultengKumulatifKab() {
       const self = this;
-      self.groupDataKab(self.statistics.data);
+      if (_.isEmpty(self.regencies_daily)) {
+        self.loadRegenciesWithDaily(72);
+      }
+      self.jsonDataKabupaten = self.regencies_daily;
       self.jsonDataKabupaten.forEach((kabupaten) => {
-        let prev_data = {
-          odp: 0,
-          odp_selesai: 0,
-          odp_proses: 0,
-          pdp: 0,
-          pdp_selesai: 0,
-          pdp_proses: 0,
-          positif: 0,
-          sembuh: 0,
-          meninggal: 0,
-        };
-        for (let i = 0; i < kabupaten.dataHarian.length; i++) {
-          const harian = kabupaten.dataHarian[i];
+        for (let i = 0; i < kabupaten.daily.length; i++) {
+          const harian = kabupaten.daily[i];
           let temp3 = {
             tanggal: "",
             nama_kab: "",
@@ -604,71 +473,21 @@ export default {
           };
           temp3.tanggal = harian.tanggal;
           temp3.nama_kab = harian.nama;
-          if (harian.kumulatif.ODP === 0 && prev_data.odp !== 0) {
-            temp3.odp = prev_data.odp;
-          } else {
-            temp3.odp = harian.kumulatif.ODP;
-          }
-          if (
-            harian.kumulatif.selesai_ODP === 0 &&
-            prev_data.odp_selesai !== 0
-          ) {
-            temp3.odp_selesai = prev_data.odp_selesai;
-          } else {
-            temp3.odp_selesai = harian.kumulatif.selesai_ODP;
-          }
-          if (harian.aktif.ODP === 0 && prev_data.odp_proses !== 0) {
-            if (
-              harian.kumulatif.ODP !== 0 &&
-              harian.kumulatif.selesai_ODP != 0
-            ) {
-              temp3.odp_proses = harian.aktif.ODP;
-            } else {
-              temp3.odp_proses = prev_data.odp_proses;
-            }
-          } else {
-            temp3.odp_proses = harian.aktif.ODP;
-          }
-          if (harian.kumulatif.PDP === 0 && prev_data.pdp !== 0) {
-            temp3.pdp = prev_data.pdp;
-          } else {
-            temp3.pdp = harian.kumulatif.PDP;
-          }
-          if (
-            harian.kumulatif.selesai_PDP == 0 &&
-            prev_data.pdp_selesai !== 0
-          ) {
-            temp3.pdp_selesai = prev_data.pdp_selesai;
-          } else {
-            temp3.pdp_selesai = harian.kumulatif.selesai_PDP;
-          }
-          if (harian.aktif.PDP == 0 && prev_data.pdp_proses !== 0) {
-            if (
-              harian.kumulatif.PDP !== 0 &&
-              harian.kumulatif.selesai_PDP !== 0
-            ) {
-              temp3.pdp_proses = harian.aktif.PDP;
-            } else {
-              temp3.pdp_proses = prev_data.pdp_proses;
-            }
-          } else {
-            temp3.pdp_proses = harian.aktif.PDP;
-          }
-          if (harian.kumulatif.positif == 0 && prev_data.positif !== 0) {
-            temp3.positif = prev_data.positif;
-          } else {
-            temp3.positif = harian.kumulatif.positif;
-          }
-          if (harian.kumulatif.sembuh == 0 && prev_data.sembuh !== 0) {
-            temp3.sembuh = prev_data.sembuh;
-          } else {
-            temp3.sembuh = harian.kumulatif.sembuh;
-          }
-          if (harian.kumulatif.meninggal == 0 && prev_data.meninggal !== 0) {
-            temp3.meninggal = prev_data.meninggal;
-          } else {
-            temp3.meninggal = harian.kumulatif.meninggal;
-          }
+
+          temp3.odp = harian.kumulatif.ODP;
+          temp3.odp_selesai = harian.kumulatif.selesai_ODP;
+
+          temp3.odp_proses = harian.aktif.ODP;
+
+          temp3.pdp = harian.kumulatif.PDP;
+          temp3.pdp_selesai = harian.kumulatif.selesai_PDP;
+
+          temp3.pdp_proses = harian.aktif.PDP;
+
+          temp3.positif = harian.kumulatif.positif;
+          temp3.sembuh = harian.kumulatif.sembuh;
+          temp3.meninggal = harian.kumulatif.meninggal;
+
           temp2.pertumbuhan_odp = harian.kasus_baru.ODP;
           temp2.pertumbuhan_odp_selesai = harian.selesai.ODP;
           temp2.pertumbuhan_odp_proses =
@@ -684,7 +503,6 @@ export default {
             ...temp3,
             ...temp2,
           });
-          prev_data = { ...temp3 };
         }
       });
 
@@ -812,146 +630,9 @@ export default {
 }
 </style>
 
-<style>
-.table {
-  width: 100%;
-  max-width: 100%;
-  margin-bottom: 1rem;
-}
-.table th,
-.table td {
-  padding: 0.75rem;
-  vertical-align: top;
-  border-top: 1px solid #5e6061;
-}
-.table thead th {
-  vertical-align: bottom;
-  border-bottom: 2px solid #eceeef;
-}
-.table tbody + tbody {
-  border-top: 2px solid #eceeef;
-}
-.table .table {
-  background-color: #fff;
-}
-.table-sm th,
-.table-sm td {
-  padding: 0.3rem;
-}
-.table-bordered {
-  border: 1px solid #eceeef;
-}
-.table-bordered th,
-.table-bordered td {
-  border: 1px solid #eceeef;
-}
-.table-bordered thead th,
-.table-bordered thead td {
-  border-bottom-width: 2px;
-}
-.table-striped tbody tr:nth-of-type(odd) {
-  background-color: rgba(0, 0, 0, 0.05);
-}
-.table-hover tbody tr:hover {
-  background-color: rgba(0, 0, 0, 0.075);
-}
-.table-active,
-.table-active > th,
-.table-active > td {
-  background-color: rgba(0, 0, 0, 0.075);
-}
-.table-hover .table-active:hover {
-  background-color: rgba(0, 0, 0, 0.075);
-}
-.table-hover .table-active:hover > td,
-.table-hover .table-active:hover > th {
-  background-color: rgba(0, 0, 0, 0.075);
-}
-.table-success,
-.table-success > th,
-.table-success > td {
-  background-color: #dff0d8;
-}
-.table-hover .table-success:hover {
-  background-color: #d0e9c6;
-}
-.table-hover .table-success:hover > td,
-.table-hover .table-success:hover > th {
-  background-color: #d0e9c6;
-}
-.table-info,
-.table-info > th,
-.table-info > td {
-  background-color: #d9edf7;
-}
-.table-hover .table-info:hover {
-  background-color: #c4e3f3;
-}
-.table-hover .table-info:hover > td,
-.table-hover .table-info:hover > th {
-  background-color: #c4e3f3;
-}
-.table-warning,
-.table-warning > th,
-.table-warning > td {
-  background-color: #fcf8e3;
-}
-.table-hover .table-warning:hover {
-  background-color: #faf2cc;
-}
-.table-hover .table-warning:hover > td,
-.table-hover .table-warning:hover > th {
-  background-color: #faf2cc;
-}
-.table-danger,
-.table-danger > th,
-.table-danger > td {
-  background-color: #f2dede;
-}
-.table-hover .table-danger:hover {
-  background-color: #ebcccc;
-}
-.table-hover .table-danger:hover > td,
-.table-hover .table-danger:hover > th {
-  background-color: #ebcccc;
-}
-.thead-inverse th {
-  color: #fff;
-  background-color: #292b2c;
-}
-.thead-default th {
-  color: #464a4c;
-  background-color: #eceeef;
-}
-.table-inverse {
-  color: #fff;
-  background-color: #292b2c;
-}
-.table-inverse th,
-.table-inverse td,
-.table-inverse thead th {
-  border-color: #fff;
-}
-.table-inverse.table-bordered {
-  border: 0;
-}
-.table-responsive {
-  display: block;
-  width: 100%;
-  overflow-x: auto;
-  -ms-overflow-style: -ms-autohiding-scrollbar;
-}
-.table-responsive.table-bordered {
-  border: 0;
-}
-</style>
+
 
 <style>
-.my-custom-scrollbar {
-  position: relative;
-  height: 500px;
-  overflow-y: scroll;
-}
 /* thead tr:nth-child(1) th { position: sticky; top: 0; background-color: white;}
 tbody td:nth-child(1) { position: sticky; left: 0; background-color: white; }
 head th:nth-child(1) { position: sticky; left: 0; top:0; background-color: white; } */
@@ -969,6 +650,7 @@ head th:nth-child(1) { position: sticky; left: 0; top:0; background-color: white
   position: sticky;
   left: 0;
   background-color: lightslategray;
+  color: white;
   text-align: left;
 }
 #table-download-data tbody td:nth-child(2) {
@@ -976,6 +658,7 @@ head th:nth-child(1) { position: sticky; left: 0; top:0; background-color: white
   position: sticky;
   left: 80px;
   background-color: lightslategray;
+  color: white;
   text-align: left;
 }
 /* To have the header in the first column stick to the left: */
@@ -989,97 +672,7 @@ head th:nth-child(1) { position: sticky; left: 0; top:0; background-color: white
   z-index: 1;
   background-color: lightslategray;
 }
-.column-0 {
-  width: 100px !important;
-}
-.column-1 {
-  width: 200px !important;
-}
-.th-wrapper {
-  width: 120px !important;
-}
-.header-column-0 {
-  width: 100px !important;
-}
-.header-column-1 {
-  width: 200px !important;
-}
-.header-column-2 {
-  width: 140px !important;
-}
-.header-column-5 {
-  width: 140px !important;
-}
-.header-column-11 {
-  width: 140px !important;
-}
-.header-column-14 {
-  width: 140px !important;
-}
-/* Datatable CSS */
-.v-datatable-light .header-item {
-  cursor: pointer;
-  color: white;
-  transition: color 0.15s ease-in-out;
-  vertical-align: top;
-  font-size: smaller;
-  padding-top: 0.5rem;
-  padding-bottom: 0.2rem;
-}
-.v-datatable-light .header-item:hover {
-  color: #337ab7;
-}
-.v-datatable-light .header-item.no-sortable {
-  cursor: default;
-}
-.v-datatable-light .header-item.no-sortable:hover {
-  color: lightslategrey;
-}
-.v-datatable-light .header-item .th-wrapper {
-  display: flex;
-  width: 100%;
-  height: 100%;
-  font-weight: bold;
-}
-.v-datatable-light .header-item .th-wrapper.checkboxes {
-  justify-content: center;
-}
-.v-datatable-light .header-item .th-wrapper .arrows-wrapper {
-  display: flex;
-  flex-direction: column;
-  margin-left: 10px;
-  justify-content: space-between;
-}
-.v-datatable-light .header-item .th-wrapper .arrows-wrapper.centralized {
-  justify-content: center;
-}
-.v-datatable-light .arrow {
-  transition: color 0.15s ease-in-out;
-  width: 0;
-  height: 0;
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-}
-.v-datatable-light .arrow.up {
-  border-bottom: 5px solid white;
-}
-.v-datatable-light .arrow.up:hover {
-  border-bottom: 5px solid #337ab7;
-}
-.v-datatable-light .arrow.down {
-  border-top: 5px solid white;
-}
-.v-datatable-light .arrow.down:hover {
-  border-top: 5px solid #337ab7;
-}
-.v-datatable-light .footer {
-  display: flex;
-  justify-content: space-between;
-  width: 500px;
-}
-.v-datatable-light tbody {
-  font-size: small;
-}
+
 /* #app .v-datatable-light .row-7 .column-4 {
   color: steelblue;
 }
@@ -1098,53 +691,4 @@ head th:nth-child(1) { position: sticky; left: 0; top:0; background-color: white
 #app .v-datatable-light .row-3 .column-5 {
   color: purple;
 } */
-/* End Datatable CSS */
-/* Pagination CSS */
-.v-datatable-light-pagination {
-  list-style: none;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  margin: 0;
-  padding: 0;
-  width: 300px;
-  height: 30px;
-}
-.v-datatable-light-pagination .pagination-item {
-  width: 30px;
-  margin-right: 5px;
-  font-size: 16px;
-  transition: color 0.15s ease-in-out;
-}
-.v-datatable-light-pagination .pagination-item.selected {
-  color: #ed9b19;
-}
-.v-datatable-light-pagination .pagination-item .page-btn {
-  background-color: transparent;
-  outline: none;
-  border: none;
-  color: #337ab7;
-  transition: color 0.15s ease-in-out;
-}
-.v-datatable-light-pagination .pagination-item .page-btn:hover {
-  color: #ed9b19;
-}
-.v-datatable-light-pagination .pagination-item .page-btn:disabled {
-  cursor: not-allowed;
-  box-shadow: none;
-  opacity: 0.65;
-}
-/* END PAGINATION CSS */
-/* ITEMS PER PAGE DROPDOWN CSS */
-.item-per-page-dropdown {
-  background-color: transparent;
-  min-height: 30px;
-  border: 1px solid #337ab7;
-  border-radius: 5px;
-  color: #337ab7;
-}
-.item-per-page-dropdown:hover {
-  cursor: pointer;
-}
-/* END ITEMS PER PAGE DROPDOWN CSS */
 </style>

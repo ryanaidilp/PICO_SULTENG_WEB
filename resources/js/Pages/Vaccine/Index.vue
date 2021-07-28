@@ -86,8 +86,8 @@
           <b>Situasi Vaksinasi COVID-19</b>
         </h2>
         <vaccine-data
-          :province-vaccine="provinceVaccine"
-          :national-vaccine="nationalVaccine"
+          :province-vaccine="province_vaccine"
+          :national-vaccine="national_vaccine"
           show-target-card
         />
       </section>
@@ -96,8 +96,8 @@
           <b>Progress Vaksinasi COVID-19</b>
         </h2>
         <vaccine-progress
-          :province-vaccine="provinceVaccine"
-          :national-vaccine="nationalVaccine"
+          :province-vaccine="province_vaccine"
+          :national-vaccine="national_vaccine"
         />
       </section>
       <section class="px-4 py-8 mx-4 my-16 bg-white rounded-lg shadow-lg">
@@ -243,6 +243,7 @@ import VaccineData from "@/components/_pages/home/VaccineData";
 import VaccineProgress from "@/components/_pages/vaccine/VaccineProgress";
 import DataTable from "@/components/DataTable";
 import Hyperlink from "@/components/Hyperlink";
+import { mapState } from "vuex";
 
 const formatDate = (value) => {
   if (value) {
@@ -354,15 +355,12 @@ export default {
     partners: {
       type: Array,
     },
-    provinceVaccine: {
-      type: Object,
-    },
-    nationalVaccine: {
-      type: Object,
-    },
     vaccineLocations: {
       type: Array,
     },
+  },
+  computed: {
+    ...mapState(["national_vaccine", "province_vaccine"]),
   },
   components: {
     Layout,
@@ -375,7 +373,7 @@ export default {
   methods: {
     reloadData() {
       setInterval(() => {
-        this.$inertia.reload({ only: ["localVaccine", "nationalVaccine"] });
+        this.$inertia.reload({ only: ["vaccineLocations"] });
       }, 5 * 60 * 1000);
     },
     formatDate(date) {

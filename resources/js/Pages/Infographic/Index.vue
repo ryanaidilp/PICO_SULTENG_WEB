@@ -2,11 +2,6 @@
   <layout>
     <div class="w-full leading-normal text-gray-800 xl:px-0 xl:mt-8">
       <section class="m-4 mt-8">
-        <vue-gallery-slideshow
-          :images="selectedImage"
-          :index="idx"
-          @close="idx = null"
-        ></vue-gallery-slideshow>
         <div class="bg-white rounded-lg shadow-md">
           <div class="flex flex-col flex-wrap p-5 items-left md:p-8">
             <h2 class="text-xl leading-normal md:text-3xl">
@@ -24,7 +19,9 @@
               </p>
             </h2>
             <hr class="my-6" />
-            <div class="infographic-list">
+            <div
+              class="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-12"
+            >
               <figure
                 class="relative w-full"
                 v-for="(item, index) in infographics"
@@ -113,21 +110,8 @@ export default {
 
 <style lang="scss" scoped>
 .infographic-list {
-  display: grid;
-  grid-template-columns: 1fr;
-  column-gap: 1.5rem;
-  row-gap: 3rem;
-
   &__item-image {
     height: 256px;
-  }
-
-  @screen md {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  @screen lg {
-    grid-template-columns: 1fr 1fr 1fr;
   }
 }
 

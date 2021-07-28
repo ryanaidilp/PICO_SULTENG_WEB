@@ -4,7 +4,7 @@
       <div class="flex flex-wrap items-center justify-between md:px-8">
         <banner
           :banners="banners"
-          class="w-full px-4 rounded-lg shadow-lg  sm:px-0 h-96 xl:max-w-2xl xl:w-full"
+          class="w-full px-4 rounded-lg shadow-lg sm:px-0 h-96 xl:max-w-2xl xl:w-full"
         />
         <div class="flex flex-col flex-wrap w-full xl:w-1/2">
           <call-center class="flex flex-wrap justify-center w-full" />
@@ -15,8 +15,8 @@
         :national.sync="national"
         :local.sync="local"
         :last-update="formatDate(updated_at)"
-        :national-vaccine="nationalVaccine"
-        :province-vaccine="provinceVaccine"
+        :national-vaccine="national_vaccine"
+        :province-vaccine="province_vaccine"
         class="mt-8"
       />
       <covid-info class="mb-16 md:mx-auto" />
@@ -50,7 +50,7 @@
           <br />
           <inertia-link
             :href="route('contact')"
-            class="px-4 py-2 text-center text-blue-700 border-2 border-blue-500 border-solid rounded-lg  md:self-center hover:bg-blue-200"
+            class="px-4 py-2 text-center text-blue-700 border-2 border-blue-500 border-solid rounded-lg md:self-center hover:bg-blue-200"
             >Lihat Rumah Sakit Lainnya</inertia-link
           >
         </div>
@@ -75,7 +75,7 @@
           <ShareableItems :items="infographics" />
           <div class="pb-5 text-center md:pb-8">
             <inertia-link
-              class="inline-block px-4 py-2 mt-8 text-center text-blue-800 border-2 border-blue-500 border-solid rounded-lg  md:self-center hover:bg-blue-200"
+              class="inline-block px-4 py-2 mt-8 text-center text-blue-800 border-2 border-blue-500 border-solid rounded-lg md:self-center hover:bg-blue-200"
               :href="route('infographic')"
               >Lihat Selengkapnya</inertia-link
             >
@@ -99,17 +99,10 @@ import ContactListItem from "@/components/ContactListItem";
 import ShareableItems from "@/components/ShareableItems/Index";
 import PartnerFooter from "@/Shared/PartnerFooter";
 import { Inertia } from "@inertiajs/inertia";
+import { mapState } from "vuex";
 
 export default {
   props: {
-    local: {
-      type: Object,
-      required: true,
-    },
-    national: {
-      type: Object,
-      required: true,
-    },
     banners: {
       type: Array,
       required: true,
@@ -122,12 +115,6 @@ export default {
     },
     partners: {
       type: Array,
-    },
-    nationalVaccine: {
-      type: Object,
-    },
-    provinceVaccine: {
-      type: Object,
     },
   },
 
@@ -144,26 +131,19 @@ export default {
     PartnerFooter,
   },
   computed: {
+    ...mapState(["national_vaccine", "province_vaccine", "local", "national"]),
     updated_at() {
       if (_.isEmpty(this.local)) {
         return new Date();
       }
-      return this.local.national_case.date;
+      return this.local.tanggal;
     },
   },
   methods: {
     reloadData() {
       setInterval(() => {
         Inertia.reload({
-          only: [
-            "local",
-            "national",
-            "banners",
-            "donations",
-            "infographics",
-            "nationalVaccine",
-            "provinceVaccine",
-          ],
+          only: ["banners", "donations", "infographics"],
         });
       }, 5 * 60 * 1000);
     },

@@ -29,7 +29,11 @@
         <p>
           <span class="text-gray-500">Pembaruan Terakhir </span>
           <br />
-          {{ formatDate(nationalVaccine.date) }}
+          {{
+            !isNull(nationalVaccine)
+              ? formatDate(nationalVaccine.date)
+              : "Tidak ada data"
+          }}
         </p>
         <i class="text-xs text-gray-600">
           Sumber data :
@@ -41,7 +45,7 @@
         </i>
         <div
           class="grid grid-cols-1 gap-5 my-8 lg:grid-cols-2"
-          v-if="showTargetCard"
+          v-if="showTargetCard && !isNull(nationalVaccine)"
         >
           <card-vaccine-target
             :target="nationalVaccine.total_vaccination_target"
@@ -64,7 +68,13 @@
             text-color="text-orange-500"
           />
         </div>
+        <card-vaccine-target-loader v-else-if="showTargetCard" class="mb-8" />
+        <card-vaccine-home-loader
+          v-if="isNull(nationalVaccine)"
+          :class="showTargetCard ? '' : 'mt-8'"
+        />
         <div
+          v-else
           class="grid grid-cols-1 gap-5 lg:grid-cols-2"
           :class="showTargetCard ? '' : 'mt-8'"
         >
@@ -124,7 +134,11 @@
         <p>
           <span class="text-gray-500">Pembaruan Terakhir </span>
           <br />
-          {{ formatDate(provinceVaccine.date) }}
+          {{
+            !isNull(provinceVaccine)
+              ? formatDate(provinceVaccine.date)
+              : "Tidak ada data"
+          }}
         </p>
         <i class="text-xs text-gray-600">
           Sumber data :
@@ -136,7 +150,7 @@
         </i>
         <div
           class="grid grid-cols-1 gap-5 my-8 lg:grid-cols-2"
-          v-if="showTargetCard"
+          v-if="showTargetCard && !isNull(provinceVaccine)"
         >
           <card-vaccine-target
             :target="provinceVaccine.total_vaccination_target"
@@ -159,7 +173,10 @@
             text-color="text-orange-500"
           />
         </div>
+        <card-vaccine-target-loader v-else-if="showTargetCard" class="mb-8" />
+        <card-vaccine-home-loader v-if="isNull(nationalVaccine)" />
         <div
+          v-else
           class="grid grid-cols-1 gap-5 lg:grid-cols-2"
           :class="showTargetCard ? '' : 'mt-8'"
         >
@@ -222,6 +239,8 @@
 import Hyperlink from "@/components/Hyperlink";
 import CardVaccineHome from "@/components/CardVaccineHome";
 import CardVaccineTarget from "@/components/CardVaccineTarget";
+import CardVaccineHomeLoader from "@/components/loaders/CardVaccineHomeLoader";
+import CardVaccineTargetLoader from "@/components/loaders/CardVaccineTargetLoader";
 export default {
   props: {
     nationalVaccine: {
@@ -252,11 +271,16 @@ export default {
       }
       return "text-gray-400";
     },
+    isNull(value) {
+      return _.isEmpty(value);
+    },
   },
   components: {
     Hyperlink,
     CardVaccineHome,
     CardVaccineTarget,
+    CardVaccineHomeLoader,
+    CardVaccineTargetLoader,
   },
 };
 </script>

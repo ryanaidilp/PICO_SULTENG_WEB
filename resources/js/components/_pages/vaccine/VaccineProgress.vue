@@ -28,7 +28,11 @@
         <p>
           <span class="text-gray-500">Pembaruan Terakhir </span>
           <br />
-          {{ formatDate(nationalVaccine.date) }}
+          {{
+            !isNull(nationalVaccine)
+              ? formatDate(nationalVaccine.date)
+              : "Tidak ada data"
+          }}
         </p>
         <i class="text-xs text-gray-600">
           Sumber data :
@@ -38,7 +42,8 @@
             label="https://vaksin.kemkes.go.id"
           />
         </i>
-        <div class="grid w-full gap-5 mt-4 xl:grid-cols-2">
+        <card-vaccine-loader v-if="isNull(provinceVaccine)" class="mt-4" />
+        <div v-else class="grid w-full gap-5 mt-4 xl:grid-cols-2">
           <div class="grid w-full grid-cols-1 gap-5">
             <p class="text-2xl font-semibold">Vaksinasi Dosis 1</p>
             <card-vaccine
@@ -162,7 +167,11 @@
         <p>
           <span class="text-gray-500">Pembaruan Terakhir </span>
           <br />
-          {{ formatDate(provinceVaccine.date) }}
+          {{
+            !isNull(provinceVaccine)
+              ? formatDate(provinceVaccine.date)
+              : "Tidak ada data"
+          }}
         </p>
         <i class="text-xs text-gray-600">
           Sumber data :
@@ -172,7 +181,8 @@
             label="https://dinkes.sultengprov.go.id"
           />
         </i>
-        <div class="grid w-full gap-5 mt-4 xl:grid-cols-2">
+        <card-vaccine-loader v-if="isNull(provinceVaccine)" class="mt-4" />
+        <div v-else class="grid w-full gap-5 mt-4 xl:grid-cols-2">
           <div class="grid w-full grid-cols-1 gap-5">
             <p class="text-2xl font-semibold">Vaksinasi Dosis 1</p>
             <card-vaccine
@@ -295,6 +305,7 @@
 <script>
 import Hyperlink from "@/components/Hyperlink";
 import CardVaccine from "@/components/CardVaccine";
+import CardVaccineLoader from "@/components/loaders/CardVaccineLoader";
 export default {
   props: {
     nationalVaccine: {
@@ -309,6 +320,7 @@ export default {
   components: {
     Hyperlink,
     CardVaccine,
+    CardVaccineLoader,
   },
   data() {
     return {
@@ -325,6 +337,9 @@ export default {
         return "text-gray-800 border-b-2 border-gray-800";
       }
       return "text-gray-400";
+    },
+    isNull(value) {
+      return _.isEmpty(value);
     },
   },
 };

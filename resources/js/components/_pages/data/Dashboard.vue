@@ -1,7 +1,7 @@
 <template>
   <div>
     <h3
-      class="w-full mt-8 text-lg font-bold text-center md:text-left md:ml-4 md:text-3xl"
+      class="w-full mt-8 text-lg font-bold text-center  md:text-left md:ml-4 md:text-3xl"
     >
       Dashboard COVID-19 Sulawesi Tengah
     </h3>
@@ -19,7 +19,7 @@
     </div>
     <p
       v-else
-      class="w-full h-10 text-xs text-center md:text-left md:ml-4 text-muted md:text-lg"
+      class="w-full h-10 text-xs text-center  md:text-left md:ml-4 text-muted md:text-lg"
     >
       Pembaruan Terakhir :
       {{ lastUpdate }}
@@ -33,22 +33,23 @@
         >
       </i>
     </p>
-    <content-loader
-      v-if="!local && !national"
-      :height="400"
-      :width="900"
-      :speed="1"
-      primaryColor="#ddd"
-      secondaryColor="#fff"
-    >
-      <rect x="5" y="20" rx="10" ry="10" width="210" height="110" />
-      <rect x="230" y="20" rx="10" ry="10" width="210" height="110" />
-      <rect x="460" y="20" rx="10" ry="10" width="210" height="110" />
-      <rect x="690" y="20" rx="10" ry="10" width="210" height="110" />
-      <rect x="0" y="150" rx="10" ry="10" width="450" height="210" />
-      <rect x="480" y="150" rx="10" ry="10" width="450" height="210" />
-    </content-loader>
-    <statistics :local="local" :national="national" class="mt-4" />
+    <div v-if="isNull(local) && isNull(national)">
+      <content-loader
+        :height="400"
+        :width="900"
+        :speed="1"
+        primaryColor="#ddd"
+        secondaryColor="#fff"
+      >
+        <rect x="5" y="20" rx="10" ry="10" width="210" height="110" />
+        <rect x="230" y="20" rx="10" ry="10" width="210" height="110" />
+        <rect x="460" y="20" rx="10" ry="10" width="210" height="110" />
+        <rect x="690" y="20" rx="10" ry="10" width="210" height="110" />
+        <rect x="0" y="150" rx="10" ry="10" width="450" height="210" />
+        <rect x="480" y="150" rx="10" ry="10" width="450" height="210" />
+      </content-loader>
+    </div>
+    <statistics v-else :local="local" :national="national" class="mt-4" />
   </div>
 </template>
 <script>
@@ -75,6 +76,11 @@ export default {
     lastUpdate: {
       type: String,
       default: () => null,
+    },
+  },
+  methods: {
+    isNull(data) {
+      return _.isEmpty(data);
     },
   },
 };

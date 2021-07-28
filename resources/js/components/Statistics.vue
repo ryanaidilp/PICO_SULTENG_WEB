@@ -9,37 +9,39 @@
         >
           <card-case
             title="Positif"
-            :cumulative-local.sync="local.cumulative_positive"
-            :new-local.sync="local.positive"
-            :cumulative-national.sync="national.cumulative_positive"
-            :new-national.sync="national.positive"
+            :cumulative-local="loadValue(local, 'kumulatif', 'positif')"
+            :new-local="loadValue(local, 'kasus_baru', 'positif')"
+            :cumulative-national="loadValue(national, 'kumulatif', 'positif')"
+            :new-national="loadValue(national, 'kasus_baru', 'positif')"
             bg-color="bg-red-800"
             text-color="text-red-800"
           />
           <card-case
             title="Dirawat"
-            :cumulative-local.sync="local.cumulative_under_treatment"
-            :new-local.sync="local.under_treatment"
-            :cumulative-national.sync="national.cumulative_under_treatment"
-            :new-national.sync="national.under_treatment"
+            :cumulative-local="loadValue(local, 'aktif', 'dalam_perawatan')"
+            :new-local="loadValue(local, 'kasus_baru', 'dalam_perawatan')"
+            :cumulative-national="
+              loadValue(national, 'kumulatif', 'dalam_perawatan')
+            "
+            :new-national="loadValue(national, 'kasus_baru', 'dalam_perawatan')"
             bg-color="bg-blue-600"
             text-color="text-blue-600"
           />
           <card-case
             title="Sembuh"
-            :cumulative-local.sync="local.cumulative_recovered"
-            :new-local.sync="local.recovered"
-            :cumulative-national.sync="national.cumulative_recovered"
-            :new-national.sync="national.recovered"
+            :cumulative-local="loadValue(local, 'kumulatif', 'sembuh')"
+            :new-local="loadValue(local, 'kasus_baru', 'sembuh')"
+            :cumulative-national="loadValue(national, 'kumulatif', 'sembuh')"
+            :new-national="loadValue(national, 'kasus_baru', 'sembuh')"
             bg-color="bg-green-500"
             text-color="text-green-500"
           />
           <card-case
             title="Meninggal"
-            :cumulative-local.sync="local.cumulative_deceased"
-            :new-local.sync="local.deceased"
-            :cumulative-national.sync="national.cumulative_deceased"
-            :new-national.sync="national.deceased"
+            :cumulative-local="loadValue(local, 'kumulatif', 'meninggal')"
+            :new-local="loadValue(local, 'kasus_baru', 'meninggal')"
+            :cumulative-national="loadValue(national, 'kumulatif', 'meninggal')"
+            :new-national="loadValue(national, 'kasus_baru', 'meninggal')"
             bg-color="bg-orange-500"
             text-color="text-orange-500"
           />
@@ -51,24 +53,20 @@
       >
         <card-suspect
           title="Pasien Dalam Pengawasan (PDP)"
-          :new-case.sync="local.person_under_supervision"
-          :new-finished-case.sync="local.finished_person_under_supervision"
-          :active-case.sync="local.active_person_under_supervision"
-          :total-case.sync="local.cumulative_person_under_supervision"
-          :total-finished-case.sync="
-            local.cumulative_finished_person_under_supervision
-          "
+          :new-case="local.kasus_baru.PDP"
+          :new-finished-case="local.selesai.PDP"
+          :active-case="local.aktif.PDP"
+          :total-case="local.kumulatif.PDP"
+          :total-finished-case="local.kumulatif.selesai_PDP"
           status="Pengawasan"
         />
         <card-suspect
           title="Orang Dalam Pemantauan (ODP)"
-          :new-case.sync="local.person_under_observation"
-          :new-finished-case.sync="local.finished_person_under_observation"
-          :active-case.sync="local.active_person_under_observation"
-          :total-case.sync="local.cumulative_person_under_observation"
-          :total-finished-case.sync="
-            local.cumulative_finished_person_under_observation
-          "
+          :new-case="local.ODP"
+          :new-finished-case="local.selesai.ODP"
+          :active-case="local.aktif.ODP"
+          :total-case="local.kumulatif.ODP"
+          :total-finished-case="local.kumulatif.selesai_ODP"
           status="Pemantauan"
         />
       </div>
@@ -92,6 +90,14 @@ export default {
   components: {
     CardCase,
     CardSuspect,
+  },
+  methods: {
+    loadValue(data, key, scndKey = null) {
+      if (data[key]) {
+        return scndKey !== null ? data[key][scndKey] : data[key];
+      }
+      return 0;
+    },
   },
 };
 </script>

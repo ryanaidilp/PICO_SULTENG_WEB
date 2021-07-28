@@ -71,21 +71,23 @@
         </div>
       </section>
       <section class="m-4 mb-8 md:m-8">
-        <div class="w-full chart-container-b">
-          <keep-alive>
-            <new-case
-              :props-data-provinsi.sync="regencyNewCase"
-              class="w-full"
-            ></new-case>
-          </keep-alive>
-          <keep-alive>
-            <pie-chart
-              :props-data-provinsi.sync="
-                province_data[province_data.length - 1]
-              "
-              class="w-full"
-            ></pie-chart>
-          </keep-alive>
+        <div class="w-full">
+          <div class="flex flex-col w-full lg:flex-row">
+            <keep-alive>
+              <new-case
+                :props-data-provinsi.sync="regencyNewCase"
+                class="w-full lg:w-2/3"
+              ></new-case>
+            </keep-alive>
+            <keep-alive>
+              <pie-chart
+                :props-data-provinsi.sync="
+                  province_data[province_data.length - 1]
+                "
+                class="w-full lg:w-1/3"
+              ></pie-chart>
+            </keep-alive>
+          </div>
         </div>
       </section>
       <section class="m-4 mb-8 md:m-12">
@@ -250,15 +252,6 @@ export default {
   row-gap: 1rem;
   @screen md {
     grid-template-columns: 2fr 4fr;
-  }
-}
-.chart-container-b {
-  display: grid;
-  grid-template-columns: 1fr;
-  column-gap: 1rem;
-  row-gap: 1rem;
-  @screen md {
-    grid-template-columns: 4fr 2fr;
   }
 }
 </style>

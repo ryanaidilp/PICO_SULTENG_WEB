@@ -6,13 +6,7 @@ use App\Models\NationalVaccine;
 
 class NationalVaccineObserver
 {
-    /**
-     * Handle the NationalVaccine "created" event.
-     *
-     * @param  \App\Models\NationalVaccine  $nationalVaccine
-     * @return void
-     */
-    public function created(NationalVaccine $vaccine)
+    public function creating(NationalVaccine $vaccine)
     {
         $latest = NationalVaccine::latest("day")->first();
         $vaccine->cumulative_first_vaccination_received = $latest->cumulative_first_vaccination_received + $vaccine->first_vaccination_received;
@@ -23,6 +17,16 @@ class NationalVaccineObserver
         $vaccine->cumulative_health_worker_second_vaccination_received = $latest->cumulative_health_worker_second_vaccination_received + $vaccine->health_worker_second_vaccination_received;
         $vaccine->cumulative_public_officer_first_vaccination_received = $latest->cumulative_public_officer_first_vaccination_received + $vaccine->public_officer_first_vaccination_received;
         $vaccine->cumulative_public_officer_second_vaccination_received = $latest->cumulative_public_officer_second_vaccination_received + $vaccine->public_officer_second_vaccination_received;
+    }
+    /**
+     * Handle the NationalVaccine "created" event.
+     *
+     * @param  \App\Models\NationalVaccine  $nationalVaccine
+     * @return void
+     */
+    public function created(NationalVaccine $vaccine)
+    {
+        # code...
     }
 
     /**

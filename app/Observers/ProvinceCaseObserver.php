@@ -25,8 +25,8 @@ class ProvinceCaseObserver
         $case->cumulative_recovered = $case->recovered + $latest->cumulative_recovered;
         $case->cumulative_person_under_observation = ($case->person_under_observation ?? 0) + ($latest->cumulative_person_under_observation ?? 0);
         $case->cumulative_person_under_supervision = ($case->person_under_supervision ?? 0) + ($latest->cumulative_person_under_supervision ?? 0);
-        $case->cumulative_finished_person_under_observation = $case->finished_person_under_observation ?? 0 + $latest->cumulative_finished_person_under_observation ?? 0;
-        $case->cumulative_finished_person_under_supervision = $case->finished_person_under_supervision ?? 0 + $latest->cumulative_finished_person_under_supervision ?? 0;
+        $case->cumulative_finished_person_under_observation = ($case->finished_person_under_observation ?? 0) + ($latest->cumulative_finished_person_under_observation ?? 0);
+        $case->cumulative_finished_person_under_supervision = ($case->finished_person_under_supervision ?? 0) + ($latest->cumulative_finished_person_under_supervision ?? 0);
     }
 
     /**

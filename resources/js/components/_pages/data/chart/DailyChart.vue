@@ -1,41 +1,26 @@
 <template>
-  <div style="height: 400px">
-    <keep-alive>
-      <canvas
-        id="chart-container"
-        aria-label="Chart Harian COVID-19"
-        role="img"
-      ></canvas>
-    </keep-alive>
+  <div class="w-full h-full">
+    <div style="height: 400px">
+      <keep-alive>
+        <canvas
+          id="chart-container"
+          aria-label="Chart Harian COVID-19"
+          role="img"
+        ></canvas>
+      </keep-alive>
+    </div>
+    <button
+      @click="resetZoom"
+      class="float-right px-4 py-2 mx-4 mb-4 text-blue-500 transition-all duration-300 bg-gray-200 rounded-md  hover:bg-gray-300"
+    >
+      Reset Zoom
+    </button>
   </div>
 </template>
 <script>
-import {
-  Chart,
-  DatasetController,
-  BarController,
-  BarElement,
-  LineController,
-  LineElement,
-  PointElement,
-  LinearScale,
-  Title,
-  scales,
-  Tooltip,
-} from "chart.js";
-Chart.register(
-  DatasetController,
-  BarController,
-  BarElement,
-  LineController,
-  LineElement,
-  PointElement,
-  LinearScale,
-  Title,
-  scales,
-  Tooltip
-);
-import "chart.js/dist/Chart.min";
+import Chart from "chart.js/auto";
+import zoomPlugin from "chartjs-plugin-zoom";
+Chart.register({ zoomPlugin });
 import { id } from "date-fns/locale";
 const { format } = require("date-fns");
 export default {
@@ -47,6 +32,10 @@ export default {
     wilayah: {
       type: String,
       default: () => "Sulawesi Tengah",
+    },
+    propsDataRekapitulasiKabupaten: {
+      type: Array,
+      default: () => [],
     },
     propsDataRekapitulasiProv: {
       type: Array,
@@ -76,80 +65,14 @@ export default {
       finishedPdpBorderColor: "rgba(48, 23, 79, 0.8)",
       jsonDataHarianProvinsi: [],
       jsonDataHarianNasional: [],
-      jsonDataKabupaten: [
-        {
-          no: 1,
-          nama: "Banggai",
-          dataHarian: [],
-        },
-        {
-          no: 2,
-          nama: "Banggai Kepulauan",
-          dataHarian: [],
-        },
-        {
-          no: 3,
-          nama: "Banggai Laut",
-          dataHarian: [],
-        },
-        {
-          no: 4,
-          nama: "Buol",
-          dataHarian: [],
-        },
-        {
-          no: 5,
-          nama: "Donggala",
-          dataHarian: [],
-        },
-        {
-          no: 6,
-          nama: "Morowali",
-          dataHarian: [],
-        },
-        {
-          no: 7,
-          nama: "Morowali Utara",
-          dataHarian: [],
-        },
-        {
-          no: 8,
-          nama: "Parigi Moutong",
-          dataHarian: [],
-        },
-        {
-          no: 9,
-          nama: "Poso",
-          dataHarian: [],
-        },
-        {
-          no: 10,
-          nama: "Sigi",
-          dataHarian: [],
-        },
-        {
-          no: 11,
-          nama: "Tojo Una-Una",
-          dataHarian: [],
-        },
-        {
-          no: 12,
-          nama: "Toli-Toli",
-          dataHarian: [],
-        },
-        {
-          no: 13,
-          nama: "Kota Palu",
-          dataHarian: [],
-        },
-      ],
+      jsonDataKabupaten: [],
       chartHarianOption: {
         type: "bar",
         data: {
           labels: [],
           datasets: [
             {
-              label: "Rata-Rata Mingguan",
+              label: "Rataan 7 Hari",
               type: "line",
               data: [],
               fill: false,
@@ -160,57 +83,69 @@ export default {
             {
               label: "Kasus Baru",
               data: [],
-              yAxisID: "kasus-baru",
               backgroundColor: "",
               borderColor: "",
             },
           ],
         },
         options: {
+          locale: "id-ID",
+          spanGaps: true,
           plugins: {
             datalabels: {
               display: false,
             },
-            tooltips: {
-              mode: "index",
-              intersect: false,
-              backgroundColor: "rgba(255,255,255,1)",
-              titleFontColor: "#000",
-              bodyFontColor: "#000",
-              borderColor: "#222",
-              borderWidth: 1,
+            title: {
+              display: true,
+              fontSize: 16,
+              text: [""],
+            },
+            zoom: {
+              limits: {
+                y: { min: 0 },
+              },
+              pan: {
+                enabled: true,
+                mode: "x",
+              },
+              zoom: {
+                wheel: {
+                  enabled: true,
+                },
+
+                pinch: {
+                  enabled: true,
+                },
+                mode: "x",
+              },
             },
             legend: { position: "bottom", usePointStyle: true, display: true },
           },
           scales: {
-            yAxes: [
-              {
-                type: "linear",
-                id: "kasus-baru",
-                position: "right",
-                display: true,
-                scaleLabel: { display: true, labelString: "Kasus Baru" },
+            yAxis: {
+              type: "linear",
+              id: "kasus-baru",
+              position: "right",
+              display: true,
+              title: { display: true, text: "Kasus Baru" },
+              ticks: {
+                step: 1,
               },
-            ],
-            xAxes: [
-              {
-                ticks: {
-                  callback: function (value, index, values) {
-                    var data = value.split(" ");
-                    return data[0] + data[1];
-                  },
-                  maxRotation: 90,
-                  minRotation: 90,
-                },
-                display: true,
-                stacked: true,
-                scaleLabel: { display: true, labelString: "Tanggal" },
+            },
+
+            xAxis: {
+              ticks: {
+                maxRotation: 90,
+                minRotation: 90,
               },
-            ],
+              display: true,
+              stacked: true,
+              title: { display: true, text: "Tanggal" },
+            },
           },
           maintainAspectRatio: false,
           responsive: true,
-          hover: { mode: "index", intersect: false },
+          interaction: { mode: "index", intersect: false },
         },
       },
       chartOdpOption: {
@@ -219,7 +154,7 @@ export default {
           labels: [],
           datasets: [
             {
-              label: "Rata-Rata Mingguan",
+              label: "Rataan 7 Hari",
               type: "line",
               data: [],
               fill: false,
@@ -230,7 +165,6 @@ export default {
             {
               label: "Kasus Baru",
               data: [],
-              yAxisID: "kasus-baru",
               backgroundColor: "",
               borderColor: "",
             },
@@ -243,11 +177,17 @@ export default {
           ],
         },
         options: {
+          locale: "id-ID",
+          spanGaps: true,
           plugins: {
             datalabels: {
               display: false,
             },
-            responsive: true,
+            title: {
+              display: true,
+              fontSize: 16,
+              text: [],
+            },
             tooltips: {
               mode: "index",
               intersect: false,
@@ -257,39 +197,54 @@ export default {
               borderColor: "#222",
               borderWidth: 1,
             },
+            zoom: {
+              limits: {
+                y: { min: 0 },
+              },
+              pan: {
+                enabled: true,
+                mode: "xy",
+              },
+              zoom: {
+                wheel: {
+                  enabled: true,
+                },
+
+                pinch: {
+                  enabled: true,
+                },
+                mode: "xy",
+              },
+            },
             legend: { position: "bottom", usePointStyle: true, display: true },
           },
           scales: {
-            yAxes: [
-              {
-                type: "linear",
-                id: "kasus-baru",
-                position: "right",
+            yAxis: {
+              type: "linear",
+              id: "kasus-baru",
+              position: "right",
+              display: true,
+              title: {
                 display: true,
-                scaleLabel: {
-                  display: true,
-                  labelString: "Kasus Baru/Selesai",
-                },
+                text: "Kasus Baru/Selesai",
               },
-            ],
-            xAxes: [
-              {
-                ticks: {
-                  callback: function (value, index, values) {
-                    var data = value.split(" ");
-                    return data[0] + data[1];
-                  },
-                  maxRotation: 90,
-                  minRotation: 90,
-                },
-                display: true,
-                stacked: true,
-                scaleLabel: { display: true, labelString: "Tanggal" },
+              ticks: {
+                step: 1,
               },
-            ],
+            },
+            xAxis: {
+              ticks: {
+                maxRotation: 90,
+                minRotation: 90,
+              },
+              display: true,
+              stacked: true,
+              title: { display: true, text: "Tanggal" },
+            },
           },
           maintainAspectRatio: false,
-          hover: { mode: "index", intersect: false },
+          responsive: true,
+          interaction: { mode: "index", intersect: false },
         },
       },
     };
@@ -338,6 +293,9 @@ export default {
       if (this.chart != null) {
         this.chart.destroy();
       }
+      chartData.options.plugins.title.text = [
+        `Tren Harian Kasus ${this.kasus} COVID-19 di ${this.wilayah}`,
+      ];
       this.chart = new Chart(ctx, {
         type: chartData.type,
         data: chartData.data,
@@ -363,22 +321,18 @@ export default {
       this.jsonDataHarianProvinsi.forEach((element) => {
         label.push(self.dateFormat(element.tanggal));
         if (this.kasus === "Positif") {
-          rataRata.push(element.rekap.rata_rata.positif_weekly);
           kasusBaru.push(element.kasus_baru.positif);
           bgColor = this.positiveBgColor;
           borderColor = this.positiveBorderColor;
         } else if (this.kasus === "Sembuh") {
-          rataRata.push(element.rekap.rata_rata.sembuh_weekly);
           kasusBaru.push(element.kasus_baru.sembuh);
           bgColor = this.recoveredBgColor;
           borderColor = this.recoveredBorderColor;
         } else if (this.kasus === "Meninggal") {
-          rataRata.push(element.rekap.rata_rata.meninggal_weekly);
           kasusBaru.push(element.kasus_baru.meninggal);
           bgColor = this.deceasedBgColor;
           borderColor = this.deceasedBorderColor;
         } else if (this.kasus === "ODP") {
-          rataRata.push(element.rekap.rata_rata.ODP_weekly);
           kasusBaru.push(element.kasus_baru.ODP);
           kasusSelesai.push(element.selesai.ODP);
           bgColor = this.odpBgColor;
@@ -386,7 +340,6 @@ export default {
           bgColor2 = this.finishedOdpBgColor;
           borderColor2 = this.finishedOdpBorderColor;
         } else if (this.kasus === "PDP") {
-          rataRata.push(element.rekap.rata_rata.PDP_weekly);
           kasusBaru.push(element.kasus_baru.PDP);
           kasusSelesai.push(element.selesai.PDP);
           bgColor = this.pdpBgColor;
@@ -395,6 +348,7 @@ export default {
           borderColor2 = this.finishedPdpBorderColor;
         }
       });
+      rataRata = this.movingAvg(kasusBaru, 7);
       if (self.kasus === "PDP" || self.kasus === "ODP") {
         self.drawChartOdp(
           label,
@@ -421,8 +375,8 @@ export default {
       let bgColor2 = "";
       let borderColor2 = "";
       this.jsonDataKabupaten.forEach((kabupaten) => {
-        if (kabupaten.no === kode) {
-          kabupaten.dataHarian.forEach((element) => {
+        if (_.isEqual(kabupaten.name, kode)) {
+          kabupaten.daily.forEach((element) => {
             label.push(self.dateFormat(element.tanggal));
             switch (self.kasus) {
               case "Positif":
@@ -492,31 +446,28 @@ export default {
         label.push(self.dateFormat(element.tanggal));
         switch (self.kasus) {
           case "Positif":
-            rataRata.push(element.rekap.rata_rata.positif_weekly);
             kasusBaru.push(element.kasus_baru.positif);
             bgColor = self.positiveBgColor;
             borderColor = self.positiveBorderColor;
             break;
           case "Sembuh":
-            rataRata.push(element.rekap.rata_rata.sembuh_weekly);
             kasusBaru.push(element.kasus_baru.sembuh);
             bgColor = self.recoveredBgColor;
             borderColor = self.recoveredBorderColor;
             break;
           case "Meninggal":
-            rataRata.push(element.rekap.rata_rata.meninggal_weekly);
             kasusBaru.push(element.kasus_baru.meninggal);
             bgColor = self.deceasedBgColor;
             borderColor = self.deceasedBorderColor;
             break;
           default:
-            rataRata.push(element.rekap.rata_rata.positif_weekly);
             kasusBaru.push(element.kasus_baru.positif);
             bgColor = self.positiveBgColor;
             borderColor = self.positiveBorderColor;
             break;
         }
       });
+      rataRata = this.movingAvg(kasusBaru, 7);
       self.drawChartHarian(label, rataRata, kasusBaru, bgColor, borderColor);
     },
     fetchData() {
@@ -540,54 +491,12 @@ export default {
       self.chart.update();
       self.chart.render();
     },
-    groupDataKab() {
-      this.jsonDataHarianProvinsi.forEach((element) => {
-        const temp1 = {
-          hari_ke: element.hari_ke,
-          tanggal: element.tanggal,
-        };
-        const temp2 = {
-          kasus_baru: {
-            positif: 0,
-            sembuh: 0,
-            meninggal: 0,
-            ODP: 0,
-            PDP: 0,
-          },
-          selesai: {
-            ODP: 0,
-            PDP: 0,
-          },
-          kumulatif: {
-            positif: 0,
-            sembuh: 0,
-            meninggal: 0,
-            ODP: 0,
-            PDP: 0,
-            selesai_PDP: 0,
-            selesai_ODP: 0,
-          },
-        };
-
-        this.jsonDataKabupaten.forEach((kabupaten) => {
-          let temp4 = { ...temp1, ...temp2 };
-          element.daftar_kabupaten.forEach((kab) => {
-            if (kabupaten.no === kab.no) {
-              const temp5 = {
-                kasus_baru: { ...kab.kasus_baru },
-                selesai: { ...kab.selesai },
-                kumulatif: { ...kab.kumulatif },
-              };
-              temp4 = {
-                ...temp1,
-                ...temp5,
-              };
-            }
-          });
-          kabupaten.dataHarian.push(temp4);
-        });
-      });
+    resetZoom() {
+      if (this.chart) {
+        this.chart.resetZoom();
+      }
     },
+
     drawChartOdp(
       label,
       rataRata,
@@ -613,18 +522,15 @@ export default {
     },
   },
   watch: {
+    propsDataRekapitulasiKabupaten(newValue, oldValue) {
+      this.jsonDataKabupaten = newValue;
+      this.fetchData();
+    },
     propsDataRekapitulasiProv() {
-      this.jsonDataKabupaten.forEach((element) => {
-        element.dataHarian = [];
-      });
       this.jsonDataHarianProvinsi = this.propsDataRekapitulasiProv;
-      this.groupDataKab();
       this.fetchData();
     },
     propsDataRekapitulasiNasional() {
-      if (this.jsonDataHarianNasional.length > 0) {
-        this.jsonDataHarianNasional = [];
-      }
       this.jsonDataHarianNasional = this.propsDataRekapitulasiNasional;
       this.fetchData();
     },

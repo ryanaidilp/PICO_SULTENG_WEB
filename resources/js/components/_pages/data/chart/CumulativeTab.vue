@@ -42,15 +42,25 @@
       />
     </div>
     <div v-if="selected && selectedCase" class="mt-8 border-t-2">
-      <keep-alive>
-        <chart-local-cumulative
-          :lokasi="selected"
-          :kejadian="selectedCase"
-          :props-data-rekapitulasi-prov="jsonDataRekapitulasiProv"
-          :props-data-rekapitulasi-nasional="jsonDataRekapitulasiNasional"
-          class="mt-4"
-        ></chart-local-cumulative>
-      </keep-alive>
+      <chart-local-cumulative
+        v-show="!isLoading()"
+        :lokasi="selected"
+        :kejadian="selectedCase"
+        :props-data-rekapitulasi-prov="jsonDataRekapitulasiProv"
+        :props-data-rekapitulasi-nasional="jsonDataRekapitulasiNasional"
+        :props-data-rekapitulasi-kabupaten="jsonDataRekapitulasiKabupaten"
+        class="mt-4"
+      ></chart-local-cumulative>
+      <div v-if="isLoading()" class="vld-icon" style="height: 400px">
+        <loading
+          :active="isLoading()"
+          :is-full-page="false"
+          :opacity="0.8"
+          :height="400"
+          color="#59F"
+        >
+        </loading>
+      </div>
     </div>
     <div v-else class="my-8 text-lg font-bold text-center bg-white rounded-lg">
       Tidak Ada wilayah/kasus yang dipilih
@@ -58,12 +68,15 @@
   </div>
 </template>
 <script>
+import Loading from "vue-loading-overlay";
+import "vue-loading-overlay/dist/vue-loading.css";
 import VSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
 import ChartLocalCumulative from "@/components/_pages/data/chart/CumulativeChart";
 export default {
   components: {
     VSelect,
+    Loading,
     ChartLocalCumulative,
   },
   data() {
@@ -73,41 +86,14 @@ export default {
       options: [
         { name: "Sulawesi Tengah", code: "Sulawesi Tengah" },
         { name: "Indonesia", code: "Indonesia" },
-        { name: "Banggai", code: 1 },
-        { name: "Banggai Kepulauan", code: 2 },
-        { name: "Banggai Laut", code: 3 },
-        { name: "Buol", code: 4 },
-        { name: "Donggala", code: 5 },
-        { name: "Morowali", code: 6 },
-        { name: "Morowali Utara", code: 7 },
-        { name: "Parigi Moutong", code: 8 },
-        { name: "Poso", code: 9 },
-        { name: "Sigi", code: 10 },
-        { name: "Tojo Una-Una", code: 11 },
-        { name: "Toli-Toli", code: 12 },
-        { name: "Kota Palu", code: 13 },
       ],
-      optionLocale: [
-        { name: "Sulawesi Tengah", code: "Sulawesi Tengah" },
-        { name: "Banggai", code: 1 },
-        { name: "Banggai Kepulauan", code: 2 },
-        { name: "Banggai Laut", code: 3 },
-        { name: "Buol", code: 4 },
-        { name: "Donggala", code: 5 },
-        { name: "Morowali", code: 6 },
-        { name: "Morowali Utara", code: 7 },
-        { name: "Parigi Moutong", code: 8 },
-        { name: "Poso", code: 9 },
-        { name: "Sigi", code: 10 },
-        { name: "Tojo Una-Una", code: 11 },
-        { name: "Toli-Toli", code: 12 },
-        { name: "Kota Palu", code: 13 },
-      ],
+      optionLocale: [{ name: "Sulawesi Tengah", code: "Sulawesi Tengah" }],
       selectedCase: "Positif",
       optionCasesLocal: ["Positif", "ODP", "PDP"],
       optionCases: ["Positif"],
       jsonDataRekapitulasiProv: [],
       jsonDataRekapitulasiNasional: [],
+      jsonDataRekapitulasiKabupaten: [],
     };
   },
   props: {
@@ -124,7 +110,52 @@ export default {
       default: () => [],
     },
   },
+  methods: {
+    addOptions() {
+      _.map(this.jsonDataRekapitulasiKabupaten, (item) => {
+        var newOption = { name: item.name, code: item.name };
+        if (!_.find(this.options, newOption)) {
+          this.options.push(newOption);
+        }
+        if (!_.find(this.optionLocale, newOption)) {
+          this.optionLocale.push(newOption);
+        }
+      });
+    },
+    isLoading() {
+      return this.jsonDataRekapitulasiProv.length == 0 ||
+        this.jsonDataRekapitulasiNasional.length == 0 ||
+        this.jsonDataRekapitulasiKabupaten.length == 0
+        ? true
+        : false;
+    },
+    checkEmpty() {
+      if (this.selected === "Sulawesi Tengah") {
+        if (this.jsonDataRekapitulasiProv.length > 0) {
+          this.isEmpty = false;
+        } else {
+          this.isEmpty = true;
+        }
+      } else if (this.selected === "Indonesia") {
+        if (this.jsonDataRekapitulasiNasional.length > 0) {
+          this.isEmpty = false;
+        } else {
+          this.isEmpty = true;
+        }
+      } else {
+        if (this.jsonDataRekapitulasiKabupaten.length > 0) {
+          this.isEmpty = false;
+        } else {
+          this.isEmpty = true;
+        }
+      }
+    },
+  },
   watch: {
+    propsDataRekapitulasiKab() {
+      this.jsonDataRekapitulasiKabupaten = this.propsDataRekapitulasiKab;
+      this.addOptions();
+    },
     propsDataRekapitulasiProv() {
       this.jsonDataRekapitulasiProv = this.propsDataRekapitulasiProv;
     },
@@ -137,11 +168,14 @@ export default {
           this.name = element.name;
         }
       });
+      this.checkEmpty();
     },
   },
   mounted() {
     this.jsonDataRekapitulasiProv = this.propsDataRekapitulasiProv;
     this.jsonDataRekapitulasiNasional = this.propsDataRekapitulasiNasional;
+    this.jsonDataRekapitulasiKabupaten = this.propsDataRekapitulasiKab;
+    this.addOptions();
   },
 };
 </script>

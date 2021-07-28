@@ -1,5 +1,5 @@
 <template>
-  <div class="text-gray-800 bg-white rounded-lg vld-parent">
+  <div class="flex flex-col text-gray-800 bg-white rounded-lg vld-parent">
     <p class="ml-8 font-semibold md:text-xl">
       Kasus harian {{ selectedCase }} di {{ name }}
     </p>
@@ -42,16 +42,15 @@
       />
     </div>
     <div v-if="selected && selectedCase" class="mt-8 border-t-2">
-      <keep-alive>
-        <chart-local-positive
-          v-show="!isLoading()"
-          :wilayah="selected"
-          :props-data-rekapitulasi-prov="jsonDataRekapitulasiProv"
-          :props-data-rekapitulasi-nasional="jsonDataRekapitulasiNasional"
-          :kasus="selectedCase"
-          class="mt-4"
-        ></chart-local-positive>
-      </keep-alive>
+      <chart-local-positive
+        v-show="!isLoading()"
+        :wilayah="selected"
+        :props-data-rekapitulasi-prov="jsonDataRekapitulasiProv"
+        :props-data-rekapitulasi-nasional="jsonDataRekapitulasiNasional"
+        :props-data-rekapitulasi-kabupaten="jsonDataRekapitulasiKabupaten"
+        :kasus="selectedCase"
+        class="mt-4"
+      ></chart-local-positive>
     </div>
     <div v-if="isLoading()" class="vld-icon" style="height: 400px">
       <loading
@@ -59,7 +58,6 @@
         :is-full-page="false"
         :opacity="0.8"
         :height="400"
-        loader="bars"
         color="#59F"
       >
       </loading>
@@ -68,14 +66,15 @@
 </template>
 <script>
 import Loading from "vue-loading-overlay";
+import "vue-loading-overlay/dist/vue-loading.css";
 import VSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
 import ChartLocalPositive from "@/components/_pages/data/chart/DailyChart";
 export default {
   components: {
     VSelect,
-    ChartLocalPositive,
     Loading,
+    ChartLocalPositive,
   },
   data() {
     return {
@@ -85,41 +84,14 @@ export default {
       options: [
         { name: "Sulawesi Tengah", code: "Sulawesi Tengah" },
         { name: "Indonesia", code: "Indonesia" },
-        { name: "Banggai", code: 1 },
-        { name: "Banggai Kepulauan", code: 2 },
-        { name: "Banggai Laut", code: 3 },
-        { name: "Buol", code: 4 },
-        { name: "Donggala", code: 5 },
-        { name: "Morowali", code: 6 },
-        { name: "Morowali Utara", code: 7 },
-        { name: "Parigi Moutong", code: 8 },
-        { name: "Poso", code: 9 },
-        { name: "Sigi", code: 10 },
-        { name: "Tojo Una-Una", code: 11 },
-        { name: "Toli-Toli", code: 12 },
-        { name: "Kota Palu", code: 13 },
       ],
-      optionLocale: [
-        { name: "Sulawesi Tengah", code: "Sulawesi Tengah" },
-        { name: "Banggai", code: 1 },
-        { name: "Banggai Kepulauan", code: 2 },
-        { name: "Banggai Laut", code: 3 },
-        { name: "Buol", code: 4 },
-        { name: "Donggala", code: 5 },
-        { name: "Morowali", code: 6 },
-        { name: "Morowali Utara", code: 7 },
-        { name: "Parigi Moutong", code: 8 },
-        { name: "Poso", code: 9 },
-        { name: "Sigi", code: 10 },
-        { name: "Tojo Una-Una", code: 11 },
-        { name: "Toli-Toli", code: 12 },
-        { name: "Kota Palu", code: 13 },
-      ],
+      optionLocale: [{ name: "Sulawesi Tengah", code: "Sulawesi Tengah" }],
       selectedCase: "Positif",
       optionCasesLocal: ["Positif", "Sembuh", "Meninggal", "ODP", "PDP"],
       optionCases: ["Positif", "Sembuh", "Meninggal"],
       jsonDataRekapitulasiProv: [],
       jsonDataRekapitulasiNasional: [],
+      jsonDataRekapitulasiKabupaten: [],
     };
   },
   props: {
@@ -137,9 +109,21 @@ export default {
     },
   },
   methods: {
+    addOptions() {
+      _.map(this.jsonDataRekapitulasiKabupaten, (item) => {
+        var newOption = { name: item.name, code: item.name };
+        if (!_.find(this.options, newOption)) {
+          this.options.push(newOption);
+        }
+        if (!_.find(this.optionLocale, newOption)) {
+          this.optionLocale.push(newOption);
+        }
+      });
+    },
     isLoading() {
       return this.jsonDataRekapitulasiProv.length == 0 ||
-        this.jsonDataRekapitulasiNasional.length == 0
+        this.jsonDataRekapitulasiNasional.length == 0 ||
+        this.jsonDataRekapitulasiKabupaten.length == 0
         ? true
         : false;
     },
@@ -157,7 +141,7 @@ export default {
           this.isEmpty = true;
         }
       } else {
-        if (this.jsonDataRekapitulasiNasional.length > 0) {
+        if (this.jsonDataRekapitulasiKabupaten.length > 0) {
           this.isEmpty = false;
         } else {
           this.isEmpty = true;
@@ -166,6 +150,10 @@ export default {
     },
   },
   watch: {
+    propsDataRekapitulasiKab() {
+      this.jsonDataRekapitulasiKabupaten = this.propsDataRekapitulasiKab;
+      this.addOptions();
+    },
     propsDataRekapitulasiProv() {
       this.jsonDataRekapitulasiProv = this.propsDataRekapitulasiProv;
     },
@@ -184,6 +172,8 @@ export default {
   mounted() {
     this.jsonDataRekapitulasiProv = this.propsDataRekapitulasiProv;
     this.jsonDataRekapitulasiNasional = this.propsDataRekapitulasiNasional;
+    this.jsonDataRekapitulasiKabupaten = this.propsDataRekapitulasiKab;
+    this.addOptions();
   },
 };
 </script>

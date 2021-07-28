@@ -6,7 +6,7 @@
       >
         <li class="flex-auto mr-2 -mb-px text-center last:mr-0">
           <a
-            class="block px-5 py-3 text-xs font-bold leading-normal uppercase rounded shadow-lg"
+            class="block px-5 py-3 text-xs font-bold leading-normal uppercase rounded shadow-lg "
             v-on:click="toggleTabs(1)"
             v-bind:class="{
               'text-blue-600 bg-white': openTab !== 1,
@@ -18,7 +18,7 @@
         </li>
         <li class="flex-auto mr-2 -mb-px text-center last:mr-0">
           <a
-            class="block px-5 py-3 text-xs font-bold leading-normal uppercase rounded shadow-lg"
+            class="block px-5 py-3 text-xs font-bold leading-normal uppercase rounded shadow-lg "
             v-on:click="toggleTabs(2)"
             v-bind:class="{
               'text-blue-600 bg-white': openTab !== 2,
@@ -39,6 +39,9 @@
                   :props-data-rekapitulasi-nasional="
                     propsDataRekapitulasiNasional
                   "
+                  :props-data-rekapitulasi-kab.sync="
+                    propsDataRekapitulasiKabupaten
+                  "
                 ></chart-daily>
               </keep-alive>
             </div>
@@ -48,6 +51,9 @@
                   :props-data-rekapitulasi-prov="propsDataRekapitulasiProv"
                   :props-data-rekapitulasi-nasional="
                     propsDataRekapitulasiNasional
+                  "
+                  :props-data-rekapitulasi-kab.sync="
+                    propsDataRekapitulasiKabupaten
                   "
                 ></chart-total>
               </keep-alive>
@@ -63,6 +69,9 @@ import ChartDaily from "@/components/_pages/data/chart/DailyTab";
 import ChartTotal from "@/components/_pages/data/chart/CumulativeTab";
 export default {
   props: {
+    propsDataRekapitulasiKabupaten: {
+      type: Array,
+    },
     propsDataRekapitulasiProv: {
       type: Array,
     },

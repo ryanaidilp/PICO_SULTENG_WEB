@@ -1,41 +1,26 @@
 <template>
-  <div style="height: 400px">
-    <keep-alive>
-      <canvas
-        id="chart-cumulative"
-        aria-label="Chart Kumulatif COVID-19"
-        role="img"
-      ></canvas>
-    </keep-alive>
+  <div>
+    <div style="height: 400px">
+      <keep-alive>
+        <canvas
+          id="chart-cumulative"
+          aria-label="Chart Kumulatif COVID-19"
+          role="img"
+        ></canvas>
+      </keep-alive>
+    </div>
+    <button
+      @click="resetZoom()"
+      class="float-right px-4 py-2 mx-4 mb-4 text-blue-500 transition-all duration-300 bg-gray-200 rounded-md  hover:bg-gray-300"
+    >
+      Reset Zoom
+    </button>
   </div>
 </template>
 <script>
-import {
-  Chart,
-  DatasetController,
-  BarController,
-  BarElement,
-  LineController,
-  LineElement,
-  PointElement,
-  LinearScale,
-  Title,
-  scales,
-  Tooltip,
-} from "chart.js";
-Chart.register(
-  DatasetController,
-  BarController,
-  BarElement,
-  LineController,
-  LineElement,
-  PointElement,
-  LinearScale,
-  Title,
-  scales,
-  Tooltip
-);
-import "chart.js/dist/Chart.min";
+import Chart from "chart.js/auto";
+import zoomPlugin from "chartjs-plugin-zoom";
+Chart.register({ zoomPlugin });
 import { id } from "date-fns/locale";
 const { format } = require("date-fns");
 export default {
@@ -47,6 +32,10 @@ export default {
     lokasi: {
       type: String,
       default: () => "Sulawesi Tengah",
+    },
+    propsDataRekapitulasiKabupaten: {
+      type: Array,
+      default: () => [],
     },
     propsDataRekapitulasiProv: {
       type: Array,
@@ -80,73 +69,7 @@ export default {
       activePdpBorderColor: "rgba(211, 84, 0, 0.8)",
       jsonDataHarianProvinsi: [],
       jsonDataHarianNasional: [],
-      jsonDataKabupaten: [
-        {
-          no: 1,
-          nama: "Banggai",
-          dataHarian: [],
-        },
-        {
-          no: 2,
-          nama: "Banggai Kepulauan",
-          dataHarian: [],
-        },
-        {
-          no: 3,
-          nama: "Banggai Laut",
-          dataHarian: [],
-        },
-        {
-          no: 4,
-          nama: "Buol",
-          dataHarian: [],
-        },
-        {
-          no: 5,
-          nama: "Donggala",
-          dataHarian: [],
-        },
-        {
-          no: 6,
-          nama: "Morowali",
-          dataHarian: [],
-        },
-        {
-          no: 7,
-          nama: "Morowali Utara",
-          dataHarian: [],
-        },
-        {
-          no: 8,
-          nama: "Parigi Moutong",
-          dataHarian: [],
-        },
-        {
-          no: 9,
-          nama: "Poso",
-          dataHarian: [],
-        },
-        {
-          no: 10,
-          nama: "Sigi",
-          dataHarian: [],
-        },
-        {
-          no: 11,
-          nama: "Tojo Una-Una",
-          dataHarian: [],
-        },
-        {
-          no: 12,
-          nama: "Toli-Toli",
-          dataHarian: [],
-        },
-        {
-          no: 13,
-          nama: "Kota Palu",
-          dataHarian: [],
-        },
-      ],
+      jsonDataKabupaten: [],
       chartHarianOption: {
         type: "bar",
         data: {
@@ -191,9 +114,15 @@ export default {
           ],
         },
         options: {
+          locale: "id-ID",
           plugins: {
             datalabels: {
               display: false,
+            },
+            title: {
+              display: true,
+              fontSize: 24,
+              text: [],
             },
             tooltips: {
               mode: "index",
@@ -204,35 +133,50 @@ export default {
               borderColor: "#222",
               borderWidth: 1,
             },
+            zoom: {
+              limits: {
+                y: { min: 0 },
+              },
+              pan: {
+                enabled: true,
+                mode: "x",
+              },
+              zoom: {
+                wheel: {
+                  enabled: true,
+                },
+
+                pinch: {
+                  enabled: true,
+                },
+                mode: "x",
+              },
+            },
             legend: { position: "bottom", usePointStyle: true },
           },
           scales: {
-            yAxes: [
-              {
-                position: "right",
-                ticks: {
-                  beginAtZero: true,
-                },
+            yAxis: {
+              position: "right",
+              ticks: {
+                beginAtZero: true,
               },
-            ],
-            xAxes: [
-              {
-                ticks: {
-                  callback: function (value, index, values) {
-                    var data = value.split(" ");
-                    return data[0] + data[1];
-                  },
-                  maxRotation: 90,
-                  minRotation: 90,
-                },
+              title: {
                 display: true,
-                scaleLabel: { display: true, labelString: "Tanggal" },
+                text: "Total Kejadian",
               },
-            ],
+            },
+            xAxis: {
+              ticks: {
+                maxRotation: 90,
+                minRotation: 90,
+              },
+              display: true,
+              title: { display: true, text: "Tanggal" },
+            },
           },
           maintainAspectRatio: false,
           responsive: true,
-          hover: { mode: "index", intersect: false },
+          interaction: { mode: "index", intersect: false },
         },
       },
       chartOdpOption: {
@@ -270,9 +214,15 @@ export default {
           ],
         },
         options: {
+          locale: "id-ID",
           plugins: {
             datalabels: {
               display: false,
+            },
+            title: {
+              display: true,
+              fontSize: 24,
+              text: [],
             },
             tooltips: {
               mode: "index",
@@ -283,35 +233,50 @@ export default {
               borderColor: "#222",
               borderWidth: 1,
             },
+            zoom: {
+              limits: {
+                y: { min: 0 },
+              },
+              pan: {
+                enabled: true,
+                mode: "x",
+              },
+              zoom: {
+                wheel: {
+                  enabled: true,
+                },
+
+                pinch: {
+                  enabled: true,
+                },
+                mode: "x",
+              },
+            },
             legend: { position: "bottom", usePointStyle: true },
           },
           scales: {
-            yAxes: [
-              {
-                position: "right",
-                ticks: {
-                  beginAtZero: true,
-                },
+            yAxis: {
+              position: "right",
+              ticks: {
+                beginAtZero: true,
               },
-            ],
-            xAxes: [
-              {
-                ticks: {
-                  callback: function (value, index, values) {
-                    var data = value.split(" ");
-                    return data[0] + data[1];
-                  },
-                  maxRotation: 90,
-                  minRotation: 90,
-                },
+              title: {
                 display: true,
-                scaleLabel: { display: true, labelString: "Tanggal" },
+                text: "Total Kejadian",
               },
-            ],
+            },
+            xAxis: {
+              ticks: {
+                maxRotation: 90,
+                minRotation: 90,
+              },
+              display: true,
+              title: { display: true, text: "Tanggal" },
+            },
           },
           maintainAspectRatio: false,
           responsive: true,
-          hover: { mode: "index", intersect: false },
+          intersect: { mode: "index", intersect: false },
         },
       },
     };
@@ -322,6 +287,9 @@ export default {
       if (this.chartCumulative != null) {
         this.chartCumulative.destroy();
       }
+      chartData.options.plugins.title.text = [
+        `Kumulatif Kasus ${this.kejadian} COVID-19 di ${this.lokasi}`,
+      ];
       this.chartCumulative = new Chart(ctx, {
         type: chartData.type,
         data: chartData.data,
@@ -433,8 +401,8 @@ export default {
       let bgColorMeninggal = "";
       let borderColorMeninggal = "";
       this.jsonDataKabupaten.forEach((kabupaten) => {
-        if (kabupaten.no === kode) {
-          kabupaten.dataHarian.forEach((element) => {
+        if (_.isEqual(kabupaten.name, kode)) {
+          kabupaten.daily.forEach((element) => {
             label.push(self.dateFormat(element.tanggal));
             if (this.kejadian === "Positif") {
               total.push(element.kasus_baru.positif);
@@ -620,6 +588,12 @@ export default {
       self.chartCumulative.update();
       self.chartCumulative.render();
     },
+    resetZoom() {
+      console.log("reset");
+      if (this.chartCumulative) {
+        this.chartCumulative.resetZoom();
+      }
+    },
     drawChartOdp(
       label,
       total,
@@ -650,64 +624,16 @@ export default {
       self.chartCumulative.update();
       self.chartCumulative.render();
     },
-    groupDataKab() {
-      this.jsonDataHarianProvinsi.forEach((element) => {
-        const temp1 = {
-          hari_ke: element.hari_ke,
-          tanggal: element.tanggal,
-        };
-        const temp2 = {
-          kasus_baru: {
-            positif: 0,
-            sembuh: 0,
-            meninggal: 0,
-            ODP: 0,
-            PDP: 0,
-          },
-          aktif: {
-            ODP: 0,
-            PDP: 0,
-          },
-          selesai: {
-            ODP: 0,
-            PDP: 0,
-          },
-        };
-
-        this.jsonDataKabupaten.forEach((kabupaten) => {
-          let temp4 = { ...temp1, ...temp2 };
-          element.daftar_kabupaten.forEach((kab) => {
-            if (kabupaten.no === kab.no) {
-              const temp5 = {
-                kasus_baru: { ...kab.kasus_baru },
-                aktif: { ...kab.aktif },
-                selesai: { ...kab.selesai },
-              };
-              temp4 = {
-                ...temp1,
-                ...temp5,
-              };
-            } else {
-            }
-          });
-          kabupaten.dataHarian.push(temp4);
-        });
-      });
-    },
   },
   watch: {
+    propsDataRekapitulasiKabupaten() {
+      this.jsonDataKabupaten = this.propsDataRekapitulasiKabupaten;
+    },
     propsDataRekapitulasiProv() {
-      this.jsonDataKabupaten.forEach((element) => {
-        element.dataHarian = [];
-      });
       this.jsonDataHarianProvinsi = this.propsDataRekapitulasiProv;
-      this.groupDataKab();
       this.fetchData();
     },
     propsDataRekapitulasiNasional() {
-      if (this.jsonDataHarianNasional.length > 0) {
-        this.jsonDataHarianNasional = [];
-      }
       this.jsonDataHarianNasional = this.propsDataRekapitulasiNasional;
       this.fetchData();
     },

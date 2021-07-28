@@ -2,11 +2,11 @@ export default {
     SET_NATIONAL_DATA(state, national_data) {
         state.national_data = national_data;
     },
-    SET_PROVINCES_DATA(state, provinces_data) {
-        state.provinces_data = provinces_data;
+    SET_PROVINCE_DATA(state, province_data) {
+        state.province_data = province_data;
     },
-    SET_REGENCIES_DATA(state, regencies_data) {
-        state.regencies_data = regencies_data;
+    SET_REGENCY_DATA(state, regency_data) {
+        state.regency_data = regency_data;
     },
     SET_PROVINCES(state, provinces) {
         state.provinces = provinces;
@@ -31,5 +31,20 @@ export default {
     },
     SET_PROVINCE_VACCINES(state, province_vaccines) {
         state.province_vaccines = province_vaccines;
+    },
+    SET_NATIONAL_VACCINE(state, national_vaccine) {
+        state.national_vaccine = national_vaccine;
+    },
+    SET_PROVINCE_VACCINE(state, province_vaccine) {
+        state.province_vaccine = province_vaccine;
+    },
+    SET_LOCAL(state, local) {
+        state.local = local;
+    },
+    SET_NATIONAL(state, national) {
+        state.national = national;
+    },
+    SET_REGENCIES_DAILY(state, regencies_daily) {
+        state.regencies_daily = regencies_daily;
     }
 }

@@ -106,6 +106,13 @@ export default {
       items: null,
     };
   },
+  watch: {
+    data(newVal, oldVal) {
+      if (newVal !== oldVal) {
+        this.updateData();
+      }
+    },
+  },
   methods: {
     dtUpdateSort: function ({ sortField, sort }) {
       const sortedData = _.orderBy(this.data, [sortField], [sort]);
@@ -143,11 +150,14 @@ export default {
     formatNumber(value) {
       return new Intl.NumberFormat("id-ID").format(value);
     },
+    updateData() {
+      this.items = this.data;
+      this.totalItems = this.data.length;
+      this.updateStartAndEnd();
+    },
   },
   mounted() {
-    this.items = this.data;
-    this.totalItems = this.data.length;
-    this.updateStartAndEnd();
+    this.updateData();
   },
 };
 </script>
@@ -305,7 +315,7 @@ export default {
   transition: color 0.15s ease-in-out;
   vertical-align: top;
   text-align: center;
-  font-size: smaller;
+  font-size: small;
   padding-top: 0.5rem;
   padding-bottom: 0.2rem;
   border: white 1px solid;

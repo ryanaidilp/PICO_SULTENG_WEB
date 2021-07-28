@@ -17,3 +17,53 @@ body {
 @tailwind components;
 
 @tailwind utilities;
+
+input[type="radio"]+label span {
+    transition: background 0.2s, transform 0.2s;
+}
+
+input[type="radio"]+label span:hover,
+input[type="radio"]+label:hover span {
+    transform: scale(1.2);
+}
+
+input[type="radio"]:checked+label span {
+    background-color: #3490DC;
+    box-shadow: 0px 0px 0px 2px white inset;
+}
+
+input[type="radio"]:checked+label {
+    color: #3490DC;
+}
+
+.font-family-karla {
+    font-family: karla;
+}
+
+.bg-sidebar {
+    background: #3d68ff;
+}
+
+.cta-btn {
+    color: #3d68ff;
+}
+
+.upgrade-btn {
+    background: #1947ee;
+}
+
+.upgrade-btn:hover {
+    background: #0038fd;
+}
+
+.active-nav-link {
+    background: #1947ee;
+}
+
+.nav-item:hover {
+    background: #1947ee;
+}
+
+.account-link:hover {
+    background: #3d68ff;
+}

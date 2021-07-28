@@ -30,7 +30,7 @@ return [
     "percentage_param" => "persentase_:case",
     "daily_param" => "kasus_:case_harian",
     "average" => "rata_rata",
-    "district_list" => "daftar_kabupaten",
+    "regency_list" => "daftar_kabupaten",
 
     //Provinsi
     "province_code" => "kode_provinsi",
@@ -39,5 +39,5 @@ return [
     "map_id" => "map_id",
 
     //Kabupaten
-    "district" => "kabupaten",
+    "regency" => "kabupaten",
 ];

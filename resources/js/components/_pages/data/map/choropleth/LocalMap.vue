@@ -5,7 +5,7 @@
       <div class="flex flex-wrap justify-center max-w-lg mx-auto text-center">
         <div class="flex items-center mr-4">
           <input
-            id="district-positif"
+            id="regency-positif"
             type="radio"
             name="data_covid"
             value="Positif"
@@ -14,15 +14,13 @@
             v-on:change="
               createChoroplethMapLocal(
                 'Positif',
-                districtPositiveDataset,
-                districtPositiveColor
+                regencyPositiveDataset,
+                regencyPositiveColor,
+                positiveRanges
               )
             "
           />
-          <label
-            for="district-positif"
-            class="flex items-center cursor-pointer"
-          >
+          <label for="regency-positif" class="flex items-center cursor-pointer">
             <span
               class="inline-block w-4 h-4 mr-1 border rounded-full border-grey"
             ></span>
@@ -32,7 +30,7 @@
 
         <div class="flex items-center mr-4">
           <input
-            id="district-dirawat"
+            id="regency-dirawat"
             type="radio"
             name="data_covid"
             value="Dirawat"
@@ -40,15 +38,13 @@
             v-on:change="
               createChoroplethMapLocal(
                 'Dirawat',
-                districtUnderTreatmentDataset,
-                districtPositiveColor
+                regencyUnderTreatmentDataset,
+                regencyPositiveColor,
+                underTreatmentRanges
               )
             "
           />
-          <label
-            for="district-dirawat"
-            class="flex items-center cursor-pointer"
-          >
+          <label for="regency-dirawat" class="flex items-center cursor-pointer">
             <span
               class="inline-block w-4 h-4 mr-1 border rounded-full border-grey"
             ></span>
@@ -58,7 +54,7 @@
 
         <div class="flex items-center mr-4">
           <input
-            id="district-sembuh"
+            id="regency-sembuh"
             type="radio"
             name="data_covid"
             value="Sembuh"
@@ -66,12 +62,13 @@
             v-on:change="
               createChoroplethMapLocal(
                 'Sembuh',
-                districtRecoveredDataset,
-                districtRecoveredColor
+                regencyRecoveredDataset,
+                regencyRecoveredColor,
+                recoveredRanges
               )
             "
           />
-          <label for="district-sembuh" class="flex items-center cursor-pointer">
+          <label for="regency-sembuh" class="flex items-center cursor-pointer">
             <span
               class="inline-block w-4 h-4 mr-1 border rounded-full border-grey"
             ></span>
@@ -81,7 +78,7 @@
 
         <div class="flex items-center mr-4">
           <input
-            id="district-meninggal"
+            id="regency-meninggal"
             type="radio"
             name="data_covid"
             value="Meninggal"
@@ -89,13 +86,14 @@
             v-on:change="
               createChoroplethMapLocal(
                 'Meninggal',
-                districtDeathDataset,
-                districtDeathColor
+                regencyDeathDataset,
+                regencyDeathColor,
+                deceasedRanges
               )
             "
           />
           <label
-            for="district-meninggal"
+            for="regency-meninggal"
             class="flex items-center cursor-pointer"
           >
             <span
@@ -107,7 +105,7 @@
 
         <div class="flex items-center mr-4">
           <input
-            id="district-odp"
+            id="regency-odp"
             type="radio"
             name="data_covid"
             value="ODP"
@@ -115,12 +113,13 @@
             v-on:change="
               createChoroplethMapLocal(
                 'ODP',
-                districtODPDataset,
-                districtODPColor
+                regencyODPDataset,
+                regencyODPColor,
+                odpRanges
               )
             "
           />
-          <label for="district-odp" class="flex items-center cursor-pointer">
+          <label for="regency-odp" class="flex items-center cursor-pointer">
             <span
               class="inline-block w-4 h-4 mr-1 border rounded-full border-grey"
             ></span>
@@ -130,7 +129,7 @@
 
         <div class="flex items-center mr-4">
           <input
-            id="district-pdp"
+            id="regency-pdp"
             type="radio"
             name="data_covid"
             value="PDP"
@@ -138,12 +137,13 @@
             v-on:change="
               createChoroplethMapLocal(
                 'PDP',
-                districtPDPDataset,
-                districtPDPColor
+                regencyPDPDataset,
+                regencyPDPColor,
+                pdpRanges
               )
             "
           />
-          <label for="district-pdp" class="flex items-center cursor-pointer">
+          <label for="regency-pdp" class="flex items-center cursor-pointer">
             <span
               class="inline-block w-4 h-4 mr-1 border rounded-full border-grey"
             ></span>
@@ -163,11 +163,12 @@
 
 <script>
 /* eslint-disable */
+import geostat from "geostats";
 import Anychart from "anychart";
-var districtMap = anychart.map();
+var regencyMap = Anychart.map();
 export default {
   props: {
-    districts: {
+    regencies: {
       type: Array,
       required: true,
     },
@@ -175,43 +176,52 @@ export default {
   data() {
     return {
       today: new Date(),
-      districtRecoveredDataset: [],
-      districtPositiveDataset: [],
-      districtUnderTreatmentDataset: [],
-      districtDeathDataset: [],
-      districtODPDataset: [],
-      districtPDPDataset: [],
-      districtPositiveColor: [
-        "#418a47",
-        "#81a24c",
-        "#bdb75a",
-        "#facb75",
-        "#f39e5b",
-        "#e87050",
-        "#d43d51",
-        "#CD0000",
+      positiveRanges: [],
+      recoveredRanges: [],
+      deceasedRanges: [],
+      pdpRanges: [],
+      odpRanges: [],
+      underTreatmentRanges: [],
+      regencyRecoveredDataset: [],
+      regencyPositiveDataset: [],
+      regencyUnderTreatmentDataset: [],
+      regencyDeathDataset: [],
+      regencyODPDataset: [],
+      regencyPDPDataset: [],
+      regencyPositiveColor: [
+        "#21912b",
+        "#6ba73b",
+        "#fffc9c",
+        "#efca61",
+        "#df962e",
+        "#ce5e05",
+        "#d60000",
+        "#b80000",
+        "#808080",
       ],
-      districtRecoveredColor: [
-        "#DEEDCF",
-        "#BFE1B0",
-        "#99D492",
-        "#74C67A",
-        "#56B870",
-        "#0E4D64",
-        "#0A2F51",
-        "#1D9A6C",
+      regencyRecoveredColor: [
+        "#d0eac8",
+        "#b6d8ac",
+        "#9cc590",
+        "#82b376",
+        "#69a25b",
+        "#4e9041",
+        "#317e26",
+        "#006d02",
+        "#808080",
       ],
-      districtDeathColor: [
-        "#FFF3BA",
-        "#FFEB9B",
-        "#FFE07C",
-        "#FFD45D",
-        "#FFC63E",
-        "#E1851E",
-        "#DA7F25",
-        "#FFA500",
+      regencyDeathColor: [
+        "#fcddbe",
+        "#fcd3a7",
+        "#fcc991",
+        "#fbbf7a",
+        "#f8b663",
+        "#f5ac4b",
+        "#f1a230",
+        "#ed9900",
+        "#808080",
       ],
-      districtODPColor: [
+      regencyODPColor: [
         "#DFE4F8",
         "#BECCF1",
         "#9FB5E8",
@@ -220,8 +230,9 @@ export default {
         "#174689",
         "#0E2C63",
         "#2773BF",
+        "#808080",
       ],
-      districtPDPColor: [
+      regencyPDPColor: [
         "#DEADD0",
         "#D291C3",
         "#C574B6",
@@ -230,107 +241,313 @@ export default {
         "#720060",
         "#65004C",
         "#88008B",
+        "#808080",
       ],
     };
   },
   methods: {
     getDistrictData: function () {
-      if (this.districts != null) {
-        if (this.districtPositiveDataset.length > 0) {
-          this.districtPositiveDataset = [];
-          this.districtRecoveredDataset = [];
-          this.districtDeathDataset = [];
-          this.districtODPDataset = [];
-          this.districtPDPDataset = [];
+      if (this.regencies != null) {
+        if (this.regencyPositiveDataset.length > 0) {
+          this.regencyPositiveDataset = [];
+          this.regencyRecoveredDataset = [];
+          this.regencyDeathDataset = [];
+          this.regencyODPDataset = [];
+          this.regencyPDPDataset = [];
         }
 
-        this.districts.forEach((district) => {
-          this.districtPositiveDataset.push({
-            id: district.kabupaten,
-            value: district.positif,
-            sembuh: district.sembuh,
-            meninggal: district.meninggal,
-            dirawat: district.positif - (district.sembuh + district.meninggal),
-            ODP: district.dalam_pemantauan,
-            PDP: district.dalam_pengawasan,
+        this.regencies.forEach((regency) => {
+          this.regencyPositiveDataset.push({
+            id: regency.kabupaten,
+            value: regency.positif,
+            sembuh: regency.sembuh,
+            meninggal: regency.meninggal,
+            dirawat: regency.dalam_perawatan,
+            ODP: regency.dalam_pemantauan,
+            PDP: regency.dalam_pengawasan,
           });
-          this.districtUnderTreatmentDataset.push({
-            id: district.kabupaten,
-            positif: district.positif,
-            sembuh: district.sembuh,
-            meninggal: district.meninggal,
-            value: district.positif - (district.sembuh + district.meninggal),
-            ODP: district.dalam_pemantauan,
-            PDP: district.dalam_pengawasan,
+          this.regencyUnderTreatmentDataset.push({
+            id: regency.kabupaten,
+            positif: regency.positif,
+            sembuh: regency.sembuh,
+            meninggal: regency.meninggal,
+            value: regency.dalam_perawatan,
+            ODP: regency.dalam_pemantauan,
+            PDP: regency.dalam_pengawasan,
           });
-          this.districtRecoveredDataset.push({
-            id: district.kabupaten,
-            value: district.sembuh,
-            positif: district.positif,
-            meninggal: district.meninggal,
-            dirawat: district.positif - (district.sembuh + district.meninggal),
-            ODP: district.dalam_pemantauan,
-            PDP: district.dalam_pengawasan,
+          this.regencyRecoveredDataset.push({
+            id: regency.kabupaten,
+            value: regency.sembuh,
+            positif: regency.positif,
+            meninggal: regency.meninggal,
+            dirawat: regency.dalam_perawatan,
+            ODP: regency.dalam_pemantauan,
+            PDP: regency.dalam_pengawasan,
           });
-          this.districtDeathDataset.push({
-            id: district.kabupaten,
-            value: district.meninggal,
-            positif: district.positif,
-            sembuh: district.sembuh,
-            dirawat: district.positif - (district.sembuh + district.meninggal),
-            ODP: district.dalam_pemantauan,
-            PDP: district.dalam_pengawasan,
+          this.regencyDeathDataset.push({
+            id: regency.kabupaten,
+            value: regency.meninggal,
+            positif: regency.positif,
+            sembuh: regency.sembuh,
+            dirawat: regency.dalam_perawatan,
+            ODP: regency.dalam_pemantauan,
+            PDP: regency.dalam_pengawasan,
           });
-          this.districtODPDataset.push({
-            id: district.kabupaten,
-            value: district.dalam_pemantauan,
-            positif: district.positif,
-            sembuh: district.sembuh,
-            meninggal: district.meninggal,
-            dirawat: district.positif - (district.sembuh + district.meninggal),
-            PDP: district.dalam_pengawasan,
+          this.regencyODPDataset.push({
+            id: regency.kabupaten,
+            value: regency.dalam_pemantauan,
+            positif: regency.positif,
+            sembuh: regency.sembuh,
+            meninggal: regency.meninggal,
+            dirawat: regency.dalam_perawatan,
+            PDP: regency.dalam_pengawasan,
           });
-          this.districtPDPDataset.push({
-            id: district.kabupaten,
-            value: district.dalam_pengawasan,
-            positif: district.positif,
-            sembuh: district.sembuh,
-            meninggal: district.meninggal,
-            dirawat: district.positif - (district.sembuh + district.meninggal),
-            ODP: district.dalam_pemantauan,
+          this.regencyPDPDataset.push({
+            id: regency.kabupaten,
+            value: regency.dalam_pengawasan,
+            positif: regency.positif,
+            sembuh: regency.sembuh,
+            meninggal: regency.meninggal,
+            dirawat: regency.dalam_perawatan,
+            ODP: regency.dalam_pemantauan,
           });
+        });
+        var seriesPositive = new geostat(_.map(this.regencies, "positif"));
+        var seriesRecovered = new geostat(_.map(this.regencies, "sembuh"));
+        var seriesDeath = new geostat(_.map(this.regencies, "meninggal"));
+        var seriesUnderTreatment = new geostat(
+          _.map(this.regencies, "dalam_perawatan")
+        );
+        var seriesODP = new geostat(_.map(this.regencies, "dalam_pemantauan"));
+        var seriesPDP = new geostat(_.map(this.regencies, "dalam_pengawasan"));
+
+        seriesPositive.getClassQuantile(6);
+        seriesRecovered.getClassQuantile(6);
+        seriesDeath.getClassQuantile(6);
+        seriesUnderTreatment.getClassQuantile(6);
+        seriesODP.getClassQuantile(6);
+        seriesPDP.getClassQuantile(6);
+
+        var classPositive = seriesPositive.getRanges();
+        var classRecovered = seriesRecovered.getRanges();
+        var classDeceased = seriesDeath.getRanges();
+        var classUnderTreatment = seriesUnderTreatment.getRanges();
+        var classODP = seriesODP.getRanges();
+        var classPDP = seriesPDP.getRanges();
+
+        classPositive.forEach((range, i) => {
+          var temp = range.split(" - ");
+          var min = parseInt(temp[0]);
+          var max = parseInt(temp[1]);
+          if (i == 0) {
+            this.positiveRanges.push({
+              less: min,
+              color: this.regencyPositiveColor[0],
+            });
+            this.positiveRanges.push({
+              from: min,
+              to: max,
+              color: this.regencyPositiveColor[i + 1],
+            });
+          } else if (i == classPositive.length - 1) {
+            this.positiveRanges.push({
+              from: min,
+              to: max,
+              color: this.regencyPositiveColor[i + 1],
+            });
+            this.positiveRanges.push({
+              greater: max,
+              color: this.regencyPositiveColor[i + 2],
+            });
+          } else {
+            this.positiveRanges.push({
+              from: min,
+              to: max,
+              color: this.regencyPositiveColor[i + 1],
+            });
+          }
+        });
+        classRecovered.forEach((range, i) => {
+          var temp = range.split(" - ");
+          var min = parseInt(temp[0]);
+          var max = parseInt(temp[1]);
+          if (i == 0) {
+            this.recoveredRanges.push({
+              less: min,
+              color: this.regencyRecoveredColor[0],
+            });
+            this.recoveredRanges.push({
+              from: min,
+              to: max,
+              color: this.regencyRecoveredColor[i + 1],
+            });
+          } else if (i == classRecovered.length - 1) {
+            this.recoveredRanges.push({
+              from: min,
+              to: max,
+              color: this.regencyRecoveredColor[i + 1],
+            });
+            this.recoveredRanges.push({
+              greater: max,
+              color: this.regencyRecoveredColor[i + 2],
+            });
+          } else {
+            this.recoveredRanges.push({
+              from: min,
+              to: max,
+              color: this.regencyRecoveredColor[i + 1],
+            });
+          }
+        });
+        classDeceased.forEach((range, i) => {
+          var temp = range.split(" - ");
+          var min = parseInt(temp[0]);
+          var max = parseInt(temp[1]);
+          if (i == 0) {
+            this.deceasedRanges.push({
+              less: min,
+              color: this.regencyDeathColor[0],
+            });
+            this.deceasedRanges.push({
+              from: min,
+              to: max,
+              color: this.regencyDeathColor[i + 1],
+            });
+          } else if (i == classDeceased.length - 1) {
+            this.deceasedRanges.push({
+              from: min,
+              to: max,
+              color: this.regencyDeathColor[i + 1],
+            });
+            this.deceasedRanges.push({
+              greater: max,
+              color: this.regencyDeathColor[i + 2],
+            });
+          } else {
+            this.deceasedRanges.push({
+              from: min,
+              to: max,
+              color: this.regencyDeathColor[i + 1],
+            });
+          }
+        });
+        classUnderTreatment.forEach((range, i) => {
+          var temp = range.split(" - ");
+          var min = parseInt(temp[0]);
+          var max = parseInt(temp[1]);
+          if (i == 0) {
+            this.underTreatmentRanges.push({
+              less: min,
+              color: this.regencyPositiveColor[0],
+            });
+            this.underTreatmentRanges.push({
+              from: min,
+              to: max,
+              color: this.regencyPositiveColor[1],
+            });
+          } else if (i == classUnderTreatment.length - 1) {
+            this.underTreatmentRanges.push({
+              from: min,
+              to: max,
+              color: this.regencyPositiveColor[i + 1],
+            });
+            this.underTreatmentRanges.push({
+              greater: max,
+              color: this.regencyPositiveColor[i + 2],
+            });
+          } else {
+            this.underTreatmentRanges.push({
+              from: min,
+              to: max,
+              color: this.regencyPositiveColor[i + 1],
+            });
+          }
+        });
+        classODP.forEach((range, i) => {
+          var temp = range.split(" - ");
+          var min = parseInt(temp[0]);
+          var max = parseInt(temp[1]);
+          if (i == 0) {
+            this.odpRanges.push({
+              less: min,
+              color: this.regencyODPColor[0],
+            });
+            this.odpRanges.push({
+              from: min,
+              to: max,
+              color: this.regencyODPColor[i + 1],
+            });
+          } else if (i == classODP.length - 1) {
+            this.odpRanges.push({
+              from: min,
+              to: max,
+              color: this.regencyODPColor[i + 1],
+            });
+            this.odpRanges.push({
+              greater: max,
+              color: this.regencyODPColor[i + 2],
+            });
+          } else {
+            this.odpRanges.push({
+              from: min,
+              to: max,
+              color: this.regencyODPColor[i + 1],
+            });
+          }
+        });
+        classPDP.forEach((range, i) => {
+          var temp = range.split(" - ");
+          var min = parseInt(temp[0]);
+          var max = parseInt(temp[1]);
+          if (i == 0) {
+            this.pdpRanges.push({
+              less: min,
+              color: this.regencyPDPColor[0],
+            });
+            this.pdpRanges.push({
+              from: min,
+              to: max,
+              color: this.regencyPDPColor[i + 1],
+            });
+          } else if (i == classPDP.length - 1) {
+            this.pdpRanges.push({
+              from: min,
+              to: max,
+              color: this.regencyPDPColor[i + 1],
+            });
+            this.pdpRanges.push({
+              greater: max,
+              color: this.regencyPDPColor[i + 2],
+            });
+          } else {
+            this.pdpRanges.push({
+              from: min,
+              to: max,
+              color: this.regencyPDPColor[i + 1],
+            });
+          }
         });
       }
     },
-    createChoroplethMapLocal: function (name, data, color) {
-      districtMap.removeAllSeries();
-      var districtSeries = districtMap.choropleth(data);
-      districtSeries.labels(true);
-      districtSeries.labels().format("{%value}");
-      districtSeries.labels().fontWeight(600);
-      districtSeries.labels().fontColor("Black");
-      districtSeries.colorScale(
-        anychart.scales.ordinalColor([
-          { less: 0, color: color[0] },
-          { from: 0, to: 10, color: color[1] },
-          { from: 10, to: 20, color: color[2] },
-          { from: 20, to: 30, color: color[3] },
-          { from: 30, to: 40, color: color[4] },
-          { from: 40, to: 50, color: color[5] },
-          { greater: 50, color: color[6] },
-        ])
-      );
-      districtSeries.tooltip().titleFormat(function (e) {
+    createChoroplethMapLocal: function (name, data, color, range) {
+      regencyMap.removeAllSeries();
+      var regencySeries = regencyMap.choropleth(data);
+      regencySeries.labels(true);
+      regencySeries.labels().format("{%value}");
+      regencySeries.labels().fontWeight(600);
+      regencySeries.labels().fontColor("Black");
+      regencySeries.colorScale(anychart.scales.ordinalColor(range));
+      regencySeries.tooltip().titleFormat(function (e) {
         return (
           '<span class="font-bold text-left text-gray-900">' +
           e.getData("id") +
           "</span>"
         );
       });
-      districtSeries.tooltip().useHtml(true);
-      districtSeries.tooltip().background().fill("#fff");
-      districtSeries.tooltip().allowLeaveChart(true);
-      districtSeries.tooltip().format(function (e) {
+      regencySeries.tooltip().useHtml(true);
+      regencySeries.tooltip().background().fill("#fff");
+      regencySeries.tooltip().allowLeaveChart(true);
+      regencySeries.tooltip().format(function (e) {
         var positif =
           e.getData("positif") == null
             ? e.getData("value")
@@ -400,30 +617,28 @@ export default {
           "</table>";
         return tooltipHtml;
       });
-      districtSeries.name(name + "(Choropleth)");
-      districtSeries.hovered().fill(color[7]);
-      districtMap.colorRange(true);
-      districtMap.colorRange().length(1000);
-      districtSeries.selectionMode("none");
-      var districtTitle = districtMap.title();
-      districtTitle.enabled(true);
-      districtTitle.text(
+      regencySeries.name(name + "(Choropleth)");
+      regencySeries.hovered().fill(color[8]);
+      regencyMap.colorRange(true);
+      regencyMap.colorRange().length(1000);
+      regencySeries.selectionMode("none");
+      var regencyTitle = regencyMap.title();
+      regencyTitle.enabled(true);
+      regencyTitle.text(
         "Choropleth Map kasus " + name + " COVID-19 di Sulawesi Tengah"
       );
     },
     loadMap: function () {
-      axios
-        .get(route("home") + "assets/geojson/sulteng.json")
-        .then((response) => {
-          districtMap.geoData(response.data);
-        });
+      axios.get(this.asset("geojson/sulteng.json")).then((response) => {
+        regencyMap.geoData(response.data);
+      });
     },
   },
 
   mounted() {
     var container = this.$refs["map_kabupaten_case"];
     this.getDistrictData();
-    if (districtMap.geoData() == null) {
+    if (regencyMap.geoData() == null) {
       this.loadMap();
     }
 
@@ -434,12 +649,12 @@ export default {
       "-" +
       this.today.getFullYear();
     var fileDistrict = "Data COVID-19 Sulawesi Tengah_" + lastUpdate;
-    districtMap.exports().filename(fileDistrict);
-    var districtZoom = anychart.ui.zoom();
-    districtZoom.target(districtMap);
-    districtZoom.render();
-    districtMap.container(container);
-    districtMap.draw(true);
+    regencyMap.exports().filename(fileDistrict);
+    var regencyZoom = anychart.ui.zoom();
+    regencyZoom.target(regencyMap);
+    regencyZoom.render();
+    regencyMap.container(container);
+    regencyMap.draw(true);
   },
 };
 </script>

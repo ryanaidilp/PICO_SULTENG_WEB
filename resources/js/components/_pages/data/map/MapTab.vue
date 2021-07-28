@@ -33,7 +33,7 @@
             <div v-bind:class="{ hidden: openTab !== 1, block: openTab === 1 }">
               <keep-alive>
                 <map-choropleth
-                  :districts="districts"
+                  :regencies="regencies"
                   :provinces="provinces"
                 ></map-choropleth>
               </keep-alive>
@@ -41,7 +41,7 @@
             <div v-bind:class="{ hidden: openTab !== 2, block: openTab === 2 }">
               <keep-alive>
                 <map-bubble
-                  :districts="districts"
+                  :regencies="regencies"
                   :provinces="provinces"
                 ></map-bubble>
               </keep-alive>
@@ -58,7 +58,7 @@ import MapBubble from "@/components/_pages/data/map/bubble/MapBubble";
 
 export default {
   props: {
-    districts: {
+    regencies: {
       type: Array,
       required: true,
     },

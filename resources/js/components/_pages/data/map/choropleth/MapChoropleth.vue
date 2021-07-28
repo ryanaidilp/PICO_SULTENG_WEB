@@ -9,7 +9,7 @@
       :clearable="false"
     ></v-select>
     <local-map
-      :districts="districts"
+      :regencies="regencies"
       v-if="selected == 'Sulawesi Tengah'"
       class="mt-8 border-t-2"
     ></local-map>
@@ -30,7 +30,7 @@ import LocalMap from "@/components/_pages/data/map/choropleth/LocalMap";
 import NationalMap from "@/components/_pages/data/map/choropleth/NationalMap";
 export default {
   props: {
-    districts: {
+    regencies: {
       type: Array,
       required: true,
     },

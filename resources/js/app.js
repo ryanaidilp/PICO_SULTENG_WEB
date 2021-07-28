@@ -11,6 +11,7 @@ import {
 } from "@inertiajs/progress"
 import VueLazyload from "vue-lazyload"
 import BackToTop from "vue-backtotop"
+import VueViewer from "v-viewer";
 
 // Plugin Initialization
 
@@ -47,6 +48,10 @@ Vue.mixin({
                 .replaceAll(".", ":");
 
             return date;
+        },
+        formatDecimal(value) {
+            const NumberFormat = new Intl.NumberFormat("id");
+            return NumberFormat.format(value);
         }
     }
 })
@@ -55,6 +60,7 @@ Vue.use(VueLazyload, {
     preLoad: 1.3,
     attempt: 3
 })
+Vue.use(VueViewer)
 
 
 createInertiaApp({
@@ -66,7 +72,20 @@ createInertiaApp({
     }) {
         new Vue({
             render: h => h(app, props),
-            store
+            store,
+            created() {
+                this.$store.dispatch("loadLocal");
+                this.$store.dispatch("loadNational");
+                this.$store.dispatch("loadNationalVaccine");
+                this.$store.dispatch("loadProvinceVaccine", 72);
+                setInterval(() => {
+                    this.$store.dispatch("loadLocal");
+                    this.$store.dispatch("loadNational");
+                    this.$store.dispatch("loadNationalVaccine");
+                    this.$store.dispatch("loadProvinceVaccine", 72);
+
+                }, 5 * 60 * 1000);
+            }
         }).$mount(el)
     }
 })

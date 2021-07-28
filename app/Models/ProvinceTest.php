@@ -6,12 +6,13 @@ use App\Models\Province;
 use App\Models\TestType;
 use App\Models\NationalCase;
 use Illuminate\Database\Eloquent\Model;
+use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class ProvinceTest extends Model
 {
-    use HasFactory;
+    use HasFactory, HasEagerLimit;
 
     protected $guarded = [];
     protected $appends = ["total"];

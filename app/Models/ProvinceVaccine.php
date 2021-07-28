@@ -5,12 +5,13 @@ namespace App\Models;
 use App\Models\Province;
 use App\Models\NationalVaccine;
 use Illuminate\Database\Eloquent\Model;
+use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class ProvinceVaccine extends Model
 {
-    use HasFactory;
+    use HasFactory, HasEagerLimit;
 
     protected $guarded = [];
 

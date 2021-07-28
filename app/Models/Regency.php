@@ -8,6 +8,7 @@ use App\Models\TaskForce;
 use App\Models\RegencyCase;
 use App\Models\VaccineLocation;
 use Illuminate\Database\Eloquent\Model;
+use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -15,7 +16,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Regency extends Model
 {
-    use HasFactory;
+    use HasFactory, HasEagerLimit;
 
     protected $guarded = [];
     public $incrementing = false;
@@ -47,7 +48,7 @@ class Regency extends Model
      */
     public function case(): HasOne
     {
-        return $this->hasOne(RegencyCase::class, "regency_id", "id")->latest("day");
+        return $this->hasOne(RegencyCase::class, "regency_id", "id")->latest("day")->limit(1);
     }
 
     /**

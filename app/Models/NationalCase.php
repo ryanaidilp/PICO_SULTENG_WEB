@@ -64,8 +64,8 @@ class NationalCase extends Model
     //  Mutators & Accessors
     public function getDeathRatioAttribute()
     {
-        return ($this->positive > 0) ?
-            \percentageValue($this->positive, $this->deceased) : 0;
+        return ($this->cumulative_positive > 0) ?
+            percentageValue($this->cumulative_positive, $this->cumulative_deceased) : 0;
     }
 
     public function getUnderTreatmentAttribute()

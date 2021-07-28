@@ -5,12 +5,13 @@ namespace App\Models;
 use App\Models\Province;
 use App\Models\NationalCase;
 use Illuminate\Database\Eloquent\Model;
+use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class ProvinceCase extends Model
 {
-    use HasFactory;
+    use HasFactory, HasEagerLimit;
 
     protected $guarded = [];
     protected $appends = [
@@ -44,8 +45,8 @@ class ProvinceCase extends Model
     // Accessors & Mutators 
     public function getDeathRatioAttribute()
     {
-        return ($this->positive > 0) ?
-            percentageValue($this->positive, $this->deceased) : 0;
+        return ($this->cumulative_positive > 0) ?
+            percentageValue($this->cumulative_positive, $this->cumulative_deceased) : 0;
     }
 
     public function getUnderTreatmentAttribute()

@@ -15,10 +15,11 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 
 class Province extends Model
 {
-    use HasFactory;
+    use HasFactory, HasEagerLimit;
 
     protected $guarded = [];
     public $incrementing = false;
@@ -50,7 +51,7 @@ class Province extends Model
      */
     public function case(): HasOne
     {
-        return $this->hasOne(ProvinceCase::class, "province_id", "id")->latest("day");
+        return $this->hasOne(ProvinceCase::class, "province_id", "id")->latest("day")->limit(1);
     }
 
     /**
@@ -70,7 +71,7 @@ class Province extends Model
      */
     public function test(): HasOne
     {
-        return $this->hasOne(ProvinceTest::class, "province_id", "id")->latest("day");
+        return $this->hasOne(ProvinceTest::class, "province_id", "id")->latest("day")->limit(1);
     }
 
     /**
@@ -90,7 +91,7 @@ class Province extends Model
      */
     public function vaccine(): HasOne
     {
-        return $this->hasOne(ProvinceVaccine::class, "province_id", "id")->latest("day");
+        return $this->hasOne(ProvinceVaccine::class, "province_id", "id")->latest("day")->limit(1);
     }
 
     /**

@@ -24,6 +24,11 @@ class TestType extends Model
         return $this->hasMany(ProvinceTest::class, "test_type_id", "id");
     }
 
+    public function province_test_case()
+    {
+        return $this->hasOne(ProvinceTest::class, "test_type_id", "id")->latest("day");
+    }
+
     // Methods
 
     // Mutators & Accessors

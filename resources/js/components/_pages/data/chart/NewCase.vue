@@ -9,7 +9,6 @@
           :opacity="0.8"
           :width="120"
           :height="400"
-          loader="bars"
           color="#59F"
         >
         </loading>
@@ -29,8 +28,8 @@
 </template>
 <script>
 import Loading from "vue-loading-overlay";
-import Chart from "chart.js";
-import "chart.js/dist/Chart.min";
+import "vue-loading-overlay/dist/vue-loading.css";
+import Chart from "chart.js/auto";
 import { id } from "date-fns/locale";
 const { format } = require("date-fns");
 var dataChart = {
@@ -89,54 +88,49 @@ var dataChart = {
     ],
   },
   options: {
-    title: {
-      display: true,
-      fontSize: 16,
-      text: "Perubahan Data di Kabupaten/Kota",
-    },
+    locale: "id-ID",
     plugins: {
       datalabels: {
         display: false,
       },
+      title: {
+        display: true,
+        fontSize: 16,
+        text: "Perubahan Data di Kabupaten/Kota",
+      },
+
+      legend: { position: "bottom", usePointStyle: false, display: true },
     },
     scales: {
-      yAxes: [
-        {
-          stacked: true,
-          gridLines: {
-            display: false,
-            color: "#fff",
-            zeroLineColor: "#fff",
-            zeroLineWidth: 0,
-          },
+      yAxis: {
+        stacked: true,
+        gridLines: {
+          display: false,
+          color: "#fff",
+          zeroLineColor: "#fff",
+          zeroLineWidth: 0,
         },
-      ],
-      xAxes: [
-        {
-          stacked: true,
-          ticks: {
-            beginAtZero: true,
-          },
-          scaleLabel: {
-            display: false,
-          },
-          gridLines: {},
+        title: {
+          display: true,
+          text: "Kasus Hari Ini",
         },
-      ],
+      },
+      xAxis: {
+        stacked: true,
+        ticks: {
+          beginAtZero: true,
+        },
+        title: {
+          display: true,
+          text: "Kabupaten/Kota",
+        },
+        gridLines: {},
+      },
     },
     maintainAspectRatio: false,
     responsive: true,
-    tooltips: {
-      mode: "label",
-      intersect: false,
-      backgroundColor: "rgba(255,255,255,1)",
-      titleFontColor: "#000",
-      bodyFontColor: "#000",
-      borderColor: "#222",
-      borderWidth: 1,
-    },
-    hover: { mode: "nearest", intersect: true },
-    legend: { position: "bottom", usePointStyle: false, display: true },
+
+    interaction: { mode: "index", intersect: false },
   },
 };
 export default {
@@ -145,14 +139,14 @@ export default {
   },
   props: {
     propsDataProvinsi: {
-      type: Object,
-      default: () => {},
+      type: Array,
+      default: () => [],
     },
   },
   data() {
     return {
       chart: null,
-      jsonDataProvinsi: {},
+      jsonDataProvinsi: [],
     };
   },
   methods: {
@@ -168,10 +162,10 @@ export default {
       });
     },
     isLoading() {
-      return this.jsonDataProvinsi === undefined ? true : false;
+      return this.jsonDataProvinsi.length <= 0 ? true : false;
     },
     getStatistic: function () {
-      var data = this.isLoading() ? [] : this.jsonDataProvinsi.daftar_kabupaten;
+      var data = this.isLoading() ? [] : this.jsonDataProvinsi;
       var districtList = [];
       var districtPositive = [];
       var districtRecovered = [];

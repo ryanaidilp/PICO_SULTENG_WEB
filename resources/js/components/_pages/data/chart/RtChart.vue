@@ -2,18 +2,24 @@
   <div class="w-full p-3 pb-8">
     <!--Graph Card-->
     <div class="bg-white rounded-lg shadow-lg vld-parent">
-      <div v-if="isLoading()" class="vld-icon">
+      <button
+        @click="resetZoom"
+        class="float-right px-4 py-2 mx-4 mt-4 text-blue-500 transition-all duration-300 bg-gray-200 rounded-md  hover:bg-gray-300"
+      >
+        Reset Zoom
+      </button>
+
+      <div v-if="isLoading()" class="vld-icon" style="height: 400px">
         <loading
           :active="isLoading()"
           :is-full-page="false"
           :opacity="0.8"
           :height="400"
-          loader="bars"
           color="#59F"
         >
         </loading>
       </div>
-      <div v-show="!isLoading()" style="height: 400px" class="p-5">
+      <div v-show="!isLoading()" style="height: 400px" class="p-5 mt-4">
         <keep-alive>
           <canvas
             id="rt-chart"
@@ -22,26 +28,31 @@
           ></canvas>
         </keep-alive>
       </div>
-      <div class="pb-8 text-center">
-        <span class="mx-4 text-xs md:text-base">
+
+      <div class="mt-4 text-center">
+        <span class="m-4 text-xs md:text-base">
           <i class="mr-2 text-lg text-blue-600 fas fa-minus"></i>Rt (Angka
           Reproduksi Efektif)
-          <i class="ml-4 mr-2 text-lg fas fa-square-full"></i>Selang Kepercayaan
-          (95%)
+          <i class="ml-4 mr-2 text-lg text-gray-200 fas fa-square-full"></i
+          >Selang Kepercayaan (95%)
         </span>
-        <p class="mx-8 mt-8 text-sm text-justify border-t-2">
+        <hr />
+        <p class="mx-8 mt-8 text-sm text-justify">
           *Keterangan :
           <br />
           <b>Rt</b> merupakan
           <b>rata-rata orang yang bisa terinfeksi dari satu pasien positif</b>
-          usai intervensi pemerintah. Sebagai contoh, Rt = 2 berarti satu orang
-          yang terinfeksi bisa menulari rata-rata dua orang lainnya. Rt
-          dipergunakan sebagai <b>syarat mutlak pelonggaran PSBB</b> di
-          Indonesia. Sesuai ketetapan Badan Perencanaan Pembangunan Nasional
-          (Bappenas), angka Rt di sebuah wilayah harus di bawah 1 selama 14 hari
-          berturut-turut sebelum relaksasi PSBB diberi lampu hijau.
+          usai intervensi pemerintah. Sebagai contoh, Rt = 2 berarti
+          <b
+            >satu orang yang terinfeksi bisa menulari rata-rata dua orang
+            lainnya</b
+          >. Rt adalah indikator yang digunakan untuk mengukur besar penularan
+          disuatu wilayah. Sesuai ketetapan Badan Perencanaan Pembangunan
+          Nasional (Bappenas), angka Rt di sebuah wilayah harus di bawah 1
+          selama 14 hari berturut-turut sebelum relaksasi PSBB diberi lampu
+          hijau.
         </p>
-        <p class="mx-8 mt-4 text-sm text-justify text-gray-500">
+        <p class="pb-8 mx-8 mt-4 text-sm text-justify text-gray-500">
           Referensi :
           <a
             href="https://www.datacamp.com/community/tutorials/replicating-in-r-covid19"
@@ -59,8 +70,10 @@
 </template>
 <script>
 import Loading from "vue-loading-overlay";
-import Chart from "chart.js";
-import "chart.js/dist/Chart.min";
+import "vue-loading-overlay/dist/vue-loading.css";
+import Chart from "chart.js/auto";
+import zoomPlugin from "chartjs-plugin-zoom";
+Chart.register({ zoomPlugin });
 import { id } from "date-fns/locale";
 const { format } = require("date-fns");
 var dataChart = {
@@ -73,93 +86,119 @@ var dataChart = {
         data: [],
         fill: false,
         pointRadius: 1,
+        yAxisId: "rt-axis",
         pointBackgroundColor: "rgba(65, 131, 215, 1)",
         borderColor: "rgba(65, 131, 215, 1)",
-      },
-      {
-        data: [],
-        label: "Rt lower (95%)",
-        type: "line",
-        fill: true,
-        pointRadius: 1,
-        yAxisID: "rt-axis",
-        backgroundColor: "rgba(255, 255, 255, 1)",
-        borderColor: "rgba(118, 93, 105, 0.2)",
+        backgroundColor: "rgba(65, 131, 215, 1)",
       },
       {
         data: [],
         label: "Rt upper (95%)",
         type: "line",
-        fill: true,
-        pointRadius: 1,
+        fill: 0,
+        pointRadius: 0,
+        yAxisId: "rt-axis",
         backgroundColor: "rgba(118, 93, 105, 0.2)",
-        borderColor: "rgba(118, 93, 105, 0.2)",
+        borderColor: "transparent",
+      },
+      {
+        data: [],
+        label: "Rt lower (95%)",
+        type: "line",
+        fill: 0,
+        pointRadius: 0,
+        yAxisId: "rt-axis",
+        backgroundColor: "rgba(118, 93, 105, 0.2)",
+        borderColor: "transparent",
       },
     ],
   },
   options: {
-    title: {
-      display: true,
-      fontSize: 16,
-      text: [
-        "Angka Reproduksi (Rt) COVID-19 di Sulawesi Tengah",
-        "Dihitung dengan metode Sequential-Bayes.",
-      ],
-    },
+    locale: "id-ID",
+    spanGaps: true,
     plugins: {
+      title: {
+        display: true,
+        fontSize: 24,
+        text: [
+          "Angka Reproduksi (Rt) COVID-19 di Sulawesi Tengah",
+          "Dihitung dengan metode Sequential-Bayes.",
+        ],
+      },
       datalabels: {
         display: false,
       },
+      tooltips: {
+        //   filter: function (tooltipItem) {
+        //     if (tooltipItem.datasetIndex == 0) {
+        //       return true;
+        //     } else {
+        //       return false;
+        //     }
+        //   },
+        mode: "index",
+        intersect: false,
+        backgroundColor: "rgba(255,255,255,1)",
+        titleFontColor: "#000",
+        bodyFontColor: "#000",
+        borderColor: "#222",
+        borderWidth: 1,
+      },
+
+      zoom: {
+        limits: {
+          y: { min: 0 },
+        },
+        pan: {
+          enabled: true,
+          mode: "xy",
+        },
+        zoom: {
+          wheel: {
+            enabled: true,
+          },
+
+          pinch: {
+            enabled: true,
+          },
+          mode: "xy",
+        },
+      },
+      legend: {
+        position: "bottom",
+        usePointStyle: true,
+        display: true,
+      },
     },
     scales: {
-      yAxes: [
-        {
-          id: "rt-axis",
-          position: "right",
+      y: {
+        id: "rt-axis",
+        position: "right",
+        display: true,
+        type: "linear",
+        title: {
           display: true,
-          scaleLabel: {
-            display: true,
-            labelString:
-              "Angka Reproduksi Efektif/Effective Infection Rate (Rt)",
-          },
+          text: "Angka Reproduksi Efektif (Rt)",
         },
-      ],
-      xAxes: [
-        {
-          ticks: {
-            callback: function (value, index, values) {
-              var data = value.split(" ");
-              return data[0] + data[1];
-            },
-            maxRotation: 90,
-            minRotation: 90,
-          },
-          display: true,
-          stacked: true,
-          scaleLabel: { display: true, labelString: "Tanggal" },
+      },
+
+      x: {
+        ticks: {
+          // callback: function (value, index, values) {
+          //   var data = value.split(" ");
+          //   return data[0] + data[1];
+          // },
+          maxRotation: 90,
+          minRotation: 90,
         },
-      ],
+        display: true,
+        stacked: true,
+        title: { display: true, text: "Tanggal" },
+      },
     },
     maintainAspectRatio: false,
     responsive: true,
-    tooltips: {
-      //   filter: function (tooltipItem) {
-      //     if (tooltipItem.datasetIndex == 0) {
-      //       return true;
-      //     } else {
-      //       return false;
-      //     }
-      //   },
-      mode: "index",
-      intersect: false,
-      backgroundColor: "rgba(255,255,255,1)",
-      titleFontColor: "#000",
-      bodyFontColor: "#000",
-      borderColor: "#222",
-      borderWidth: 1,
-    },
-    hover: { mode: "index", intersect: false },
-    legend: { position: "bottom", usePointStyle: true, display: false },
+    interaction: { mode: "index", intersect: false },
   },
 };
 export default {
@@ -227,11 +266,16 @@ export default {
         rt_lower.push(temp.rekap.Rt_lower);
       }
       dataChart.data.datasets[0].data = rt_value;
-      dataChart.data.datasets[1].data = rt_lower;
-      dataChart.data.datasets[2].data = rt_upper;
+      dataChart.data.datasets[2].data = rt_lower;
+      dataChart.data.datasets[1].data = rt_upper;
       dataChart.data.labels = label;
       this.chart.update();
       this.chart.render();
+    },
+    resetZoom() {
+      if (this.chart) {
+        this.chart.resetZoom();
+      }
     },
   },
   mounted() {

@@ -1,48 +1,62 @@
-<h1 align="center"> PICO SulTeng WEB </h1>
+<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
-![PICO SulTeng WEB](https://i.ibb.co/8b5cFjL/newpico.jpg)
+<p align="center">
+<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+</p>
 
-[PICO SulTeng WEB](https://banuacoders.com/corona) is the web version of PICO SulTeng (*Pusat Informasi COVID-19 Sulawesi Tengah*/COVID-19 Information Center of Central Sulawesi). It is built using [Laravel](https://laravel.com/), [Vue.js](https://vuejs.org), [Tailwind CSS](https://tailwindcss.com), & [Inertia Js](https://inertiajs.com).  This website is built to facilitate the people of Central Sulawesi in obtaining information about the current situation of COVID-19 in Central Sulawesi.
+## About Laravel
 
-## Configuration
+Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-This website is designed to be deployed to a sub-folder on shared hosting.
+- [Simple, fast routing engine](https://laravel.com/docs/routing).
+- [Powerful dependency injection container](https://laravel.com/docs/container).
+- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
+- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
+- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
+- [Robust background job processing](https://laravel.com/docs/queues).
+- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-To run this website on your local machine, follow these instruction carefully :
+Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-* **Deploy instruction**
-  * Clone this repository to your PC/laptop.
-  * Open terminal/CMD then go to the **root directory** of the clone results.
-  * Run this command `cp .env.example .env`
-  * Run `composer install` / `composer update` & `npm install` command to install all required dependencies.
-  * Run `php artisan migrate` to create fresh database and tables with empty data
+## Learning Laravel
 
-* **Deploy using artisan command**
-  * Just run `php artisan serve` from your terminal
+Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
 
-* **Deploy on XAMPP**
-  * Create a new directory in **htdocs**
-  * Copy all files and directories in the public folder to the root folder in the directory you just created
-  * Create a new directory in the directory that you just created then copy all the cloned files except the public folder to that directory
-  * Modify your index.php 
+If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-    ```php
-        require __DIR__.'/../<new-dir-you-just-created>/vendor/autoload.php';
+## Laravel Sponsors
 
-        /*
-        |--------------------------------------------------------------------------
-        | Run The Application
-        |--------------------------------------------------------------------------
-        |
-        | Once we have the application, we can handle the incoming request using
-        | the application's HTTP kernel. Then, we will send the response back
-        | to this client's browser, allowing them to enjoy our application.
-        |
-        */
-        $app = require_once __DIR__.'/../<new-dir-you-just-created>/bootstrap/app.php';
+We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
 
-    ```
+### Premium Partners
 
-## Disclaimer
+- **[Vehikl](https://vehikl.com/)**
+- **[Tighten Co.](https://tighten.co)**
+- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
+- **[64 Robots](https://64robots.com)**
+- **[Cubet Techno Labs](https://cubettech.com)**
+- **[Cyber-Duck](https://cyber-duck.co.uk)**
+- **[Many](https://www.many.co.uk)**
+- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
+- **[DevSquad](https://devsquad.com)**
+- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
+- **[OP.GG](https://op.gg)**
 
-  Support me by following this account or starring this repository
+## Contributing
+
+Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+
+## Code of Conduct
+
+In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+
+## Security Vulnerabilities
+
+If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+
+## License
+
+The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).

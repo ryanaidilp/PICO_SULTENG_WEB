@@ -1,69 +1,75 @@
 <template>
   <div class="w-full">
     <div
-      class="flex flex-col flex-wrap items-center justify-center w-full md:flex-row"
+      class="flex flex-col flex-wrap items-center justify-center w-full  md:flex-row"
     >
-      <div class="container p-4 mx-auto">
+      <div class="container p-4 mx-auto lg:py-4 lg:px-0">
         <div
-          class="grid gap-5 md:grid-cols-2 md:grid-rows-2 xl:grid-cols-4 xl:grid-rows-1"
+          class="grid gap-5  md:grid-cols-2 md:grid-rows-2 xl:grid-cols-4 xl:grid-rows-1"
         >
           <card-case
             title="Positif"
-            :cumulative_local.sync="local.cumulative_positive"
-            :new_local.sync="local.positive"
-            :cumulative_national.sync="national.cumulative_positive"
-            :new_national.sync="national.daily_positive_case"
-            bg_color="bg-red-800"
-            text_color="text-red-800"
+            :cumulative-local="loadValue(local, 'kumulatif', 'positif')"
+            :new-local="loadValue(local, 'kasus_baru', 'positif')"
+            :cumulative-national="loadValue(national, 'kumulatif', 'positif')"
+            :new-national="loadValue(national, 'kasus_baru', 'positif')"
+            bg-color="bg-red-800"
+            text-color="text-red-800"
           />
           <card-case
             title="Dirawat"
-            :cumulative_local.sync="local.under_treatment"
-            :new_local.sync="local.new_under_treatment"
-            :cumulative_national.sync="national.cumulative_under_treatment"
-            :new_national.sync="national.daily_under_treatment_case"
-            bg_color="bg-blue-600"
-            text_color="text-blue-600"
+            :cumulative-local="loadValue(local, 'aktif', 'dalam_perawatan')"
+            :new-local="loadValue(local, 'kasus_baru', 'dalam_perawatan')"
+            :cumulative-national="
+              loadValue(national, 'kumulatif', 'dalam_perawatan')
+            "
+            :new-national="loadValue(national, 'kasus_baru', 'dalam_perawatan')"
+            bg-color="bg-blue-600"
+            text-color="text-blue-600"
           />
           <card-case
             title="Sembuh"
-            :cumulative_local.sync="local.cumulative_recovered"
-            :new_local.sync="local.recovered"
-            :cumulative_national.sync="national.cumulative_recovered"
-            :new_national.sync="national.daily_recovered_case"
-            bg_color="bg-green-500"
-            text_color="text-green-500"
+            :cumulative-local="loadValue(local, 'kumulatif', 'sembuh')"
+            :new-local="loadValue(local, 'kasus_baru', 'sembuh')"
+            :cumulative-national="loadValue(national, 'kumulatif', 'sembuh')"
+            :new-national="loadValue(national, 'kasus_baru', 'sembuh')"
+            bg-color="bg-green-500"
+            text-color="text-green-500"
           />
           <card-case
             title="Meninggal"
-            :cumulative_local.sync="local.cumulative_death"
-            :new_local.sync="local.death"
-            :cumulative_national.sync="national.cumulative_deceased"
-            :new_national.sync="national.daily_deceased_case"
-            bg_color="bg-orange-500"
-            text_color="text-orange-500"
+            :cumulative-local="loadValue(local, 'kumulatif', 'meninggal')"
+            :new-local="loadValue(local, 'kasus_baru', 'meninggal')"
+            :cumulative-national="loadValue(national, 'kumulatif', 'meninggal')"
+            :new-national="loadValue(national, 'kasus_baru', 'meninggal')"
+            bg-color="bg-orange-500"
+            text-color="text-orange-500"
           />
         </div>
       </div>
 
-      <card-suspect
-        title="Pasien Dalam Pengawasan (PDP)"
-        :new_case.sync="local.new_PDP"
-        :new_finished_case.sync="local.finished_PDP"
-        :active_case.sync="local.active_PDP"
-        :total_case.sync="local.cumulative_PDP"
-        :total_finished_case.sync="local.cumulative_finished_PDP"
-        status="Pengawasan"
-      />
-      <card-suspect
-        title="Orang Dalam Pemantauan (ODP)"
-        :new_case.sync="local.new_ODP"
-        :new_finished_case.sync="local.finished_ODP"
-        :active_case.sync="local.active_ODP"
-        :total_case.sync="local.cumulative_ODP"
-        :total_finished_case.sync="local.cumulative_finished_ODP"
-        status="Pemantauan"
-      />
+      <div
+        class="container grid grid-cols-1 gap-5 p-4 mx-auto  lg:py-4 lg:px-0 md:grid-cols-2"
+      >
+        <card-suspect
+          title="Pasien Dalam Pengawasan (PDP)"
+          :new-case="local.kasus_baru.PDP"
+          :new-finished-case="local.selesai.PDP"
+          :active-case="local.aktif.PDP"
+          :total-case="local.kumulatif.PDP"
+          :total-finished-case="local.kumulatif.selesai_PDP"
+          status="Pengawasan"
+        />
+        <card-suspect
+          title="Orang Dalam Pemantauan (ODP)"
+          :new-case="local.ODP"
+          :new-finished-case="local.selesai.ODP"
+          :active-case="local.aktif.ODP"
+          :total-case="local.kumulatif.ODP"
+          :total-finished-case="local.kumulatif.selesai_ODP"
+          status="Pemantauan"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -71,10 +77,27 @@
 import CardCase from "@/components/CardCase";
 import CardSuspect from "@/components/CardSuspect";
 export default {
-  props: ["local", "national"],
+  props: {
+    local: {
+      type: Object,
+      required: true,
+    },
+    national: {
+      type: Object,
+      required: true,
+    },
+  },
   components: {
     CardCase,
     CardSuspect,
+  },
+  methods: {
+    loadValue(data, key, scndKey = null) {
+      if (data[key]) {
+        return scndKey !== null ? data[key][scndKey] : data[key];
+      }
+      return 0;
+    },
   },
 };
 </script>

@@ -1,14 +1,12 @@
 <template>
   <layout>
     <div class="w-full leading-normal xl:px-0 xl:mt-8">
-      <div class="flex flex-wrap justify-center md:ml-4">
+      <div class="flex flex-wrap items-center justify-between md:px-8">
         <banner
-          :banners="donations"
-          class="rounded-lg shadow-lg w-96 h-96 sm:w-screen xl:max-w-lg xl:w-1/2"
+          :banners="banners"
+          class="w-full px-4 rounded-lg shadow-lg sm:px-0 h-96 xl:max-w-2xl xl:w-full"
         />
-        <div
-          class="flex flex-col flex-wrap w-full mt-4 xl:w-1/2 xl:ml-12 xl:-mt-3"
-        >
+        <div class="flex flex-col flex-wrap w-full xl:w-1/2">
           <call-center class="flex flex-wrap justify-center w-full" />
           <donation />
         </div>
@@ -16,15 +14,16 @@
       <data-covid
         :national.sync="national"
         :local.sync="local"
-        :lastUpdate="lastUpdate"
-        :districts.sync="districts"
+        :last-update="formatDate(updated_at)"
+        :national-vaccine="national_vaccine"
+        :province-vaccine="province_vaccine"
         class="mt-8"
       />
-      <covid-info class="mt-16 md:mx-auto" />
+      <covid-info class="mb-16 md:mx-auto" />
       <see-more-link :linkUrl="route('wiki')" />
       <section class="m-4 mt-4 md:mt-8">
         <div
-          class="flex flex-col items-stretch p-5 my-4 bg-white rounded-lg shadow-md"
+          class="flex flex-col items-stretch p-5 my-4 bg-white rounded-lg shadow-md "
         >
           <h3 class="text-lg lg:text-2xl">
             <strong>Daftar Rumah Sakit Rujukan di Sulawesi Tengah</strong>
@@ -39,13 +38,12 @@
           </p>
           <br />
           <br />
-          <ul class="mt-8 hospital-list">
+          <ul class="items-stretch block gap-5 mt-8 lg:grid lg:grid-cols-3">
             <li v-for="(h, index) in hospitals" :key="index">
               <ContactListItem
-                :nama="h.nama"
-                :alamat="h.alamat"
-                :email="h.email"
-                :telepon="h.telepon"
+                :nama="h.name"
+                :alamat="h.address"
+                :contacts="h.contacts"
               />
             </li>
           </ul>
@@ -101,18 +99,25 @@ import ContactListItem from "@/components/ContactListItem";
 import ShareableItems from "@/components/ShareableItems/Index";
 import PartnerFooter from "@/Shared/PartnerFooter";
 import { Inertia } from "@inertiajs/inertia";
+import { mapState } from "vuex";
 
 export default {
-  props: [
-    "donations",
-    "lastUpdate",
-    "national",
-    "local",
-    "districts",
-    "hospitals",
-    "infographics",
-    "partners",
-  ],
+  props: {
+    banners: {
+      type: Array,
+      required: true,
+    },
+    hospitals: {
+      type: Array,
+    },
+    infographics: {
+      type: Array,
+    },
+    partners: {
+      type: Array,
+    },
+  },
+
   components: {
     Layout,
     Donation,
@@ -125,20 +130,22 @@ export default {
     ShareableItems,
     PartnerFooter,
   },
+  computed: {
+    ...mapState(["national_vaccine", "province_vaccine", "local", "national"]),
+    updated_at() {
+      if (_.isEmpty(this.local)) {
+        return new Date();
+      }
+      return this.local.tanggal;
+    },
+  },
   methods: {
     reloadData() {
       setInterval(() => {
         Inertia.reload({
-          only: [
-            "donations",
-            "lastUpdate",
-            "districts",
-            "local",
-            "national",
-            "infographics",
-          ],
+          only: ["banners", "donations", "infographics"],
         });
-      },5 * 60 * 1000);
+      }, 5 * 60 * 1000);
     },
   },
   mounted() {
@@ -148,12 +155,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.hospital-list {
-  display: block;
-  @screen lg {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    align-items: stretch;
-  }
-}
 </style>

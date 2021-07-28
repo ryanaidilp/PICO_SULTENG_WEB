@@ -10,7 +10,7 @@
         Kumpulan informasi penting seputar COVID-19.
       </p>
       <what-is-covid class="mt-8 md:mt-16"></what-is-covid>
-      <how-to-prevent-covid class="mt-16"/>
+      <how-to-prevent-covid class="mt-16" />
       <how-it-spread class="mt-16"></how-it-spread>
       <symptomp class="mt-16"></symptomp>
       <important-term class="mt-16" />
@@ -33,9 +33,14 @@ import CardPhysical from "@/components/_pages/wiki/CardPhysical";
 import ImportantTerm from "@/components/_pages/wiki/ImportantTerm";
 import Mythbuster from "@/components/_pages/wiki/Mythbuster";
 import Partner from "@/Shared/PartnerFooter";
-import HowToPreventCovid from '@/components/_pages/wiki/HowToPreventCovid'
+import HowToPreventCovid from "@/components/_pages/wiki/HowToPreventCovid";
 export default {
-  props: ["partners"],
+  props: {
+    partners: {
+      type: Array,
+      required: true,
+    },
+  },
   components: {
     Layout,
     WhatIsCovid,
@@ -46,7 +51,7 @@ export default {
     ImportantTerm,
     Mythbuster,
     Partner,
-    HowToPreventCovid
+    HowToPreventCovid,
   },
 };
 </script>

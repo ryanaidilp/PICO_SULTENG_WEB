@@ -3,28 +3,24 @@
     <p class="pt-4 font-semibold text-center lg:ml-8">
       Tabel kasus ODP dan PDP di Sulawesi Tengah
     </p>
-    <vue-good-table
-      :fixed-header="false"
-      theme="black-rhino"
-      class="mt-4"
-      :columns="columns"
-      :rows="rows"
-      :search-options="{
-        enabled: true,
-        trigger: 'enter',
-        placeholder: 'Cari..',
-      }"
-      max-height="400px"
-      :line-numbers="true"
-    ></vue-good-table>
+    <data-table class="mt-4" :header-fields="columns" :data="rows">
+      <template #notes>
+        Data diolah dari
+        <hyperlink
+          href="https://dinkes.sultengprov.go.id"
+          label="https://dinkes.sultengprov.go.id"
+        />
+      </template>
+    </data-table>
   </div>
 </template>
 <script>
-import "vue-good-table/dist/vue-good-table";
-import { VueGoodTable } from "vue-good-table";
+import DataTable from "@/components/DataTable";
+import Hyperlink from "@/components/Hyperlink";
 export default {
   components: {
-    VueGoodTable,
+    DataTable,
+    Hyperlink,
   },
   props: {
     propsDataSultengKabupaten: {
@@ -42,53 +38,45 @@ export default {
       columns: [
         {
           label: "Kabupaten",
-          field: "kabupaten",
+          name: "kabupaten",
           type: "text",
-          thClass: "text-center",
-          tdClass: "text-left font-bold",
-          sortable: false,
+          sortable: true,
         },
         {
           label: "ODP Aktif",
-          field: "dalam_pemantauan",
-          thClass: "text-center",
-          tdClass: "text-center",
-          type: "number",
+          name: "dalam_pemantauan",
+          sortable: true,
+          format: this.formatDecimal,
         },
         {
           label: "Selesai ODP",
-          field: "selesai_pemantauan",
-          thClass: "text-center",
-          tdClass: "text-center",
-          type: "number",
+          name: "selesai_pemantauan",
+          sortable: true,
+          format: this.formatDecimal,
         },
         {
           label: "Total ODP",
-          field: "ODP",
-          thClass: "text-center",
-          tdClass: "text-center",
-          type: "number",
+          name: "ODP",
+          sortable: true,
+          format: this.formatDecimal,
         },
         {
           label: "PDP Aktif",
-          field: "dalam_pengawasan",
-          thClass: "text-center",
-          tdClass: "text-center",
-          type: "number",
+          name: "dalam_pengawasan",
+          sortable: true,
+          format: this.formatDecimal,
         },
         {
           label: "Selesai PDP",
-          field: "selesai_pengawasan",
-          thClass: "text-center",
-          tdClass: "text-center",
-          type: "number",
+          name: "selesai_pengawasan",
+          sortable: true,
+          format: this.formatDecimal,
         },
         {
           label: "Total PDP",
-          field: "PDP",
-          thClass: "text-center",
-          tdClass: "text-center",
-          type: "number",
+          name: "PDP",
+          sortable: true,
+          format: this.formatDecimal,
         },
       ],
       rows: [],
@@ -100,10 +88,6 @@ export default {
     },
   },
   mounted() {
-    let grid = document.querySelector("div.vgt-responsive");
-
-    grid.classList.add("overlay");
-    grid.classList.add("custom");
     this.getStatistic();
   },
 };

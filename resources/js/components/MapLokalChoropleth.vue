@@ -166,7 +166,12 @@
 import Anychart from "anychart";
 var districtMap = anychart.map();
 export default {
-  props: ["districts"],
+  props: {
+    districts: {
+      type: Array,
+      required: true,
+    },
+  },
   data() {
     return {
       today: new Date(),
@@ -338,7 +343,8 @@ export default {
           e.getData("ODP") == null ? e.getData("value") : e.getData("ODP");
         var PDP =
           e.getData("PDP") == null ? e.getData("value") : e.getData("PDP");
-        var underTreatment =  e.getData("dirawat") == null
+        var underTreatment =
+          e.getData("dirawat") == null
             ? e.getData("value")
             : e.getData("dirawat");
         let tooltipHtml =

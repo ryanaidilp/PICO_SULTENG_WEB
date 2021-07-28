@@ -1,46 +1,26 @@
 <template>
   <div class="w-full">
-    <ul class="flex flex-row flex-wrap pt-3 mb-0 list-none border-b-2">
-      <li class="flex-1 mr-2 -mb-px last:mr-0">
+    <ul class="flex flex-row flex-wrap max-w-xl pt-3 mb-0 list-none">
+      <li class="flex-1">
         <a
-          class="block px-5 py-3 text-xs font-bold md:text-sm"
-          v-on:click="toggleTabs(1)"
-          v-bind:class="{
-            'text-black': openTab !== 1,
-            'text-blue-600 border-blue-600 border-b-2': openTab === 1,
-          }"
+          class="block py-2 text-xs font-semibold cursor-pointer md:text-xl"
+          @click="toggleTabs(1)"
+          :class="activeTab(1)"
           >Statistik</a
         >
       </li>
-      <li class="flex-1 mr-2 -mb-px last:mr-0">
+      <li class="flex-1">
         <a
-          class="block px-5 py-3 text-xs font-bold md:text-sm"
-          v-on:click="toggleTabs(2)"
-          v-bind:class="{
-            'text-black': openTab !== 2,
-            'text-blue-600 border-blue-600 border-b-2': openTab === 2,
-          }"
+          class="block py-2 text-xs font-semibold cursor-pointer md:text-xl"
+          @click="toggleTabs(2)"
+          :class="activeTab(2)"
         >
-          <span class="hidden sm:block">Peta Sebaran Kab./Kota</span>
-          <span class="block sm:hidden">Heat Map</span>
-        </a>
-      </li>
-      <li class="flex-1 mr-2 -mb-px last:mr-0">
-        <a
-          class="block px-5 py-3 text-xs font-bold md:text-sm"
-          v-on:click="toggleTabs(3)"
-          v-bind:class="{
-            'text-black': openTab !== 3,
-            'text-blue-600 border-blue-600 border-b-2': openTab === 3,
-          }"
-        >
-          <span class="hidden sm:block">Peta Titik Sebaran Kasus</span>
-          <span class="block sm:hidden">Bubble Map</span>
+          <span>Vaksinasi</span>
         </a>
       </li>
     </ul>
     <content-loader
-      v-if="!national && !this.local"
+      v-if="checkNull(local) && checkNull(national)"
       :height="400"
       :width="900"
       :speed="2"
@@ -54,46 +34,61 @@
       <rect x="0" y="150" rx="10" ry="10" width="450" height="210" />
       <rect x="480" y="150" rx="10" ry="10" width="450" height="210" />
     </content-loader>
-    <div v-else class="relative flex flex-col w-full min-w-0 mb-6 break-words">
+    <div
+      v-else
+      class="relative flex flex-col w-full min-w-0 mb-6 break-words border-t-2 border-gray-300 "
+    >
       <div class="flex-1 py-5">
         <div class="tab-content tab-space">
-          <statistics
-            :local.sync="local"
-            :national.sync="national"
-            v-show="openTab === 1"
-          />
-          <div
-            class="block mx-6 text-center bg-white rounded-lg shadow-lg"
-            v-show="openTab === 2"
-          >
-            <map-choropleth :districts.sync="districts" />
-          </div>
-          <div
-            class="block mx-6 text-center bg-white rounded-lg shadow-lg"
-            v-show="openTab === 3"
-          >
-            <map-bubble :districts="districts" />
-          </div>
+          <transition name="slide-fade" mode="out-in">
+            <statistics
+              :local.sync="local"
+              :national.sync="national"
+              v-if="openTab === 1"
+            />
+            <vaccine-data
+              :national-vaccine="nationalVaccine"
+              :province-vaccine="provinceVaccine"
+              v-if="openTab === 2"
+            />
+          </transition>
         </div>
       </div>
     </div>
-    <see-more-link :linkUrl="route('data')" />
+    <see-more-link
+      :linkUrl="openTab === 1 ? route('data') : route('vaccine')"
+    />
   </div>
 </template>
 
 <script>
 import { ContentLoader } from "vue-content-loader";
 import Statistics from "@/components/Statistics";
-import MapChoropleth from "@/components/MapLokalChoropleth";
-import MapBubble from "@/components/MapLokalBubble";
+import VaccineData from "@/components/_pages/home/VaccineData";
 import SeeMoreLink from "@/components/SeeMoreLink";
 export default {
-  props: ["national", "local", "districts"],
+  props: {
+    national: {
+      type: Object,
+      required: true,
+    },
+    local: {
+      type: Object,
+      required: true,
+    },
+    nationalVaccine: {
+      type: Object,
+      required: true,
+    },
+    provinceVaccine: {
+      type: Object,
+      required: true,
+    },
+  },
   components: {
     ContentLoader,
     Statistics,
-    MapChoropleth,
-    MapBubble,
+    VaccineData,
     SeeMoreLink,
   },
   data() {
@@ -105,6 +100,40 @@ export default {
     toggleTabs: function (tabNumber) {
       this.openTab = tabNumber;
     },
+    activeTab(tabNumber) {
+      if (this.openTab === tabNumber) {
+        return "text-blue-600 border-blue-600 border-b-2";
+      }
+      return "text-gray-400";
+    },
+    checkNull(value) {
+      return _.isEmpty(value);
+    },
   },
 };
 </script>
+
+<style scoped>
+.slide-fade-enter-active {
+  transition: all 0.3s ease;
+}
+.slide-fade-leave-active {
+  transition: all 0.5s ease-out;
+}
+
+.slide-fade-enter-to,
+.slide-leave {
+  opacity: 1;
+}
+
+.slide-fade-enter
+/* .slide-fade-leave-active below version 2.1.8 */ {
+  transform: translateY(-10px);
+  opacity: 0;
+}
+
+.slide-fade-leave-to {
+  transform: translateY(10px);
+  opacity: 0;
+}
+</style>

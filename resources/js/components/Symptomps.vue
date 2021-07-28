@@ -3,10 +3,10 @@
     <div
       v-for="symptomp in symptomps"
       :key="symptomp.id"
-      class="flex flex-col p-4 mr-4 text-center align-text-bottom bg-white rounded-md shadow hover:shadow-xl"
+      class="flex flex-col p-4 mr-4 text-center align-text-bottom bg-white rounded-md shadow  hover:shadow-xl"
     >
       <img
-        v-lazy="route('home') + symptomp.image"
+        v-lazy="asset(symptomp.image)"
         :alt="symptomp.detail"
         :title="symptomp.detail"
       />
@@ -21,17 +21,17 @@ export default {
       symptomps: [
         {
           id: 1,
-          image: "assets/images/caugh.png",
+          image: "/images/caugh.png",
           detail: "Batuk",
         },
         {
           id: 2,
-          image: "assets/images/fever.png",
+          image: "/images/fever.png",
           detail: "Demam",
         },
         {
           id: 3,
-          image: "assets/images/headache.png",
+          image: "/images/headache.png",
           detail: "Sakit Kepala",
         },
       ],

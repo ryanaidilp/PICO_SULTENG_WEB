@@ -9,7 +9,6 @@
           :opacity="0.8"
           :width="120"
           :height="400"
-          loader="bars"
           color="#59F"
         >
         </loading>
@@ -29,36 +28,35 @@
 </template>
 <script>
 import Loading from "vue-loading-overlay";
-import Chart from "chart.js";
-import "chartjs-plugin-datalabels";
-import "chart.js/dist/Chart.min";
+import "vue-loading-overlay/dist/vue-loading.css";
+import ChartDataLabels from "chartjs-plugin-datalabels";
+import Chart from "chart.js/auto";
+Chart.register({ ChartDataLabels });
 import { id } from "date-fns/locale";
 const { format } = require("date-fns");
 var dataChart = {
   type: "pie",
   data: {
-    labels: ["Positif - Dirawat", "Positif - Meninggal", "Positif - Sembuh"],
+    labels: ["Dirawat", "Sembuh", "Meninggal"],
     datasets: [
       {
         data: [],
         backgroundColor: [
           "rgb(54, 162, 235)",
-          "rgb(255, 159, 64)",
           "rgb(75, 192, 192)",
+          "rgb(255, 159, 64)",
         ],
       },
     ],
   },
   options: {
-    title: {
-      display: true,
-      fontSize: 16,
-      text: "Persentase Kasus Positif COVID-19 di Sulawesi Tengah",
-    },
-    tooltips: {
-      enabled: true,
-    },
+    locale: "id-ID",
     plugins: {
+      title: {
+        display: true,
+        fontSize: 16,
+        text: "Persentase Kasus Positif COVID-19 di Sulawesi Tengah",
+      },
       datalabels: {
         formatter: (value, ctx) => {
           let sum = 0;
@@ -71,10 +69,10 @@ var dataChart = {
         },
         color: "#fff",
       },
+      legend: { position: "bottom", usePointStyle: false, display: true },
     },
     maintainAspectRatio: false,
     responsive: true,
-    legend: { position: "bottom", usePointStyle: false, display: true },
   },
 };
 export default {
@@ -95,7 +93,7 @@ export default {
   },
   methods: {
     isLoading() {
-      return this.jsonDataProvinsi === undefined ? true : false;
+      return _.isEmpty(this.jsonDataProvinsi) ? true : false;
     },
     createChart(chartId, chartData) {
       const ctx = document.getElementById(chartId);
@@ -114,7 +112,7 @@ export default {
       let sembuh = data == undefined ? 0 : data.kumulatif.sembuh;
       let meninggal = data == undefined ? 0 : data.kumulatif.meninggal;
       let dirawat = positif - (sembuh + meninggal);
-      dataChart.data.datasets[0].data = [dirawat, meninggal, sembuh];
+      dataChart.data.datasets[0].data = [dirawat, sembuh, meninggal];
       this.chart.update();
       this.chart.render();
     },

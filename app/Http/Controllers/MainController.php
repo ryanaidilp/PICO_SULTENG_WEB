@@ -2,22 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\District;
 use Inertia\Inertia;
-use App\Models\Donation;
-use App\Models\Facility;
-use App\Models\Gender;
-use App\Models\Hospital;
+use App\Models\Banner;
 use App\Models\Infographic;
-use App\Models\NationalCaseHistory;
-use App\Models\Province;
-use App\Models\Statistic;
-use App\Models\Test;
-use App\Transformers\GenderTransformer;
-use App\Transformers\NationalStatisticTransformer;
-use App\Transformers\StatisticTransformer;
-use App\Transformers\TestTransformer;
-use Illuminate\Http\Request;
+use App\Services\RegencyService;
+use App\Services\DonationService;
+use App\Services\HospitalService;
+use App\Services\ProvinceService;
+use App\Services\TestTypeService;
+use App\Services\TaskForceService;
+use App\Services\InfographicService;
+use App\Services\RegencyCaseService;
+use App\Services\TelemedicineService;
+use App\Services\VaccineLocationService;
+use App\Services\ProvinceGenderCaseService;
 
 class MainController extends Controller
 {
@@ -28,54 +26,48 @@ class MainController extends Controller
      */
     public function index()
     {
-        $donations = Donation::where('status', 1)->get();
-        $local = Statistic::latest()->first();
-        $national = NationalCaseHistory::latest()->first();
-        $districts = District::all();
-        $hospitals = Hospital::inRandomOrder()->take(3)->get();
-        $infographics = Infographic::with('images')->latest()->take(10)->get();
-        return Inertia::render('Home/Index', [
-            'donations' => $donations,
-            'lastUpdate' => $local->created_at->translatedFormat('l, d F Y H:i:s'),
-            'local' => $local,
-            'national' => $national,
-            'districts' => $districts,
-            'hospitals' => $hospitals,
-            'infographics' => $infographics->map(function ($infographic) {
-                return [
-                    'title' => $infographic->title,
-                    'route' => $infographic->link,
-                    'images' => $infographic->images->map(function ($image) {
-                        return $image->link;
-                    })->toArray()
-                ];
-            })
+
+        $banners = Banner::active()->get();
+        $hospitals = (new HospitalService)->random(3, 72);
+        $infographics = (new InfographicService)->take(5);
+
+        return Inertia::render("Home/Index", [
+            "banners" => $banners,
+            "hospitals" => $hospitals,
+            "infographics" => $infographics,
         ]);
     }
 
+    public function vaccine()
+    {
+        $vaccine_locations = (new VaccineLocationService)->all(72);
+
+        return Inertia::render("Vaccine/Index", [
+            "vaccineLocations" => $vaccine_locations,
+        ]);
+    }
+
+    public function selfIsolation()
+    {
+        $telemedicines = (new TelemedicineService)->all();
+        $donations = (new DonationService)->all();
+
+        return Inertia::render("Isolation/Index", [
+            "telemedicines" => $telemedicines,
+            "donations" => $donations
+        ]);
+    }
 
     public function contact()
     {
 
-        $districts = District::with('posts')->get();
-        $posts = $districts->map(function ($district) {
-            return [
-                'name' => $district->kabupaten,
-                'address' => "Hotline Gugus Tugas COVID-19 di " . $district->kabupaten,
-                'posts' => $district->posts->map(function ($post) {
-                    return [
-                        'name' => $post->nama,
-                        'phones' => $post->phones->map(function ($phone) {
-                            return $phone->phone;
-                        })->toArray()
-                    ];
-                })->toArray()
-            ];
-        })->toArray();
+        $task_forces = (new TaskForceService)->all(72);
+        $hospitals = (new HospitalService)->all(72);
 
-        return Inertia::render('Contact/Index', [
-            'hospitals' => Hospital::all(),
-            'task_forces' => $posts
+
+        return Inertia::render("Contact/Index", [
+            "hospitals" => $hospitals,
+            "taskForces" => $task_forces
         ]);
     }
 
@@ -88,48 +80,31 @@ class MainController extends Controller
 
     public function data()
     {
-        $local = Statistic::latest()->first();
-        $national = NationalCaseHistory::latest()->first();
-        $districts = District::all();
-        $provinces = Province::all();
-        $tests = fractal(Test::all(), new TestTransformer)->toArray();
-        $nationals = fractal(NationalCaseHistory::all(), new NationalStatisticTransformer)->toArray();
-        $genders = fractal(Gender::latest()->first(), new GenderTransformer)->toArray();
+        $regencies = (new RegencyService)->all(72);
+        $provinces = (new ProvinceService)->all();
+        $tests = (new TestTypeService)->all(72);
+        $genders = (new ProvinceGenderCaseService)->latest(72);
+        $regency_new_case = (new RegencyCaseService)->latestRegencies(72);
         return Inertia::render("Data/Index", [
-            'lastUpdate' => $local->created_at->translatedFormat('l, d F Y H:i:s'),
-            'local' => $local,
-            'national' => $national,
-            'tests' => $tests['data'],
-            'districts' => $districts,
-            'provinces' => $provinces->map(function ($province) {
-                return [
-                    'provinsi' => $province->provinsi,
-                    'meninggal' => $province->meninggal,
-                    'sembuh' => $province->sembuh,
-                    'positif' => $province->positif,
-                    'persentase_kematian' => $province->rasio_kematian,
-                    'dalam_perawatan' => $province->dalam_perawatan,
-                    'map_id' => $province->map_id
-                ];
-            })->toArray(),
-            'recapNational' => function () use ($nationals) {
-                return $nationals['data'];
-            },
-            'genders' => $genders['data']
+            "tests" => $tests,
+            "regencies" => $regencies,
+            "provinces" => $provinces,
+            "genders" => $genders,
+            "regencyNewCase" => $regency_new_case
         ]);
     }
 
 
     public function infographic()
     {
-        $infographics = Infographic::with('images')->latest()->get();
-        return Inertia::render('Infographic/Index', [
-            'infographics' => $infographics->map(function ($infographic) {
+        $infographics = Infographic::with("images")->orderBy("id", "desc")->get();
+        return Inertia::render("Infographic/Index", [
+            "infographics" => $infographics->map(function ($infographic) {
                 return [
-                    'title' => $infographic->title,
-                    'route' => $infographic->link,
-                    'images' => $infographic->images->map(function ($image) {
-                        return $image->link;
+                    "title" => $infographic->title,
+                    "route" => $infographic->source,
+                    "images" => $infographic->images->map(function ($image) {
+                        return $image->image_url;
                     })
                 ];
             })
@@ -139,14 +114,7 @@ class MainController extends Controller
 
     public function table()
     {
-        $stat = Statistic::with('histories')->get();
-        $data = fractal($stat, new StatisticTransformer)->toArray();
-        $data = array_replace(setJson([], true, []), $data);
-        return Inertia::render('Table/Index', [
-            'statistics' => function () use ($data) {
-                return $data;
-            }
-        ]);
+        return Inertia::render("Table/Index");
     }
 
     /**

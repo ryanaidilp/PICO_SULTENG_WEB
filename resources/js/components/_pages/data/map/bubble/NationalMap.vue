@@ -76,9 +76,14 @@
 </template>
 <script>
 import Anychart from "anychart";
-var map = anychart.map();
+var map = Anychart.map();
 export default {
-  props: ["provinces"],
+  props: {
+    provinces: {
+      type: Array,
+      required: true,
+    },
+  },
   data() {
     return {
       today: new Date(),
@@ -131,11 +136,9 @@ export default {
   },
   methods: {
     loadGeoJson: function () {
-      axios
-        .get(route("home") + "assets/geojson/indonesia.json")
-        .then((response) => {
-          map.geoData(response.data);
-        });
+      axios.get(this.asset("geojson/indonesia.json")).then((response) => {
+        map.geoData(response.data);
+      });
     },
     createCluster: function (name, data, color) {
       map.colorRange().enabled(false);
@@ -174,26 +177,26 @@ export default {
         this.deathDataset = [];
       }
 
-      var data = this.provinces
+      var data = this.provinces;
 
       data.forEach((province) => {
         this.positiveDataset.push({
           id: province.map_id,
-          value: province.positif,
-          sembuh: province.sembuh,
-          meninggal: province.meninggal,
+          value: province.positive,
+          sembuh: province.recovered,
+          meninggal: province.deceased,
         });
         this.recoveredDataset.push({
           id: province.map_id,
-          value: province.sembuh,
-          positif: province.positif,
-          meninggal: province.meninggal,
+          value: province.recovered,
+          positif: province.positive,
+          meninggal: province.deceased,
         });
         this.deathDataset.push({
           id: province.map_id,
-          value: province.meninggal,
-          positif: province.positif,
-          sembuh: province.sembuh,
+          value: province.deceased,
+          positif: province.positive,
+          sembuh: province.recovered,
         });
       });
     },

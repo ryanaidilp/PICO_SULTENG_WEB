@@ -91,13 +91,23 @@
 </template>
 <script>
 import Anychart from "anychart";
-var map = anychart.map();
+import geostat from "geostats";
+var map = Anychart.map();
 export default {
-  props: ["provinces"],
+  props: {
+    provinces: {
+      type: Array,
+      required: true,
+    },
+  },
   data() {
     return {
       today: new Date(),
       positiveDataset: [],
+      positiveRanges: [],
+      recoveredRanges: [],
+      deceasedRanges: [],
+      underTreatmentRanges: [],
       underTreatmentDataset: [],
       positiveColor: [
         "#418a47",
@@ -147,62 +157,22 @@ export default {
   },
   methods: {
     loadGeoJson: function () {
-      axios
-        .get(route("home") + "assets/geojson/indonesia.json")
-        .then((response) => {
-          map.geoData(response.data);
-        });
+      axios.get(this.asset("geojson/indonesia.json")).then((response) => {
+        map.geoData(response.data);
+      });
     },
     createChoropleth: function (name, data, color) {
       map.removeAllSeries();
       var series = map.choropleth(data);
       if (name == "Sembuh") {
-        series.colorScale(
-          anychart.scales.ordinalColor([
-            { less: 2500, color: color[0] },
-            { from: 2500, to: 5000, color: color[1] },
-            { from: 5000, to: 7500, color: color[2] },
-            { from: 7500, to: 10000, color: color[3] },
-            { from: 10000, to: 12500, color: color[4] },
-            { from: 12500, to: 15000, color: color[5] },
-            { from: 15000, to: 17500, color: color[6] },
-            { from: 17500, to: 20000, color: color[7] },
-            { from: 20000, to: 22500, color: color[8] },
-            { from: 22500, to: 25000, color: color[9] },
-            { greater: 25000, color: color[10] },
-          ])
-        );
+        series.colorScale(anychart.scales.ordinalColor(this.recoveredRanges));
       } else if (name == "Positif") {
-        series.colorScale(
-          anychart.scales.ordinalColor([
-            { less: 10000, color: color[0] },
-            { from: 10000, to: 20000, color: color[1] },
-            { from: 20000, to: 30000, color: color[2] },
-            { from: 30000, to: 40000, color: color[3] },
-            { from: 40000, to: 50000, color: color[4] },
-            { from: 50000, to: 60000, color: color[5] },
-            { from: 60000, to: 70000, color: color[6] },
-            { from: 70000, to: 80000, color: color[7] },
-            { from: 80000, to: 90000, color: color[8] },
-            { from: 90000, to: 100000, color: color[9] },
-            { greater: 100000, color: color[10] },
-          ])
-        );
+        series.colorScale(anychart.scales.ordinalColor(this.positiveRanges));
+      } else if (name == "Meninggal") {
+        series.colorScale(anychart.scales.ordinalColor(this.deceasedRanges));
       } else {
         series.colorScale(
-          anychart.scales.ordinalColor([
-            { less: 100, color: color[0] },
-            { from: 100, to: 200, color: color[1] },
-            { from: 200, to: 300, color: color[2] },
-            { from: 300, to: 400, color: color[3] },
-            { from: 400, to: 500, color: color[4] },
-            { from: 500, to: 600, color: color[5] },
-            { from: 600, to: 700, color: color[6] },
-            { from: 700, to: 800, color: color[7] },
-            { from: 800, to: 900, color: color[8] },
-            { from: 900, to: 1000, color: color[9] },
-            { greater: 1000, color: color[10] },
-          ])
+          anychart.scales.ordinalColor(this.underTreatmentRanges)
         );
       }
       series.tooltip().useHtml(true);
@@ -277,35 +247,173 @@ export default {
         this.deathDataset = [];
       }
       var data = this.provinces;
+
       data.forEach((province) => {
         this.positiveDataset.push({
           id: province.map_id,
-          value: province.positif,
-          sembuh: province.sembuh,
-          meninggal: province.meninggal,
-          dirawat: province.positif - (province.sembuh + province.meninggal),
+          value: province.positive,
+          sembuh: province.recovered,
+          meninggal: province.deceased,
+          dirawat: province.under_treatment,
         });
         this.underTreatmentDataset.push({
           id: province.map_id,
-          positif: province.positif,
-          sembuh: province.sembuh,
-          meninggal: province.meninggal,
-          value: province.positif - (province.sembuh + province.meninggal),
+          positif: province.positive,
+          sembuh: province.recovered,
+          meninggal: province.deceased,
+          value: province.under_treatment,
         });
         this.recoveredDataset.push({
           id: province.map_id,
-          value: province.sembuh,
-          positif: province.positif,
-          meninggal: province.meninggal,
-          dirawat: province.positif - (province.sembuh + province.meninggal),
+          value: province.recovered,
+          positif: province.positive,
+          meninggal: province.deceased,
+          dirawat: province.under_treatment,
         });
         this.deathDataset.push({
           id: province.map_id,
-          value: province.meninggal,
-          positif: province.positif,
-          sembuh: province.sembuh,
-          dirawat: province.positif - (province.sembuh + province.meninggal),
+          value: province.deceased,
+          positif: province.positive,
+          sembuh: province.recovered,
+          dirawat: province.under_treatment,
         });
+      });
+      var seriesPositive = new geostat(_.map(data, "positive"));
+      var seriesRecovered = new geostat(_.map(data, "recovered"));
+      var seriesDeath = new geostat(_.map(data, "deceased"));
+      var seriesUnderTreatment = new geostat(_.map(data, "under_treatment"));
+
+      seriesPositive.getClassQuantile(9);
+      seriesRecovered.getClassQuantile(9);
+      seriesDeath.getClassQuantile(9);
+      seriesUnderTreatment.getClassQuantile(9);
+
+      var classPositive = seriesPositive.getRanges();
+      var classRecovered = seriesRecovered.getRanges();
+      var classDeceased = seriesDeath.getRanges();
+      var classUnderTreatment = seriesUnderTreatment.getRanges();
+
+      classPositive.forEach((range, i) => {
+        var temp = range.split(" - ");
+        var min = parseInt(temp[0]);
+        var max = parseInt(temp[1]);
+        if (i == 0) {
+          this.positiveRanges.push({ less: min, color: this.positiveColor[0] });
+          this.positiveRanges.push({
+            from: min,
+            to: max,
+            color: this.positiveColor[i + 1],
+          });
+        } else if (i == classPositive.length - 1) {
+          this.positiveRanges.push({
+            from: min,
+            to: max,
+            color: this.positiveColor[i + 1],
+          });
+          this.positiveRanges.push({
+            greater: max,
+            color: this.positiveColor[i + 2],
+          });
+        } else {
+          this.positiveRanges.push({
+            from: min,
+            to: max,
+            color: this.positiveColor[i + 1],
+          });
+        }
+      });
+      classRecovered.forEach((range, i) => {
+        var temp = range.split(" - ");
+        var min = parseInt(temp[0]);
+        var max = parseInt(temp[1]);
+        if (i == 0) {
+          this.recoveredRanges.push({
+            less: min,
+            color: this.recoveredColor[0],
+          });
+          this.recoveredRanges.push({
+            from: min,
+            to: max,
+            color: this.recoveredColor[i + 1],
+          });
+        } else if (i == classRecovered.length - 1) {
+          this.recoveredRanges.push({
+            from: min,
+            to: max,
+            color: this.recoveredColor[i + 1],
+          });
+          this.recoveredRanges.push({
+            greater: max,
+            color: this.recoveredColor[i + 2],
+          });
+        } else {
+          this.recoveredRanges.push({
+            from: min,
+            to: max,
+            color: this.recoveredColor[i + 1],
+          });
+        }
+      });
+      classDeceased.forEach((range, i) => {
+        var temp = range.split(" - ");
+        var min = parseInt(temp[0]);
+        var max = parseInt(temp[1]);
+        if (i == 0) {
+          this.deceasedRanges.push({ less: min, color: this.deathColor[0] });
+          this.deceasedRanges.push({
+            from: min,
+            to: max,
+            color: this.deathColor[i + 1],
+          });
+        } else if (i == classDeceased.length - 1) {
+          this.deceasedRanges.push({
+            from: min,
+            to: max,
+            color: this.deathColor[i + 1],
+          });
+          this.deceasedRanges.push({
+            greater: max,
+            color: this.deathColor[i + 2],
+          });
+        } else {
+          this.deceasedRanges.push({
+            from: min,
+            to: max,
+            color: this.deathColor[i + 1],
+          });
+        }
+      });
+      classUnderTreatment.forEach((range, i) => {
+        var temp = range.split(" - ");
+        var min = parseInt(temp[0]);
+        var max = parseInt(temp[1]);
+        if (i == 0) {
+          this.underTreatmentRanges.push({
+            less: min,
+            color: this.positiveColor[0],
+          });
+          this.underTreatmentRanges.push({
+            from: min,
+            to: max,
+            color: this.positiveColor[i + 1],
+          });
+        } else if (i == classUnderTreatment.length - 1) {
+          this.underTreatmentRanges.push({
+            from: min,
+            to: max,
+            color: this.positiveColor[i + 1],
+          });
+          this.underTreatmentRanges.push({
+            greater: max,
+            color: this.positiveColor[i + 2],
+          });
+        } else {
+          this.underTreatmentRanges.push({
+            from: min,
+            to: max,
+            color: this.positiveColor[i + 1],
+          });
+        }
       });
     },
   },

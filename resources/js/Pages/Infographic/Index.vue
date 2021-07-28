@@ -2,11 +2,6 @@
   <layout>
     <div class="w-full leading-normal text-gray-800 xl:px-0 xl:mt-8">
       <section class="m-4 mt-8">
-        <vue-gallery-slideshow
-          :images="selectedImage"
-          :index="idx"
-          @close="idx = null"
-        ></vue-gallery-slideshow>
         <div class="bg-white rounded-lg shadow-md">
           <div class="flex flex-col flex-wrap p-5 items-left md:p-8">
             <h2 class="text-xl leading-normal md:text-3xl">
@@ -24,7 +19,9 @@
               </p>
             </h2>
             <hr class="my-6" />
-            <div class="infographic-list">
+            <div
+              class="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-12"
+            >
               <figure
                 class="relative w-full"
                 v-for="(item, index) in infographics"
@@ -32,17 +29,17 @@
               >
                 <div class="relative overflow-hidden img-container">
                   <img
-                    @click="changeImage(item.images)"
+                    @click="show(item.images)"
                     :src="item.images[0]"
-                    class="object-cover object-left-top w-full rounded-lg shadow-lg cursor-pointer infographic-list__item-image"
+                    class="object-cover object-left-top w-full rounded-lg shadow-lg cursor-pointer  infographic-list__item-image"
                   />
                   <div
-                    class="absolute inset-0 flex-row items-center justify-center hidden text-white rounded-lg action-overlay lg:flex"
+                    class="absolute inset-0 flex-row items-center justify-center hidden text-white rounded-lg  action-overlay lg:flex"
                     style="background-color: rgba(0, 0, 0, 0.75)"
                   >
                     <button
                       class="px-2 py-2 mr-1 rounded-md hover:bg-gray-800"
-                      @click="changeImage(item.images)"
+                      @click="show(item.images)"
                     >
                       <i class="mr-1 fas fa-eye"></i>
                       <span>Lihat</span>
@@ -59,7 +56,7 @@
                 <caption class="block w-full mt-4 text-left opacity-75">
                   <button
                     class="font-bold hover:underline"
-                    @click="changeImage(item.images)"
+                    @click="show(item.images)"
                   >
                     {{ item.title }}
                   </button>
@@ -77,14 +74,21 @@
 </template>
 
 <script>
-import VueGallerySlideshow from "vue-gallery-slideshow";
 import Layout from "@/layout/Layout";
 import PartnerFooter from "@/Shared/PartnerFooter";
 export default {
-  props: ["infographics", "partners"],
+  props: {
+    infographics: {
+      type: Array,
+      required: true,
+    },
+    partners: {
+      type: Array,
+      required: true,
+    },
+  },
   components: {
     Layout,
-    VueGallerySlideshow,
     PartnerFooter,
   },
   data() {
@@ -95,9 +99,10 @@ export default {
     };
   },
   methods: {
-    changeImage(images) {
-      this.idx = 0;
-      this.selectedImage = images;
+    show(images) {
+      this.$viewerApi({
+        images: images,
+      });
     },
   },
 };
@@ -105,21 +110,8 @@ export default {
 
 <style lang="scss" scoped>
 .infographic-list {
-  display: grid;
-  grid-template-columns: 1fr;
-  column-gap: 1.5rem;
-  row-gap: 3rem;
-
   &__item-image {
     height: 256px;
-  }
-
-  @screen md {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  @screen lg {
-    grid-template-columns: 1fr 1fr 1fr;
   }
 }
 

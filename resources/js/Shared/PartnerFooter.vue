@@ -2,16 +2,16 @@
   <div class="w-full mt-4">
     <div class="p-6 mx-4 bg-white rounded-lg shadow-lg">
       <h3 class="text-xl font-bold text-center">Pranala Luar</h3>
-      <div class="flex flex-col flex-wrap justify-center w-full md:flex-row">
+      <div class="grid justify-center w-full md:grid-cols-4">
         <a
           v-for="partner in partners"
           :key="partner.id"
-          class="w-full p-2 mt-4 md:w-1/4 hover:opacity-75"
+          class="w-full p-2 mt-4 hover:opacity-75"
           :href="partner.link"
           target="_blank"
         >
           <img
-            v-lazy="route('home') + 'assets/images/partner/' + partner.image"
+            v-lazy="asset(`/images/partner/${partner.image}`)"
             :alt="partner.name"
             class="object-contain h-20 mx-auto"
             :title="partner.name"
@@ -21,7 +21,7 @@
       <hr />
       <div class="flex content-center justify-center w-full mt-2">
         <a
-          class="inline-block h-10 p-2 text-center text-gray-800 no-underline hover:opacity-75 md:h-auto md:p-4"
+          class="inline-block h-10 p-2 text-center text-gray-800 no-underline  hover:opacity-75 md:h-auto md:p-4"
           href="https://github.com/ryanaidilp/PICO_SULTENG_WEB"
           target="_blank"
           data-tippy-content="@github_handle"
@@ -39,7 +39,7 @@
           </svg>
         </a>
         <a
-          class="inline-block h-10 p-2 text-center text-pink-500 no-underline hover:opacity-75 hover:text-underline md:h-auto md:p-4"
+          class="inline-block h-10 p-2 text-center text-pink-500 no-underline  hover:opacity-75 hover:text-underline md:h-auto md:p-4"
           data-tippy-content="@instagram_handle"
           target="_blank"
           href="https://instagram.com/banuacoders_"
@@ -58,7 +58,7 @@
           </svg>
         </a>
         <a
-          class="inline-block h-10 p-2 text-center text-blue-500 no-underline hover:opacity-75 hover:text-underline md:h-auto md:p-4"
+          class="inline-block h-10 p-2 text-center text-blue-500 no-underline  hover:opacity-75 hover:text-underline md:h-auto md:p-4"
           target="_blank"
           data-tippy-content="#facebook_id"
           href="https://www.facebook.com/banuacoder"
@@ -75,7 +75,7 @@
           </svg>
         </a>
         <a
-          class="inline-block h-10 p-2 text-center text-red-500 no-underline hover:opacity-75 hover:text-underline md:h-auto md:p-4"
+          class="inline-block h-10 p-2 text-center text-red-500 no-underline  hover:opacity-75 hover:text-underline md:h-auto md:p-4"
           target="_blank"
           data-tippy-content="@youtube_handle"
           href="https://www.youtube.com/channel/UC0SrBwl_lIlvR_wpYcmCG8w"
@@ -102,13 +102,18 @@
           >Fajrian Aidil Pratama</a
         >
         <br />
-        &copy; Copyright 2020 - {{ new Date().getFullYear() }} BanuaCoders .
+        &copy; Copyright 2020 - {{ new Date().getFullYear() }} BanuaCoders.
       </p>
     </div>
   </div>
 </template>
 <script>
 export default {
-  props: ["partners"],
+  props: {
+    partners: {
+      type: Array,
+      requred: true,
+    },
+  },
 };
 </script>

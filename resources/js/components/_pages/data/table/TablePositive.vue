@@ -8,42 +8,37 @@
       :value="selected"
       :clearable="false"
     ></v-select>
-    <vue-good-table
-      :fixed-header="false"
-      class="mt-4"
-      v-show="selected == 'Sulawesi Tengah'"
-      :columns="columnsDistrict"
-      :rows="rowsKabupaten"
-      :search-options="{
-        enabled: true,
-        trigger: 'enter',
-        placeholder: 'Cari..',
-      }"
-      max-height="400px"
-      :line-numbers="true"
-      theme="black-rhino"
-    ></vue-good-table>
-    <vue-good-table
-      :fixed-header="false"
-      theme="black-rhino"
+    <data-table
       class="mt-4"
       v-show="selected == 'Indonesia'"
-      :columns="columnsProvince"
-      :rows="rowsProvinsi"
-      :search-options="{
-        enabled: true,
-        trigger: 'enter',
-        placeholder: 'Cari..',
-      }"
-      max-height="400px"
-      :line-numbers="true"
-    ></vue-good-table>
+      :header-fields="columnsProvince"
+      :data="rowsProvinsi"
+    >
+      <template #notes>
+        Data diolah dari
+        <hyperlink href="https://covid19.go.id" label="https://covid19.go.id" />
+      </template>
+    </data-table>
+    <data-table
+      class="mt-4"
+      v-show="selected == 'Sulawesi Tengah'"
+      :header-fields="columnsDistrict"
+      :data="rowsKabupaten"
+    >
+      <template #notes>
+        Data diolah dari
+        <hyperlink
+          href="https://dinkes.sultengprov.go.id"
+          label="https://dinkes.sultengprov.go.id"
+        />
+      </template>
+    </data-table>
   </div>
 </template>
 <script>
-import "vue-good-table/dist/vue-good-table.css";
-import { VueGoodTable } from "vue-good-table";
 import VSelect from "vue-select";
+import DataTable from "@/components/DataTable";
+import Hyperlink from "@/components/Hyperlink";
 import "vue-select/dist/vue-select.css";
 export default {
   props: {
@@ -58,98 +53,81 @@ export default {
   },
   components: {
     VSelect,
-    VueGoodTable,
+    Hyperlink,
+    DataTable,
   },
   data() {
     return {
       columnsDistrict: [
         {
           label: "Kabupaten",
-          field: "kabupaten",
-          type: "text",
-          thClass: "text-center",
-          tdClass: "text-left font-bold",
-          sortable: false,
+          name: "kabupaten",
+          sortable: true,
         },
         {
           label: "Positif",
-          field: "positif",
-          thClass: "text-center",
-          tdClass: "text-center",
-          type: "number",
+          name: "positif",
+          sortable: true,
+          format: this.formatDecimal,
         },
         {
           label: "Dirawat",
-          field: "dirawat",
-          thClass: "text-center",
-          tdClass: "text-center",
-          type: "number",
+          name: "dalam_perawatan",
+          sortable: true,
+          format: this.formatDecimal,
         },
         {
           label: "Sembuh",
-          field: "sembuh",
-          thClass: "text-center",
-          tdClass: "text-center",
-          type: "number",
+          name: "sembuh",
+          sortable: true,
+          format: this.formatDecimal,
         },
         {
           label: "Meninggal",
-          field: "meninggal",
-          thClass: "text-center",
-          tdClass: "text-center",
-          type: "number",
+          name: "meninggal",
+          sortable: true,
+          format: this.formatDecimal,
         },
         {
           label: "% Kematian",
-          field: "rasio_kematian",
-          thClass: "text-center",
-          tdClass: "text-center",
-          type: "number",
+          name: "rasio_kematian",
+          sortable: true,
         },
       ],
       columnsProvince: [
         {
           label: "Provinsi",
-          field: "provinsi",
-          type: "text",
-          thClass: "text-center",
-          tdClass: "text-left font-bold",
-          sortable: false,
+          name: "name",
+          sortable: true,
         },
         {
           label: "Positif",
-          field: "positif",
-          thClass: "text-center",
-          tdClass: "text-center",
-          type: "number",
+          name: "positive",
+          sortable: true,
+          format: this.formatDecimal,
         },
         {
           label: "Dirawat",
-          field: "dalam_perawatan",
-          thClass: "text-center",
-          tdClass: "text-center",
-          type: "number",
+          name: "under_treatment",
+          sortable: true,
+          format: this.formatDecimal,
         },
         {
           label: "Sembuh",
-          field: "sembuh",
-          thClass: "text-center",
-          tdClass: "text-center",
-          type: "number",
+          name: "recovered",
+          sortable: true,
+          format: this.formatDecimal,
         },
         {
           label: "Meninggal",
-          field: "meninggal",
-          thClass: "text-center",
-          tdClass: "text-center",
-          type: "number",
+          name: "deceased",
+          sortable: true,
+          format: this.formatDecimal,
         },
         {
           label: "% Kematian",
-          field: "persentase_kematian",
-          thClass: "text-center",
-          tdClass: "text-center",
-          type: "number",
+          name: "death_ratio",
+          sortable: true,
         },
       ],
       rowsProvinsi: [],

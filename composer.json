@@ -12,29 +12,23 @@
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
-        "inertiajs/inertia-laravel": "^0.3.3",
-        "laravel/framework": "^8.12",
+        "inertiajs/inertia-laravel": "^0.4.2",
+        "laravel/framework": "^8.40",
         "laravel/tinker": "^2.5",
+        "laravel/ui": "^3.3",
         "spatie/laravel-fractal": "^5.8",
+        "staudenmeir/eloquent-eager-limit": "^1.0",
         "tcg/voyager": "^1.4",
-        "tightenco/ziggy": "^0.9.4"
+        "tightenco/ziggy": "^1.3"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.6",
         "facade/ignition": "^2.5",
         "fakerphp/faker": "^1.9.1",
+        "laravel/sail": "^1.0.1",
         "mockery/mockery": "^1.4.2",
         "nunomaduro/collision": "^5.0",
         "phpunit/phpunit": "^9.3.3"
-    },
-    "config": {
-        "optimize-autoloader": true,
-        "preferred-install": "dist",
-        "sort-packages": true
-    },
-    "extra": {
-        "laravel": {
-            "dont-discover": []
-        }
     },
     "autoload": {
         "psr-4": {
@@ -48,8 +42,6 @@
             "Tests\\": "tests/"
         }
     },
-    "minimum-stability": "dev",
-    "prefer-stable": true,
     "scripts": {
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
@@ -62,11 +54,19 @@
             "@php artisan key:generate --ansi"
         ]
     },
+    "extra": {
+        "laravel": {
+            "dont-discover": []
+        }
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "repositories": {
-        "packagist": {
-            "type": "composer",
-            "url": "https://repo.packagist.org"
-        },
         "hooks": {
             "type": "composer",
             "url": "https://larapack.io"

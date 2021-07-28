@@ -1,0 +1,47 @@
+telemedicine_id,operational_day,operational_time,timezone
+1,Senin-Jumat,07:00-20:00,WIB
+2,Senin-Jumat,13:00-15:00,WIB
+3,Senin-Kamis,19:00-21:00,WIB
+4,Senin-Kamis,17:00-20:00,WIB
+5,Rabu-Jumat,13:00-15:00,WIB
+6,Senin-Kamis,09:00-21:00,WIB
+6,Sabtu,09:00-21:00,WIB
+7,Senin-Kamis,16:00-20:00,WIB
+7,Jumat-Minggu,18:00-21:00,WIB
+8,Senin-Jumat,18:00-20:00,WIB
+9,Rabu-Jumat,17:00-21:00,WIB
+10,Setiap Hari,20:00-22:00,WIB
+11,Sabtu-Minggu,19:00-20:00,WIB
+12,Sabtu-Minggu,16:00-18:00,WIB
+13,Senin-Jumat,18:00-20:00,WIB
+14,Senin-Jumat,18:00-20:00,WIB
+15,Senin,17:00-20:00,WIB
+15,Jumat,17:00-20:00,WIB
+16,Selasa,12:00-14:00,WIB
+16,Rabu,12:00-14:00,WIB
+17,Rabu,17:00-20:00,WIB
+17,Jumat,17:00-20:00,WIB
+18,Sabtu-Minggu,19:00-22:00,WIB
+19,Senin-Kamis,15:00-17:00,WIB
+20,Senin-Jumat,18:00-20:00,WIB
+21,Jumat-Senin,08:00-12:00,WIB
+22,Senin,"08:00-09:00, 16:00-17:30",WIB
+22,Rabu,"08:00-09:00, 16:00-17:30",WIB
+22,Sabtu,"08:00-09:00, 16:00-17:30",WIB
+23,Senin-Jumat,13:00-17:00,WIB
+24,Senin-Kamis,07:00-08:00,WIB
+25,Senin-Rabu,08:00-12:00,WIB
+26,Kamis,08:00-12:00,WIB
+26,Jumat,17:00-20:00,WIB
+27,Senin-Kamis,13:00-20:00,WIB
+28,Selasa,"20:00-21:00, 10:00-12:00",WIB
+28,Kamis,"20:00-21:00, 10:00-12:00",WIB
+28,Sabtu,"20:00-21:00, 10:00-12:00",WIB
+28,Minggu,"20:00-21:00, 10:00-12:00",WIB
+29,Senin-Rabu,19:00-20:00,WIB
+30,Selasa,19:00-21:00,WIB
+30,Kamis,17:00-19:00,WIB
+31,Setiap Hari,09:00-21:00,WIB
+32,Senin,18:00-20:00,WIB
+32,Rabu,18:00-20:00,WIB
+32,Jumat,18:00-20:00,WIB

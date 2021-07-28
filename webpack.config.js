@@ -1,13 +1,13 @@
-const path = require('path');
+const path = require("path");
 
 module.exports = {
     resolve: {
         alias: {
-            '@': path.resolve('resources/js'),
+            "@": path.resolve("resources/js"),
         },
     },
     output: {
-        chunkFilename: 'chunks/[name].js',
-        publicPath: './'
+        chunkFilename: "js/chunks/[name].js?id=[chunkhash]",
+        publicPath: "./"
     },
 };

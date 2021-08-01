@@ -41,21 +41,28 @@ class ProvinceCaseObserver
             $gender = ProvinceGenderCase::where("province_id", $case->province_id)
                 ->latest("day")->first();
             $test_query = ProvinceTest::where("province_id", $case->province_id)->latest("day");
-            $test_pcr = $test_query->where("test_type_id", ProvinceTest::PCR);
-            $test_rdt = $test_query->where("test_type_id", ProvinceTest::RDT);
-
-            $new_gender = $gender->replicate();
-            $new_pcr = $test_pcr->first()->replicate();
-            $new_rdt = $test_rdt->first()->replicate();
-
-            $new_gender->day = $case->day;
-            $new_pcr->day = $case->day;
-            $new_rdt->day = $case->day;
+            $test_pcr = $test_query->where("test_type_id", ProvinceTest::PCR)->first();
+            $test_rdt = $test_query->where("test_type_id", ProvinceTest::RDT)->first();
 
 
-            $new_gender->save();
-            $new_pcr->save();
-            $new_rdt->save();
+            if ($gender) {
+                $new_gender = $gender->replicate();
+                $new_gender->day = $case->day;
+                $new_gender->save();
+            }
+
+            if ($test_pcr) {
+                $new_pcr = $test_pcr->replicate();
+                $new_pcr->day = $case->day;
+                $new_pcr->save();
+            }
+
+            if ($test_rdt) {
+                $new_rdt = $test_rdt->replicate();
+                $new_rdt->day = $case->day;
+                $new_rdt->save();
+            }
+
 
             $positive_new =  formatCase($case->positive);
             $recovered_new =  formatCase($case->recovered);

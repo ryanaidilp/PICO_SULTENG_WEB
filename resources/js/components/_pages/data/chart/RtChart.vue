@@ -50,7 +50,7 @@
           disuatu wilayah. Sesuai ketetapan Badan Perencanaan Pembangunan
           Nasional (Bappenas), angka Rt di sebuah wilayah harus di bawah 1
           selama 14 hari berturut-turut sebelum relaksasi PSBB diberi lampu
-          hijau.
+          hijau. <b>Data diperbarui setiap 7 hari.</b>
         </p>
         <p class="pb-8 mx-8 mt-4 text-sm text-justify text-gray-500">
           Referensi :

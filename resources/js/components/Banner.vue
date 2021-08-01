@@ -22,7 +22,7 @@
         :autoplayTimeout="5000"
       >
         <slide v-for="item in carouselItem" :key="item.id">
-          <a :href="`${item.url_type}:${item.url}`" target="_blank">
+          <a :href="`${item.url_type}${item.url}`" target="_blank">
             <img
               :src="item.image"
               class="object-fill w-full rounded-lg  h-96 md:w-full xl:max-w-2xl xl:max-h-lg"

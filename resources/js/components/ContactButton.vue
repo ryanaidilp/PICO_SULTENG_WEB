@@ -28,13 +28,24 @@ export default {
       required: false,
       default: "",
     },
+    isTaskForce: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
   },
   methods: {
     setHref(contact) {
       return `${contact.prefix}${contact.contact}`;
     },
     setLinkTitle(contact) {
-      return `${contact.label} ${contact.contact}`;
+      let title = contact.contact;
+
+      if (this.isTaskForce) {
+        title = contact.name;
+      }
+
+      return `${contact.label} ${title}`;
     },
     setIcon(contact) {
       return contact.icon;

@@ -9,6 +9,7 @@
         :key="contact.id"
         :contact="contact"
         margin-right="mr-2"
+        is-task-force
       />
     </div>
   </div>

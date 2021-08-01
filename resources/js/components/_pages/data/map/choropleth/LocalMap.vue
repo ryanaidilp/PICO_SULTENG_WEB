@@ -539,7 +539,7 @@ export default {
       regencySeries.colorScale(anychart.scales.ordinalColor(range));
       regencySeries.tooltip().titleFormat(function (e) {
         return (
-          '<span class="font-bold text-left text-gray-900">' +
+          '<span class="font-bold text-left text-white">' +
           e.getData("id") +
           "</span>"
         );
@@ -569,7 +569,7 @@ export default {
             ? e.getData("value")
             : e.getData("dirawat");
         let tooltipHtml =
-          '<table class="flex text-xs text-left text-gray-800 table-auto justify-left">' +
+          '<table class="flex text-xs text-left text-white table-auto justify-left">' +
           "<tbody>" +
           "<tr>" +
           '<td class="px-1">' +
@@ -658,24 +658,3 @@ export default {
   },
 };
 </script>
-<style>
-.anychart-tooltip {
-  justify-content: center;
-  border-radius: 0.5rem;
-  padding: 0.5rem;
-  z-index: 100;
-  background: rgb(250, 250, 250);
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-}
-
-.anychart-tooltip-separator {
-  height: 1px;
-  background-color: rgba(136, 136, 136, 0.7);
-}
-
-.anychart-tooltip-title {
-  font-size: 0.875rem;
-  text-align: left;
-  font-weight: 700;
-}
-</style>

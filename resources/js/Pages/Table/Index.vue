@@ -432,17 +432,22 @@ export default {
   computed: {
     ...mapState(["regencies_daily"]),
   },
-
+  watch: {
+    regencies_daily() {
+      this.fetchDataRekapitulasiSultengKumulatifKab();
+    },
+  },
   mounted() {
+    if (this.regencies_daily.length <= 0) {
+      this.loadRegenciesWithDaily(72);
+    }
+
     this.fetchDataRekapitulasiSultengKumulatifKab();
   },
   methods: {
     ...mapActions(["loadRegenciesWithDaily"]),
-    fetchDataRekapitulasiSultengKumulatifKab() {
+    async fetchDataRekapitulasiSultengKumulatifKab() {
       const self = this;
-      if (_.isEmpty(self.regencies_daily)) {
-        self.loadRegenciesWithDaily(72);
-      }
       self.jsonDataKabupaten = self.regencies_daily;
       self.jsonDataKabupaten.forEach((kabupaten) => {
         for (let i = 0; i < kabupaten.daily.length; i++) {

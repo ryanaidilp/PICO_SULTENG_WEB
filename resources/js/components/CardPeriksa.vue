@@ -17,7 +17,7 @@
           mengetahui kondisi kamu.
         </p>
         <a
-          :href="`${route('self-isolation')}#telemedicine`"
+          href="https://s.id/ChatbotCovid19"
           target="blank"
           class="w-full p-4 mx-auto my-2 text-sm font-bold text-center border-2 border-white rounded-md  lg:my-auto lg:w-1/4 sm:p-2 lg:mx-16 lg:text-base hover:bg-blue-400"
           >Periksa Sekarang</a

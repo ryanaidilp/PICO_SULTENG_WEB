@@ -84,13 +84,22 @@ export default {
       });
     },
     doCopy(value) {
+      var self = this;
       this.$copyText(value).then(
         function (e) {
-          alert("Berhasil menyalin nomor rekening!");
+          self.$swal({
+            title: "Sukses!",
+            icon: "success",
+            text: "Berhasil menyalin nomor rekening!",
+          });
           console.log(e);
         },
         function (e) {
-          alert("Gagal menyalin nomor rekening!");
+          self.$swal({
+            title: "Sukses!",
+            icon: "error",
+            text: "Gagal menyalin nomor rekening!",
+          });
           console.error(e);
         }
       );

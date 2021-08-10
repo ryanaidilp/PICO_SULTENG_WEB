@@ -12,8 +12,11 @@ import {
 import VueLazyload from "vue-lazyload"
 import BackToTop from "vue-backtotop"
 import VueViewer from "v-viewer";
+import VueClipboard from "vue-clipboard2";
 
 // Plugin Initialization
+
+VueClipboard.config.autoSetContainer = true
 
 InertiaProgress.init({
     delay: 250,
@@ -61,6 +64,7 @@ Vue.use(VueLazyload, {
     attempt: 3
 })
 Vue.use(VueViewer)
+Vue.use(VueClipboard)
 
 
 createInertiaApp({

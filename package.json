@@ -55,6 +55,7 @@
         "esri-loader": "^3.2.0",
         "geostats": "^2.0.0",
         "v-viewer": "^1.6.4",
+        "vue-clipboard2": "^0.3.1",
         "vuex": "^3.6.2"
     }
 }

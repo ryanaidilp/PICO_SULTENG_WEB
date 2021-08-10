@@ -8,7 +8,7 @@ class ProvinceVaccineObserver
 {
     public function function(ProvinceVaccine $vaccine)
     {
-        $latest = ProvinceVaccine::latest("day")->first();
+        $latest = ProvinceVaccine::latest("day")->where("province_id", $vaccine->province_id)->first();
         $vaccine->cumulative_first_vaccination_received = $latest->cumulative_first_vaccination_received + $vaccine->first_vaccination_received;
         $vaccine->cumulative_second_vaccination_received = $latest->cumulative_second_vaccination_received + $vaccine->second_vaccination_received;
         $vaccine->cumulative_elderly_first_vaccination_received = $latest->cumulative_elderly_first_vaccination_received + $vaccine->elderly_first_vaccination_received;

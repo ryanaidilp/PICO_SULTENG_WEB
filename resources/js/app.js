@@ -5,25 +5,26 @@ import store from "./store";
 
 import {
     createInertiaApp
-} from "@inertiajs/inertia-vue"
+} from "@inertiajs/inertia-vue";
 import {
     InertiaProgress
-} from "@inertiajs/progress"
-import VueLazyload from "vue-lazyload"
-import BackToTop from "vue-backtotop"
+} from "@inertiajs/progress";
+import VueLazyload from "vue-lazyload";
+import BackToTop from "vue-backtotop";
 import VueViewer from "v-viewer";
 import VueClipboard from "vue-clipboard2";
+import VueSweetAlert2 from "vue-sweetalert2";
 
 // Plugin Initialization
 
-VueClipboard.config.autoSetContainer = true
+VueClipboard.config.autoSetContainer = true;
 
 InertiaProgress.init({
     delay: 250,
     color: "#29d",
     includeCSS: true,
     showSpinner: true
-})
+});
 
 // Mixin or Plugin Installation
 
@@ -57,14 +58,15 @@ Vue.mixin({
             return NumberFormat.format(value);
         }
     }
-})
-Vue.use(BackToTop)
+});
+Vue.use(BackToTop);
 Vue.use(VueLazyload, {
     preLoad: 1.3,
     attempt: 3
-})
-Vue.use(VueViewer)
-Vue.use(VueClipboard)
+});
+Vue.use(VueViewer);
+Vue.use(VueClipboard);
+Vue.use(VueSweetAlert2);
 
 
 createInertiaApp({
@@ -92,4 +94,4 @@ createInertiaApp({
             }
         }).$mount(el)
     }
-})
+});

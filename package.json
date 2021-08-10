@@ -56,6 +56,7 @@
         "geostats": "^2.0.0",
         "v-viewer": "^1.6.4",
         "vue-clipboard2": "^0.3.1",
+        "vue-sweetalert2": "^5.0.2",
         "vuex": "^3.6.2"
     }
 }

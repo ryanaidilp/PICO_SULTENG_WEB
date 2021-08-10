@@ -44,7 +44,7 @@
             :alt="account.bank"
             class="object-contain w-1/5 h-12"
           />
-          <div class="flex flex-col w-4/5 text-center">
+          <div class="flex flex-col w-3/5 text-sm text-center">
             <p class="italic font-bold text-gray-600">
               {{ account.bank }}
             </p>
@@ -52,6 +52,11 @@
             <span
               >a/n <b>{{ account.name }}</b></span
             >
+          </div>
+          <div class="items-center">
+            <button type="button" @click="doCopy(account.number)">
+              <i class="fas fa-clipboard"></i>
+            </button>
           </div>
         </div>
       </div>
@@ -77,6 +82,18 @@ export default {
       this.$viewerApi({
         images: [this.asset(this.donation.image)],
       });
+    },
+    doCopy(value) {
+      this.$copyText(value).then(
+        function (e) {
+          alert("Berhasil menyalin nomor rekening!");
+          console.log(e);
+        },
+        function (e) {
+          alert("Gagal menyalin nomor rekening!");
+          console.error(e);
+        }
+      );
     },
   },
 };

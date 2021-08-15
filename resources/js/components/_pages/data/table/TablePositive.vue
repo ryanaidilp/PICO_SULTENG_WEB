@@ -40,6 +40,12 @@ import VSelect from "vue-select";
 import DataTable from "@/components/DataTable";
 import Hyperlink from "@/components/Hyperlink";
 import "vue-select/dist/vue-select.css";
+
+const formatPercent = (value) => {
+  const percentage = new Intl.NumberFormat("id-ID").format(value);
+  return `${percentage}%`;
+};
+
 export default {
   props: {
     propsDataSultengKabupaten: {
@@ -92,6 +98,13 @@ export default {
           label: "% Kematian",
           name: "rasio_kematian",
           sortable: true,
+          format: formatPercent,
+        },
+        {
+          label: "Pembaruan Terakhir",
+          name: "updated_at",
+          sortable: true,
+          format: this.formatDate,
         },
       ],
       columnsProvince: [
@@ -128,6 +141,13 @@ export default {
           label: "% Kematian",
           name: "death_ratio",
           sortable: true,
+          format: formatPercent,
+        },
+        {
+          label: "Pembaruan Terakhir",
+          name: "updated_at",
+          sortable: true,
+          format: this.formatDate,
         },
       ],
       rowsProvinsi: [],

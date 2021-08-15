@@ -34,9 +34,6 @@ Vue.mixin({
         asset(path) {
             return `${this.route('home')}/assets/${path}`;
         },
-        api(path) {
-            return `${this.route('home')}/api/v1/${path}`;
-        },
         formatDate(value) {
             let date = Intl.DateTimeFormat("id-ID", {
                     weekday: "long",

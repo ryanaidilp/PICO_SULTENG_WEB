@@ -5,7 +5,7 @@
     <p class="text-5xl font-semibold md:text-7xl" :class="textColor">
       {{ target_formatted }}
     </p>
-    <p class="mt-4 text-gray-800">{{ label }}</p>
+    <p class="mt-4 text-sm text-gray-800 md:text-xl">{{ label }}</p>
   </div>
 </template>
 <script>

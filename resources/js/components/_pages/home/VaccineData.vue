@@ -67,6 +67,16 @@
             label="Sasaran Vaksinasi Petugas Kesehatan"
             text-color="text-orange-500"
           />
+          <card-vaccine-target
+            :target="nationalVaccine.public_vaccination_target"
+            label="Sasaran Vaksinasi Masyarakat Umum dan Rentan"
+            text-color="text-pink-600"
+          />
+          <card-vaccine-target
+            :target="nationalVaccine.teenager_vaccination_target"
+            label="Sasaran Vaksinasi Usia 12 - 17 Tahun"
+            text-color="text-pink-400"
+          />
         </div>
         <card-vaccine-target-loader v-else-if="showTargetCard" class="mb-8" />
         <card-vaccine-home-loader
@@ -98,6 +108,14 @@
             :public-worker-total="
               nationalVaccine.cumulative_public_officer_first_vaccination_received
             "
+            :public-target="nationalVaccine.public_vaccination_target"
+            :public-total="
+              nationalVaccine.cumulative_public_first_vaccination_received
+            "
+            :teenager-target="nationalVaccine.teenager_vaccination_target"
+            :teenager-total="
+              nationalVaccine.cumulative_teenager_first_vaccination_received
+            "
             :addition="nationalVaccine.first_vaccination_received"
             :growth-rate="
               nationalVaccine.first_vaccination_received_changes_rate
@@ -122,6 +140,14 @@
             "
             :public-worker-total="
               nationalVaccine.cumulative_public_officer_second_vaccination_received
+            "
+            :public-target="nationalVaccine.public_vaccination_target"
+            :public-total="
+              nationalVaccine.cumulative_public_second_vaccination_received
+            "
+            :teenager-target="nationalVaccine.teenager_vaccination_target"
+            :teenager-total="
+              nationalVaccine.cumulative_teenager_second_vaccination_received
             "
             :addition="nationalVaccine.second_vaccination_received"
             :growth-rate="
@@ -172,6 +198,16 @@
             label="Sasaran Vaksinasi Petugas Kesehatan"
             text-color="text-orange-500"
           />
+          <card-vaccine-target
+            :target="provinceVaccine.public_vaccination_target"
+            label="Sasaran Vaksinasi Masyarakat Umum dan Rentan"
+            text-color="text-pink-600"
+          />
+          <card-vaccine-target
+            :target="provinceVaccine.teenager_vaccination_target"
+            label="Sasaran Vaksinasi Usia 12 - 17 Tahun"
+            text-color="text-pink-400"
+          />
         </div>
         <card-vaccine-target-loader v-else-if="showTargetCard" class="mb-8" />
         <card-vaccine-home-loader v-if="isNull(nationalVaccine)" />
@@ -201,6 +237,14 @@
               provinceVaccine.cumulative_public_officer_first_vaccination_received
             "
             :addition="provinceVaccine.first_vaccination_received"
+            :public-target="provinceVaccine.public_vaccination_target"
+            :public-total="
+              provinceVaccine.cumulative_public_first_vaccination_received
+            "
+            :teenager-target="provinceVaccine.teenager_vaccination_target"
+            :teenager-total="
+              provinceVaccine.cumulative_teenager_first_vaccination_received
+            "
             :growth-rate="
               provinceVaccine.first_vaccination_received_changes_rate
             "
@@ -224,6 +268,14 @@
             "
             :public-worker-total="
               provinceVaccine.cumulative_public_officer_second_vaccination_received
+            "
+            :public-target="provinceVaccine.public_vaccination_target"
+            :public-total="
+              provinceVaccine.cumulative_public_second_vaccination_received
+            "
+            :teenager-target="provinceVaccine.teenager_vaccination_target"
+            :teenager-total="
+              provinceVaccine.cumulative_teenager_second_vaccination_received
             "
             :addition="provinceVaccine.second_vaccination_received"
             :growth-rate="

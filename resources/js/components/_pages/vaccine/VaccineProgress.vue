@@ -100,6 +100,32 @@
                 nationalVaccine.health_worker_first_vaccination_received_changes_rate
               "
             />
+            <card-vaccine
+              title="Vaksinasi Masyarakat Umum dan Rentan"
+              text-color="text-pink-600"
+              progress-color="bg-pink-600"
+              :total="
+                nationalVaccine.cumulative_public_first_vaccination_received
+              "
+              :target="nationalVaccine.public_vaccination_target"
+              :addition="nationalVaccine.public_first_vaccination_received"
+              :growth-rate="
+                nationalVaccine.public_first_vaccination_received_changes_rate
+              "
+            />
+            <card-vaccine
+              title="Vaksinasi Kelompok Usia 12 - 17 Tahun"
+              text-color="text-pink-400"
+              progress-color="bg-pink-400"
+              :total="
+                nationalVaccine.cumulative_teenager_first_vaccination_received
+              "
+              :target="nationalVaccine.teenager_vaccination_target"
+              :addition="nationalVaccine.teenager_first_vaccination_received"
+              :growth-rate="
+                nationalVaccine.teenager_first_vaccination_received_changes_rate
+              "
+            />
           </div>
           <div class="grid w-full grid-cols-1 gap-5">
             <p class="text-2xl font-semibold">Vaksinasi Dosis 2</p>
@@ -155,6 +181,32 @@
               "
               :growth-rate="
                 nationalVaccine.health_worker_second_vaccination_received_changes_rate
+              "
+            />
+            <card-vaccine
+              title="Vaksinasi Masyarakat Umum dan Rentan"
+              text-color="text-pink-600"
+              progress-color="bg-pink-600"
+              :total="
+                nationalVaccine.cumulative_public_second_vaccination_received
+              "
+              :target="nationalVaccine.public_vaccination_target"
+              :addition="nationalVaccine.public_second_vaccination_received"
+              :growth-rate="
+                nationalVaccine.public_second_vaccination_received_changes_rate
+              "
+            />
+            <card-vaccine
+              title="Vaksinasi Kelompok Usia 12 - 17 Tahun"
+              text-color="text-pink-400"
+              progress-color="bg-pink-400"
+              :total="
+                nationalVaccine.cumulative_teenager_second_vaccination_received
+              "
+              :target="nationalVaccine.teenager_vaccination_target"
+              :addition="nationalVaccine.teenager_second_vaccination_received"
+              :growth-rate="
+                nationalVaccine.teenager_second_vaccination_received_changes_rate
               "
             />
           </div>
@@ -239,6 +291,32 @@
                 provinceVaccine.health_worker_first_vaccination_received_changes_rate
               "
             />
+            <card-vaccine
+              title="Vaksinasi Masyarakat Umum dan Rentan"
+              text-color="text-pink-600"
+              progress-color="bg-pink-600"
+              :total="
+                provinceVaccine.cumulative_public_first_vaccination_received
+              "
+              :target="provinceVaccine.public_vaccination_target"
+              :addition="provinceVaccine.public_first_vaccination_received"
+              :growth-rate="
+                provinceVaccine.public_first_vaccination_received_changes_rate
+              "
+            />
+            <card-vaccine
+              title="Vaksinasi Kelompok Usia 12 - 17 Tahun"
+              text-color="text-pink-400"
+              progress-color="bg-pink-400"
+              :total="
+                provinceVaccine.cumulative_teenager_first_vaccination_received
+              "
+              :target="provinceVaccine.teenager_vaccination_target"
+              :addition="provinceVaccine.teenager_first_vaccination_received"
+              :growth-rate="
+                provinceVaccine.teenager_first_vaccination_received_changes_rate
+              "
+            />
           </div>
           <div class="grid w-full grid-cols-1 gap-5">
             <p class="text-2xl font-semibold">Vaksinasi Dosis 2</p>
@@ -294,6 +372,32 @@
               "
               :growth-rate="
                 provinceVaccine.health_worker_second_vaccination_received_changes_rate
+              "
+            />
+            <card-vaccine
+              title="Vaksinasi Masyarakat Umum dan Rentan"
+              text-color="text-pink-600"
+              progress-color="bg-pink-600"
+              :total="
+                provinceVaccine.cumulative_public_second_vaccination_received
+              "
+              :target="provinceVaccine.public_vaccination_target"
+              :addition="provinceVaccine.public_second_vaccination_received"
+              :growth-rate="
+                provinceVaccine.public_second_vaccination_received_changes_rate
+              "
+            />
+            <card-vaccine
+              title="Vaksinasi Kelompok Usia 12 - 17 Tahun"
+              text-color="text-pink-400"
+              progress-color="bg-pink-400"
+              :total="
+                provinceVaccine.cumulative_teenager_second_vaccination_received
+              "
+              :target="provinceVaccine.teenager_vaccination_target"
+              :addition="provinceVaccine.teenager_second_vaccination_received"
+              :growth-rate="
+                provinceVaccine.teenager_second_vaccination_received_changes_rate
               "
             />
           </div>

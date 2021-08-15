@@ -6,7 +6,7 @@
     <p class="font-semibold text-green-700">
       {{ new_vaccinated }}
       <span class="text-sm">
-        ( <i class="text-xs fas" :class="icon(addition)"></i>
+        ( <i class="text-xs fas" :class="icon(this.growthRate)"></i>
         {{ growth }} )</span
       >
     </p>
@@ -33,13 +33,12 @@
           :style="progress(healthWorkerTotal, target)"
         ></div>
         <div
-          class="h-full bg-pink-500 rounded-r-md"
-          :style="
-            progress(
-              total - (healthWorkerTotal + elderlyTotal + publicWorkerTotal),
-              target
-            )
-          "
+          class="h-full bg-pink-600"
+          :style="progress(publicTotal, target)"
+        ></div>
+        <div
+          class="h-full bg-pink-400 rounded-r-md"
+          :style="progress(teenagerTotal, target)"
         ></div>
       </div>
       <p
@@ -53,34 +52,37 @@
       <b class="text-gray-800">{{ target_vaccinated }}</b> telah divaksin
     </p>
     <div
-      class="flex flex-row justify-between mt-3 text-xl font-semibold text-blue-500 "
+      class="flex flex-row justify-between mt-3 text-sm font-semibold text-blue-500  lg:text-xl"
     >
       <p>Lansia</p>
       <p>{{ percentage(elderlyTotal, elderlyTarget) }}</p>
     </div>
     <div
-      class="flex flex-row justify-between text-xl font-semibold text-purple-500 "
+      class="flex flex-row justify-between text-sm font-semibold text-purple-500  lg:text-xl"
     >
       <p>Petugas Publik</p>
       <p>{{ percentage(publicWorkerTotal, publicWorkerTarget) }}</p>
     </div>
     <div
-      class="flex flex-row justify-between text-xl font-semibold text-orange-500 "
+      class="flex flex-row justify-between text-sm font-semibold text-orange-500  lg:text-xl"
     >
       <p>Tenaga Kesehatan</p>
       <p>{{ percentage(healthWorkerTotal, healthWorkerTarget) }}</p>
     </div>
     <div
-      class="flex flex-row justify-between text-xl font-semibold text-pink-500"
+      class="flex flex-row justify-between text-sm font-semibold text-pink-600  lg:text-xl"
     >
-      <p>Masyarakat Umum</p>
+      <p>Masyarakat Umum dan Rentan</p>
       <p>
-        {{
-          percentage(
-            total - (healthWorkerTotal + publicWorkerTotal + elderlyTotal),
-            target - (healthWorkerTarget + elderlyTarget + publicWorkerTarget)
-          )
-        }}
+        {{ percentage(publicTotal, publicTarget) }}
+      </p>
+    </div>
+    <div
+      class="flex flex-row justify-between text-sm font-semibold text-pink-400  lg:text-xl"
+    >
+      <p>Kelompok Usia 12 - 17 Tahun</p>
+      <p>
+        {{ percentage(teenagerTotal, teenagerTarget) }}
       </p>
     </div>
   </div>
@@ -132,6 +134,22 @@ export default {
       required: true,
     },
     publicWorkerTarget: {
+      type: Number,
+      required: true,
+    },
+    publicTotal: {
+      type: Number,
+      required: true,
+    },
+    publicTarget: {
+      type: Number,
+      required: true,
+    },
+    teenagerTotal: {
+      type: Number,
+      required: true,
+    },
+    teenagerTarget: {
       type: Number,
       required: true,
     },

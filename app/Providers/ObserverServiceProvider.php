@@ -2,11 +2,13 @@
 
 namespace App\Providers;
 
+use App\Models\HospitalBed;
 use App\Models\RegencyCase;
 use App\Models\NationalCase;
 use App\Models\ProvinceCase;
 use App\Models\NationalVaccine;
 use App\Models\ProvinceVaccine;
+use App\Observers\HospitalBedObserver;
 use App\Observers\RegencyCaseObserver;
 use App\Observers\NationalCaseObserver;
 use App\Observers\ProvinceCaseObserver;
@@ -34,6 +36,7 @@ class ObserverServiceProvider extends ServiceProvider
     public function boot()
     {
         RegencyCase::observe(RegencyCaseObserver::class);
+        HospitalBed::observe(HospitalBedObserver::class);
         ProvinceCase::observe(ProvinceCaseObserver::class);
         NationalCase::observe(NationalCaseObserver::class);
         ProvinceVaccine::observe(ProvinceVaccineObserver::class);

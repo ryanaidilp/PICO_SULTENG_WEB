@@ -109,7 +109,7 @@ export default {
       deceasedRanges: [],
       underTreatmentRanges: [],
       underTreatmentDataset: [],
-      positiveColor: [
+      underTreatmentColor: [
         "#418a47",
         "#689849",
         "#8da64e",
@@ -121,6 +121,20 @@ export default {
         "#ea7951",
         "#e15c4f",
         "#d43d51",
+        "#CD0000",
+      ],
+      positiveColor: [
+        "#e38e5d",
+        "#da8266",
+        "#d17567",
+        "#c96962",
+        "#c15d5a",
+        "#ba5150",
+        "#b24443",
+        "#aa3735",
+        "#a12a26",
+        "#991915",
+        "#900000",
         "#CD0000",
       ],
       recoveredDataset: [],
@@ -390,28 +404,28 @@ export default {
         if (i == 0) {
           this.underTreatmentRanges.push({
             less: min,
-            color: this.positiveColor[0],
+            color: this.underTreatmentColor[0],
           });
           this.underTreatmentRanges.push({
             from: min,
             to: max,
-            color: this.positiveColor[i + 1],
+            color: this.underTreatmentColor[i + 1],
           });
         } else if (i == classUnderTreatment.length - 1) {
           this.underTreatmentRanges.push({
             from: min,
             to: max,
-            color: this.positiveColor[i + 1],
+            color: this.underTreatmentColor[i + 1],
           });
           this.underTreatmentRanges.push({
             greater: max,
-            color: this.positiveColor[i + 2],
+            color: this.underTreatmentColor[i + 2],
           });
         } else {
           this.underTreatmentRanges.push({
             from: min,
             to: max,
-            color: this.positiveColor[i + 1],
+            color: this.underTreatmentColor[i + 1],
           });
         }
       });

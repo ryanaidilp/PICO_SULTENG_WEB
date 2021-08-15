@@ -188,7 +188,7 @@ export default {
       regencyDeathDataset: [],
       regencyODPDataset: [],
       regencyPDPDataset: [],
-      regencyPositiveColor: [
+      regencyUnderTreatmentColor: [
         "#21912b",
         "#6ba73b",
         "#fffc9c",
@@ -197,6 +197,17 @@ export default {
         "#ce5e05",
         "#d60000",
         "#b80000",
+        "#808080",
+      ],
+      regencyPositiveColor: [
+        "#e38e5d",
+        "#d67c67",
+        "#ca6b63",
+        "#bf5a58",
+        "#b44847",
+        "#a93533",
+        "#9d211d",
+        "#900000",
         "#808080",
       ],
       regencyRecoveredColor: [
@@ -438,28 +449,28 @@ export default {
           if (i == 0) {
             this.underTreatmentRanges.push({
               less: min,
-              color: this.regencyPositiveColor[0],
+              color: this.regencyUnderTreatmentColor[0],
             });
             this.underTreatmentRanges.push({
               from: min,
               to: max,
-              color: this.regencyPositiveColor[1],
+              color: this.regencyUnderTreatmentColor[1],
             });
           } else if (i == classUnderTreatment.length - 1) {
             this.underTreatmentRanges.push({
               from: min,
               to: max,
-              color: this.regencyPositiveColor[i + 1],
+              color: this.regencyUnderTreatmentColor[i + 1],
             });
             this.underTreatmentRanges.push({
               greater: max,
-              color: this.regencyPositiveColor[i + 2],
+              color: this.regencyUnderTreatmentColor[i + 2],
             });
           } else {
             this.underTreatmentRanges.push({
               from: min,
               to: max,
-              color: this.regencyPositiveColor[i + 1],
+              color: this.regencyUnderTreatmentColor[i + 1],
             });
           }
         });

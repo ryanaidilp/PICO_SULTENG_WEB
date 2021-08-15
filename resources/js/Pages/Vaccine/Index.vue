@@ -245,24 +245,6 @@ import DataTable from "@/components/DataTable";
 import Hyperlink from "@/components/Hyperlink";
 import { mapState } from "vuex";
 
-const formatDate = (value) => {
-  if (value) {
-    return new Intl.DateTimeFormat("id-ID", {
-      weekday: "long",
-      day: "numeric",
-      month: "long",
-      year: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit",
-      timeZoneName: "short",
-    })
-      .format(new Date(value))
-      .replaceAll(".", ":");
-  }
-  return "";
-};
-
 const formatStock = (value) => {
   if (value) {
     return `${value.toLocaleString("id-ID")} vial`;
@@ -346,7 +328,7 @@ export default {
         {
           name: "updated_at",
           label: "Pembaruan Terakhir",
-          format: formatDate,
+          format: this.formatDate,
         },
       ],
     };
@@ -375,15 +357,6 @@ export default {
       setInterval(() => {
         this.$inertia.reload({ only: ["vaccineLocations"] });
       }, 5 * 60 * 1000);
-    },
-    formatDate(date) {
-      const d = new Date(date);
-      const options = {
-        day: "numeric",
-        month: "short",
-        year: "numeric",
-      };
-      return d.toLocaleString("id-ID", options);
     },
   },
   mounted() {

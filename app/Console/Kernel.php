@@ -31,7 +31,7 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command("covid:update")->dailyAt("18:00");
         $schedule->command("covid:province")->dailyAt("18:00")->hourly()->between("18:00", "19:00");
-        $schedule->command("vaccine:update")->dailyAt("18:00")->hourly()->between("18:00", "19:00");
+        $schedule->command("vaccine:update")->everyTwoHours();
         $schedule->command("cache:clear")->dailyAt("02:00");
         $schedule->command("view:clear")->dailyAt("02:00");
     }

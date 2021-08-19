@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+
 use Illuminate\Support\Facades\Http;
 
 function sendNotification($message, $header): void

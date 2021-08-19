@@ -1,6 +1,5 @@
 <?php
 
-declare(strict_types=1);
 
 use TCG\Voyager\Models\Page;
 use Illuminate\Database\Schema\Blueprint;

@@ -54,14 +54,13 @@ class UpdateProvince extends Command
             $province_name = Str::replace(' ', '_', Str::upper($province->name));
             $data = Http::get("https://data.covid19.go.id/public/api/prov_detail_{$province_name}.json");
             $first_case_province = $data['list_perkembangan'][0]['tanggal'];
-            $first_case_province = (int) substr(Str::of($first_case_province), 0, -3);
+            $first_case_province = (int) mb_substr(Str::of($first_case_province), 0, -3);
             $first_case_province = Carbon::parse($first_case_province);
 
             $data = collect($data['list_perkembangan']);
             $data = $data->filter(function ($daily) {
-                $dateint = (int) substr(Str::of($daily['tanggal']), 0, -3);
+                $dateint = (int) mb_substr(Str::of($daily['tanggal']), 0, -3);
                 $date = Carbon::parse($dateint);
-
                 return $date->isToday();
             })->values()->first();
 

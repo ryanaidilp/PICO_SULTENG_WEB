@@ -1,7 +1,5 @@
 <?php
 
-
-
 namespace App\Console\Commands;
 
 use Carbon\Carbon;
@@ -56,7 +54,7 @@ class UpdateData extends Command
 
                 return;
             }
-            if (!$date->isToday()) {
+            if (! $date->isToday()) {
                 Log::notice('Data tidak diperbarui!');
 
                 return;

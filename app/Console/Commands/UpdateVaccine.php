@@ -1,7 +1,5 @@
 <?php
 
-
-
 namespace App\Console\Commands;
 
 use Carbon\Carbon;

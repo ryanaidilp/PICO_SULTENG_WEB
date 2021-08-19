@@ -1,7 +1,5 @@
 <?php
 
-
-
 namespace App\Providers;
 
 use App\Models\HospitalBed;

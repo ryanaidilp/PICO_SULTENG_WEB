@@ -1,7 +1,5 @@
 <?php
 
-
-
 use Illuminate\Support\Facades\Http;
 
 function sendNotification($message, $header): void

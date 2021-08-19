@@ -1,7 +1,5 @@
 <?php
 
-
-
 namespace App\Console\Commands;
 
 use App\Models\Province;

@@ -32,6 +32,16 @@ class Regency extends Model
     }
 
     /**
+     * Get all of the districts for the Regency
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function districts(): HasMany
+    {
+        return $this->hasMany(District::class, 'regency_id', 'id');
+    }
+
+    /**
      * Get all of the cases for the Regency
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Transformers;
 
 use App\Models\District;
@@ -9,7 +11,7 @@ use League\Fractal\TransformerAbstract;
 class DistrictTransformer extends TransformerAbstract
 {
     /**
-     * List of resources to automatically include
+     * List of resources to automatically include.
      *
      * @var array
      */
@@ -18,7 +20,7 @@ class DistrictTransformer extends TransformerAbstract
     ];
 
     /**
-     * List of resources possible to include
+     * List of resources possible to include.
      *
      * @var array
      */

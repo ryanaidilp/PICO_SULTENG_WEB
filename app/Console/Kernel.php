@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Console;
 
 use App\Console\Commands\UpdateData;
@@ -18,7 +20,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         UpdateData::class,
         UpdateProvince::class,
-        UpdateVaccine::class
+        UpdateVaccine::class,
     ];
 
     /**
@@ -27,13 +29,13 @@ class Kernel extends ConsoleKernel
      * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
      * @return void
      */
-    protected function schedule(Schedule $schedule)
+    protected function schedule(Schedule $schedule): void
     {
-        $schedule->command("covid:update")->dailyAt("18:00");
-        $schedule->command("covid:province")->dailyAt("18:00")->hourly()->between("18:00", "19:00");
-        $schedule->command("vaccine:update")->everyTwoHours();
-        $schedule->command("cache:clear")->dailyAt("02:00");
-        $schedule->command("view:clear")->dailyAt("02:00");
+        $schedule->command('covid:update')->dailyAt('18:00');
+        $schedule->command('covid:province')->dailyAt('18:00')->hourly()->between('18:00', '19:00');
+        $schedule->command('vaccine:update')->everyTwoHours();
+        $schedule->command('cache:clear')->dailyAt('02:00');
+        $schedule->command('view:clear')->dailyAt('02:00');
     }
 
     /**
@@ -41,10 +43,10 @@ class Kernel extends ConsoleKernel
      *
      * @return void
      */
-    protected function commands()
+    protected function commands(): void
     {
-        $this->load(__DIR__ . "/Commands");
+        $this->load(__DIR__.'/Commands');
 
-        require base_path("routes/console.php");
+        require base_path('routes/console.php');
     }
 }

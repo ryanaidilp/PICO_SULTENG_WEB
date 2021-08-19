@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services;
 
 use App\Models\ProvinceGenderCase;
@@ -10,8 +12,9 @@ class ProvinceGenderCaseService
 {
     public function latest($province_id)
     {
-        $case = ProvinceGenderCase::where("province_id", $province_id)->latest("day")->first();
+        $case = ProvinceGenderCase::where('province_id', $province_id)->latest('day')->first();
         $case = fractal($case, new ProvinceGenderCaseTransformer, new AppSerializer)->toArray();
+
         return $case;
     }
 }

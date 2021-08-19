@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Transformers;
 
 use App\Models\TestType;
@@ -9,7 +11,7 @@ use League\Fractal\TransformerAbstract;
 class TestTypeTransformer extends TransformerAbstract
 {
     /**
-     * List of resources to automatically include
+     * List of resources to automatically include.
      *
      * @var array
      */
@@ -18,7 +20,7 @@ class TestTypeTransformer extends TransformerAbstract
     ];
 
     /**
-     * List of resources possible to include
+     * List of resources possible to include.
      *
      * @var array
      */
@@ -35,13 +37,13 @@ class TestTypeTransformer extends TransformerAbstract
     {
         return [
             $test->key => [
-                __("general.positive") => $test->province_test_case->positive,
-                __("general.negative") => $test->province_test_case->negative,
-                "invalid" => $test->province_test_case->invalid,
-                "proses" => $test->province_test_case->process,
-                "jumlah_sampling" => $test->province_test_case->total,
-                "tanggal" => Carbon::parse($test->province_test_case->date_from)->translatedFormat("l, d M Y"),
-            ]
+                __('general.positive') => $test->province_test_case->positive,
+                __('general.negative') => $test->province_test_case->negative,
+                'invalid' => $test->province_test_case->invalid,
+                'proses' => $test->province_test_case->process,
+                'jumlah_sampling' => $test->province_test_case->total,
+                'tanggal' => Carbon::parse($test->province_test_case->date_from)->translatedFormat('l, d M Y'),
+            ],
         ];
     }
 }

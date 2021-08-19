@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services;
 
 use App\Models\Province;
@@ -10,8 +12,9 @@ class ProvinceService
 {
     public function all()
     {
-        $provinces = Province::with(["case"])->get();
+        $provinces = Province::with(['case'])->get();
         $provinces = \fractal($provinces, new ProvinceTransformer, new AppSerializer)->toArray();
+
         return $provinces;
     }
 }

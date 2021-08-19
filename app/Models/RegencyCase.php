@@ -1,9 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
-use App\Models\Regency;
-use App\Models\NationalCase;
 use Illuminate\Database\Eloquent\Model;
 use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -15,31 +15,31 @@ class RegencyCase extends Model
 
     protected $guarded = [];
     protected $appends = [
-        "death_ratio",
-        "under_treatment",
-        "cumulative_under_treatment",
-        "active_person_under_supervision",
-        "active_person_under_observation",
+        'death_ratio',
+        'under_treatment',
+        'cumulative_under_treatment',
+        'active_person_under_supervision',
+        'active_person_under_observation',
     ];
 
     /**
-     * Get the regency that owns the RegencyCase
+     * Get the regency that owns the RegencyCase.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function regency(): BelongsTo
     {
-        return $this->belongsTo(Regency::class, "regency_id", "id");
+        return $this->belongsTo(Regency::class, 'regency_id', 'id');
     }
 
     /**
-     * Get the national_case that owns the RegencyCase
+     * Get the national_case that owns the RegencyCase.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function national_case(): BelongsTo
     {
-        return $this->belongsTo(NationalCase::class, "day", "id");
+        return $this->belongsTo(NationalCase::class, 'day', 'id');
     }
 
     // Accessors & Mutators

@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Api\v1;
 
-use App\Http\Controllers\Api\ApiController as Controller;
-use App\Services\RegencyService;
 use Illuminate\Http\Request;
+use App\Services\RegencyService;
+use App\Http\Controllers\Api\ApiController as Controller;
 
 class RegencyCaseController extends Controller
 {
@@ -43,6 +45,7 @@ class RegencyCaseController extends Controller
     public function all($province_id)
     {
         $regencies = (new RegencyService)->allWithDaily($province_id);
+
         return $this->response($regencies);
     }
 

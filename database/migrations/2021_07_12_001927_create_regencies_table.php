@@ -1,8 +1,10 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+declare(strict_types=1);
+
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 class CreateRegenciesTable extends Migration
 {
@@ -11,13 +13,13 @@ class CreateRegenciesTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create("regencies", function (Blueprint $table) {
-            $table->integer("id")->primary();
-            $table->integer("province_id");
-            $table->string("name");
-            $table->foreign("province_id")->references("id")->on("provinces");
+        Schema::create('regencies', function (Blueprint $table): void {
+            $table->integer('id')->primary();
+            $table->integer('province_id');
+            $table->string('name');
+            $table->foreign('province_id')->references('id')->on('provinces');
             $table->timestamps();
         });
     }
@@ -27,8 +29,8 @@ class CreateRegenciesTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
-        Schema::dropIfExists("regencies");
+        Schema::dropIfExists('regencies');
     }
 }

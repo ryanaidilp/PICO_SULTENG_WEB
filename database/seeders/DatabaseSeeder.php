@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
@@ -11,7 +13,7 @@ class DatabaseSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         $this->call([
             TestTypeSeeder::class,
@@ -28,7 +30,7 @@ class DatabaseSeeder extends Seeder
             TaskForceSeeder::class,
             InfographicSeeder::class,
             InfographicImageSeeder::class,
-            ProvinceGenderCaseSeeder::class
+            ProvinceGenderCaseSeeder::class,
         ]);
     }
 }

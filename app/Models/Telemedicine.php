@@ -1,9 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
-use App\Models\Contact;
-use App\Models\TelemedicineSchedule;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -17,17 +17,17 @@ class Telemedicine extends Model
     // Relationships
     public function contacts()
     {
-        return $this->morphMany(Contact::class, "contactable");
+        return $this->morphMany(Contact::class, 'contactable');
     }
 
     /**
-     * Get all of the schedules for the Telemedicine
+     * Get all of the schedules for the Telemedicine.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function schedules(): HasMany
     {
-        return $this->hasMany(TelemedicineSchedule::class, "telemedicine_id", "id");
+        return $this->hasMany(TelemedicineSchedule::class, 'telemedicine_id', 'id');
     }
 
     // Methods

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Transformers;
 
 use App\Models\Regency;
@@ -8,7 +10,7 @@ use League\Fractal\TransformerAbstract;
 class TaskForceTransformer extends TransformerAbstract
 {
     /**
-     * List of resources to automatically include
+     * List of resources to automatically include.
      *
      * @var array
      */
@@ -17,7 +19,7 @@ class TaskForceTransformer extends TransformerAbstract
     ];
 
     /**
-     * List of resources possible to include
+     * List of resources possible to include.
      *
      * @var array
      */
@@ -37,14 +39,14 @@ class TaskForceTransformer extends TransformerAbstract
             $regency->task_forces->map(function ($task_force) {
                 return  $task_force->contacts->map(function ($contact) use ($task_force) {
                     return [
-                        "id"    => $contact->id,
-                        "contact_type_id" => $contact->contact_type_id,
-                        "contact" => $contact->contact,
-                        "name" => $task_force->name,
-                        "prefix" => $contact->contact_type->prefix,
-                        "bg_color" => $contact->contact_type->bg_color,
-                        "icon" => $contact->contact_type->icon,
-                        "label" => $contact->contact_type->label,
+                        'id'    => $contact->id,
+                        'contact_type_id' => $contact->contact_type_id,
+                        'contact' => $contact->contact,
+                        'name' => $task_force->name,
+                        'prefix' => $contact->contact_type->prefix,
+                        'bg_color' => $contact->contact_type->bg_color,
+                        'icon' => $contact->contact_type->icon,
+                        'label' => $contact->contact_type->label,
                     ];
                 });
             });
@@ -56,8 +58,8 @@ class TaskForceTransformer extends TransformerAbstract
         }
 
         return [
-            "regency" => $regency->name,
-            "contacts" => $task_forces,
+            'regency' => $regency->name,
+            'contacts' => $task_forces,
         ];
     }
 }

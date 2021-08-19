@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Seeders;
 
 use App\Models\Infographic;
@@ -12,15 +14,15 @@ class InfographicSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
-        $file = file(\database_path("csvs/infographics.csv"));
-        $data = \array_map("str_getcsv", $file);
+        $file = file(\database_path('csvs/infographics.csv'));
+        $data = \array_map('str_getcsv', $file);
         unset($data[0]);
         foreach ($data as $row) {
             Infographic::create([
-                "title" => $row[1],
-                "source" => $row[2]
+                'title' => $row[1],
+                'source' => $row[2],
             ]);
         }
     }

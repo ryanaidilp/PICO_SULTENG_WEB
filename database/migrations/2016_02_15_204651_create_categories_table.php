@@ -1,7 +1,9 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
+declare(strict_types=1);
+
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 class CreateCategoriesTable extends Migration
 {
@@ -10,10 +12,10 @@ class CreateCategoriesTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         // Create table for storing categories
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('categories', function (Blueprint $table): void {
             $table->increments('id');
             $table->integer('parent_id')->unsigned()->nullable()->default(null);
             $table->foreign('parent_id')->references('id')->on('categories')->onUpdate('cascade')->onDelete('set null');
@@ -29,7 +31,7 @@ class CreateCategoriesTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::drop('categories');
     }

@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+
 
 use TCG\Voyager\Facades\Voyager;
 use Illuminate\Support\Facades\Route;

@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+
 
 namespace App\Http\Controllers\Api\v1;
 
@@ -63,7 +63,7 @@ class StatisticController extends Controller
             $transformer = new NationalCaseTransformer();
         }
 
-        if (! $cases) {
+        if (!$cases) {
             return $this->responseNotFound('Statistics not found for day');
         }
 

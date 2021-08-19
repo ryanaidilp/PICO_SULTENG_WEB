@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+
 
 namespace Database\Seeders;
 
@@ -15,14 +15,14 @@ class RolesTableSeeder extends Seeder
     public function run(): void
     {
         $role = Role::firstOrNew(['name' => 'admin']);
-        if (! $role->exists) {
+        if (!$role->exists) {
             $role->fill([
                 'display_name' => __('voyager::seeders.roles.admin'),
             ])->save();
         }
 
         $role = Role::firstOrNew(['name' => 'user']);
-        if (! $role->exists) {
+        if (!$role->exists) {
             $role->fill([
                 'display_name' => __('voyager::seeders.roles.user'),
             ])->save();

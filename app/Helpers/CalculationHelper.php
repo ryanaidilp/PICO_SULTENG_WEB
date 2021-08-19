@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+
 
 function percentageValue($total, $value)
 {
@@ -29,7 +29,7 @@ function formatCase($value)
     $prefix = $value > 0 ? '+' : '';
     $value = number_format($value, 0, ',', '.');
 
-    return $prefix.$value;
+    return $prefix . $value;
 }
 
 function calculateRate($latest, $old)

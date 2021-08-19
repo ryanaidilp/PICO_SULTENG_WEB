@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+
 
 namespace App\Providers;
 
@@ -15,7 +15,7 @@ class HelperServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        foreach (glob(app_path().'/Helpers/*.php') as $file) {
+        foreach (glob(app_path() . '/Helpers/*.php') as $file) {
             require_once $file;
         }
     }

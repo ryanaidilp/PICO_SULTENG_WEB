@@ -9,17 +9,16 @@ use App\Models\ProvinceGenderCase;
 
 class ProvinceCaseObserver
 {
-
     /**
      * Handle the ProvinceCase "creating" event.
      *
      * @param  \App\Models\ProvinceCase  $case
      * @return void
      */
-    public function creating(ProvinceCase $case)
+    public function creating(ProvinceCase $case): void
     {
-        $latest = ProvinceCase::where("province_id", $case->province_id)
-            ->latest("day")->first();
+        $latest = ProvinceCase::where('province_id', $case->province_id)
+            ->latest('day')->first();
         $case->cumulative_positive = $case->positive + $latest->cumulative_positive;
         $case->cumulative_deceased = $case->deceased + $latest->cumulative_deceased;
         $case->cumulative_recovered = $case->recovered + $latest->cumulative_recovered;
@@ -35,15 +34,14 @@ class ProvinceCaseObserver
      * @param  \App\Models\ProvinceCase  $case
      * @return void
      */
-    public function created(ProvinceCase $case)
+    public function created(ProvinceCase $case): void
     {
-        if ($case->province_id == 72) {
-            $gender = ProvinceGenderCase::where("province_id", $case->province_id)
-                ->latest("day")->first();
-            $test_query = ProvinceTest::where("province_id", $case->province_id)->latest("day");
-            $test_pcr = $test_query->where("test_type_id", ProvinceTest::PCR)->first();
-            $test_rdt = $test_query->where("test_type_id", ProvinceTest::RDT)->first();
-
+        if ($case->province_id === 72) {
+            $gender = ProvinceGenderCase::where('province_id', $case->province_id)
+                ->latest('day')->first();
+            $test_query = ProvinceTest::where('province_id', $case->province_id)->latest('day');
+            $test_pcr = $test_query->where('test_type_id', ProvinceTest::PCR)->first();
+            $test_rdt = $test_query->where('test_type_id', ProvinceTest::RDT)->first();
 
             if ($gender) {
                 $new_gender = $gender->replicate();
@@ -63,18 +61,17 @@ class ProvinceCaseObserver
                 $new_rdt->save();
             }
 
-
-            $positive_new =  formatCase($case->positive);
-            $recovered_new =  formatCase($case->recovered);
+            $positive_new = formatCase($case->positive);
+            $recovered_new = formatCase($case->recovered);
             $deceased_new = formatCase($case->deceased);
-            $under_treatment_new =  formatCase($case->under_treatment);
+            $under_treatment_new = formatCase($case->under_treatment);
 
-            $positive_cumulative = number_format($case->cumulative_positive, 0, ",", ".");
-            $recovered_cumulative = number_format($case->cumulative_recovered, 0, ",", ".");
-            $deceased_cumulative = number_format($case->cumulative_death, 0, ",", ".");;
-            $under_treatment_cumulative = number_format($case->cumulative_under_treatment, 0, ",", ".");
+            $positive_cumulative = number_format($case->cumulative_positive, 0, ',', '.');
+            $recovered_cumulative = number_format($case->cumulative_recovered, 0, ',', '.');
+            $deceased_cumulative = number_format($case->cumulative_death, 0, ',', '.');
+            $under_treatment_cumulative = number_format($case->cumulative_under_treatment, 0, ',', '.');
 
-            $now = Carbon::parse($case->date)->translatedFormat("l, d F Y");
+            $now = Carbon::parse($case->date)->translatedFormat('l, d F Y');
             $header = "Update COVID-19 di Sulawesi Tengah.  $now!";
             $content = "Kasus COVID-19 di Sulawesi Tengah sampai $now :\n$positive_new Positif : $positive_cumulative Kasus\n$recovered_new Sembuh : $recovered_cumulative Kasus\n$deceased_new Meninggal : $deceased_cumulative Kasus\n$under_treatment_new Dirawat : $under_treatment_cumulative Kasus";
 
@@ -88,7 +85,7 @@ class ProvinceCaseObserver
      * @param  \App\Models\ProvinceCase  $case
      * @return void
      */
-    public function updated(ProvinceCase $case)
+    public function updated(ProvinceCase $case): void
     {
         //
     }
@@ -99,7 +96,7 @@ class ProvinceCaseObserver
      * @param  \App\Models\ProvinceCase  $case
      * @return void
      */
-    public function deleted(ProvinceCase $case)
+    public function deleted(ProvinceCase $case): void
     {
         //
     }
@@ -110,7 +107,7 @@ class ProvinceCaseObserver
      * @param  \App\Models\ProvinceCase  $case
      * @return void
      */
-    public function restored(ProvinceCase $case)
+    public function restored(ProvinceCase $case): void
     {
         //
     }
@@ -121,7 +118,7 @@ class ProvinceCaseObserver
      * @param  \App\Models\ProvinceCase  $case
      * @return void
      */
-    public function forceDeleted(ProvinceCase $case)
+    public function forceDeleted(ProvinceCase $case): void
     {
         //
     }

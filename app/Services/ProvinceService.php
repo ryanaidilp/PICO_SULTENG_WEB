@@ -10,8 +10,9 @@ class ProvinceService
 {
     public function all()
     {
-        $provinces = Province::with(["case"])->get();
+        $provinces = Province::with(['case'])->get();
         $provinces = \fractal($provinces, new ProvinceTransformer, new AppSerializer)->toArray();
+
         return $provinces;
     }
 }

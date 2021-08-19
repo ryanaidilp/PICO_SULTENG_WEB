@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 class CreateHospitalsTable extends Migration
 {
@@ -11,17 +11,17 @@ class CreateHospitalsTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create("hospitals", function (Blueprint $table) {
+        Schema::create('hospitals', function (Blueprint $table): void {
             $table->id();
-            $table->integer("regency_id");
-            $table->string("name");
-            $table->string("hospital_code")->nullable();
-            $table->text("address");
-            $table->double("latitude");
-            $table->double("longitude");
-            $table->foreign("regency_id")->references("id")->on("regencies");
+            $table->integer('regency_id');
+            $table->string('name');
+            $table->string('hospital_code')->nullable();
+            $table->text('address');
+            $table->double('latitude');
+            $table->double('longitude');
+            $table->foreign('regency_id')->references('id')->on('regencies');
             $table->timestamps();
         });
     }
@@ -31,8 +31,8 @@ class CreateHospitalsTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
-        Schema::dropIfExists("hospitals");
+        Schema::dropIfExists('hospitals');
     }
 }

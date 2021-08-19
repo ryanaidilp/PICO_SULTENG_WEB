@@ -2,14 +2,14 @@
 
 namespace App\Transformers;
 
-use App\Models\Test;
 use Carbon\Carbon;
+use App\Models\Test;
 use League\Fractal\TransformerAbstract;
 
 class TestTransformer extends TransformerAbstract
 {
     /**
-     * List of resources to automatically include
+     * List of resources to automatically include.
      *
      * @var array
      */
@@ -18,7 +18,7 @@ class TestTransformer extends TransformerAbstract
     ];
 
     /**
-     * List of resources possible to include
+     * List of resources possible to include.
      *
      * @var array
      */

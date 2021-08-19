@@ -2,10 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\RegencyCase;
-use App\Models\ProvinceCase;
-use App\Models\ProvinceTest;
-use App\Models\ProvinceGenderCase;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -16,43 +12,43 @@ class NationalCase extends Model
 
     protected $guarded = [];
     protected $appends = [
-        "death_ratio",
-        "under_treatment",
-        "cumulative_under_treatment"
+        'death_ratio',
+        'under_treatment',
+        'cumulative_under_treatment',
     ];
 
     /**
-     * Get all of the province_cases for the NationalCase
+     * Get all of the province_cases for the NationalCase.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function province_cases(): HasMany
     {
-        return $this->hasMany(ProvinceCase::class, "day", "id");
+        return $this->hasMany(ProvinceCase::class, 'day', 'id');
     }
 
     /**
-     * Get all of the regency_cases for the NationalCase
+     * Get all of the regency_cases for the NationalCase.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function regency_cases(): HasMany
     {
-        return $this->hasMany(RegencyCase::class, "day", "id");
+        return $this->hasMany(RegencyCase::class, 'day', 'id');
     }
 
     /**
-     * Get all of the province_gender_cases for the NationalCase
+     * Get all of the province_gender_cases for the NationalCase.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function province_gender_cases(): HasMany
     {
-        return $this->hasMany(ProvinceGenderCase::class, "day", "id");
+        return $this->hasMany(ProvinceGenderCase::class, 'day', 'id');
     }
 
     /**
-     * Get all of the tests for the NationalCase
+     * Get all of the tests for the NationalCase.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */

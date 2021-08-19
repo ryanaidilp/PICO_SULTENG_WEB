@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 class CreateBannersTable extends Migration
 {
@@ -11,15 +11,15 @@ class CreateBannersTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create("banners", function (Blueprint $table) {
+        Schema::create('banners', function (Blueprint $table): void {
             $table->id();
-            $table->string("title");
-            $table->string("url_type");
-            $table->string("url");
-            $table->string("image");
-            $table->boolean("status");
+            $table->string('title');
+            $table->string('url_type');
+            $table->string('url');
+            $table->string('image');
+            $table->boolean('status');
             $table->timestamps();
         });
     }
@@ -29,8 +29,8 @@ class CreateBannersTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
-        Schema::dropIfExists("banners");
+        Schema::dropIfExists('banners');
     }
 }

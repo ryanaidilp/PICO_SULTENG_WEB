@@ -43,7 +43,7 @@ class VaccineController extends Controller
 
     public function latest()
     {
-        if (\request()->has("province") && isset(\request()->province)) {
+        if (\request()->has('province') && isset(\request()->province)) {
             $vaccine = (new ProvinceVaccineService)->latest(\request()->province);
         } else {
             $vaccine = (new NationalVaccineService)->latest();

@@ -6,9 +6,9 @@ use App\Models\NationalVaccine;
 
 class NationalVaccineObserver
 {
-    public function creating(NationalVaccine $vaccine)
+    public function creating(NationalVaccine $vaccine): void
     {
-        $latest = NationalVaccine::latest("day")->first();
+        $latest = NationalVaccine::latest('day')->first();
         $vaccine->first_vaccination_received = $vaccine->cumulative_first_vaccination_received - $latest->cumulative_first_vaccination_received;
         $vaccine->second_vaccination_received = $vaccine->cumulative_second_vaccination_received - $latest->cumulative_second_vaccination_received;
         $vaccine->elderly_first_vaccination_received = $vaccine->cumulative_elderly_first_vaccination_received - $latest->cumulative_elderly_first_vaccination_received;
@@ -22,15 +22,16 @@ class NationalVaccineObserver
         $vaccine->teenager_first_vaccination_received = $vaccine->cumulative_teenager_first_vaccination_received - $latest->cumulative_teenager_first_vaccination_received;
         $vaccine->teenager_second_vaccination_received = $vaccine->cumulative_teenager_second_vaccination_received - $latest->cumulative_teenager_second_vaccination_received;
     }
+
     /**
      * Handle the NationalVaccine "created" event.
      *
      * @param  \App\Models\NationalVaccine  $nationalVaccine
      * @return void
      */
-    public function created(NationalVaccine $vaccine)
+    public function created(NationalVaccine $vaccine): void
     {
-        # code...
+        // code...
     }
 
     /**
@@ -39,7 +40,7 @@ class NationalVaccineObserver
      * @param  \App\Models\NationalVaccine  $nationalVaccine
      * @return void
      */
-    public function updated(NationalVaccine $nationalVaccine)
+    public function updated(NationalVaccine $nationalVaccine): void
     {
         //
     }
@@ -50,7 +51,7 @@ class NationalVaccineObserver
      * @param  \App\Models\NationalVaccine  $nationalVaccine
      * @return void
      */
-    public function deleted(NationalVaccine $nationalVaccine)
+    public function deleted(NationalVaccine $nationalVaccine): void
     {
         //
     }
@@ -61,7 +62,7 @@ class NationalVaccineObserver
      * @param  \App\Models\NationalVaccine  $nationalVaccine
      * @return void
      */
-    public function restored(NationalVaccine $nationalVaccine)
+    public function restored(NationalVaccine $nationalVaccine): void
     {
         //
     }
@@ -72,7 +73,7 @@ class NationalVaccineObserver
      * @param  \App\Models\NationalVaccine  $nationalVaccine
      * @return void
      */
-    public function forceDeleted(NationalVaccine $nationalVaccine)
+    public function forceDeleted(NationalVaccine $nationalVaccine): void
     {
         //
     }

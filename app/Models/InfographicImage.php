@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Infographic;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -14,14 +13,15 @@ class InfographicImage extends Model
     protected $guarded = [];
 
     // Relationships
+
     /**
-     * Get the infographic that owns the InfographicImage
+     * Get the infographic that owns the InfographicImage.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function infographic(): BelongsTo
     {
-        return $this->belongsTo(Infographic::class, "infographic_id", "id");
+        return $this->belongsTo(Infographic::class, 'infographic_id', 'id');
     }
 
     // Methods

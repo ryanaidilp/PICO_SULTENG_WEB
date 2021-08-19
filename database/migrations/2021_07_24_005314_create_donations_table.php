@@ -11,17 +11,17 @@ class CreateDonationsTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create("donations", function (Blueprint $table) {
+        Schema::create('donations', function (Blueprint $table): void {
             $table->id();
-            $table->string("title");
-            $table->string("initiator");
-            $table->string("url");
-            $table->string("description");
-            $table->string("image");
-            $table->boolean("accept_noncash")->default(0);
-            $table->string("delivery_address")->nullable();
+            $table->string('title');
+            $table->string('initiator');
+            $table->string('url');
+            $table->string('description');
+            $table->string('image');
+            $table->boolean('accept_noncash')->default(0);
+            $table->string('delivery_address')->nullable();
             $table->timestamps();
         });
     }
@@ -31,8 +31,8 @@ class CreateDonationsTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
-        Schema::dropIfExists("donations");
+        Schema::dropIfExists('donations');
     }
 }

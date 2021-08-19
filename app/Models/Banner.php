@@ -14,6 +14,6 @@ class Banner extends Model
     // Scopes
     public function scopeActive($query)
     {
-        return $query->where("status", true);
+        return $query->where('status', true);
     }
 }

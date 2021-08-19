@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 class CreateNationalCasesTable extends Migration
 {
@@ -11,21 +11,21 @@ class CreateNationalCasesTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create("national_cases", function (Blueprint $table) {
+        Schema::create('national_cases', function (Blueprint $table): void {
             $table->id();
-            $table->integer("day");
-            $table->dateTime("date");
-            $table->integer("positive");
-            $table->integer("recovered");
-            $table->integer("deceased");
-            $table->integer("cumulative_positive");
-            $table->integer("cumulative_recovered");
-            $table->integer("cumulative_deceased");
-            $table->double("rt")->nullable();
-            $table->double("rt_upper")->nullable();
-            $table->double("rt_lower")->nullable();
+            $table->integer('day');
+            $table->dateTime('date');
+            $table->integer('positive');
+            $table->integer('recovered');
+            $table->integer('deceased');
+            $table->integer('cumulative_positive');
+            $table->integer('cumulative_recovered');
+            $table->integer('cumulative_deceased');
+            $table->double('rt')->nullable();
+            $table->double('rt_upper')->nullable();
+            $table->double('rt_lower')->nullable();
             $table->timestamps();
         });
     }
@@ -35,8 +35,8 @@ class CreateNationalCasesTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
-        Schema::dropIfExists("national_cases");
+        Schema::dropIfExists('national_cases');
     }
 }

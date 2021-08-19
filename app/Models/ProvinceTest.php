@@ -2,9 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Province;
-use App\Models\TestType;
-use App\Models\NationalCase;
 use Illuminate\Database\Eloquent\Model;
 use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -15,7 +12,7 @@ class ProvinceTest extends Model
     use HasFactory, HasEagerLimit;
 
     protected $guarded = [];
-    protected $appends = ["total"];
+    protected $appends = ['total'];
 
     const PCR = 1;
     const RDT = 2;
@@ -24,34 +21,35 @@ class ProvinceTest extends Model
     const RDT_AG = 5;
 
     // Relationships
+
     /**
-     * Get the test_type that owns the ProvinceTest
+     * Get the test_type that owns the ProvinceTest.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function test_type(): BelongsTo
     {
-        return $this->belongsTo(TestType::class, "test_type_id", "id");
+        return $this->belongsTo(TestType::class, 'test_type_id', 'id');
     }
 
     /**
-     * Get the province that owns the ProvinceTest
+     * Get the province that owns the ProvinceTest.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function province(): BelongsTo
     {
-        return $this->belongsTo(Province::class, "province_id", "id");
+        return $this->belongsTo(Province::class, 'province_id', 'id');
     }
 
     /**
-     * Get the national_case that owns the ProvinceCase
+     * Get the national_case that owns the ProvinceCase.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function national_case(): BelongsTo
     {
-        return $this->belongsTo(NationalCase::class, "day", "id");
+        return $this->belongsTo(NationalCase::class, 'day', 'id');
     }
 
     // Methods

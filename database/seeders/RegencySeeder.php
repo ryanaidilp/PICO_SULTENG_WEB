@@ -12,16 +12,16 @@ class RegencySeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
-        $file = file(\database_path("csvs/kabupaten.csv"));
-        $data = array_map("str_getcsv", $file);
+        $file = file(\database_path('csvs/kabupaten.csv'));
+        $data = array_map('str_getcsv', $file);
         unset($data[0]);
         foreach ($data as $item) {
             Regency::create([
-                "id" => $item[0],
-                "province_id" => $item[1],
-                "name" => $item[2]
+                'id' => $item[0],
+                'province_id' => $item[1],
+                'name' => $item[2],
             ]);
         }
     }

@@ -11,14 +11,14 @@ class CreateTelemedicineSchedulesTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create("telemedicine_schedules", function (Blueprint $table) {
+        Schema::create('telemedicine_schedules', function (Blueprint $table): void {
             $table->id();
-            $table->foreignId("telemedicine_id")->constrained("telemedicines", "id");
-            $table->string("operational_day");
-            $table->string("operational_time");
-            $table->string("timezone");
+            $table->foreignId('telemedicine_id')->constrained('telemedicines', 'id');
+            $table->string('operational_day');
+            $table->string('operational_time');
+            $table->string('timezone');
             $table->timestamps();
         });
     }
@@ -28,8 +28,8 @@ class CreateTelemedicineSchedulesTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
-        Schema::dropIfExists("telemedicine_schedules");
+        Schema::dropIfExists('telemedicine_schedules');
     }
 }

@@ -11,6 +11,7 @@ class AppSerializer extends ArraySerializer
         if ($resourceKey) {
             return [$resourceKey => $data];
         }
+
         return $data;
     }
 
@@ -19,6 +20,7 @@ class AppSerializer extends ArraySerializer
         if ($resourceKey) {
             return [$resourceKey => $data];
         }
+
         return $data;
     }
 }

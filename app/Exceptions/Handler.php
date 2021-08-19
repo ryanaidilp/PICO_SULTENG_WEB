@@ -1,7 +1,5 @@
 <?php
 
-
-
 namespace App\Exceptions;
 
 use Throwable;

@@ -1,7 +1,5 @@
 <?php
 
-
-
 namespace App\Providers;
 
 use Illuminate\Http\Request;

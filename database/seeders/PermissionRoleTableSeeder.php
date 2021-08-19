@@ -1,7 +1,5 @@
 <?php
 
-
-
 namespace Database\Seeders;
 
 use TCG\Voyager\Models\Role;

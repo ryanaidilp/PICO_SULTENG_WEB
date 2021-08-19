@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -11,11 +13,11 @@ class CreateHospitalBedTypesTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create("hospital_bed_types", function (Blueprint $table) {
+        Schema::create('hospital_bed_types', function (Blueprint $table): void {
             $table->id();
-            $table->string("name");
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -25,8 +27,8 @@ class CreateHospitalBedTypesTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
-        Schema::dropIfExists("hospital_bed_types");
+        Schema::dropIfExists('hospital_bed_types');
     }
 }

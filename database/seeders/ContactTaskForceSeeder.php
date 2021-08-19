@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Seeders;
 
 use App\Models\Contact;
@@ -12,10 +14,10 @@ class ContactTaskForceSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
-        $file = \file(\database_path("csvs/contacts_task_forces.csv"));
-        $data = \array_map("str_getcsv", $file);
+        $file = \file(\database_path('csvs/contacts_task_forces.csv'));
+        $data = \array_map('str_getcsv', $file);
         $keys = $data[0];
         \array_shift($data);
         foreach ($data as $row) {

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -11,13 +13,13 @@ class CreateVillagesTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create("villages", function (Blueprint $table) {
-            $table->bigInteger("id")->primary();
-            $table->integer("district_id");
-            $table->string("name");
-            $table->foreign("district_id")->references("id")->on("districts");
+        Schema::create('villages', function (Blueprint $table): void {
+            $table->bigInteger('id')->primary();
+            $table->integer('district_id');
+            $table->string('name');
+            $table->foreign('district_id')->references('id')->on('districts');
             $table->timestamps();
         });
     }
@@ -27,8 +29,8 @@ class CreateVillagesTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
-        Schema::dropIfExists("villages");
+        Schema::dropIfExists('villages');
     }
 }

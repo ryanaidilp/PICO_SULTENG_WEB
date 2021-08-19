@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -14,6 +16,6 @@ class Banner extends Model
     // Scopes
     public function scopeActive($query)
     {
-        return $query->where("status", true);
+        return $query->where('status', true);
     }
 }

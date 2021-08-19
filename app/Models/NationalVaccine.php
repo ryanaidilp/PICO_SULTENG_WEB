@@ -1,8 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
-use App\Models\ProvinceVaccine;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -13,18 +14,19 @@ class NationalVaccine extends Model
 
     protected $guarded = [];
     protected $casts = [
-        "date" => "datetime"
+        'date' => 'datetime',
     ];
 
     // Relationships
+
     /**
-     * Get all of the province_vaccines for the NationalVaccine
+     * Get all of the province_vaccines for the NationalVaccine.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function province_vaccines(): HasMany
     {
-        return $this->hasMany(ProvinceVaccine::class, "day", "id");
+        return $this->hasMany(ProvinceVaccine::class, 'day', 'id');
     }
 
     // Methods

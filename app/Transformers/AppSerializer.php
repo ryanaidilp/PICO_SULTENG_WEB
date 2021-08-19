@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Transformers;
 
 use League\Fractal\Serializer\ArraySerializer;
@@ -11,6 +13,7 @@ class AppSerializer extends ArraySerializer
         if ($resourceKey) {
             return [$resourceKey => $data];
         }
+
         return $data;
     }
 
@@ -19,6 +22,7 @@ class AppSerializer extends ArraySerializer
         if ($resourceKey) {
             return [$resourceKey => $data];
         }
+
         return $data;
     }
 }

@@ -1,16 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Api\v1;
 
 use App\Models\NationalCase;
 use App\Models\ProvinceCase;
 use Illuminate\Http\Request;
 use App\Transformers\AppSerializer;
+use App\Services\NationalCaseService;
+use App\Services\ProvinceCaseService;
 use App\Transformers\Api\v1\NationalCaseTransformer;
 use App\Transformers\Api\v1\ProvinceCaseTransformer;
 use App\Http\Controllers\Api\ApiController as Controller;
-use App\Services\NationalCaseService;
-use App\Services\ProvinceCaseService;
 
 class StatisticController extends Controller
 {
@@ -21,7 +23,7 @@ class StatisticController extends Controller
      */
     public function index()
     {
-        if (\request()->has("province") && isset(\request()->province)) {
+        if (\request()->has('province') && isset(\request()->province)) {
             $cases = (new ProvinceCaseService)->all(72);
         } else {
             $cases = (new NationalCaseService)->all();
@@ -49,20 +51,20 @@ class StatisticController extends Controller
      */
     public function show($day)
     {
-        if (\request()->has("province") && isset(\request()->province)) {
-            $cases = ProvinceCase::with("national_case:id,date")->where([
-                ["province_id", "=", \request()->get("province")],
-                ["day", "=", $day]
+        if (\request()->has('province') && isset(\request()->province)) {
+            $cases = ProvinceCase::with('national_case:id,date')->where([
+                ['province_id', '=', \request()->get('province')],
+                ['day', '=', $day],
             ])->first();
 
             $transformer = new ProvinceCaseTransformer();
         } else {
-            $cases = NationalCase::where("day", $day)->first();
+            $cases = NationalCase::where('day', $day)->first();
             $transformer = new NationalCaseTransformer();
         }
 
-        if (!$cases) {
-            return $this->responseNotFound("Statistics not found for day");
+        if (! $cases) {
+            return $this->responseNotFound('Statistics not found for day');
         }
 
         $responses = \fractal($cases, $transformer, new AppSerializer);
@@ -70,10 +72,10 @@ class StatisticController extends Controller
         return $this->response($responses);
     }
 
-    function latest()
+    public function latest()
     {
-        if (request()->has("province") && isset(request()->province)) {
-            $case = (new ProvinceCaseService)->latest(request()->get("province"));
+        if (request()->has('province') && isset(request()->province)) {
+            $case = (new ProvinceCaseService)->latest(request()->get('province'));
         } else {
             $case = (new NationalCaseService)->latest();
         }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
@@ -16,30 +18,31 @@ class ApiController extends Controller
     protected function setStatusCode($status_code)
     {
         $this->status_code = $status_code;
+
         return $this;
     }
 
-    public function responseNotFound($message = "Not Found")
+    public function responseNotFound($message = 'Not Found')
     {
         return $this->setStatusCode(404)->responseWithError($message);
     }
 
-    public function responseInvalid($message = "Invalid Request")
+    public function responseInvalid($message = 'Invalid Request')
     {
         return $this->setStatusCode(400)->responseWithError($message);
     }
 
-    public function responseCreated($message = "Created successfully")
+    public function responseCreated($message = 'Created successfully')
     {
         return $this->setStatusCode(201)->responseWithSuccess($message);
     }
 
-    public function responseUpdated($message = "Updated successfully")
+    public function responseUpdated($message = 'Updated successfully')
     {
         return $this->setStatusCode(201)->responseWithSuccess($message);
     }
 
-    public function responseInternalError($message = "Internal Error")
+    public function responseInternalError($message = 'Internal Error')
     {
         return $this->setStatusCode(500)->responseWithError($message);
     }
@@ -52,12 +55,14 @@ class ApiController extends Controller
     public function response($data, $headers = [], $errors = [])
     {
         $data = \setResponse($data, $errors, empty($errors));
+
         return response()->json($data, $this->getStatusCode(), $headers);
     }
 
     protected function responseWithError($message)
     {
-        $errors = [["message" => $message, "code" => $this->getStatusCode()]];
+        $errors = [['message' => $message, 'code' => $this->getStatusCode()]];
+
         return $this->response([], [], $errors);
     }
 }

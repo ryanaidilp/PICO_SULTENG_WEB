@@ -1,9 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
-use App\Models\District;
-use App\Models\VillageCase;
 use Illuminate\Database\Eloquent\Model;
 use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -19,8 +19,9 @@ class Village extends Model
     public $incrementing = false;
 
     // Relationships
+
     /**
-     * Get the district that owns the Village
+     * Get the district that owns the Village.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -30,7 +31,7 @@ class Village extends Model
     }
 
     /**
-     * Get all of the cases for the Village
+     * Get all of the cases for the Village.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -40,13 +41,13 @@ class Village extends Model
     }
 
     /**
-     * Get the case associated with the Village
+     * Get the case associated with the Village.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function case(): HasOne
     {
-        return $this->hasOne(VillageCase::class, 'village_id', 'id')->latest("day")->limit(1);
+        return $this->hasOne(VillageCase::class, 'village_id', 'id')->latest('day')->limit(1);
     }
 
     // Methods

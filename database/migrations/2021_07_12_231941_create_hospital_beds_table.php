@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -11,16 +13,16 @@ class CreateHospitalBedsTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create("hospital_beds", function (Blueprint $table) {
+        Schema::create('hospital_beds', function (Blueprint $table): void {
             $table->id();
-            $table->foreignId("hospital_id")->constrained("hospitals", "id");
-            $table->foreignId("hospital_bed_type_id")->constrained("hospital_bed_types", "id");
-            $table->integer("total");
-            $table->integer("occupied");
-            $table->integer("available");
-            $table->integer("queue");
+            $table->foreignId('hospital_id')->constrained('hospitals', 'id');
+            $table->foreignId('hospital_bed_type_id')->constrained('hospital_bed_types', 'id');
+            $table->integer('total');
+            $table->integer('occupied');
+            $table->integer('available');
+            $table->integer('queue');
             $table->timestamps();
         });
     }
@@ -30,8 +32,8 @@ class CreateHospitalBedsTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
-        Schema::dropIfExists("hospital_beds");
+        Schema::dropIfExists('hospital_beds');
     }
 }

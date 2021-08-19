@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -11,10 +13,10 @@ class AddConstraintToHospitalCodeColumnInHospitalsTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::table("hospitals", function (Blueprint $table) {
-            $table->unique("hospital_code");
+        Schema::table('hospitals', function (Blueprint $table): void {
+            $table->unique('hospital_code');
         });
     }
 
@@ -23,10 +25,10 @@ class AddConstraintToHospitalCodeColumnInHospitalsTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
-        Schema::table("hospitals", function (Blueprint $table) {
-            $table->dropUnique("hospitals_hospital_code_unique");
+        Schema::table('hospitals', function (Blueprint $table): void {
+            $table->dropUnique('hospitals_hospital_code_unique');
         });
     }
 }

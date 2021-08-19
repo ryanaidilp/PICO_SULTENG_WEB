@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Seeders;
 
 use App\Models\ContactType;
@@ -12,16 +14,16 @@ class ContactTypeSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         $data = [
-            "Email",
-            "Telepon",
-            "Faks"
+            'Email',
+            'Telepon',
+            'Faks',
         ];
 
         foreach ($data as $item) {
-            ContactType::create(["name" => $item]);
+            ContactType::create(['name' => $item]);
         }
     }
 }

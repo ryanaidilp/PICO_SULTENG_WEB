@@ -1,24 +1,25 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Transformers;
 
 use App\Models\Regency;
 use League\Fractal\TransformerAbstract;
-use App\Transformers\RegencyCaseTransformer;
 
 class RegencyWithDailyTransformer extends TransformerAbstract
 {
     /**
-     * List of resources to automatically include
+     * List of resources to automatically include.
      *
      * @var array
      */
     protected $defaultIncludes = [
-        "daily"
+        'daily',
     ];
 
     /**
-     * List of resources possible to include
+     * List of resources possible to include.
      *
      * @var array
      */
@@ -34,8 +35,8 @@ class RegencyWithDailyTransformer extends TransformerAbstract
     public function transform(Regency $regency)
     {
         return [
-            "id" => (int) $regency->id,
-            "name" => $regency->name,
+            'id' => (int) $regency->id,
+            'name' => $regency->name,
         ];
     }
 

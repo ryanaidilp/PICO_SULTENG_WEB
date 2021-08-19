@@ -1,8 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 function percentageValue($total, $value)
 {
-    if ($total == 0) {
+    if ($total === 0) {
         return 0;
     }
 
@@ -13,7 +15,7 @@ function percentageValue($total, $value)
 
 function averageCount($sum, $total)
 {
-    if ($total == 0) {
+    if ($total === 0) {
         return 0;
     }
 
@@ -24,16 +26,17 @@ function averageCount($sum, $total)
 
 function formatCase($value)
 {
-    $prefix = $value > 0 ? "+" : "";
-    $value = number_format($value, 0, ",", ".");
-    return $prefix . $value;
+    $prefix = $value > 0 ? '+' : '';
+    $value = number_format($value, 0, ',', '.');
+
+    return $prefix.$value;
 }
 
 function calculateRate($latest, $old)
 {
-    if ($old == 0) {  // avoid division by zero
+    if ($old === 0) {  // avoid division by zero
         return 0;
     }
 
-    return ($latest  / $old) * 100;
+    return ($latest / $old) * 100;
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services;
 
 use App\Models\Infographic;
@@ -14,15 +16,17 @@ class InfographicService
             return [];
         }
 
-        $infographics = Infographic::with("images")->orderBy("id", "desc")->take(5)->get();
+        $infographics = Infographic::with('images')->orderBy('id', 'desc')->take(5)->get();
         $infographics = fractal($infographics, new InfographicTransformer, new AppSerializer)->toArray();
+
         return $infographics;
     }
 
     public function all()
     {
-        $infographics = Infographic::with("images")->orderBy("id", "desc")->get();
+        $infographics = Infographic::with('images')->orderBy('id', 'desc')->get();
         $infographics = fractal($infographics, new InfographicTransformer, new AppSerializer)->toArray();
+
         return $infographics;
     }
 }

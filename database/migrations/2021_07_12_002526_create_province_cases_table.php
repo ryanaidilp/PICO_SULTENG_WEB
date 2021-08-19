@@ -1,8 +1,10 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+declare(strict_types=1);
+
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 class CreateProvinceCasesTable extends Migration
 {
@@ -11,26 +13,26 @@ class CreateProvinceCasesTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create("province_cases", function (Blueprint $table) {
+        Schema::create('province_cases', function (Blueprint $table): void {
             $table->id();
-            $table->foreignId("day")->constrained("national_cases");
-            $table->integer("province_id");
-            $table->integer("positive");
-            $table->integer("recovered");
-            $table->integer("deceased");
-            $table->double("person_under_observation")->nullable(); //ODP
-            $table->double("person_under_supervision")->nullable(); //PDP
-            $table->integer("cumulative_positive");
-            $table->integer("cumulative_recovered");
-            $table->integer("cumulative_deceased");
-            $table->double("cumulative_person_under_observation")->nullable();
-            $table->double("cumulative_person_under_supervision")->nullable();
-            $table->double("rt")->nullable();
-            $table->double("rt_upper")->nullable();
-            $table->double("rt_lower")->nullable();
-            $table->foreign("province_id")->references("id")->on("provinces");
+            $table->foreignId('day')->constrained('national_cases');
+            $table->integer('province_id');
+            $table->integer('positive');
+            $table->integer('recovered');
+            $table->integer('deceased');
+            $table->double('person_under_observation')->nullable(); //ODP
+            $table->double('person_under_supervision')->nullable(); //PDP
+            $table->integer('cumulative_positive');
+            $table->integer('cumulative_recovered');
+            $table->integer('cumulative_deceased');
+            $table->double('cumulative_person_under_observation')->nullable();
+            $table->double('cumulative_person_under_supervision')->nullable();
+            $table->double('rt')->nullable();
+            $table->double('rt_upper')->nullable();
+            $table->double('rt_lower')->nullable();
+            $table->foreign('province_id')->references('id')->on('provinces');
             $table->timestamps();
         });
     }
@@ -40,8 +42,8 @@ class CreateProvinceCasesTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
-        Schema::dropIfExists("province_cases");
+        Schema::dropIfExists('province_cases');
     }
 }

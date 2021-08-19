@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -11,10 +13,10 @@ class AddDateFromToProvinceTestsTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::table("province_tests", function (Blueprint $table) {
-            $table->date("date_from")->after("province_id");
+        Schema::table('province_tests', function (Blueprint $table): void {
+            $table->date('date_from')->after('province_id');
         });
     }
 
@@ -23,10 +25,10 @@ class AddDateFromToProvinceTestsTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
-        Schema::table("province_tests", function (Blueprint $table) {
-            $table->dropColumn("date_from");
+        Schema::table('province_tests', function (Blueprint $table): void {
+            $table->dropColumn('date_from');
         });
     }
 }

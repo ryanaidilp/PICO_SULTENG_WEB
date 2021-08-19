@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use TCG\Voyager\Models\Menu;
+use Illuminate\Database\Seeder;
 
 class MenusTableSeeder extends Seeder
 {
@@ -12,7 +14,7 @@ class MenusTableSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         Menu::firstOrCreate([
             'name' => 'admin',

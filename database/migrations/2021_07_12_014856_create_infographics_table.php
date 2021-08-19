@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -11,12 +13,12 @@ class CreateInfographicsTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create("infographics", function (Blueprint $table) {
+        Schema::create('infographics', function (Blueprint $table): void {
             $table->id();
-            $table->string("title");
-            $table->string("source");
+            $table->string('title');
+            $table->string('source');
             $table->timestamps();
         });
     }
@@ -26,8 +28,8 @@ class CreateInfographicsTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
-        Schema::dropIfExists("infographics");
+        Schema::dropIfExists('infographics');
     }
 }

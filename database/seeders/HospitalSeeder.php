@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Seeders;
 
 use App\Models\Hospital;
@@ -12,10 +14,10 @@ class HospitalSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
-        $file = file(\database_path("csvs/rumah_sakit.csv"));
-        $data = \array_map("str_getcsv", $file);
+        $file = file(\database_path('csvs/rumah_sakit.csv'));
+        $data = \array_map('str_getcsv', $file);
         $keys = $data[0];
         unset($data[0]);
         foreach ($data as $item) {

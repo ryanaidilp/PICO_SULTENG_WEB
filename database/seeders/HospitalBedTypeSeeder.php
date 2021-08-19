@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Seeders;
 
 use App\Models\HospitalBedType;
@@ -12,23 +14,23 @@ class HospitalBedTypeSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         $data = [
-            "IGD Khusus Covid",
-            "PICU Khusus Covid",
-            "NICU Khusus Covid",
-            "Isolasi Tanpa Tekanan Negatif",
-            "Isolasi Tekanan Negatif",
-            "ICU Tanpa Tekanan Negatif Tanpa Ventiltor",
-            "ICU Tanpa Tekanan Negatif Dengan Ventilator",
-            "ICU Tekanan Negatif tanpa Ventilator",
-            "ICU Tekanan Negatif dengan Ventilator"
+            'IGD Khusus Covid',
+            'PICU Khusus Covid',
+            'NICU Khusus Covid',
+            'Isolasi Tanpa Tekanan Negatif',
+            'Isolasi Tekanan Negatif',
+            'ICU Tanpa Tekanan Negatif Tanpa Ventiltor',
+            'ICU Tanpa Tekanan Negatif Dengan Ventilator',
+            'ICU Tekanan Negatif tanpa Ventilator',
+            'ICU Tekanan Negatif dengan Ventilator',
         ];
 
         foreach ($data as $item) {
             HospitalBedType::create([
-                "name" => $item
+                'name' => $item,
             ]);
         }
     }

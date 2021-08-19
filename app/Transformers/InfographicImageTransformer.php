@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Transformers;
 
 use App\Models\InfographicImage;
@@ -8,7 +10,7 @@ use League\Fractal\TransformerAbstract;
 class InfographicImageTransformer extends TransformerAbstract
 {
     /**
-     * List of resources to automatically include
+     * List of resources to automatically include.
      *
      * @var array
      */
@@ -17,7 +19,7 @@ class InfographicImageTransformer extends TransformerAbstract
     ];
 
     /**
-     * List of resources possible to include
+     * List of resources possible to include.
      *
      * @var array
      */
@@ -33,7 +35,7 @@ class InfographicImageTransformer extends TransformerAbstract
     public function transform(InfographicImage $image)
     {
         return [
-            $image->url
+            $image->url,
         ];
     }
 }

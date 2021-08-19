@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Transformers\Api\v1;
 
 use App\Models\ProvinceCase;

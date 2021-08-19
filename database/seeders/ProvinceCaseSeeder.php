@@ -25,7 +25,7 @@ class ProvinceCaseSeeder extends Seeder
             $province_name = Str::replace(' ', '_', Str::upper($province->name));
             $data = Http::get("https://data.covid19.go.id/public/api/prov_detail_{$province_name}.json");
             $first_case_province = $data['list_perkembangan'][0]['tanggal'];
-            $first_case_province = (int) mb_substr(Str::of($first_case_province), 0, -3);
+            $first_case_province = (int) substr(Str::of($first_case_province), 0, -3);
             $first_case_province = Carbon::parse($first_case_province);
             $diff = $first_case_date->diffInDays($first_case_province);
 

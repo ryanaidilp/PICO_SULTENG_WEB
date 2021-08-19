@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -24,6 +26,16 @@ class Regency extends Model
     public function province(): BelongsTo
     {
         return $this->belongsTo(Province::class, 'province_id', 'id');
+    }
+
+    /**
+     * Get all of the districts for the Regency.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function districts(): HasMany
+    {
+        return $this->hasMany(District::class, 'regency_id', 'id');
     }
 
     /**

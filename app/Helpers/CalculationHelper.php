@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 function percentageValue($total, $value)
 {
     if ($total === 0) {

@@ -1,12 +1,11 @@
 <template>
   <layout>
     <div class="w-full leading-normal xl:px-0 xl:mt-8">
-      <div class="flex flex-wrap items-center justify-between md:px-8">
-        <banner
-          :banners="banners"
-          class="w-full px-4 rounded-lg shadow-lg sm:px-0 h-96 xl:max-w-2xl xl:w-full"
-        />
-        <div class="flex flex-col flex-wrap w-full xl:w-1/2">
+      <div
+        class="grid grid-cols-1 px-8 mx-auto mt-4  xl:mt-0 xl:gap-x-8 gap-y-8 xl:grid-cols-2"
+      >
+        <banner :banners="banners" class="w-full rounded-lg shadow-lg h-96" />
+        <div class="grid w-full grid-cols-1 gap-y-2">
           <call-center class="flex flex-wrap justify-center w-full" />
           <donation />
         </div>
@@ -50,7 +49,7 @@
           <br />
           <inertia-link
             :href="route('contact')"
-            class="px-4 py-2 text-center text-blue-700 border-2 border-blue-500 border-solid rounded-lg md:self-center hover:bg-blue-200"
+            class="px-4 py-2 text-center text-blue-700 border-2 border-blue-500 border-solid rounded-lg  md:self-center hover:bg-blue-200"
             >Lihat Rumah Sakit Lainnya</inertia-link
           >
         </div>
@@ -75,7 +74,7 @@
           <ShareableItems :items="infographics" />
           <div class="pb-5 text-center md:pb-8">
             <inertia-link
-              class="inline-block px-4 py-2 mt-8 text-center text-blue-800 border-2 border-blue-500 border-solid rounded-lg md:self-center hover:bg-blue-200"
+              class="inline-block px-4 py-2 mt-8 text-center text-blue-800 border-2 border-blue-500 border-solid rounded-lg  md:self-center hover:bg-blue-200"
               :href="route('infographic')"
               >Lihat Selengkapnya</inertia-link
             >

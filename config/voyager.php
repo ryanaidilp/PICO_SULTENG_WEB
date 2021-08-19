@@ -134,7 +134,7 @@ return [
                 'icon_class' => 'voyager-person',
             ],
             'voyager::generic.home' => [
-                'route'        => env("APP_URL"),
+                'route'        => env('APP_URL'),
                 'icon_class'   => 'voyager-home',
                 'target_blank' => true,
             ],

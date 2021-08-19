@@ -12,10 +12,10 @@ class HospitalSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
-        $file = file(\database_path("csvs/rumah_sakit.csv"));
-        $data = \array_map("str_getcsv", $file);
+        $file = file(\database_path('csvs/rumah_sakit.csv'));
+        $data = \array_map('str_getcsv', $file);
         $keys = $data[0];
         unset($data[0]);
         foreach ($data as $item) {

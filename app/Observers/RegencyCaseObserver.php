@@ -13,10 +13,10 @@ class RegencyCaseObserver
      * @param  \App\Models\ProvinceCase  $case
      * @return void
      */
-    public function creating(RegencyCase $case)
+    public function creating(RegencyCase $case): void
     {
-        $latest = RegencyCase::where("regency_id", $case->regency_id)
-            ->latest("day")->first();
+        $latest = RegencyCase::where('regency_id', $case->regency_id)
+            ->latest('day')->first();
         $case->cumulative_positive = $case->positive + $latest->cumulative_positive;
         $case->cumulative_deceased = $case->deceased + $latest->cumulative_deceased;
         $case->cumulative_recovered = $case->recovered + $latest->cumulative_recovered;
@@ -32,19 +32,19 @@ class RegencyCaseObserver
      * @param  \App\Models\RegencyCase  $case
      * @return void
      */
-    public function created(RegencyCase $case)
+    public function created(RegencyCase $case): void
     {
-        $positive_new =  formatCase($case->positive);
-        $recovered_new =  formatCase($case->recovered);
+        $positive_new = formatCase($case->positive);
+        $recovered_new = formatCase($case->recovered);
         $deceased_new = formatCase($case->deceased);
-        $under_treatment_new =  formatCase($case->under_treatment);
+        $under_treatment_new = formatCase($case->under_treatment);
 
-        $positive_cumulative = number_format($case->cumulative_positive, 0, ",", ".");
-        $recovered_cumulative = number_format($case->cumulative_recovered, 0, ",", ".");
-        $deceased_cumulative = number_format($case->cumulative_death, 0, ",", ".");;
-        $under_treatment_cumulative = number_format($case->cumulative_under_treatment, 0, ",", ".");
+        $positive_cumulative = number_format($case->cumulative_positive, 0, ',', '.');
+        $recovered_cumulative = number_format($case->cumulative_recovered, 0, ',', '.');
+        $deceased_cumulative = number_format($case->cumulative_death, 0, ',', '.');
+        $under_treatment_cumulative = number_format($case->cumulative_under_treatment, 0, ',', '.');
 
-        $now = Carbon::parse($case->date)->translatedFormat("l, d F Y");
+        $now = Carbon::parse($case->date)->translatedFormat('l, d F Y');
         $header = "Update COVID-19 di {$case->regency->name}.  $now!";
         $content = "Kasus COVID-19 di {$case->regency->name} sampai $now :\n$positive_new Positif : $positive_cumulative Kasus\n$recovered_new Sembuh : $recovered_cumulative Kasus\n$deceased_new Meninggal : $deceased_cumulative Kasus\n$under_treatment_new Dirawat : $under_treatment_cumulative Kasus";
 
@@ -57,7 +57,7 @@ class RegencyCaseObserver
      * @param  \App\Models\RegencyCase  $case
      * @return void
      */
-    public function updated(RegencyCase $case)
+    public function updated(RegencyCase $case): void
     {
         //
     }
@@ -68,7 +68,7 @@ class RegencyCaseObserver
      * @param  \App\Models\RegencyCase  $case
      * @return void
      */
-    public function deleted(RegencyCase $case)
+    public function deleted(RegencyCase $case): void
     {
         //
     }
@@ -79,7 +79,7 @@ class RegencyCaseObserver
      * @param  \App\Models\RegencyCase  $case
      * @return void
      */
-    public function restored(RegencyCase $case)
+    public function restored(RegencyCase $case): void
     {
         //
     }
@@ -90,7 +90,7 @@ class RegencyCaseObserver
      * @param  \App\Models\RegencyCase  $case
      * @return void
      */
-    public function forceDeleted(RegencyCase $case)
+    public function forceDeleted(RegencyCase $case): void
     {
         //
     }

@@ -11,15 +11,15 @@ class CreateBankAccountsTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create("bank_accounts", function (Blueprint $table) {
+        Schema::create('bank_accounts', function (Blueprint $table): void {
             $table->id();
-            $table->foreignId("bank_id")->constrained("banks", "id");
-            $table->string("accountable_type");
-            $table->unsignedBigInteger("accountable_id");
-            $table->string("account_number");
-            $table->string("account_name");
+            $table->foreignId('bank_id')->constrained('banks', 'id');
+            $table->string('accountable_type');
+            $table->unsignedBigInteger('accountable_id');
+            $table->string('account_number');
+            $table->string('account_name');
             $table->timestamps();
         });
     }
@@ -29,8 +29,8 @@ class CreateBankAccountsTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
-        Schema::dropIfExists("bank_accounts");
+        Schema::dropIfExists('bank_accounts');
     }
 }

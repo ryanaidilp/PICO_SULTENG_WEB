@@ -12,7 +12,7 @@ class HospitalBedObserver
      * @param  \App\Models\HospitalBed  $bed
      * @return void
      */
-    public function saving(HospitalBed $bed)
+    public function saving(HospitalBed $bed): void
     {
         if ($bed->available > $bed->total) {
             $bed->available = $bed->total;
@@ -27,7 +27,7 @@ class HospitalBedObserver
      * @param  \App\Models\HospitalBed  $bed
      * @return void
      */
-    public function created(HospitalBed $bed)
+    public function created(HospitalBed $bed): void
     {
         //
     }
@@ -38,7 +38,7 @@ class HospitalBedObserver
      * @param  \App\Models\HospitalBed  $bed
      * @return void
      */
-    public function updated(HospitalBed $bed)
+    public function updated(HospitalBed $bed): void
     {
         //
     }
@@ -49,7 +49,7 @@ class HospitalBedObserver
      * @param  \App\Models\HospitalBed  $bed
      * @return void
      */
-    public function deleted(HospitalBed $bed)
+    public function deleted(HospitalBed $bed): void
     {
         //
     }
@@ -60,7 +60,7 @@ class HospitalBedObserver
      * @param  \App\Models\HospitalBed  $bed
      * @return void
      */
-    public function restored(HospitalBed $bed)
+    public function restored(HospitalBed $bed): void
     {
         //
     }
@@ -71,7 +71,7 @@ class HospitalBedObserver
      * @param  \App\Models\HospitalBed  $bed
      * @return void
      */
-    public function forceDeleted(HospitalBed $bed)
+    public function forceDeleted(HospitalBed $bed): void
     {
         //
     }

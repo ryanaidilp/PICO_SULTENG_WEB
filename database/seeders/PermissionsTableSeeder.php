@@ -10,7 +10,7 @@ class PermissionsTableSeeder extends Seeder
     /**
      * Auto generated seed file.
      */
-    public function run()
+    public function run(): void
     {
         $keys = [
             'browse_admin',

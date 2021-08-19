@@ -14,7 +14,7 @@ class HandleInertiaRequests extends Middleware
      * @see https://inertiajs.com/server-side-setup#root-template
      * @var string
      */
-    protected $rootView = "app";
+    protected $rootView = 'app';
 
     /**
      * Determines the current asset version.
@@ -41,18 +41,18 @@ class HandleInertiaRequests extends Middleware
 
         $chunks = $partners->chunk(4);
 
-        $partners = array();
+        $partners = [];
 
         foreach ($chunks->all() as $chunk) {
             $length = count($chunk);
             foreach ($chunk as $partner) {
-                $partner["width"] =  "w-1/$length";
+                $partner['width'] = "w-1/$length";
                 array_push($partners, $partner);
             }
         }
 
         return array_merge(parent::share($request), [
-            "partners" => $partners
+            'partners' => $partners,
         ]);
     }
 }

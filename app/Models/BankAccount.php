@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Bank;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -20,13 +19,13 @@ class BankAccount extends Model
     }
 
     /**
-     * Get the bank that owns the BankAccount
+     * Get the bank that owns the BankAccount.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function bank(): BelongsTo
     {
-        return $this->belongsTo(Bank::class, "bank_id", "id");
+        return $this->belongsTo(Bank::class, 'bank_id', 'id');
     }
 
     // Methods

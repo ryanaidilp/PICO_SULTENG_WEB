@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 use TCG\Voyager\Models\Page;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 class CreatePagesTable extends Migration
 {
@@ -11,10 +11,10 @@ class CreatePagesTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         // Create table for storing roles
-        Schema::create('pages', function (Blueprint $table) {
+        Schema::create('pages', function (Blueprint $table): void {
             $table->increments('id');
             $table->integer('author_id');
             $table->string('title');
@@ -34,7 +34,7 @@ class CreatePagesTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::drop('pages');
     }

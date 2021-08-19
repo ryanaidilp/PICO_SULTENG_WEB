@@ -11,12 +11,12 @@ class CreateTelemedicinesTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create("telemedicines", function (Blueprint $table) {
+        Schema::create('telemedicines', function (Blueprint $table): void {
             $table->id();
-            $table->string("name");
-            $table->boolean("is_free");
+            $table->string('name');
+            $table->boolean('is_free');
             $table->timestamps();
         });
     }
@@ -26,8 +26,8 @@ class CreateTelemedicinesTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
-        Schema::dropIfExists("telemedicines");
+        Schema::dropIfExists('telemedicines');
     }
 }

@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 class CreatePostsTable extends Migration
 {
@@ -10,10 +10,10 @@ class CreatePostsTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         // Create table for storing roles
-        Schema::create('posts', function (Blueprint $table) {
+        Schema::create('posts', function (Blueprint $table): void {
             $table->increments('id');
             $table->integer('author_id');
             $table->integer('category_id')->nullable();
@@ -38,7 +38,7 @@ class CreatePostsTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::drop('posts');
     }

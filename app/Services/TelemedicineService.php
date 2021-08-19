@@ -10,7 +10,7 @@ class TelemedicineService
 {
     public function all()
     {
-        $telemedicines = Telemedicine::with(["contacts", "contacts.contact_type", "schedules"])
+        $telemedicines = Telemedicine::with(['contacts', 'contacts.contact_type', 'schedules'])
             ->get();
 
         $telemedicines = fractal($telemedicines, new TelemedicineTransformer, new AppSerializer);

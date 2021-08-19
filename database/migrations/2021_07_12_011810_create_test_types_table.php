@@ -11,15 +11,15 @@ class CreateTestTypesTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create("test_types", function (Blueprint $table) {
+        Schema::create('test_types', function (Blueprint $table): void {
             $table->id();
-            $table->string("key", 6);
-            $table->string("name", 100);
-            $table->string("sample");
-            $table->string("duration", 100);
-            $table->boolean("is_recommended")->default(false);
+            $table->string('key', 6);
+            $table->string('name', 100);
+            $table->string('sample');
+            $table->string('duration', 100);
+            $table->boolean('is_recommended')->default(false);
             $table->timestamps();
         });
     }
@@ -29,8 +29,8 @@ class CreateTestTypesTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
-        Schema::dropIfExists("test_types");
+        Schema::dropIfExists('test_types');
     }
 }

@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 class CreateProvincesTable extends Migration
 {
@@ -11,12 +11,12 @@ class CreateProvincesTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create("provinces", function (Blueprint $table) {
-            $table->integer("id")->primary();
-            $table->string("name");
-            $table->string("map_id");
+        Schema::create('provinces', function (Blueprint $table): void {
+            $table->integer('id')->primary();
+            $table->string('name');
+            $table->string('map_id');
             $table->timestamps();
         });
     }
@@ -26,8 +26,8 @@ class CreateProvincesTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
-        Schema::dropIfExists("provinces");
+        Schema::dropIfExists('provinces');
     }
 }

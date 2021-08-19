@@ -13,7 +13,7 @@ class NationalVaccineService
 
     public function latest()
     {
-        $vaccines = NationalVaccine::latest("day")->take(2)->get();
+        $vaccines = NationalVaccine::latest('day')->take(2)->get();
         $vaccine_last = $vaccines->last();
         $vaccine = $vaccines->first();
         $vaccine->first_vaccination_received_changes = $vaccine->first_vaccination_received - $vaccine_last->first_vaccination_received;
@@ -40,6 +40,7 @@ class NationalVaccineService
         $vaccine->teenager_first_vaccination_received_changes_rate = \calculateRate($vaccine->teenager_first_vaccination_received_changes, $vaccine_last->teenager_first_vaccination_received);
         $vaccine->teenager_second_vaccination_received_changes = $vaccine->teenager_second_vaccination_received - $vaccine_last->teenager_second_vaccination_received;
         $vaccine->teenager_second_vaccination_received_changes_rate = \calculateRate($vaccine->teenager_second_vaccination_received_changes, $vaccine_last->teenager_second_vaccination_received);
+
         return $vaccine;
     }
 }

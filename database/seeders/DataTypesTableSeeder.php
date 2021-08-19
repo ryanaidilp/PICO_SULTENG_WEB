@@ -10,10 +10,10 @@ class DataTypesTableSeeder extends Seeder
     /**
      * Auto generated seed file.
      */
-    public function run()
+    public function run(): void
     {
         $dataType = $this->dataType('slug', 'users');
-        if (!$dataType->exists) {
+        if (! $dataType->exists) {
             $dataType->fill([
                 'name'                  => 'users',
                 'display_name_singular' => __('voyager::seeders.data_types.user.singular'),
@@ -28,7 +28,7 @@ class DataTypesTableSeeder extends Seeder
         }
 
         $dataType = $this->dataType('slug', 'menus');
-        if (!$dataType->exists) {
+        if (! $dataType->exists) {
             $dataType->fill([
                 'name'                  => 'menus',
                 'display_name_singular' => __('voyager::seeders.data_types.menu.singular'),
@@ -42,7 +42,7 @@ class DataTypesTableSeeder extends Seeder
         }
 
         $dataType = $this->dataType('slug', 'roles');
-        if (!$dataType->exists) {
+        if (! $dataType->exists) {
             $dataType->fill([
                 'name'                  => 'roles',
                 'display_name_singular' => __('voyager::seeders.data_types.role.singular'),

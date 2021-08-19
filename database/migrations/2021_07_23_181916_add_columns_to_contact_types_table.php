@@ -11,13 +11,13 @@ class AddColumnsToContactTypesTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::table("contact_types", function (Blueprint $table) {
-            $table->string("prefix")->after("name");
-            $table->string("icon")->after("prefix");
-            $table->string("bg_color")->after("icon");
-            $table->string("label")->after("bg_color");
+        Schema::table('contact_types', function (Blueprint $table): void {
+            $table->string('prefix')->after('name');
+            $table->string('icon')->after('prefix');
+            $table->string('bg_color')->after('icon');
+            $table->string('label')->after('bg_color');
         });
     }
 
@@ -26,10 +26,10 @@ class AddColumnsToContactTypesTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
-        Schema::table("contact_types", function (Blueprint $table) {
-            $table->dropColumn(["prefix", "icon", "bg_color", "label"]);
+        Schema::table('contact_types', function (Blueprint $table): void {
+            $table->dropColumn(['prefix', 'icon', 'bg_color', 'label']);
         });
     }
 }

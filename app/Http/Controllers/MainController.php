@@ -26,15 +26,14 @@ class MainController extends Controller
      */
     public function index()
     {
-
         $banners = Banner::active()->get();
         $hospitals = (new HospitalService)->random(3, 72);
         $infographics = (new InfographicService)->take(5);
 
-        return Inertia::render("Home/Index", [
-            "banners" => $banners,
-            "hospitals" => $hospitals,
-            "infographics" => $infographics,
+        return Inertia::render('Home/Index', [
+            'banners' => $banners,
+            'hospitals' => $hospitals,
+            'infographics' => $infographics,
         ]);
     }
 
@@ -42,8 +41,8 @@ class MainController extends Controller
     {
         $vaccine_locations = (new VaccineLocationService)->all(72);
 
-        return Inertia::render("Vaccine/Index", [
-            "vaccineLocations" => $vaccine_locations,
+        return Inertia::render('Vaccine/Index', [
+            'vaccineLocations' => $vaccine_locations,
         ]);
     }
 
@@ -52,31 +51,27 @@ class MainController extends Controller
         $telemedicines = (new TelemedicineService)->all();
         $donations = (new DonationService)->all();
 
-        return Inertia::render("Isolation/Index", [
-            "telemedicines" => $telemedicines,
-            "donations" => $donations
+        return Inertia::render('Isolation/Index', [
+            'telemedicines' => $telemedicines,
+            'donations' => $donations,
         ]);
     }
 
     public function contact()
     {
-
         $task_forces = (new TaskForceService)->all(72);
         $hospitals = (new HospitalService)->all(72);
 
-
-        return Inertia::render("Contact/Index", [
-            "hospitals" => $hospitals,
-            "taskForces" => $task_forces
+        return Inertia::render('Contact/Index', [
+            'hospitals' => $hospitals,
+            'taskForces' => $task_forces,
         ]);
     }
 
-
     public function wiki()
     {
-        return Inertia::render("Wiki/Index");
+        return Inertia::render('Wiki/Index');
     }
-
 
     public function data()
     {
@@ -85,36 +80,36 @@ class MainController extends Controller
         $tests = (new TestTypeService)->all(72);
         $genders = (new ProvinceGenderCaseService)->latest(72);
         $regency_new_case = (new RegencyCaseService)->latestRegencies(72);
-        return Inertia::render("Data/Index", [
-            "tests" => $tests,
-            "regencies" => $regencies,
-            "provinces" => $provinces,
-            "genders" => $genders,
-            "regencyNewCase" => $regency_new_case
+
+        return Inertia::render('Data/Index', [
+            'tests' => $tests,
+            'regencies' => $regencies,
+            'provinces' => $provinces,
+            'genders' => $genders,
+            'regencyNewCase' => $regency_new_case,
         ]);
     }
-
 
     public function infographic()
     {
-        $infographics = Infographic::with("images")->orderBy("id", "desc")->get();
-        return Inertia::render("Infographic/Index", [
-            "infographics" => $infographics->map(function ($infographic) {
+        $infographics = Infographic::with('images')->orderBy('id', 'desc')->get();
+
+        return Inertia::render('Infographic/Index', [
+            'infographics' => $infographics->map(function ($infographic) {
                 return [
-                    "title" => $infographic->title,
-                    "route" => $infographic->source,
-                    "images" => $infographic->images->map(function ($image) {
+                    'title' => $infographic->title,
+                    'route' => $infographic->source,
+                    'images' => $infographic->images->map(function ($image) {
                         return $image->image_url;
-                    })
+                    }),
                 ];
-            })
+            }),
         ]);
     }
 
-
     public function table()
     {
-        return Inertia::render("Table/Index");
+        return Inertia::render('Table/Index');
     }
 
     /**

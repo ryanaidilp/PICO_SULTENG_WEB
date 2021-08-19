@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Province;
-use App\Models\NationalCase;
 use Illuminate\Database\Eloquent\Model;
 use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -15,34 +13,34 @@ class ProvinceCase extends Model
 
     protected $guarded = [];
     protected $appends = [
-        "death_ratio",
-        "under_treatment",
-        "cumulative_under_treatment",
-        "active_person_under_supervision",
-        "active_person_under_observation",
+        'death_ratio',
+        'under_treatment',
+        'cumulative_under_treatment',
+        'active_person_under_supervision',
+        'active_person_under_observation',
     ];
 
     /**
-     * Get the province that owns the ProvinceCase
+     * Get the province that owns the ProvinceCase.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function province(): BelongsTo
     {
-        return $this->belongsTo(Province::class, "province_id", "id");
+        return $this->belongsTo(Province::class, 'province_id', 'id');
     }
 
     /**
-     * Get the national_case that owns the ProvinceCase
+     * Get the national_case that owns the ProvinceCase.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function national_case(): BelongsTo
     {
-        return $this->belongsTo(NationalCase::class, "day", "id");
+        return $this->belongsTo(NationalCase::class, 'day', 'id');
     }
 
-    // Accessors & Mutators 
+    // Accessors & Mutators
     public function getDeathRatioAttribute()
     {
         return ($this->cumulative_positive > 0) ?

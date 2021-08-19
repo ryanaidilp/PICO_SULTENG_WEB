@@ -6,9 +6,9 @@ use App\Models\ProvinceVaccine;
 
 class ProvinceVaccineObserver
 {
-    public function creating(ProvinceVaccine $vaccine)
+    public function creating(ProvinceVaccine $vaccine): void
     {
-        $latest = ProvinceVaccine::latest("day")->where("province_id", $vaccine->province_id)->first();
+        $latest = ProvinceVaccine::latest('day')->where('province_id', $vaccine->province_id)->first();
         $vaccine->first_vaccination_received = $vaccine->cumulative_first_vaccination_received - $latest->cumulative_first_vaccination_received;
         $vaccine->second_vaccination_received = $vaccine->cumulative_second_vaccination_received - $latest->cumulative_second_vaccination_received;
         $vaccine->elderly_first_vaccination_received = $vaccine->cumulative_elderly_first_vaccination_received - $latest->cumulative_elderly_first_vaccination_received;
@@ -22,15 +22,16 @@ class ProvinceVaccineObserver
         $vaccine->teenager_first_vaccination_received = $vaccine->cumulative_teenager_first_vaccination_received - $latest->cumulative_teenager_first_vaccination_received;
         $vaccine->teenager_second_vaccination_received = $vaccine->cumulative_teenager_second_vaccination_received - $latest->cumulative_teenager_second_vaccination_received;
     }
+
     /**
      * Handle the ProvinceVaccine "created" event.
      *
      * @param  \App\Models\ProvinceVaccine  $vaccine
      * @return void
      */
-    public function created(ProvinceVaccine $vaccine)
+    public function created(ProvinceVaccine $vaccine): void
     {
-        # code...
+        // code...
     }
 
     /**
@@ -39,7 +40,7 @@ class ProvinceVaccineObserver
      * @param  \App\Models\ProvinceVaccine  $vaccine
      * @return void
      */
-    public function updated(ProvinceVaccine $vaccine)
+    public function updated(ProvinceVaccine $vaccine): void
     {
         //
     }
@@ -50,7 +51,7 @@ class ProvinceVaccineObserver
      * @param  \App\Models\ProvinceVaccine  $vaccine
      * @return void
      */
-    public function deleted(ProvinceVaccine $vaccine)
+    public function deleted(ProvinceVaccine $vaccine): void
     {
         //
     }
@@ -61,7 +62,7 @@ class ProvinceVaccineObserver
      * @param  \App\Models\ProvinceVaccine  $vaccine
      * @return void
      */
-    public function restored(ProvinceVaccine $vaccine)
+    public function restored(ProvinceVaccine $vaccine): void
     {
         //
     }
@@ -72,7 +73,7 @@ class ProvinceVaccineObserver
      * @param  \App\Models\ProvinceVaccine  $vaccine
      * @return void
      */
-    public function forceDeleted(ProvinceVaccine $vaccine)
+    public function forceDeleted(ProvinceVaccine $vaccine): void
     {
         //
     }

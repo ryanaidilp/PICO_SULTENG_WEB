@@ -11,27 +11,30 @@ class ProvinceCaseService
     public function all($province_id)
     {
         $cases = ProvinceCase::with([
-            "national_case:id,date"
+            'national_case:id,date',
         ])
-            ->where("province_id", $province_id)->get();
+            ->where('province_id', $province_id)->get();
+
         return $this->format($cases);
     }
 
     public function latest($province_id)
     {
-        $data = ProvinceCase::with(["national_case:id,date"])
-            ->where("province_id", $province_id)
-            ->latest("day")->first();
+        $data = ProvinceCase::with(['national_case:id,date'])
+            ->where('province_id', $province_id)
+            ->latest('day')->first();
+
         return $this->format($data);
     }
 
     public function byDay($province_id, $day)
     {
-        $data = ProvinceCase::with(["national_case:id,date"])
+        $data = ProvinceCase::with(['national_case:id,date'])
             ->where([
-                ["province_id", "=", $province_id],
-                ["day", "=", $day]
+                ['province_id', '=', $province_id],
+                ['day', '=', $day],
             ])->first();
+
         return $this->format($data);
     }
 

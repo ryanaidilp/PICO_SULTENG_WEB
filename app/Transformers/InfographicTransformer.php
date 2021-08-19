@@ -8,7 +8,7 @@ use League\Fractal\TransformerAbstract;
 class InfographicTransformer extends TransformerAbstract
 {
     /**
-     * List of resources to automatically include
+     * List of resources to automatically include.
      *
      * @var array
      */
@@ -17,7 +17,7 @@ class InfographicTransformer extends TransformerAbstract
     ];
 
     /**
-     * List of resources possible to include
+     * List of resources possible to include.
      *
      * @var array
      */
@@ -33,9 +33,9 @@ class InfographicTransformer extends TransformerAbstract
     public function transform(Infographic $infographic)
     {
         return [
-            "title" => $infographic->title,
-            "route" => $infographic->source,
-            "images" => $infographic->images->map(function ($image) {
+            'title' => $infographic->title,
+            'route' => $infographic->source,
+            'images' => $infographic->images->map(function ($image) {
                 return $image->image_url;
             }),
         ];

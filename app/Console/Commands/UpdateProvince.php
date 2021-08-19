@@ -61,6 +61,7 @@ class UpdateProvince extends Command
             $data = $data->filter(function ($daily) {
                 $dateint = (int) mb_substr(Str::of($daily['tanggal']), 0, -3);
                 $date = Carbon::parse($dateint);
+
                 return $date->isToday();
             })->values()->first();
 

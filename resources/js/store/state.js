@@ -4,6 +4,7 @@ export default {
     regency_data: [],
     provinces: [],
     regencies: [],
+    villages: [],
     hospitals: [],
     regencies_daily: [],
     task_forces: [],

@@ -46,6 +46,7 @@
 import VSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
 import MapChoropleth from "@/components/_pages/data/map/Map";
+import { mapState, mapActions } from "vuex";
 export default {
   props: {
     regencies: {
@@ -59,7 +60,7 @@ export default {
   },
   data() {
     return {
-      options: ["Sulawesi Tengah", "Indonesia"],
+      options: ["Sulawesi Tengah", "Indonesia", "Kecamatan Balaesang"],
       selected: "Sulawesi Tengah",
       caseOptions: ["Positif", "Dalam Perawatan", "Sembuh", "Meninggal"],
       selectedCase: "Positif",
@@ -77,15 +78,26 @@ export default {
         case "Indonesia":
           this.data = this.provinces;
           break;
-        case "Balaesang":
-          this.data = this.regencies;
+        case "Kecamatan Balaesang":
+          this.loadVillageData(7205130);
           break;
       }
     },
+    villages() {
+      this.data = this.villages;
+    },
+  },
+  computed: {
+    ...mapState(["villages"]),
   },
   methods: {
+    ...mapActions(["loadVillages"]),
     setSelected(value) {
       this.selected = value;
+    },
+    loadVillageData(district_id) {
+      this.loadVillages(district_id);
+      this.data = this.villages;
     },
   },
   components: {
@@ -93,6 +105,7 @@ export default {
     MapChoropleth,
   },
   mounted() {
+    this.loadVillageData(7205130);
     this.data = this.regencies;
   },
 };

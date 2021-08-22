@@ -17,7 +17,6 @@ class VillageService
         return $this->format($villages);
     }
 
-
     private function format($data)
     {
         return fractal($data, new VillageTransformer, new AppSerializer)->toArray();

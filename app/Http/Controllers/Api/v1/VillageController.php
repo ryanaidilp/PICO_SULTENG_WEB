@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Api\v1;
 
-use App\Http\Controllers\Api\ApiController as Controller;
 use App\Models\Village;
-use App\Services\VillageService;
 use Illuminate\Http\Request;
+use App\Services\VillageService;
+use App\Http\Controllers\Api\ApiController as Controller;
 
 class VillageController extends Controller
 {

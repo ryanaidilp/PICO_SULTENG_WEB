@@ -30,4 +30,7 @@ Route::prefix('v1')->group(function (): void {
     Route::prefix('vaccine')->group(function (): void {
         Route::get('/latest', [App\Http\Controllers\Api\v1\VaccineController::class, 'latest']);
     });
+    Route::prefix('villages')->group(function (): void {
+        Route::get('/latest', [App\Http\Controllers\Api\v1\VillageController::class, 'latest']);
+    });
 });

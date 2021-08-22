@@ -5,7 +5,7 @@ export default {
         commit
     }) {
         commit("SET_NATIONAL_DATA", []);
-        axios.get("/api/v1/statistics")
+        axios.get("/corona/api/v1/statistics")
             .then(response => {
                 commit("SET_NATIONAL_DATA", response.data.data);
             })
@@ -17,7 +17,7 @@ export default {
         commit
     }, province_id) {
         commit("SET_PROVINCE_DATA", []);
-        axios.get("/api/v1/statistics?province=" + province_id)
+        axios.get("/corona/api/v1/statistics?province=" + province_id)
             .then(response => {
                 commit("SET_PROVINCE_DATA", response.data.data);
             })
@@ -29,7 +29,7 @@ export default {
         commit
     }) {
         commit("SET_PROVINCES", []);
-        axios.get("/api/v1/provinces")
+        axios.get("/corona/api/v1/provinces")
             .then(response => {
                 commit("SET_PROVINCES", response.data.data);
             })
@@ -41,7 +41,7 @@ export default {
         commit
     }, province_id) {
         commit("SET_REGENCIES", []);
-        axios.get("/api/v1/regencies?province=" + province_id)
+        axios.get("/corona/api/v1/regencies?province=" + province_id)
             .then(response => {
                 commit("SET_REGENCIES", response.data.data);
             })
@@ -53,7 +53,7 @@ export default {
         commit
     }, province_id) {
         commit("SET_HOSPITALS", []);
-        axios.get("/api/v1/hospitals?province=" + province_id)
+        axios.get("/corona/api/v1/hospitals?province=" + province_id)
             .then(response => {
                 commit("SET_HOSPITALS", response.data.data);
             })
@@ -65,7 +65,7 @@ export default {
         commit
     }, province_id) {
         commit("SET_TASK_FORCES", []);
-        axios.get("/api/v1/task_forces?province=" + province_id)
+        axios.get("/corona/api/v1/task_forces?province=" + province_id)
             .then(response => {
                 commit("SET_TASK_FORCES", response.data.data);
             })
@@ -77,7 +77,7 @@ export default {
         commit
     }) {
         commit("SET_NATIONAL_TESTS", []);
-        axios.get("/api/v1/tests")
+        axios.get("/corona/api/v1/tests")
             .then(response => {
                 commit("SET_NATIONAL_TESTS", response.data.data);
             })
@@ -89,7 +89,7 @@ export default {
         commit
     }, province_id) {
         commit("SET_PROVINCE_TESTS", []);
-        axios.get("/api/v1/tests?province=" + province_id)
+        axios.get("/corona/api/v1/tests?province=" + province_id)
             .then(response => {
                 commit("SET_PROVINCE_TESTS", response.data.data);
             })
@@ -101,7 +101,7 @@ export default {
         commit
     }) {
         commit("SET_NATIONAL_VACCINES", []);
-        axios.get("/api/v1/vaccines")
+        axios.get("/corona/api/v1/vaccines")
             .then(response => {
                 commit("SET_NATIONAL_VACCINES", response.data.data);
             })
@@ -113,7 +113,7 @@ export default {
         commit
     }, province_id) {
         commit("SET_PROVINCE_VACCINES", []);
-        axios.get("/api/v1/vaccines?province=" + province_id)
+        axios.get("/corona/api/v1/vaccines?province=" + province_id)
             .then(response => {
                 commit("SET_PROVINCE_VACCINES", response.data.data);
             })
@@ -125,7 +125,7 @@ export default {
         commit
     }) {
         commit("SET_NATIONAL_VACCINE", {});
-        axios.get("/api/v1/vaccine/latest")
+        axios.get("/corona/api/v1/vaccine/latest")
             .then(response => {
                 commit("SET_NATIONAL_VACCINE", response.data.data);
             })
@@ -137,7 +137,7 @@ export default {
         commit
     }, province_id) {
         commit("SET_PROVINCE_VACCINE", {});
-        axios.get("/api/v1/vaccine/latest?province=" + province_id)
+        axios.get("/corona/api/v1/vaccine/latest?province=" + province_id)
             .then(response => {
                 commit("SET_PROVINCE_VACCINE", response.data.data);
             })
@@ -149,7 +149,7 @@ export default {
         commit
     }) {
         commit("SET_NATIONAL", {});
-        axios.get("/api/v1/statistics/latest")
+        axios.get("/corona/api/v1/statistics/latest")
             .then(response => {
                 commit("SET_NATIONAL", response.data.data);
             })
@@ -161,7 +161,7 @@ export default {
         commit
     }) {
         commit("SET_LOCAL", {});
-        axios.get("/api/v1/statistics/latest?province=72")
+        axios.get("/corona/api/v1/statistics/latest?province=72")
             .then(response => {
                 commit("SET_LOCAL", response.data.data);
             })
@@ -173,9 +173,21 @@ export default {
         commit
     }, province_id) {
         commit("SET_REGENCIES_DAILY", []);
-        axios.get(`/api/v1/regencies/all/${province_id}`)
+        axios.get(`/corona/api/v1/regencies/all/${province_id}`)
             .then(response => {
                 commit("SET_REGENCIES_DAILY", response.data.data);
+            })
+            .catch(error => {
+                console.error(error);
+            })
+    },
+    loadVillages({
+        commit
+    }, district_id) {
+        commit("SET_VILLAGES", []);
+        axios.get(`/corona/api/v1/villages/latest?district=${district_id}`)
+            .then(response => {
+                commit("SET_VILLAGES", response.data.data);
             })
             .catch(error => {
                 console.error(error);

@@ -46,5 +46,8 @@ export default {
     },
     SET_REGENCIES_DAILY(state, regencies_daily) {
         state.regencies_daily = regencies_daily;
+    },
+    SET_VILLAGES(state, villages) {
+        state.villages = villages;
     }
 }

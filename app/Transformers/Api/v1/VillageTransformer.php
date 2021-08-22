@@ -8,7 +8,7 @@ use League\Fractal\TransformerAbstract;
 class VillageTransformer extends TransformerAbstract
 {
     /**
-     * List of resources to automatically include
+     * List of resources to automatically include.
      *
      * @var array
      */
@@ -17,7 +17,7 @@ class VillageTransformer extends TransformerAbstract
     ];
 
     /**
-     * List of resources possible to include
+     * List of resources possible to include.
      *
      * @var array
      */

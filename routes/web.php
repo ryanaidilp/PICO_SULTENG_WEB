@@ -23,6 +23,7 @@ Route::get('/infografis', [MainController::class, 'infographic'])->name('infogra
 Route::get('/tabel-data', [MainController::class, 'table'])->name('table');
 Route::get('/vaksin', [MainController::class, 'vaccine'])->name('vaccine');
 Route::get('/isoman', [MainController::class, 'selfIsolation'])->name('self-isolation');
+Route::get('/isoman-survey', [MainController::class, 'selfIsolationSurvey'])->name('self-isolation-survey');
 
 Route::group(['prefix' => 'admin'], function (): void {
     Voyager::routes();

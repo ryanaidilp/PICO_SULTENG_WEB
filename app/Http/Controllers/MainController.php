@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Inertia\Inertia;
 use App\Models\Banner;
 use App\Models\Infographic;
+use App\Models\IsolationPatient;
+use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use App\Services\RegencyService;
 use App\Services\DonationService;
 use App\Services\HospitalService;
@@ -112,14 +115,18 @@ class MainController extends Controller
         return Inertia::render('Table/Index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function selfIsolationSurvey(Request $request)
     {
-        //
+        if ($request->input('data') === null) {
+            return redirect()->route('self-isolation');
+        }
+
+        $result = \json_decode($request->input('data'), true);
+        $latitude = \explode(',', $result['location'])[0];
+        $longitude = \explode(',', $result['location'])[1];
+        unset($result['location']);
+        $result['latitude'] = $latitude;
+        $result['longitude'] = $longitude;
+        IsolationPatient::create($result);
     }
 }

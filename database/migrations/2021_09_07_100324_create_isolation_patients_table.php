@@ -11,9 +11,9 @@ class CreateIsolationPatientsTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create("isolation_patients", function (Blueprint $table) {
+        Schema::create('isolation_patients', function (Blueprint $table): void {
             $table->id();
             $table->string('sub_id');
             $table->string('name');
@@ -44,8 +44,8 @@ class CreateIsolationPatientsTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
-        Schema::dropIfExists("isolation_patients");
+        Schema::dropIfExists('isolation_patients');
     }
 }

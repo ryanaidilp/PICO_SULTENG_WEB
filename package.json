@@ -14,7 +14,7 @@
         "anychart": "^8.10.0",
         "autoprefixer": "^10.3.0",
         "axios": "^0.21",
-        "browser-sync": "^2.27.4",
+        "browser-sync": "^2.27.11",
         "browser-sync-webpack-plugin": "^2.3.0",
         "chart.js": "^3.4.1",
         "chartjs-plugin-annotation": "^1.0.2",
